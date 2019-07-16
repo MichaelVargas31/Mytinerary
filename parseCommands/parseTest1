@@ -1,0 +1,4 @@
+curl -X POST -H "X-Parse-Application-Id: mytinerary" -H "X-Parse-Master-Key: mytinerarymasterkey" \
+-H "Content-Type: application/json" \
+-d '{"score":1337,"playerName":"Sean Plott","cheatMode":false}' \
+https://mytinerary-fbu.herokuapp.com/parse/classes/GameScore
