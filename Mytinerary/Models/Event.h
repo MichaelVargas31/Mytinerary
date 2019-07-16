@@ -1,17 +1,18 @@
-//
 //  Event.h
-//  Mytinerary
-//
-//  Created by ehhong on 7/16/19.
-//  Copyright © 2019 michaelvargas. All rights reserved.
-//
 
 #import <Foundation/Foundation.h>
+#import "Parse/Parse.h"
 
-NS_ASSUME_NONNULL_BEGIN
+@interface Event : PFObject<PFSubclassing>
 
-@interface Event : NSObject
+@property (nonatomic, strong) NSDate *startTime;
+@property (nonatomic, strong) NSDate *endTime;
+@property (nonatomic, strong) NSString *title;
+@property (nonatomic, strong) NSString *eventDescription;
+@property (nonatomic, strong) NSString *address;
+@property (nonatomic, strong) NSString *category;
+@property (nonatomic, strong) NSString *contactInfo;
+
++ (void) initNewEvent:(NSString *)title eventDescription:(NSString * _Nullable)eventDescription address:(NSString * _Nullable)address category:(NSString *)category contactInfo:(NSString * _Nullable)contactInfo startTime:(NSDate *)startTime endTime:(NSDate *)endTime withCompletion:(PFBooleanResultBlock)completion;
 
 @end
-
-NS_ASSUME_NONNULL_END
