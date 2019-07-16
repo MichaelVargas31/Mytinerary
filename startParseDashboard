@@ -1,0 +1,1 @@
+parse-dashboard --appId mytinerary --masterKey mytinerarymasterkey --serverURL "https://mytinerary-fbu.herokuapp.com/parse"
