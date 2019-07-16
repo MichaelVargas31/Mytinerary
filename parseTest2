@@ -1,0 +1,2 @@
+curl -X GET -H "X-Parse-Application-Id: mytinerary" -H "X-Parse-Master-Key: mytinerarymasterkey"  \
+https://mytinerary-fbu.herokuapp.com/parse/classes/GameScore

@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -113,7 +113,6 @@
 				A79C438CDB5AA7C703E473D4 /* Pods-MytineraryUITests.debug.xcconfig */,
 				9E1EB98CBB8F81D6B8432720 /* Pods-MytineraryUITests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -142,6 +141,7 @@
 		FF6C5EF622DE640200D0EB83 /* Mytinerary */ = {
 			isa = PBXGroup;
 			children = (
+				FF6C5F2922DE7EF200D0EB83 /* New Group */,
 				FF6C5EF722DE640200D0EB83 /* AppDelegate.h */,
 				FF6C5EF822DE640200D0EB83 /* AppDelegate.m */,
 				FF6C5EFA22DE640200D0EB83 /* ViewController.h */,
@@ -171,6 +171,13 @@
 				FF6C5F1D22DE640300D0EB83 /* Info.plist */,
 			);
 			path = MytineraryUITests;
+			sourceTree = "<group>";
+		};
+		FF6C5F2922DE7EF200D0EB83 /* New Group */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "New Group";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
