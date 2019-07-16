@@ -2,6 +2,7 @@
 
 #import "Itinerary.h"
 #import "Parse/Parse.h"
+#import "Event.h"
 
 @implementation Itinerary
 
@@ -33,8 +34,8 @@
     [itinerary saveInBackgroundWithBlock:completion];
 }
 
-//- (void) addEventToItinerary:(Event *)event {
-//
-//}
+- (void) addEventToItinerary:(Event *)event {
+    self.events = [self.events arrayByAddingObjectsFromArray:[NSArray arrayWithObjects:event, nil]];
+}
 
 @end
