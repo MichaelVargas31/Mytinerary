@@ -27,6 +27,10 @@
     [PFUser logInWithUsernameInBackground:username password:password block:completion];
 }
 
++ (void)logoutUser:(PFUserLogoutResultBlock)completion {
+    [PFUser logOutInBackgroundWithBlock:completion];
+}
+
 + (void)resetDefaultItinerary:(PFUser *)user itinerary:(Itinerary *)itinerary withCompletion:(PFBooleanResultBlock)completion {
     user[@"defaultItinerary"] = itinerary;
     [user saveInBackgroundWithBlock:completion];
