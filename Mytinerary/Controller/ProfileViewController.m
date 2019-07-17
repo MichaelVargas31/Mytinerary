@@ -9,9 +9,12 @@
 #import "ProfileViewController.h"
 #import "ItineraryCollectionViewCell.h"
 #import "Parse/Parse.h"
+#import "Itinerary.h"
 
 
 @interface ProfileViewController () <UICollectionViewDelegate, UICollectionViewDataSource>
+
+@property (strong, nonatomic) NSArray *iArray;
 
 @end
 
@@ -32,19 +35,19 @@
     
     //spacing
     
-    //posters per line
-    CGFloat postersPerLine=2;
+    //posters per line - (maybe) CGFloat postersPerLine=2;
     
     //item size
-    CGFloat itemWidth=5;
-    CGFloat itemHeight=5;
+    //Fix size later to make it look better
+    CGFloat itemWidth=100;
+    CGFloat itemHeight=100;
     layout.itemSize= CGSizeMake(itemWidth, itemHeight);
     
 }
 -(void) fetchitineraries{
     
     //Itinerary Query
-    /*
+    
      PFQuery *iQuery = [Itinerary query];
      [iQuery orderByDescending: @"createdAt"];
      [iQuery includeKey: @"author"];
@@ -54,39 +57,29 @@
      [iQuery findObjectsInBackgroundWithBlock:^(NSArray<Itinerary *> * itinerary, NSError *  error) {
      if(itinerary){
      self.iArray = itinerary;
+     NSLog(@"%@", self.iArray);
      [self.collectionView reloadData];
-     }else{
+     }
+     else{
      //handle error
      }
-     }
-     
-     
-     */
-    
+     }];
 }
 
 - (nonnull __kindof UICollectionViewCell *)collectionView:(nonnull UICollectionView *)collectionView cellForItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
     
     ItineraryCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"ItineraryCollectionViewCell" forIndexPath:indexPath];
-    
-    /*Itinerary *itinerary = self.iArray[indexPath.row];
-     PFFileObject *imageFile = itinerary.image;
-     [imageFile getDataInBackgroundWithBlock: ^ (NSData *data, NSError *error){
-     if (!error){
-     UIImage *image = [UIImage imageWithData: data];
-     [cell.photoView setImage:image];
-     }
-     }*/
-    
-        return cell;
-}
+   
+    Itinerary *itinerary = self.iArray[indexPath.item];
 
+    cell.title.text=itinerary.title;
+    
+    return cell;
+}
 
 - (NSInteger)collectionView:(nonnull UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return self.iArray.count;
-}
-
-
+   return self.iArray.count;
+   }
 
 /*
 #pragma mark - Navigation
@@ -97,9 +90,5 @@
     // Pass the selected object to the new view controller.
 }
 */
-
-
-
-
 
 @end

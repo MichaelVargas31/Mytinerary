@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		04643C351E847C23F6577931 /* Pods_MytineraryUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E49E5CF74D83A7C35B144F7A /* Pods_MytineraryUITests.framework */; };
 		06B8D04C40E1C9F29C166801 /* Pods_Mytinerary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9FBBF0DECFB9E3F7EDAD49EC /* Pods_Mytinerary.framework */; };
+		8448C0F522DFA2C800427FB2 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 8448C0EF22DFA2C800427FB2 /* User.m */; };
+		8448C0F622DFA2C800427FB2 /* Itinerary.m in Sources */ = {isa = PBXBuildFile; fileRef = 8448C0F122DFA2C800427FB2 /* Itinerary.m */; };
+		8448C0F722DFA2C800427FB2 /* Event.m in Sources */ = {isa = PBXBuildFile; fileRef = 8448C0F222DFA2C800427FB2 /* Event.m */; };
 		8495D7A922DE8BDD00CFED2D /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8495D7A822DE8BDD00CFED2D /* LoginViewController.m */; };
 		8495D7AE22DE991B00CFED2D /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8495D7AD22DE991B00CFED2D /* ProfileViewController.m */; };
 		8495D7B122DF879600CFED2D /* ItineraryCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8495D7B022DF879600CFED2D /* ItineraryCollectionViewCell.m */; };
@@ -42,6 +45,12 @@
 
 /* Begin PBXFileReference section */
 		58B8F33A939BCC86C8C98935 /* Pods_MytineraryTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MytineraryTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8448C0EF22DFA2C800427FB2 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
+		8448C0F022DFA2C800427FB2 /* Event.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Event.h; sourceTree = "<group>"; };
+		8448C0F122DFA2C800427FB2 /* Itinerary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Itinerary.m; sourceTree = "<group>"; };
+		8448C0F222DFA2C800427FB2 /* Event.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Event.m; sourceTree = "<group>"; };
+		8448C0F322DFA2C800427FB2 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
+		8448C0F422DFA2C800427FB2 /* Itinerary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Itinerary.h; sourceTree = "<group>"; };
 		8495D7A722DE8BDD00CFED2D /* LoginViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		8495D7A822DE8BDD00CFED2D /* LoginViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		8495D7AC22DE991B00CFED2D /* ProfileViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProfileViewController.h; sourceTree = "<group>"; };
@@ -112,6 +121,19 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		8448C0EE22DFA2C800427FB2 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				8448C0EF22DFA2C800427FB2 /* User.m */,
+				8448C0F022DFA2C800427FB2 /* Event.h */,
+				8448C0F122DFA2C800427FB2 /* Itinerary.m */,
+				8448C0F222DFA2C800427FB2 /* Event.m */,
+				8448C0F322DFA2C800427FB2 /* User.h */,
+				8448C0F422DFA2C800427FB2 /* Itinerary.h */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		8495D7AB22DE8C1400CFED2D /* Controller */ = {
 			isa = PBXGroup;
 			children = (
@@ -167,6 +189,7 @@
 				FF6C5EF822DE640200D0EB83 /* AppDelegate.m */,
 				8495D7AF22DF879600CFED2D /* ItineraryCollectionViewCell.h */,
 				8495D7B022DF879600CFED2D /* ItineraryCollectionViewCell.m */,
+				8448C0EE22DFA2C800427FB2 /* Models */,
 				8495D7AB22DE8C1400CFED2D /* Controller */,
 				FF6C5EFD22DE640200D0EB83 /* Main.storyboard */,
 				FF6C5F0022DE640200D0EB83 /* Assets.xcassets */,
@@ -416,9 +439,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				8495D7B122DF879600CFED2D /* ItineraryCollectionViewCell.m in Sources */,
+				8448C0F522DFA2C800427FB2 /* User.m in Sources */,
 				8495D7A922DE8BDD00CFED2D /* LoginViewController.m in Sources */,
+				8448C0F722DFA2C800427FB2 /* Event.m in Sources */,
 				FF6C5EFC22DE640200D0EB83 /* ViewController.m in Sources */,
 				FF6C5F0722DE640200D0EB83 /* main.m in Sources */,
+				8448C0F622DFA2C800427FB2 /* Itinerary.m in Sources */,
 				FF6C5EF922DE640200D0EB83 /* AppDelegate.m in Sources */,
 				8495D7AE22DE991B00CFED2D /* ProfileViewController.m in Sources */,
 			);
