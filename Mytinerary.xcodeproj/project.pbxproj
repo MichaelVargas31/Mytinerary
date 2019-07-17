@@ -226,6 +226,7 @@
 			path = MytineraryUITests;
 			sourceTree = "<group>";
 		};
+
 		FF6C5F2B22DE865400D0EB83 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -246,6 +247,7 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
