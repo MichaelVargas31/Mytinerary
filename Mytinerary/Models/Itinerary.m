@@ -19,7 +19,7 @@
 }
 
 // initialize a new itinerary with current user and given start/end times
-+ (void) initNewItinerary:(NSDate *)startTime endTime:(NSDate *)endTime withCompletion:(PFBooleanResultBlock)completion {
++ (void) initNewItinerary:(NSString *)title startTime:(NSDate *)startTime endTime:(NSDate *)endTime budget:(NSNumber *)budget withCompletion:(PFBooleanResultBlock)completion {
 
     Itinerary *itinerary = [Itinerary new];
     
@@ -27,8 +27,14 @@
     itinerary.startTime = startTime;
     itinerary.endTime = endTime;
     itinerary.totalCost = @(0);
-    itinerary.budget = @(0);
-    itinerary.title=(@"First Title");
+    itinerary.title = title;
+    
+    if (budget > 0) {
+        itinerary.budget = budget;
+    }
+    else {
+        itinerary.budget = @(0);
+    }
     
     NSArray *eventsArray = [[NSArray alloc] init];
     itinerary.events = eventsArray;

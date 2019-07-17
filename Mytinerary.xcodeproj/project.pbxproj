@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		04643C351E847C23F6577931 /* Pods_MytineraryUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E49E5CF74D83A7C35B144F7A /* Pods_MytineraryUITests.framework */; };
 		06B8D04C40E1C9F29C166801 /* Pods_Mytinerary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9FBBF0DECFB9E3F7EDAD49EC /* Pods_Mytinerary.framework */; };
+		23F5A9E922DFE59A0084086B /* InputItineraryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 23F5A9E822DFE59A0084086B /* InputItineraryViewController.m */; };
 		8448C0F522DFA2C800427FB2 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 8448C0EF22DFA2C800427FB2 /* User.m */; };
 		8448C0F622DFA2C800427FB2 /* Itinerary.m in Sources */ = {isa = PBXBuildFile; fileRef = 8448C0F122DFA2C800427FB2 /* Itinerary.m */; };
 		8448C0F722DFA2C800427FB2 /* Event.m in Sources */ = {isa = PBXBuildFile; fileRef = 8448C0F222DFA2C800427FB2 /* Event.m */; };
@@ -46,6 +47,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		23F5A9E722DFE59A0084086B /* InputItineraryViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InputItineraryViewController.h; sourceTree = "<group>"; };
+		23F5A9E822DFE59A0084086B /* InputItineraryViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InputItineraryViewController.m; sourceTree = "<group>"; };
 		58B8F33A939BCC86C8C98935 /* Pods_MytineraryTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MytineraryTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8448C0EF22DFA2C800427FB2 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
 		8448C0F022DFA2C800427FB2 /* Event.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Event.h; sourceTree = "<group>"; };
@@ -226,14 +229,13 @@
 			path = MytineraryUITests;
 			sourceTree = "<group>";
 		};
-
 		FF6C5F2B22DE865400D0EB83 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				FF6C5EFA22DE640200D0EB83 /* ViewController.h */,
-				FF6C5EFB22DE640200D0EB83 /* ViewController.m */,
 				FF6C5F2C22DE868D00D0EB83 /* DailyCalendarViewController.h */,
 				FF6C5F2D22DE868D00D0EB83 /* DailyCalendarViewController.m */,
+				23F5A9E722DFE59A0084086B /* InputItineraryViewController.h */,
+				23F5A9E822DFE59A0084086B /* InputItineraryViewController.m */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -247,7 +249,6 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
-
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -471,6 +472,7 @@
 				FF6C5F2E22DE868D00D0EB83 /* DailyCalendarViewController.m in Sources */,
 				8495D7B122DF879600CFED2D /* ItineraryCollectionViewCell.m in Sources */,
 				8448C0F522DFA2C800427FB2 /* User.m in Sources */,
+				23F5A9E922DFE59A0084086B /* InputItineraryViewController.m in Sources */,
 				8495D7A922DE8BDD00CFED2D /* LoginViewController.m in Sources */,
 				8448C0F722DFA2C800427FB2 /* Event.m in Sources */,
 				FF6C5EFC22DE640200D0EB83 /* ViewController.m in Sources */,
