@@ -13,7 +13,7 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
-    self.rowHeight = [NSNumber numberWithInt:200];
+    self.rowHeight = [NSNumber numberWithInt:100];
         // can be referenced when coordinating event overlaying, only have to change the height in one place
     
 }

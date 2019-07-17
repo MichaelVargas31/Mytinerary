@@ -42,6 +42,14 @@
     [self.timeOfDayFormatter setDateFormat:@"HH:mm:ss"];
     self.tableView.rowHeight = 200;
     
+    
+    // test
+    UIView *paintView=[[UIView alloc]initWithFrame:CGRectMake(0, 50, 320, 430)];
+    [paintView setBackgroundColor:[UIColor yellowColor]];
+    [self.view addSubview:paintView];
+//    [paintView release];
+    [self.tableView addSubview:paintView]; // will this work??? IT DOES
+    
 }
 
 
@@ -69,9 +77,7 @@
     NSDate *newTime = [midnight dateByAddingTimeInterval:1800*indexPath.row];
     cell.calendarTimeLabel.text = [[self.timeOfDayFormatter stringFromDate:newTime] substringToIndex:5];
 
-    
     return cell;
-
 
 }
 
@@ -79,6 +85,17 @@
     return 48;
 }
 
+
+- (void)addEventWith:(NSDate *)startDate andEndDate:(NSDate *)endDate {
+    // What exactly the date is going to look like will determine how we convert
+    
+    NSDate *midnight = [self.timeOfDayFormatter dateFromString:@"00:00:00"];
+    NSDate *testDate = [self.timeOfDayFormatter dateFromString:@"05:30:00"];
+    NSDateInterval *timeFromMidnight = [midnight initWithTimeIntervalSinceReferenceDate:testDate];
+    
+    
+    
+}
 
 
 @end
