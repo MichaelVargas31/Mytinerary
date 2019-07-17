@@ -24,6 +24,8 @@
 		FF6C5F0722DE640200D0EB83 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = FF6C5F0622DE640200D0EB83 /* main.m */; };
 		FF6C5F1122DE640300D0EB83 /* MytineraryTests.m in Sources */ = {isa = PBXBuildFile; fileRef = FF6C5F1022DE640300D0EB83 /* MytineraryTests.m */; };
 		FF6C5F1C22DE640300D0EB83 /* MytineraryUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = FF6C5F1B22DE640300D0EB83 /* MytineraryUITests.m */; };
+		FF6C5F2E22DE868D00D0EB83 /* DailyCalendarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FF6C5F2D22DE868D00D0EB83 /* DailyCalendarViewController.m */; };
+		FF6C5F3522DE8B8900D0EB83 /* DailyTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FF6C5F3422DE8B8900D0EB83 /* DailyTableViewCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -81,6 +83,10 @@
 		FF6C5F1722DE640300D0EB83 /* MytineraryUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MytineraryUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		FF6C5F1B22DE640300D0EB83 /* MytineraryUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MytineraryUITests.m; sourceTree = "<group>"; };
 		FF6C5F1D22DE640300D0EB83 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FF6C5F2C22DE868D00D0EB83 /* DailyCalendarViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DailyCalendarViewController.h; sourceTree = "<group>"; };
+		FF6C5F2D22DE868D00D0EB83 /* DailyCalendarViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DailyCalendarViewController.m; sourceTree = "<group>"; };
+		FF6C5F3322DE8B8900D0EB83 /* DailyTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DailyTableViewCell.h; sourceTree = "<group>"; };
+		FF6C5F3422DE8B8900D0EB83 /* DailyTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DailyTableViewCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -187,6 +193,8 @@
 			children = (
 				FF6C5EF722DE640200D0EB83 /* AppDelegate.h */,
 				FF6C5EF822DE640200D0EB83 /* AppDelegate.m */,
+				FF6C5F2F22DE8B1900D0EB83 /* Views */,
+				FF6C5F2B22DE865400D0EB83 /* View Controllers */,
 				8495D7AF22DF879600CFED2D /* ItineraryCollectionViewCell.h */,
 				8495D7B022DF879600CFED2D /* ItineraryCollectionViewCell.m */,
 				8448C0EE22DFA2C800427FB2 /* Models */,
@@ -216,6 +224,26 @@
 				FF6C5F1D22DE640300D0EB83 /* Info.plist */,
 			);
 			path = MytineraryUITests;
+			sourceTree = "<group>";
+		};
+		FF6C5F2B22DE865400D0EB83 /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				FF6C5EFA22DE640200D0EB83 /* ViewController.h */,
+				FF6C5EFB22DE640200D0EB83 /* ViewController.m */,
+				FF6C5F2C22DE868D00D0EB83 /* DailyCalendarViewController.h */,
+				FF6C5F2D22DE868D00D0EB83 /* DailyCalendarViewController.m */,
+			);
+			path = "View Controllers";
+			sourceTree = "<group>";
+		};
+		FF6C5F2F22DE8B1900D0EB83 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				FF6C5F3322DE8B8900D0EB83 /* DailyTableViewCell.h */,
+				FF6C5F3422DE8B8900D0EB83 /* DailyTableViewCell.m */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -438,11 +466,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FF6C5F2E22DE868D00D0EB83 /* DailyCalendarViewController.m in Sources */,
 				8495D7B122DF879600CFED2D /* ItineraryCollectionViewCell.m in Sources */,
 				8448C0F522DFA2C800427FB2 /* User.m in Sources */,
 				8495D7A922DE8BDD00CFED2D /* LoginViewController.m in Sources */,
 				8448C0F722DFA2C800427FB2 /* Event.m in Sources */,
 				FF6C5EFC22DE640200D0EB83 /* ViewController.m in Sources */,
+				FF6C5F3522DE8B8900D0EB83 /* DailyTableViewCell.m in Sources */,
 				FF6C5F0722DE640200D0EB83 /* main.m in Sources */,
 				8448C0F622DFA2C800427FB2 /* Itinerary.m in Sources */,
 				FF6C5EF922DE640200D0EB83 /* AppDelegate.m in Sources */,
