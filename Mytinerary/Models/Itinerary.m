@@ -12,6 +12,7 @@
 @dynamic events;
 @dynamic totalCost;
 @dynamic budget;
+@dynamic title;
 
 + (nonnull NSString *)parseClassName {
     return @"Itinerary";
@@ -27,6 +28,7 @@
     itinerary.endTime = endTime;
     itinerary.totalCost = @(0);
     itinerary.budget = @(0);
+    itinerary.title=(@"First Title");
     
     NSArray *eventsArray = [[NSArray alloc] init];
     itinerary.events = eventsArray;

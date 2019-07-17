@@ -12,6 +12,7 @@
 @property (nonatomic, strong) NSArray *events;
 @property (nonatomic, strong) NSNumber *totalCost;
 @property (nonatomic, strong) NSNumber *budget;
+@property (nonatomic, strong) NSString *title;
 
 + (void) initNewItinerary:(NSDate *)startTime endTime:(NSDate *)endTime withCompletion:(PFBooleanResultBlock)completion;
 
