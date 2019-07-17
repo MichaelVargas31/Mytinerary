@@ -43,18 +43,15 @@
     self.tableView.rowHeight = 200;
     
     
-    // test
-    UIView *paintView=[[UIView alloc]initWithFrame:CGRectMake(0, 50, 320, 430)];
-    [paintView setBackgroundColor:[UIColor yellowColor]];
-    [self.view addSubview:paintView];
-//    [paintView release];
-    [self.tableView addSubview:paintView]; // will this work??? IT DOES
     
+    NSDate *start = [NSDate date];
+    NSDate *end = [NSDate date];
+    [self addEventWith:start andEndDate:end];
 }
 
 
 /*
-#pragma mark - Navigation
+#pragma mark - Navigationr
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
@@ -68,7 +65,7 @@
     DailyTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"DailyEventCell" forIndexPath:indexPath];
     
     // Only for testing until we can actually take data and things
-    // self.eventArray = [];
+    // self.eventArray = [define your own test array when needed];
     NSDictionary *event = self.eventArray[indexPath.item];
     
     // set the cell labels with information from the event, then return;
@@ -91,9 +88,35 @@
     
     NSDate *midnight = [self.timeOfDayFormatter dateFromString:@"00:00:00"];
     NSDate *testDate = [self.timeOfDayFormatter dateFromString:@"05:30:00"];
-    NSDateInterval *timeFromMidnight = [midnight initWithTimeIntervalSinceReferenceDate:testDate];
+    NSTimeInterval timeFromMidnight = [midnight timeIntervalSinceDate:testDate];
+    // NSTimeInterval is really just a double => no pointer needed
+    
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    NSDateComponents *midnightComponents = [calendar components:(NSCalendarUnitHour | NSCalendarUnitMinute) fromDate:midnight];
+    NSInteger midnightHour = [midnightComponents hour];
+    NSInteger midnightMinute = [midnightComponents minute];
+    NSDateComponents *eventDateComponents = [calendar components:(NSCalendarUnitHour | NSCalendarUnitMinute) fromDate:testDate];
+    NSInteger eventDateHour = [eventDateComponents hour];
+    NSInteger eventDateMinute = [eventDateComponents minute];
+    
+//    [timeFromMidnight initWithStartDate:midnight endDate:testDate];
+//    NSLog(@"hour: %ld minute:%ld", (long)midnightHour, (long)midnightMinute);
+    NSLog(@"hour: %ld minute:%ld", (long)eventDateHour, (long)eventDateMinute);
+
+    NSLog(@"Time interval: %f", timeFromMidnight);
+    
+    // distance from top = HOURS*rowheight*2 + (MINS/30)*rowheight
+    float pixelsFromTop = (eventDateHour * self.tableView.rowHeight)*2 + ((eventDateMinute/30.0) * self.tableView.rowHeight);
+    NSLog(@"results");
     
     
+    // test
+//    pixelsFromTop = 800;
+    UIView *paintView=[[UIView alloc]initWithFrame:CGRectMake(15, pixelsFromTop, 320, 30)];
+    [paintView setBackgroundColor:[UIColor yellowColor]];
+    [self.view addSubview:paintView];
+    //    [paintView release];  // unsure what the purpose of this is, but may be necessary at some point
+    [self.tableView addSubview:paintView]; // will this work??? IT DOES
     
 }
 
