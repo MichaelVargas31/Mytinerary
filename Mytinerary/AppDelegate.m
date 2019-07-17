@@ -22,7 +22,7 @@
     ParseClientConfiguration *config = [ParseClientConfiguration   configurationWithBlock:^(id<ParseMutableClientConfiguration> configuration) {
         
         configuration.applicationId = @"mytinerary";
-        configuration.server = @"http://mytinerary-fbu.herokuapp.com/parse";
+        configuration.server = @"https://mytinerary-fbu.herokuapp.com/parse";
     }];
     
     [Parse initializeWithConfiguration:config];
