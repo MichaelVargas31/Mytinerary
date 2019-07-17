@@ -34,8 +34,17 @@
     [itinerary saveInBackgroundWithBlock:completion];
 }
 
-- (void) addEventToItinerary:(Event *)event {
-    self.events = [self.events arrayByAddingObjectsFromArray:[NSArray arrayWithObjects:event, nil]];
+// add event to an itinerary's list of events
+- (void) addEventToItinerary:(Event *)event withCompletion:(PFBooleanResultBlock)completion {
+    [self fetchInBackgroundWithBlock:^(PFObject * _Nullable object, NSError * _Nullable error) {
+        if (error) {
+            NSLog(@"Error fetching itinerary events: %@", error);
+        }
+        else {
+            self.events = [self.events arrayByAddingObjectsFromArray:[NSArray arrayWithObjects:event, nil]];
+            [self saveInBackgroundWithBlock:completion];
+        }
+    }];
 }
 
 @end

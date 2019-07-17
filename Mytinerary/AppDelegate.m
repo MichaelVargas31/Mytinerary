@@ -9,6 +9,11 @@
 #import "AppDelegate.h"
 #import "Parse/Parse.h"
 
+// testing itinerary
+#import "Itinerary.h"
+#import "User.h"
+#import "Event.h"
+
 
 @interface AppDelegate ()
 
@@ -22,10 +27,23 @@
     ParseClientConfiguration *config = [ParseClientConfiguration   configurationWithBlock:^(id<ParseMutableClientConfiguration> configuration) {
         
         configuration.applicationId = @"mytinerary";
-        configuration.server = @"http://mytinerary-fbu.herokuapp.com/parse";
+        configuration.server = @"https://mytinerary-fbu.herokuapp.com/parse";
     }];
     
     [Parse initializeWithConfiguration:config];
+    
+    // testing -- emily
+    // if "hi" user isn't logged in, log it in
+    if (!PFUser.currentUser) {
+        [User loginUser:@"hi" password:@"hi" withCompletion:^(PFUser * _Nullable user, NSError * _Nullable error) {
+            if (user) {
+                NSLog(@"User login successful");
+            }
+            else {
+                NSLog(@"User login failed: %@", error);
+            }
+        }];
+    }
     
     return YES;
 }
