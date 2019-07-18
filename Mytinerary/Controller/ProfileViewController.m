@@ -55,14 +55,14 @@
      
      //fetch data
      [iQuery findObjectsInBackgroundWithBlock:^(NSArray<Itinerary *> * itinerary, NSError *  error) {
-     if(itinerary){
-     self.iArray = itinerary;
-     NSLog(@"%@", self.iArray);
-     [self.collectionView reloadData];
-     }
-     else{
-     //handle error
-     }
+         if(itinerary){
+             self.iArray = itinerary;
+             NSLog(@"%@", self.iArray);
+             [self.collectionView reloadData];
+         }
+         else{
+             //handle error
+         }
      }];
 }
 

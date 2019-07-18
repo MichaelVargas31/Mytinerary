@@ -19,11 +19,14 @@
  
  Questions:
     - Should formatter be defined as a property of the Daily View Controller?
+    - Possible to add addEventWith() to scheduledEventView.m file?? outsourcing?
+    - To add multiple events to calendar, use for loop or do it through cellForRowAtIndexPath???
 
  */
 
 #import "DailyCalendarViewController.h"
 #import "DailyTableViewCell.h"
+
 
 @interface DailyCalendarViewController () <UITableViewDelegate, UITableViewDataSource>
 
@@ -43,9 +46,9 @@
     self.tableView.rowHeight = 200;
     
     
-    
-    NSDate *start = [NSDate date];
-    NSDate *end = [NSDate date];
+    // Eventually: read through the saved event itinerary information and display it on screen
+    NSDate *start = [self.timeOfDayFormatter dateFromString:@"02:15:00"];
+    NSDate *end = [self.timeOfDayFormatter dateFromString:@"05:30:00"];
     [self addEventWith:start andEndDate:end];
 }
 
@@ -66,7 +69,7 @@
     
     // Only for testing until we can actually take data and things
     // self.eventArray = [define your own test array when needed];
-    NSDictionary *event = self.eventArray[indexPath.item];
+    NSDictionary *event = self.itinerary.events[indexPath.item];
     
     // set the cell labels with information from the event, then return;
     // or should we only add that information later with content views(?)
@@ -83,37 +86,53 @@
 }
 
 
+
+
 - (void)addEventWith:(NSDate *)startDate andEndDate:(NSDate *)endDate {
     // What exactly the date is going to look like will determine how we convert
     
-    NSDate *midnight = [self.timeOfDayFormatter dateFromString:@"00:00:00"];
-    NSDate *testDate = [self.timeOfDayFormatter dateFromString:@"05:30:00"];
-    NSTimeInterval timeFromMidnight = [midnight timeIntervalSinceDate:testDate];
+//    NSDate *midnight = [self.timeOfDayFormatter dateFromString:@"00:00:00"];
+//    NSDate *testDate = [self.timeOfDayFormatter dateFromString:@"05:30:00"];
+//    NSTimeInterval timeFromMidnight = [midnight timeIntervalSinceDate:endDate];
     // NSTimeInterval is really just a double => no pointer needed
     
     NSCalendar *calendar = [NSCalendar currentCalendar];
-    NSDateComponents *midnightComponents = [calendar components:(NSCalendarUnitHour | NSCalendarUnitMinute) fromDate:midnight];
-    NSInteger midnightHour = [midnightComponents hour];
-    NSInteger midnightMinute = [midnightComponents minute];
-    NSDateComponents *eventDateComponents = [calendar components:(NSCalendarUnitHour | NSCalendarUnitMinute) fromDate:testDate];
-    NSInteger eventDateHour = [eventDateComponents hour];
-    NSInteger eventDateMinute = [eventDateComponents minute];
+//    NSDateComponents *midnightComponents = [calendar components:(NSCalendarUnitHour | NSCalendarUnitMinute) fromDate:midnight];
+//    NSInteger midnightHour = [midnightComponents hour];
+//    NSInteger midnightMinute = [midnightComponents minute];
+    NSDateComponents *eventStartComponents = [calendar components:(NSCalendarUnitHour | NSCalendarUnitMinute) fromDate:startDate];
+    NSInteger eventStartHour = [eventStartComponents hour];
+    NSInteger eventStartMinute = [eventStartComponents minute];
+    NSDateComponents *eventEndComponents = [calendar components:(NSCalendarUnitHour | NSCalendarUnitMinute) fromDate:endDate];
+    NSInteger eventEndHour = [eventEndComponents hour];
+    NSInteger eventEndMinute = [eventEndComponents minute];
     
-//    [timeFromMidnight initWithStartDate:midnight endDate:testDate];
-//    NSLog(@"hour: %ld minute:%ld", (long)midnightHour, (long)midnightMinute);
-    NSLog(@"hour: %ld minute:%ld", (long)eventDateHour, (long)eventDateMinute);
+    
 
-    NSLog(@"Time interval: %f", timeFromMidnight);
+    NSLog(@"hour: %ld minute:%ld", (long)eventStartHour, (long)eventStartMinute);
+//    NSLog(@"Time interval: %f", timeFromMidnight);
     
     // distance from top = HOURS*rowheight*2 + (MINS/30)*rowheight
-    float pixelsFromTop = (eventDateHour * self.tableView.rowHeight)*2 + ((eventDateMinute/30.0) * self.tableView.rowHeight);
+    float pixelsFromTop = (eventStartHour * self.tableView.rowHeight)*2 + ((eventStartMinute/30.0) * self.tableView.rowHeight);
+    float eventLength = (eventEndHour * self.tableView.rowHeight)*2 + ((eventEndMinute/30.0) * self.tableView.rowHeight) - pixelsFromTop;
     NSLog(@"results");
     
     
     // test
 //    pixelsFromTop = 800;
-    UIView *paintView=[[UIView alloc]initWithFrame:CGRectMake(15, pixelsFromTop, 320, 30)];
-    [paintView setBackgroundColor:[UIColor yellowColor]];
+    UIView *paintView=[[UIView alloc]initWithFrame:CGRectMake(60, pixelsFromTop, 320, eventLength)];
+    [paintView setBackgroundColor:[UIColor lightGrayColor]];
+    [paintView setAlpha:.75];
+
+    UILabel *eventNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 10, 100, 20)];
+    [eventNameLabel setTextColor:[UIColor blackColor]];
+    [eventNameLabel setBackgroundColor:[UIColor redColor]];
+    [eventNameLabel setFont:[UIFont fontWithName: @"Trebuchet MS" size: 14.0f]];
+    eventNameLabel.text = @"event name";
+    [paintView addSubview:eventNameLabel];
+    
+    
+    
     [self.view addSubview:paintView];
     //    [paintView release];  // unsure what the purpose of this is, but may be necessary at some point
     [self.tableView addSubview:paintView]; // will this work??? IT DOES
