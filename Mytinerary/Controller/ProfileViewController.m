@@ -7,14 +7,14 @@
 //
 
 #import "ProfileViewController.h"
+#import "DailyCalendarViewController.h"
 #import "ItineraryCollectionViewCell.h"
-#import "Parse/Parse.h"
 #import "Itinerary.h"
+#import "Parse/Parse.h"
 
 
 @interface ProfileViewController () <UICollectionViewDelegate, UICollectionViewDataSource>
 
-@property (strong, nonatomic) NSArray *iArray;
 
 @end
 
@@ -51,18 +51,18 @@
      PFQuery *iQuery = [Itinerary query];
      [iQuery orderByDescending: @"createdAt"];
      [iQuery includeKey: @"author"];
-     iQuery.limit =4;
+     iQuery.limit =6;
      
      //fetch data
      [iQuery findObjectsInBackgroundWithBlock:^(NSArray<Itinerary *> * itinerary, NSError *  error) {
-         if(itinerary){
-             self.iArray = itinerary;
-             NSLog(@"%@", self.iArray);
-             [self.collectionView reloadData];
-         }
-         else{
-             //handle error
-         }
+     if(itinerary){
+         self.iArray = itinerary;
+         NSLog(@"%@", self.iArray);
+         [self.collectionView reloadData];
+     }
+     else{
+         //handle error
+     }
      }];
 }
 
@@ -81,14 +81,41 @@
    return self.iArray.count;
    }
 
-/*
+
+
+//-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+//{
+//    [self performSegueWithIdentifier:@"yourSegue" sender:self];
+//}
+
+-(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    NSLog(@"%@", self);
+    // this is really a collectionViewCell
+    UICollectionViewCell *tappedCell = [self.collectionView cellForItemAtIndexPath:indexPath];
+    [self performSegueWithIdentifier:@"calendarSegue" sender:tappedCell];
+}
+
+
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
+    if ([segue.identifier isEqualToString:@"calendarSegue"]) {
+        DailyCalendarViewController *dailyCalendarVC = [segue destinationViewController];
+        ItineraryCollectionViewCell *tappedCell = sender;
+        NSLog(@"Tapped Cell name: %@", tappedCell.title);
+        
+        // create indexPath, which specifies exactly which cell we're referencing
+        NSIndexPath *indexPath = [self.collectionView indexPathForCell:tappedCell];
+        dailyCalendarVC.itinerary = [self.iArray objectAtIndex:indexPath.item];
+        
+    } else {
+        NSLog(@"If you're getting this message, you need to edit the prepareForSegue() method to add another segue");
+    }
 }
-*/
+
+
 
 @end

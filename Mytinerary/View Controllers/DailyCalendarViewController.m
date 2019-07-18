@@ -50,53 +50,31 @@
     self.tableView.rowHeight = 200;
     
     
-    // FOR TESTING adding events:
-    PFQuery *itineraryQuery = [Itinerary query];
-    [itineraryQuery whereKey:@"objectId" equalTo:@"DDTyXMLAgo"];
-    [itineraryQuery findObjectsInBackgroundWithBlock:^(NSArray<Itinerary *> * fetchedItinerary, NSError * _Nullable error) {
-        if (fetchedItinerary) {
-            NSLog(@"Got itinerary: %@", fetchedItinerary);
-            self.itinerary = fetchedItinerary[0];
-        } else {
-            NSLog(@"[DailyCalendarVC] Error getting itinerary: %@", error.localizedDescription);
-        }
-    }];
+//    NSLog(@"Recieved itinerary with events: %@", self.itinerary.events);
     
-    
-//    for (int i = 0; i < self.itinerary.events.count; i++) {
-        // separate query request for the specific event?? Theres got to be a more efficient way to do this
-        PFQuery *eventQuery = [Event query];
+    for (NSInteger i = 0; i < self.itinerary.events.count; i++) {
+        Event *event = self.itinerary.events[i];
+        [event fetchIfNeeded];
         
-        [eventQuery orderByDescending: @"createdAt"];
-        [eventQuery includeKey: @"title"];
-        [eventQuery includeKey: @"startTime"];
-        [eventQuery includeKey: @"endTime"];
-//        [eventQuery whereKey:@"createdAt" equalTo:self.itinerary.events[i]];
-
-        eventQuery.limit =10;
+//        [event fetchInBackgroundWithBlock:^(PFObject * _Nullable object, NSError * _Nullable error) {
+//            if (!error) {
+//                NSLog(@"recieved: %@", object);
+////                event = object;
+//
+//            } else {
+//                NSLog(@"[DailyCalVC] error getting individual event: %@", error.localizedDescription);
+//            }
+//        }];
         
-        //fetch data
-        [eventQuery findObjectsInBackgroundWithBlock:^(NSArray<Event *> * itineraryEvents, NSError * error) {
-            if(itineraryEvents){
+        NSLog(@"event: %@", event);
+        NSString *title = event.title;
+        NSDate *start = event.startTime;
+//        NSDate *start = event.startTime;
+        NSDate *end   = event.endTime;
+        NSLog(@"Start: %@, end %@", [self.timeOfDayFormatter stringFromDate:start], [self.timeOfDayFormatter stringFromDate:end]);
+        [self addEventWithTitle:title startDate:start andEndDate:end];
 
-                NSLog(@"[DailyCalendarVC] Retrieved Data %@", itineraryEvents);
-                for (Event* event in itineraryEvents) {
-                    [self addEventWith:event.startTime andEndDate:event.endTime];
-
-                }
-
-
-            }
-            else{
-                //handle error
-                NSLog(@"[DailyCalendarVC] Error Getting Data: %@", error.localizedDescription);
-
-            }
-        }];
-//    }
-
-    
-    
+    }
 }
 
 
@@ -135,21 +113,29 @@
 
 
 
-- (void)addEventWith:(NSDate *)startDate andEndDate:(NSDate *)endDate {
-    // What exactly the date is going to look like will determine how we convert
-    
-//    NSDate *midnight = [self.timeOfDayFormatter dateFromString:@"00:00:00"];
-//    NSDate *testDate = [self.timeOfDayFormatter dateFromString:@"05:30:00"];
-//    NSTimeInterval timeFromMidnight = [midnight timeIntervalSinceDate:endDate];
-    // NSTimeInterval is really just a double => no pointer needed
-    
+- (void)addEventWithTitle:(NSString *)title startDate:(NSDate *)startDate andEndDate:(NSDate *)endDate {
     NSCalendar *calendar = [NSCalendar currentCalendar];
+    [calendar setTimeZone: [NSTimeZone systemTimeZone]];
+
+    
+//    NSLog(@"Start: %@, end %@", [self.timeOfDayFormatter stringFromDate:start], [self.timeOfDayFormatter stringFromDate:end]);
+
+    
+//    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+//    [formatter setDateStyle:NSDateFormatterNoStyle];
+//    [formatter setTimeStyle:NSDateFormatterShortStyle];
+//    NSString *startstring = [formatter stringFromDate:startDate];
+//    NSLog(@"startstring: %@", startstring);
+
+//    NSDate *midnight = [self.timeOfDayFormatter dateFromString:@"00:00:00"];
+    
 //    NSDateComponents *midnightComponents = [calendar components:(NSCalendarUnitHour | NSCalendarUnitMinute) fromDate:midnight];
 //    NSInteger midnightHour = [midnightComponents hour];
 //    NSInteger midnightMinute = [midnightComponents minute];
     NSDateComponents *eventStartComponents = [calendar components:(NSCalendarUnitHour | NSCalendarUnitMinute) fromDate:startDate];
     NSInteger eventStartHour = [eventStartComponents hour];
     NSInteger eventStartMinute = [eventStartComponents minute];
+    NSLog(@"time zone: %@", calendar.timeZone);
     NSDateComponents *eventEndComponents = [calendar components:(NSCalendarUnitHour | NSCalendarUnitMinute) fromDate:endDate];
     NSInteger eventEndHour = [eventEndComponents hour];
     NSInteger eventEndMinute = [eventEndComponents minute];
@@ -177,7 +163,7 @@
     [eventNameLabel setTextColor:[UIColor blackColor]];
     [eventNameLabel setBackgroundColor:[UIColor redColor]];
     [eventNameLabel setFont:[UIFont fontWithName: @"Trebuchet MS" size: 14.0f]];
-    eventNameLabel.text = @"event name";
+    eventNameLabel.text = title;
     [eventView addSubview:eventNameLabel];
     
     

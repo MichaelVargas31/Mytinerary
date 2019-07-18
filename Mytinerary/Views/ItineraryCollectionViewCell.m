@@ -10,4 +10,6 @@
 
 @implementation ItineraryCollectionViewCell
 
+
+
 @end

@@ -119,8 +119,10 @@
                                             </subviews>
                                         </view>
                                         <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <gestureRecognizers/>
                                         <connections>
                                             <outlet property="title" destination="uBf-lI-Qa4" id="MrN-nA-NQ1"/>
+                                            <segue destination="rWW-ig-3vo" kind="show" identifier="calendarSegue" id="kvB-8l-XiY"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
@@ -174,9 +176,6 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <state key="normal" title="Calendar"/>
-                                <connections>
-                                    <segue destination="rWW-ig-3vo" kind="show" id="yDP-kS-h7C"/>
-                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

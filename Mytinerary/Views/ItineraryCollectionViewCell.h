@@ -14,6 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 //@property (weak, nonatomic) IBOutlet UIImageView *photoView;
 @property (weak, nonatomic) IBOutlet UILabel *title;
 
+
 @end
 
 NS_ASSUME_NONNULL_END
