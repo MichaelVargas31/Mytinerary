@@ -91,6 +91,9 @@
         appDelegate.window.rootViewController = loginViewController;
     }];
 }
+- (IBAction)map:(id)sender {
+    [self performSegueWithIdentifier:@"goToMap" sender:self];
+}
 /*
 #pragma mark - Navigation
 
