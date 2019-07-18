@@ -21,11 +21,15 @@
     - Should formatter be defined as a property of the Daily View Controller?
     - Possible to add addEventWith() to scheduledEventView.m file?? outsourcing?
     - To add multiple events to calendar, use for loop or do it through cellForRowAtIndexPath???
+    - Currently iterating through 'events' array of pointers in itinerary, using the ID to fetch said
+            event from parse. More efficient way?
 
  */
 
 #import "DailyCalendarViewController.h"
 #import "DailyTableViewCell.h"
+#import "Event.h"
+#import "Parse/Parse.h"
 
 
 @interface DailyCalendarViewController () <UITableViewDelegate, UITableViewDataSource>
@@ -46,10 +50,53 @@
     self.tableView.rowHeight = 200;
     
     
-    // Eventually: read through the saved event itinerary information and display it on screen
-    NSDate *start = [self.timeOfDayFormatter dateFromString:@"02:15:00"];
-    NSDate *end = [self.timeOfDayFormatter dateFromString:@"05:30:00"];
-    [self addEventWith:start andEndDate:end];
+    // FOR TESTING adding events:
+    PFQuery *itineraryQuery = [Itinerary query];
+    [itineraryQuery whereKey:@"objectId" equalTo:@"DDTyXMLAgo"];
+    [itineraryQuery findObjectsInBackgroundWithBlock:^(NSArray<Itinerary *> * fetchedItinerary, NSError * _Nullable error) {
+        if (fetchedItinerary) {
+            NSLog(@"Got itinerary: %@", fetchedItinerary);
+            self.itinerary = fetchedItinerary[0];
+        } else {
+            NSLog(@"[DailyCalendarVC] Error getting itinerary: %@", error.localizedDescription);
+        }
+    }];
+    
+    
+//    for (int i = 0; i < self.itinerary.events.count; i++) {
+        // separate query request for the specific event?? Theres got to be a more efficient way to do this
+        PFQuery *eventQuery = [Event query];
+        
+        [eventQuery orderByDescending: @"createdAt"];
+        [eventQuery includeKey: @"title"];
+        [eventQuery includeKey: @"startTime"];
+        [eventQuery includeKey: @"endTime"];
+//        [eventQuery whereKey:@"createdAt" equalTo:self.itinerary.events[i]];
+
+        eventQuery.limit =10;
+        
+        //fetch data
+        [eventQuery findObjectsInBackgroundWithBlock:^(NSArray<Event *> * itineraryEvents, NSError * error) {
+            if(itineraryEvents){
+
+                NSLog(@"[DailyCalendarVC] Retrieved Data %@", itineraryEvents);
+                for (Event* event in itineraryEvents) {
+                    [self addEventWith:event.startTime andEndDate:event.endTime];
+
+                }
+
+
+            }
+            else{
+                //handle error
+                NSLog(@"[DailyCalendarVC] Error Getting Data: %@", error.localizedDescription);
+
+            }
+        }];
+//    }
+
+    
+    
 }
 
 
@@ -69,14 +116,14 @@
     
     // Only for testing until we can actually take data and things
     // self.eventArray = [define your own test array when needed];
-    NSDictionary *event = self.itinerary.events[indexPath.item];
+    //    NSDictionary *event = self.itinerary.events[indexPath.item];      // you can't do this, #events != #cells
     
-    // set the cell labels with information from the event, then return;
-    // or should we only add that information later with content views(?)
+    
+    // Adding time labels to each cell
     NSDate *midnight = [self.timeOfDayFormatter dateFromString:@"00:00:00"];
     NSDate *newTime = [midnight dateByAddingTimeInterval:1800*indexPath.row];
     cell.calendarTimeLabel.text = [[self.timeOfDayFormatter stringFromDate:newTime] substringToIndex:5];
-
+    
     return cell;
 
 }
@@ -120,22 +167,24 @@
     
     // test
 //    pixelsFromTop = 800;
-    UIView *paintView=[[UIView alloc]initWithFrame:CGRectMake(60, pixelsFromTop, 320, eventLength)];
-    [paintView setBackgroundColor:[UIColor lightGrayColor]];
-    [paintView setAlpha:.75];
+    UIView *eventView=[[UIView alloc]initWithFrame:CGRectMake(60, pixelsFromTop, 320, eventLength)];
+    [eventView setBackgroundColor:[UIColor lightGrayColor]];
+    eventView.layer.borderColor = [UIColor blueColor].CGColor;
+    eventView.layer.borderWidth = 3.0f;
+    [eventView setAlpha:.75];
 
     UILabel *eventNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 10, 100, 20)];
     [eventNameLabel setTextColor:[UIColor blackColor]];
     [eventNameLabel setBackgroundColor:[UIColor redColor]];
     [eventNameLabel setFont:[UIFont fontWithName: @"Trebuchet MS" size: 14.0f]];
     eventNameLabel.text = @"event name";
-    [paintView addSubview:eventNameLabel];
+    [eventView addSubview:eventNameLabel];
     
     
     
-    [self.view addSubview:paintView];
+    [self.view addSubview:eventView];
     //    [paintView release];  // unsure what the purpose of this is, but may be necessary at some point
-    [self.tableView addSubview:paintView]; // will this work??? IT DOES
+    [self.tableView addSubview:eventView]; // will this work??? IT DOES
     
 }
 
