@@ -307,7 +307,10 @@
                     </view>
                     <connections>
                         <outlet property="eventInputActivityView" destination="ptI-Z4-6ZE" id="NFA-Ip-0rT"/>
+                        <outlet property="eventInputFoodView" destination="BPu-w8-krq" id="o6B-bx-Mxu"/>
+                        <outlet property="eventInputHotelView" destination="d8L-mg-HGJ" id="XzS-pY-Bkr"/>
                         <outlet property="eventInputSharedView" destination="qBl-CW-RwM" id="gPK-Rc-Ram"/>
+                        <outlet property="eventInputTransportationView" destination="H6K-tF-Ewc" id="ams-bd-HUL"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dHC-gh-g5I" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -357,7 +360,7 @@
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jNG-I8-FgI">
+                        <pickerView tag="3" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jNG-I8-FgI">
                             <rect key="frame" x="24" y="182" width="327" height="56"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                         </pickerView>
@@ -378,6 +381,12 @@
                     </subviews>
                     <color key="backgroundColor" red="0.93939012289047241" green="0.76825676715580726" blue="0.85953596128987975" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                     <viewLayoutGuide key="safeArea" id="RZ0-KA-qwW"/>
+                    <connections>
+                        <outlet property="costTextField" destination="tCZ-aH-xwD" id="bS2-28-ilg"/>
+                        <outlet property="locationTextField" destination="SJw-Eq-2xp" id="Q4Z-sf-SKk"/>
+                        <outlet property="notesTextView" destination="c9Q-YR-zX7" id="zix-y3-8gp"/>
+                        <outlet property="typePickerView" destination="jNG-I8-FgI" id="wwv-ty-cNz"/>
+                    </connections>
                 </view>
                 <view contentMode="scaleToFill" id="BPu-w8-krq" customClass="EventInputFoodView">
                     <rect key="frame" x="0.0" y="0.0" width="375" height="460"/>
@@ -425,7 +434,7 @@
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="k3L-Fc-2Oy">
+                        <pickerView tag="2" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="k3L-Fc-2Oy">
                             <rect key="frame" x="24" y="259" width="327" height="56"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                         </pickerView>
@@ -527,7 +536,7 @@
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8SA-n3-kKR">
+                        <pickerView tag="1" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8SA-n3-kKR">
                             <rect key="frame" x="24" y="260" width="327" height="56"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                         </pickerView>
