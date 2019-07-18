@@ -13,6 +13,9 @@
 		23F5A9EC22E0D3890084086B /* EventInputSharedView.m in Sources */ = {isa = PBXBuildFile; fileRef = 23F5A9EB22E0D3890084086B /* EventInputSharedView.m */; };
 		23F5A9EF22E0D9B50084086B /* InputEventViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 23F5A9EE22E0D9B50084086B /* InputEventViewController.m */; };
 		23F5A9F222E0DEAD0084086B /* EventInputActivityView.m in Sources */ = {isa = PBXBuildFile; fileRef = 23F5A9F122E0DEAD0084086B /* EventInputActivityView.m */; };
+		23F5AA3322E11F310084086B /* EventInputTransportationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 23F5AA3222E11F310084086B /* EventInputTransportationView.m */; };
+		23F5AA3622E120AB0084086B /* EventInputFoodView.m in Sources */ = {isa = PBXBuildFile; fileRef = 23F5AA3522E120AB0084086B /* EventInputFoodView.m */; };
+		23F5AA3922E124380084086B /* EventInputHotelView.m in Sources */ = {isa = PBXBuildFile; fileRef = 23F5AA3822E124380084086B /* EventInputHotelView.m */; };
 		8448C0F522DFA2C800427FB2 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 8448C0EF22DFA2C800427FB2 /* User.m */; };
 		8448C0F622DFA2C800427FB2 /* Itinerary.m in Sources */ = {isa = PBXBuildFile; fileRef = 8448C0F122DFA2C800427FB2 /* Itinerary.m */; };
 		8448C0F722DFA2C800427FB2 /* Event.m in Sources */ = {isa = PBXBuildFile; fileRef = 8448C0F222DFA2C800427FB2 /* Event.m */; };
@@ -58,6 +61,12 @@
 		23F5A9EE22E0D9B50084086B /* InputEventViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InputEventViewController.m; sourceTree = "<group>"; };
 		23F5A9F022E0DEAD0084086B /* EventInputActivityView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EventInputActivityView.h; sourceTree = "<group>"; };
 		23F5A9F122E0DEAD0084086B /* EventInputActivityView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EventInputActivityView.m; sourceTree = "<group>"; };
+		23F5AA3122E11F310084086B /* EventInputTransportationView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EventInputTransportationView.h; sourceTree = "<group>"; };
+		23F5AA3222E11F310084086B /* EventInputTransportationView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EventInputTransportationView.m; sourceTree = "<group>"; };
+		23F5AA3422E120AB0084086B /* EventInputFoodView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EventInputFoodView.h; sourceTree = "<group>"; };
+		23F5AA3522E120AB0084086B /* EventInputFoodView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EventInputFoodView.m; sourceTree = "<group>"; };
+		23F5AA3722E124380084086B /* EventInputHotelView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EventInputHotelView.h; sourceTree = "<group>"; };
+		23F5AA3822E124380084086B /* EventInputHotelView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EventInputHotelView.m; sourceTree = "<group>"; };
 		58B8F33A939BCC86C8C98935 /* Pods_MytineraryTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MytineraryTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8448C0EF22DFA2C800427FB2 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
 		8448C0F022DFA2C800427FB2 /* Event.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Event.h; sourceTree = "<group>"; };
@@ -260,6 +269,12 @@
 				23F5A9EB22E0D3890084086B /* EventInputSharedView.m */,
 				23F5A9F022E0DEAD0084086B /* EventInputActivityView.h */,
 				23F5A9F122E0DEAD0084086B /* EventInputActivityView.m */,
+				23F5AA3122E11F310084086B /* EventInputTransportationView.h */,
+				23F5AA3222E11F310084086B /* EventInputTransportationView.m */,
+				23F5AA3422E120AB0084086B /* EventInputFoodView.h */,
+				23F5AA3522E120AB0084086B /* EventInputFoodView.m */,
+				23F5AA3722E124380084086B /* EventInputHotelView.h */,
+				23F5AA3822E124380084086B /* EventInputHotelView.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -485,10 +500,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				23F5A9F222E0DEAD0084086B /* EventInputActivityView.m in Sources */,
+				23F5AA3922E124380084086B /* EventInputHotelView.m in Sources */,
 				FF6C5F2E22DE868D00D0EB83 /* DailyCalendarViewController.m in Sources */,
 				8495D7B122DF879600CFED2D /* ItineraryCollectionViewCell.m in Sources */,
 				8448C0F522DFA2C800427FB2 /* User.m in Sources */,
 				23F5A9E922DFE59A0084086B /* InputItineraryViewController.m in Sources */,
+				23F5AA3622E120AB0084086B /* EventInputFoodView.m in Sources */,
 				8495D7A922DE8BDD00CFED2D /* LoginViewController.m in Sources */,
 				8448C0F722DFA2C800427FB2 /* Event.m in Sources */,
 				23F5A9EF22E0D9B50084086B /* InputEventViewController.m in Sources */,
@@ -498,6 +515,7 @@
 				FF6C5F0722DE640200D0EB83 /* main.m in Sources */,
 				8448C0F622DFA2C800427FB2 /* Itinerary.m in Sources */,
 				FF6C5EF922DE640200D0EB83 /* AppDelegate.m in Sources */,
+				23F5AA3322E11F310084086B /* EventInputTransportationView.m in Sources */,
 				8495D7AE22DE991B00CFED2D /* ProfileViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

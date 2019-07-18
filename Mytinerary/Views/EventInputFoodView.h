@@ -1,5 +1,5 @@
 //
-//  EventInputActivityView.h
+//  EventInputFoodView.h
 //  Mytinerary
 //
 //  Created by ehhong on 7/18/19.
@@ -10,10 +10,11 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface EventInputActivityView : UIView
+@interface EventInputFoodView : UIView
 
 @property (weak, nonatomic) IBOutlet UITextField *locationTextField;
-@property (weak, nonatomic) IBOutlet UITextField *costTextField;
+@property (weak, nonatomic) IBOutlet UITextField *typeTextField;
+@property (weak, nonatomic) IBOutlet UIPickerView *costPickerView;
 @property (weak, nonatomic) IBOutlet UITextView *notesTextView;
 
 @end

@@ -10,13 +10,14 @@
 #import "EventInputSharedView.h"
 #import "EventInputActivityView.h"
 
-static int const EVENTINPUTSHAREDVIEWHEIGHT = 600;
-static int const EVENTINPUTACTIVITYVIEWHEIGHT = 370;
+static int const EVENT_INPUT_SHARED_VIEW_HEIGHT = 600;
+static int const EVENT_INPUT_ACTIVITY_VIEW_HEIGHT = 370;
 
-@interface InputEventViewController ()
+@interface InputEventViewController () <UIPickerViewDelegate, UIPickerViewDataSource>
 
 @property (weak, nonatomic) IBOutlet EventInputSharedView *eventInputSharedView;
 @property (weak, nonatomic) IBOutlet EventInputActivityView *eventInputActivityView;
+@property (strong, nonatomic) NSArray *eventCategoryPickerData;
 
 @end
 
@@ -24,7 +25,6 @@ static int const EVENTINPUTACTIVITYVIEWHEIGHT = 370;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
     
     // make and configure scroll view
     UIScrollView *scrollView = [[UIScrollView alloc] init];
@@ -48,11 +48,15 @@ static int const EVENTINPUTACTIVITYVIEWHEIGHT = 370;
     
     // add event input views
     [stackView addArrangedSubview:self.eventInputSharedView];
-    [stackView addArrangedSubview:self.eventInputActivityView];
+    [self.eventInputSharedView.heightAnchor constraintEqualToConstant:EVENT_INPUT_SHARED_VIEW_HEIGHT].active = YES;
     
-    // set view heights
-    [self.eventInputSharedView.heightAnchor constraintEqualToConstant:EVENTINPUTSHAREDVIEWHEIGHT].active = YES;
-    [self.eventInputActivityView.heightAnchor constraintEqualToConstant:EVENTINPUTACTIVITYVIEWHEIGHT].active = YES;
+    [stackView addArrangedSubview:self.eventInputActivityView];
+    [self.eventInputActivityView.heightAnchor constraintEqualToConstant:EVENT_INPUT_ACTIVITY_VIEW_HEIGHT].active = YES;
+    
+    // set up shared category picker view
+    self.eventInputSharedView.categoryPickerView.delegate = self;
+    self.eventInputSharedView.categoryPickerView.dataSource = self;
+    self.eventCategoryPickerData = [NSArray arrayWithObjects:@"activity", @"transportation", @"food", @"hotel", nil];
     
 }
 
@@ -70,5 +74,19 @@ static int const EVENTINPUTACTIVITYVIEWHEIGHT = 370;
     // Pass the selected object to the new view controller.
 }
 */
+
+
+// picker view functions
+- (NSInteger)numberOfComponentsInPickerView:(nonnull UIPickerView *)pickerView {
+    return 1;
+}
+
+- (NSInteger)pickerView:(nonnull UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component { 
+    return self.eventCategoryPickerData.count;
+}
+
+- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
+    return self.eventCategoryPickerData[row];
+}
 
 @end
