@@ -10,11 +10,13 @@
 #import "ItineraryCollectionViewCell.h"
 #import "Parse/Parse.h"
 #import "Itinerary.h"
+#import "AppDelegate.h"
+#import "LoginViewController.h"
 
 
 @interface ProfileViewController () <UICollectionViewDelegate, UICollectionViewDataSource>
 
-@property (strong, nonatomic) NSArray *iArray;
+//@property (strong, nonatomic) NSArray *iArray;
 
 @end
 
@@ -80,6 +82,15 @@
 - (NSInteger)collectionView:(nonnull UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
    return self.iArray.count;
    }
+
+- (IBAction)logout:(id)sender {
+    [PFUser logOutInBackgroundWithBlock:^(NSError * _Nullable error) {
+        AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        LoginViewController *loginViewController = [storyboard instantiateViewControllerWithIdentifier:@"LoginViewController"];
+        appDelegate.window.rootViewController = loginViewController;
+    }];
+}
 
 /*
 #pragma mark - Navigation
