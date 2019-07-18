@@ -12,6 +12,7 @@
 		23F5A9E922DFE59A0084086B /* InputItineraryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 23F5A9E822DFE59A0084086B /* InputItineraryViewController.m */; };
 		23F5A9EC22E0D3890084086B /* EventInputSharedView.m in Sources */ = {isa = PBXBuildFile; fileRef = 23F5A9EB22E0D3890084086B /* EventInputSharedView.m */; };
 		23F5A9EF22E0D9B50084086B /* InputEventViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 23F5A9EE22E0D9B50084086B /* InputEventViewController.m */; };
+		23F5A9F222E0DEAD0084086B /* EventInputActivityView.m in Sources */ = {isa = PBXBuildFile; fileRef = 23F5A9F122E0DEAD0084086B /* EventInputActivityView.m */; };
 		8448C0F522DFA2C800427FB2 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 8448C0EF22DFA2C800427FB2 /* User.m */; };
 		8448C0F622DFA2C800427FB2 /* Itinerary.m in Sources */ = {isa = PBXBuildFile; fileRef = 8448C0F122DFA2C800427FB2 /* Itinerary.m */; };
 		8448C0F722DFA2C800427FB2 /* Event.m in Sources */ = {isa = PBXBuildFile; fileRef = 8448C0F222DFA2C800427FB2 /* Event.m */; };
@@ -55,6 +56,8 @@
 		23F5A9EB22E0D3890084086B /* EventInputSharedView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EventInputSharedView.m; sourceTree = "<group>"; };
 		23F5A9ED22E0D9B50084086B /* InputEventViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InputEventViewController.h; sourceTree = "<group>"; };
 		23F5A9EE22E0D9B50084086B /* InputEventViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InputEventViewController.m; sourceTree = "<group>"; };
+		23F5A9F022E0DEAD0084086B /* EventInputActivityView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EventInputActivityView.h; sourceTree = "<group>"; };
+		23F5A9F122E0DEAD0084086B /* EventInputActivityView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EventInputActivityView.m; sourceTree = "<group>"; };
 		58B8F33A939BCC86C8C98935 /* Pods_MytineraryTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MytineraryTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8448C0EF22DFA2C800427FB2 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
 		8448C0F022DFA2C800427FB2 /* Event.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Event.h; sourceTree = "<group>"; };
@@ -255,6 +258,8 @@
 				FF6C5F3422DE8B8900D0EB83 /* DailyTableViewCell.m */,
 				23F5A9EA22E0D3890084086B /* EventInputSharedView.h */,
 				23F5A9EB22E0D3890084086B /* EventInputSharedView.m */,
+				23F5A9F022E0DEAD0084086B /* EventInputActivityView.h */,
+				23F5A9F122E0DEAD0084086B /* EventInputActivityView.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -479,6 +484,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				23F5A9F222E0DEAD0084086B /* EventInputActivityView.m in Sources */,
 				FF6C5F2E22DE868D00D0EB83 /* DailyCalendarViewController.m in Sources */,
 				8495D7B122DF879600CFED2D /* ItineraryCollectionViewCell.m in Sources */,
 				8448C0F522DFA2C800427FB2 /* User.m in Sources */,
