@@ -15,7 +15,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, nonatomic) NSArray *iArray;
 
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
-@property (strong, nonatomic) NSArray *iArray;
 
 @end
 

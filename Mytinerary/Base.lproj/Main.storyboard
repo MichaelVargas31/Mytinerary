@@ -201,6 +201,7 @@
                     <connections>
                         <outlet property="collectionView" destination="PWN-zR-u73" id="85v-RW-p1V"/>
                         <segue destination="P9I-0f-YVX" kind="show" identifier="goToMap" id="S7B-S6-hJV"/>
+                        <segue destination="rWW-ig-3vo" kind="show" identifier="calendarSegue" id="hey-4Z-0eK"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XoH-4c-RPv" userLabel="First Responder" sceneMemberID="firstResponder"/>
