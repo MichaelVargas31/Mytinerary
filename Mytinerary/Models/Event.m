@@ -11,30 +11,42 @@
 @dynamic eventDescription;
 @dynamic address;
 @dynamic category;
-@dynamic contactInfo;
+@dynamic notes;
+@dynamic cost;
 
 + (nonnull NSString *)parseClassName {
     return @"Event";
 }
 
 /* initialize a event
-(required: title, category, start/end times, completion;
- optional: event description, address, contact info) */
-+ (void) initNewEvent:(NSString *)title eventDescription:(NSString * _Nullable)eventDescription address:(NSString * _Nullable)address category:(NSString *)category contactInfo:(NSString * _Nullable)contactInfo startTime:(NSDate *)startTime endTime:(NSDate *)endTime withCompletion:(PFBooleanResultBlock)completion {
+(required: title, category, start/end times, location, completion;
+ optional: event description, notes) */
+- (void) initNewEvent:(NSString *)title eventDescription:(NSString * _Nullable)eventDescription address:(NSString * _Nullable)address category:(NSString *)category startTime:(NSDate *)startTime endTime:(NSDate *)endTime notes:(NSString * _Nullable)notes withCompletion:(PFBooleanResultBlock)completion {
+    
+    // required fields
+    self.title = title;
+    self.category = category;
+    self.startTime = startTime;
+    self.endTime = endTime;
+    // optional fields
+    self.eventDescription = eventDescription;
+    self.address = address;
+    self.notes = notes;
+    
+    [self saveInBackgroundWithBlock:completion];
+}
+
+/* initialize an activity event
+ (required: title, category, start/end times, location, completion;
+ optional: event description, cost, notes) */
++ (void) initActivityEvent:(NSString *)title eventDescription:(NSString * _Nullable)eventDescription address:(NSString *)address category:(NSString *)category startTime:(NSDate *)startTime endTime:(NSDate *)endTime cost:(float)cost notes:(NSString * _Nullable)notes withCompletion:(PFBooleanResultBlock)completion {
     
     Event *event = [Event new];
     
-    // required fields
-    event.title = title;
-    event.category = category;
-    event.startTime = startTime;
-    event.endTime = endTime;
-    // optional fields
-    event.eventDescription = eventDescription;
-    event.address = address;
-    event.contactInfo = contactInfo;
+    // activity specific field
+    event.cost = @(cost);
     
-    [event saveInBackgroundWithBlock:completion];
+    [event initNewEvent:title eventDescription:eventDescription address:address category:category startTime:startTime endTime:endTime notes:notes withCompletion:completion];
 }
 
 @end

@@ -12,12 +12,15 @@
 #import "EventInputTransportationView.h"
 #import "EventInputFoodView.h"
 #import "EventInputHotelView.h"
+#import "EventInputSubmitView.h"
+#import "Event.h"
 
 static int const EVENT_INPUT_SHARED_VIEW_HEIGHT = 600;
 static int const EVENT_INPUT_ACTIVITY_VIEW_HEIGHT = 370;
 static int const EVENT_INPUT_TRANSPORTATION_VIEW_HEIGHT = 540;
 static int const EVENT_INPUT_FOOD_VIEW_HEIGHT = 460;
 static int const EVENT_INPUT_HOTEL_VIEW_HEIGHT = 460;
+static int const EVENT_INPUT_SUBMIT_VIEW_HEIGHT = 50;
 
 @interface InputEventViewController () <UIPickerViewDelegate, UIPickerViewDataSource>
 
@@ -29,6 +32,7 @@ static int const EVENT_INPUT_HOTEL_VIEW_HEIGHT = 460;
 @property (weak, nonatomic) IBOutlet EventInputTransportationView *eventInputTransportationView;
 @property (weak, nonatomic) IBOutlet EventInputFoodView *eventInputFoodView;
 @property (weak, nonatomic) IBOutlet EventInputHotelView *eventInputHotelView;
+@property (weak, nonatomic) IBOutlet EventInputSubmitView *eventInputSubmitView;
 
 @property (strong, nonatomic) NSArray *eventCategoryPickerData;
 @property (strong, nonatomic) NSArray *transportationTypePickerData;
@@ -71,22 +75,29 @@ static int const EVENT_INPUT_HOTEL_VIEW_HEIGHT = 460;
     [self.eventInputSharedView.heightAnchor constraintEqualToConstant:EVENT_INPUT_SHARED_VIEW_HEIGHT].active = YES;
     
     // by default, add activity event input view
-    [self.stackView addArrangedSubview:self.eventInputActivityView];
+    [stackView addArrangedSubview:self.eventInputActivityView];
     [self.eventInputActivityView.heightAnchor constraintEqualToConstant:EVENT_INPUT_ACTIVITY_VIEW_HEIGHT].active = YES;
     
-    // set up shared category picker view
+    // add submit button view
+    [stackView addArrangedSubview:self.eventInputSubmitView];
+    [self.eventInputSubmitView.heightAnchor constraintEqualToConstant:EVENT_INPUT_SUBMIT_VIEW_HEIGHT].active = YES;
+    
+    // setup shared category picker view
     self.eventInputSharedView.categoryPickerView.delegate = self;
     self.eventInputSharedView.categoryPickerView.dataSource = self;
     self.eventCategoryPickerData = [NSArray arrayWithObjects:@"activity", @"transportation", @"food", @"hotel", nil];
     
+    // setup transportation category picker view
     self.eventInputTransportationView.typePickerView.delegate = self;
     self.eventInputTransportationView.typePickerView.dataSource = self;
     self.transportationTypePickerData = [NSArray arrayWithObjects:@"walk", @"bike", @"car", @"public transportation", nil];
     
+    // setup food cost picker view
     self.eventInputFoodView.costPickerView.delegate = self;
     self.eventInputFoodView.costPickerView.dataSource = self;
     self.foodCostPickerData = [NSArray arrayWithObjects:@"$", @"$$", @"$$$", @"$$$$", nil];
     
+    // setup hotel type picker view
     self.eventInputHotelView.typePickerView.delegate = self;
     self.eventInputHotelView.typePickerView.dataSource = self;
     self.hotelTypePickerData = [NSArray arrayWithObjects:@"hotel", @"campground", @"hostel", @"airbnb", nil];
@@ -96,6 +107,28 @@ static int const EVENT_INPUT_HOTEL_VIEW_HEIGHT = 460;
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
+// on submitting new event form
+- (IBAction)onTapSubmitButton:(id)sender {
+    int selectedCategoryIdx = (int)[self.eventInputSharedView.categoryPickerView selectedRowInComponent:0];
+    NSString *selectedCategory = self.eventCategoryPickerData[selectedCategoryIdx];
+    
+    if ([selectedCategory isEqualToString:@"activity"]) {
+        float cost = (float)0.0;
+        if (![self.eventInputActivityView.costTextField.text isEqualToString:@""]) {
+            cost = [self.eventInputActivityView.costTextField.text floatValue];
+        }
+        
+        [Event initActivityEvent:self.eventInputSharedView.titleTextField.text eventDescription:self.eventInputSharedView.descriptionTextView.text address:self.eventInputActivityView.locationTextField.text category:selectedCategory startTime:self.eventInputSharedView.startTimeDatePicker.date endTime:self.eventInputSharedView.endTimeDatePicker.date cost:cost notes:self.eventInputActivityView.notesTextView.text withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
+            if (succeeded) {
+                NSLog(@"activity event successfully initialized!");
+                [self dismissViewControllerAnimated:YES completion:nil];
+            }
+            else {
+                NSLog(@"error initializing activity event: %@", error);
+            }
+        }];
+    }
+}
 
 /*
 #pragma mark - Navigation
@@ -160,32 +193,30 @@ static int const EVENT_INPUT_HOTEL_VIEW_HEIGHT = 460;
     
     NSString *selectedCategory = self.eventCategoryPickerData[row];
     
-    // if from category event picker 
+    // if from event category picker
     if (pickerView.tag == 0) {
-        // clear previously added category subviews before adding new category subview
+        // clear previously added category subview before adding new category subview
         NSArray *subviews = [self.stackView arrangedSubviews];
         if (subviews.count > 1) {
-            for (int i = 1; i < subviews.count; i++) {
-                [self.stackView removeArrangedSubview:subviews[i]];
-                [subviews[i] removeFromSuperview];
-            }
+            [self.stackView removeArrangedSubview:subviews[1]];
+            [subviews[1] removeFromSuperview];
         }
         
         // add corresponding category subview
         if ([selectedCategory isEqualToString:@"activity"]) {
-            [self.stackView addArrangedSubview:self.eventInputActivityView];
+            [self.stackView insertArrangedSubview:self.eventInputActivityView atIndex:1];
             [self.eventInputActivityView.heightAnchor constraintEqualToConstant:EVENT_INPUT_ACTIVITY_VIEW_HEIGHT].active = YES;
         }
         else if ([selectedCategory isEqualToString:@"transportation"]) {
-            [self.stackView addArrangedSubview:self.eventInputTransportationView];
+            [self.stackView insertArrangedSubview:self.eventInputTransportationView atIndex:1];
             [self.eventInputTransportationView.heightAnchor constraintEqualToConstant:EVENT_INPUT_TRANSPORTATION_VIEW_HEIGHT].active = YES;
         }
         else if ([selectedCategory isEqualToString:@"food"]) {
-            [self.stackView addArrangedSubview:self.eventInputFoodView];
+            [self.stackView insertArrangedSubview:self.eventInputFoodView atIndex:1];
             [self.eventInputFoodView.heightAnchor constraintEqualToConstant:EVENT_INPUT_FOOD_VIEW_HEIGHT].active = YES;
         }
         else if ([selectedCategory isEqualToString:@"hotel"]) {
-            [self.stackView addArrangedSubview:self.eventInputHotelView];
+            [self.stackView insertArrangedSubview:self.eventInputHotelView atIndex:1];
             [self.eventInputHotelView.heightAnchor constraintEqualToConstant:EVENT_INPUT_HOTEL_VIEW_HEIGHT].active = YES;
         }
     }

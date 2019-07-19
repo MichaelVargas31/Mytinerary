@@ -11,8 +11,11 @@
 @property (nonatomic, strong) NSString *eventDescription;
 @property (nonatomic, strong) NSString *address;
 @property (nonatomic, strong) NSString *category;
-@property (nonatomic, strong) NSString *contactInfo;
+@property (nonatomic, strong) NSString *notes;
 
-+ (void) initNewEvent:(NSString *)title eventDescription:(NSString * _Nullable)eventDescription address:(NSString * _Nullable)address category:(NSString *)category contactInfo:(NSString * _Nullable)contactInfo startTime:(NSDate *)startTime endTime:(NSDate *)endTime withCompletion:(PFBooleanResultBlock)completion;
+// activity event
+@property (nonatomic, strong) NSNumber *cost;
+
++ (void) initActivityEvent:(NSString *)title eventDescription:(NSString * _Nullable)eventDescription address:(NSString *)address category:(NSString *)category startTime:(NSDate *)startTime endTime:(NSDate *)endTime cost:(float)cost notes:(NSString * _Nullable)notes withCompletion:(PFBooleanResultBlock)completion;
 
 @end
