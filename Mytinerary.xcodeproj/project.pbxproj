@@ -657,13 +657,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 82F2G2LCDZ;
+				DEVELOPMENT_TEAM = CC3NSMV262;
 				INFOPLIST_FILE = Mytinerary/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.michael.vargas99-gmail.com.Mytinerary";
+				PRODUCT_BUNDLE_IDENTIFIER = com.samason1.Itinerary;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -675,13 +675,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 82F2G2LCDZ;
+				DEVELOPMENT_TEAM = CC3NSMV262;
 				INFOPLIST_FILE = Mytinerary/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.michael.vargas99-gmail.com.Mytinerary";
+				PRODUCT_BUNDLE_IDENTIFIER = com.samason1.Itinerary;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

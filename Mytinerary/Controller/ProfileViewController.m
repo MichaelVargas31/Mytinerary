@@ -53,7 +53,7 @@
      PFQuery *iQuery = [Itinerary query];
      [iQuery orderByDescending: @"createdAt"];
      [iQuery includeKey: @"author"];
-     iQuery.limit =4;
+     iQuery.limit =6;
      
      //fetch data
      [iQuery findObjectsInBackgroundWithBlock:^(NSArray<Itinerary *> * itinerary, NSError *  error) {
