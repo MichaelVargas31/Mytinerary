@@ -11,19 +11,26 @@
  Brainstorming:
     - Probably going to have increments of 15(?) minutes that are cells
     - Use gesture recognizer to detect tap, which adds UIView to the screen?
-        - But can I add coordinates to the event to make sure it spans the timeframe?
- 
  
     Maybe NSCalendar could be useful?
 
  
  Questions:
     - Should formatter be defined as a property of the Daily View Controller?
+    - Possible to add addEventWith() to scheduledEventView.m file?? outsourcing?
+    - Currently iterating through 'events' array of pointers in itinerary, using the ID to fetch said
+            event from parse. More efficient way?
+    - How can I move addEvent() to its own "View"?
+    - How do I access the tableview.rowheight from the UIView file?
 
  */
 
 #import "DailyCalendarViewController.h"
 #import "DailyTableViewCell.h"
+#import "DailyCalendarEventUIView.h"
+#import "Event.h"
+#import "Parse/Parse.h"
+
 
 @interface DailyCalendarViewController () <UITableViewDelegate, UITableViewDataSource>
 
@@ -40,13 +47,21 @@
     // initializing formatter for calculating cell's times
     self.timeOfDayFormatter = [[NSDateFormatter alloc] init];
     [self.timeOfDayFormatter setDateFormat:@"HH:mm:ss"];
+    
     self.tableView.rowHeight = 200;
     
+//    NSLog(@"Recieved itinerary with events: %@", self.itinerary.events);
     
-    
-    NSDate *start = [NSDate date];
-    NSDate *end = [NSDate date];
-    [self addEventWith:start andEndDate:end];
+    for (NSInteger i = 0; i < self.itinerary.events.count; i++) {
+        Event *event = self.itinerary.events[i];
+        [event fetchIfNeeded];  // might be whats taking long time
+        
+        // Create event & add to tableView
+        DailyCalendarEventUIView *calEventView = [[DailyCalendarEventUIView alloc] init];
+        [calEventView createEventViewWithEventModel:event];
+        [self.tableView addSubview:calEventView]; // will this work??? IT should... if calEventView is being modified at all?
+        
+    }
 }
 
 
@@ -64,60 +79,22 @@
     
     DailyTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"DailyEventCell" forIndexPath:indexPath];
     
-    // Only for testing until we can actually take data and things
-    // self.eventArray = [define your own test array when needed];
-    NSDictionary *event = self.eventArray[indexPath.item];
-    
-    // set the cell labels with information from the event, then return;
-    // or should we only add that information later with content views(?)
+    // Adding time labels to each cell
     NSDate *midnight = [self.timeOfDayFormatter dateFromString:@"00:00:00"];
     NSDate *newTime = [midnight dateByAddingTimeInterval:1800*indexPath.row];
     cell.calendarTimeLabel.text = [[self.timeOfDayFormatter stringFromDate:newTime] substringToIndex:5];
-
+    
     return cell;
 
 }
 
 - (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    // 48 half hour increments in day
     return 48;
 }
 
-
-- (void)addEventWith:(NSDate *)startDate andEndDate:(NSDate *)endDate {
-    // What exactly the date is going to look like will determine how we convert
-    
-    NSDate *midnight = [self.timeOfDayFormatter dateFromString:@"00:00:00"];
-    NSDate *testDate = [self.timeOfDayFormatter dateFromString:@"05:30:00"];
-    NSTimeInterval timeFromMidnight = [midnight timeIntervalSinceDate:testDate];
-    // NSTimeInterval is really just a double => no pointer needed
-    
-    NSCalendar *calendar = [NSCalendar currentCalendar];
-    NSDateComponents *midnightComponents = [calendar components:(NSCalendarUnitHour | NSCalendarUnitMinute) fromDate:midnight];
-    NSInteger midnightHour = [midnightComponents hour];
-    NSInteger midnightMinute = [midnightComponents minute];
-    NSDateComponents *eventDateComponents = [calendar components:(NSCalendarUnitHour | NSCalendarUnitMinute) fromDate:testDate];
-    NSInteger eventDateHour = [eventDateComponents hour];
-    NSInteger eventDateMinute = [eventDateComponents minute];
-    
-//    [timeFromMidnight initWithStartDate:midnight endDate:testDate];
-//    NSLog(@"hour: %ld minute:%ld", (long)midnightHour, (long)midnightMinute);
-    NSLog(@"hour: %ld minute:%ld", (long)eventDateHour, (long)eventDateMinute);
-
-    NSLog(@"Time interval: %f", timeFromMidnight);
-    
-    // distance from top = HOURS*rowheight*2 + (MINS/30)*rowheight
-    float pixelsFromTop = (eventDateHour * self.tableView.rowHeight)*2 + ((eventDateMinute/30.0) * self.tableView.rowHeight);
-    NSLog(@"results");
-    
-    
-    // test
-//    pixelsFromTop = 800;
-    UIView *paintView=[[UIView alloc]initWithFrame:CGRectMake(15, pixelsFromTop, 320, 30)];
-    [paintView setBackgroundColor:[UIColor yellowColor]];
-    [self.view addSubview:paintView];
-    //    [paintView release];  // unsure what the purpose of this is, but may be necessary at some point
-    [self.tableView addSubview:paintView]; // will this work??? IT DOES
-    
+- (void)didTapEvent:(UITapGestureRecognizer *)sender {
+    NSLog(@"tapping: %@", self);
 }
 
 

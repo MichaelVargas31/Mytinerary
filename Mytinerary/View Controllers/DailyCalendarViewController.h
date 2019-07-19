@@ -7,17 +7,18 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Itinerary.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface DailyCalendarViewController : UIViewController
 
-@property (strong, nonatomic) NSCalendar *itineraryCalendar;
-@property (strong, nonatomic) NSArray *eventArray;
+@property (strong, nonatomic) Itinerary *itinerary;
 @property (strong, nonatomic) NSDateFormatter *timeOfDayFormatter;
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
+- (void)didTapEvent:(UITapGestureRecognizer *)sender;
 
 @end
 
