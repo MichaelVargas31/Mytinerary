@@ -114,73 +114,89 @@ static int const EVENT_INPUT_SUBMIT_VIEW_HEIGHT = 50;
     
     // initialize event depending on selected event type
     if ([selectedCategory isEqualToString:@"activity"]) {
-        float cost = (float)0.0;
-        if (![self.eventInputActivityView.costTextField.text isEqualToString:@""]) {
-            cost = [self.eventInputActivityView.costTextField.text floatValue];
-        }
-        
-        [Event initActivityEvent:self.eventInputSharedView.titleTextField.text eventDescription:self.eventInputSharedView.descriptionTextView.text address:self.eventInputActivityView.locationTextField.text startTime:self.eventInputSharedView.startTimeDatePicker.date endTime:self.eventInputSharedView.endTimeDatePicker.date cost:cost notes:self.eventInputActivityView.notesTextView.text withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
-            if (succeeded) {
-                NSLog(@"activity event successfully initialized!");
-                [self dismissViewControllerAnimated:YES completion:nil];
-            }
-            else {
-                NSLog(@"error initializing activity event: %@", error);
-            }
-        }];
+        [self initActivityEvent];
     }
     else if ([selectedCategory isEqualToString:@"transportation"]) {
-        float cost = (float)0.0;
-        if (![self.eventInputTransportationView.costTextField.text isEqualToString:@""]) {
-            cost = [self.eventInputTransportationView.costTextField.text floatValue];
-        }
-        
-        int selectedTranspoTypeIdx = (int)[self.eventInputTransportationView.typePickerView selectedRowInComponent:0];
-        NSString *selectedTranspoType = self.transportationTypePickerData[selectedTranspoTypeIdx];
-        
-        [Event initTransportationEvent:self.eventInputSharedView.titleTextField.text eventDescription:self.eventInputSharedView.descriptionTextView.text startAddress:self.eventInputTransportationView.startLocationTextField.text endAddress:self.eventInputTransportationView.endLocationTextField.text startTime:self.eventInputSharedView.startTimeDatePicker.date endTime:self.eventInputSharedView.endTimeDatePicker.date transpoType:selectedTranspoType cost:cost notes:self.eventInputTransportationView.notesTextView.text withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
-            if (succeeded) {
-                NSLog(@"transportation event successfully initialized!");
-                [self dismissViewControllerAnimated:YES completion:nil];
-            }
-            else {
-                NSLog(@"error initializing transportation event: %@", error);
-            }
-        }];
+        [self initTransportationEvent];
     }
     else if ([selectedCategory isEqualToString:@"food"]) {
-        int selectedFoodCostIdx = (int)[self.eventInputFoodView.costPickerView selectedRowInComponent:0];
-        NSString *selectedFoodCost = self.foodCostPickerData[selectedFoodCostIdx];
-        
-        [Event initFoodEvent:self.eventInputSharedView.titleTextField.text eventDescription:self.eventInputSharedView.descriptionTextView.text address:self.eventInputFoodView.locationTextField.text startTime:self.eventInputSharedView.startTimeDatePicker.date endTime:self.eventInputSharedView.endTimeDatePicker.date foodType:self.eventInputFoodView.typeTextField.text foodCost:selectedFoodCost notes:self.eventInputFoodView.notesTextView.text withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
-            if (succeeded) {
-                NSLog(@"food event successfully initialized!");
-                [self dismissViewControllerAnimated:YES completion:nil];
-            }
-            else {
-                NSLog(@"error initializing food event: %@", error);
-            }
-        }];
+        [self initFoodEvent];
     }
     else if ([selectedCategory isEqualToString:@"hotel"]) {
-        float cost = (float)0.0;
-        if (![self.eventInputHotelView.costTextField.text isEqualToString:@""]) {
-            cost = [self.eventInputHotelView.costTextField.text floatValue];
-        }
-        
-        int selectedHotelTypeIdx = (int)[self.eventInputHotelView.typePickerView selectedRowInComponent:0];
-        NSString *selectedHotelType = self.hotelTypePickerData[selectedHotelTypeIdx];
-        
-        [Event initHotelEvent:self.eventInputSharedView.titleTextField.text eventDescription:self.eventInputSharedView.descriptionTextView.text address:self.eventInputHotelView.locationTextField.text startTime:self.eventInputSharedView.startTimeDatePicker.date endTime:self.eventInputSharedView.endTimeDatePicker.date hotelType:selectedHotelType cost:cost notes:self.eventInputHotelView.notesTextView.text withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
-            if (succeeded) {
-                NSLog(@"hotel event successfully initialized!");
-                [self dismissViewControllerAnimated:YES completion:nil];
-            }
-            else {
-                NSLog(@"error initializing hotel event: %@", error);
-            }
-        }];
+        [self initHotelEvent];
     }
+}
+
+- (void)initActivityEvent {
+    float cost = (float)0.0;
+    if (![self.eventInputActivityView.costTextField.text isEqualToString:@""]) {
+        cost = [self.eventInputActivityView.costTextField.text floatValue];
+    }
+    
+    [Event initActivityEvent:self.eventInputSharedView.titleTextField.text eventDescription:self.eventInputSharedView.descriptionTextView.text address:self.eventInputActivityView.locationTextField.text startTime:self.eventInputSharedView.startTimeDatePicker.date endTime:self.eventInputSharedView.endTimeDatePicker.date cost:cost notes:self.eventInputActivityView.notesTextView.text withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
+        if (succeeded) {
+            NSLog(@"activity event successfully initialized!");
+            [self dismissViewControllerAnimated:YES completion:nil];
+        }
+        else {
+            NSLog(@"error initializing activity event: %@", error);
+        }
+    }];
+}
+
+- (void)initTransportationEvent {
+    float cost = (float)0.0;
+    if (![self.eventInputTransportationView.costTextField.text isEqualToString:@""]) {
+        cost = [self.eventInputTransportationView.costTextField.text floatValue];
+    }
+    
+    int selectedTranspoTypeIdx = (int)[self.eventInputTransportationView.typePickerView selectedRowInComponent:0];
+    NSString *selectedTranspoType = self.transportationTypePickerData[selectedTranspoTypeIdx];
+    
+    [Event initTransportationEvent:self.eventInputSharedView.titleTextField.text eventDescription:self.eventInputSharedView.descriptionTextView.text startAddress:self.eventInputTransportationView.startLocationTextField.text endAddress:self.eventInputTransportationView.endLocationTextField.text startTime:self.eventInputSharedView.startTimeDatePicker.date endTime:self.eventInputSharedView.endTimeDatePicker.date transpoType:selectedTranspoType cost:cost notes:self.eventInputTransportationView.notesTextView.text withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
+        if (succeeded) {
+            NSLog(@"transportation event successfully initialized!");
+            [self dismissViewControllerAnimated:YES completion:nil];
+        }
+        else {
+            NSLog(@"error initializing transportation event: %@", error);
+        }
+    }];
+}
+
+- (void)initFoodEvent {
+    int selectedFoodCostIdx = (int)[self.eventInputFoodView.costPickerView selectedRowInComponent:0];
+    NSString *selectedFoodCost = self.foodCostPickerData[selectedFoodCostIdx];
+    
+    [Event initFoodEvent:self.eventInputSharedView.titleTextField.text eventDescription:self.eventInputSharedView.descriptionTextView.text address:self.eventInputFoodView.locationTextField.text startTime:self.eventInputSharedView.startTimeDatePicker.date endTime:self.eventInputSharedView.endTimeDatePicker.date foodType:self.eventInputFoodView.typeTextField.text foodCost:selectedFoodCost notes:self.eventInputFoodView.notesTextView.text withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
+        if (succeeded) {
+            NSLog(@"food event successfully initialized!");
+            [self dismissViewControllerAnimated:YES completion:nil];
+        }
+        else {
+            NSLog(@"error initializing food event: %@", error);
+        }
+    }];
+}
+
+- (void)initHotelEvent {
+    float cost = (float)0.0;
+    if (![self.eventInputHotelView.costTextField.text isEqualToString:@""]) {
+        cost = [self.eventInputHotelView.costTextField.text floatValue];
+    }
+    
+    int selectedHotelTypeIdx = (int)[self.eventInputHotelView.typePickerView selectedRowInComponent:0];
+    NSString *selectedHotelType = self.hotelTypePickerData[selectedHotelTypeIdx];
+    
+    [Event initHotelEvent:self.eventInputSharedView.titleTextField.text eventDescription:self.eventInputSharedView.descriptionTextView.text address:self.eventInputHotelView.locationTextField.text startTime:self.eventInputSharedView.startTimeDatePicker.date endTime:self.eventInputSharedView.endTimeDatePicker.date hotelType:selectedHotelType cost:cost notes:self.eventInputHotelView.notesTextView.text withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
+        if (succeeded) {
+            NSLog(@"hotel event successfully initialized!");
+            [self dismissViewControllerAnimated:YES completion:nil];
+        }
+        else {
+            NSLog(@"error initializing hotel event: %@", error);
+        }
+    }];
 }
 
 /*
