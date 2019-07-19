@@ -47,19 +47,17 @@
     // initializing formatter for calculating cell's times
     self.timeOfDayFormatter = [[NSDateFormatter alloc] init];
     [self.timeOfDayFormatter setDateFormat:@"HH:mm:ss"];
-    self.tableView.rowHeight = 200;
     
+    self.tableView.rowHeight = 200;
     
 //    NSLog(@"Recieved itinerary with events: %@", self.itinerary.events);
     
     for (NSInteger i = 0; i < self.itinerary.events.count; i++) {
         Event *event = self.itinerary.events[i];
-        [event fetchIfNeeded];
+        [event fetchIfNeeded];  // might be whats taking long time
         
-        // NSLog(@"event: %@", event);
-       
-        // NSLog(@"Start: %@, end %@", [self.timeOfDayFormatter stringFromDate:start], [self.timeOfDayFormatter stringFromDate:end]);
-        DailyCalendarEventUIView *calEventView;
+        // Create event & add to tableView
+        DailyCalendarEventUIView *calEventView = [[DailyCalendarEventUIView alloc] init];
         [calEventView createEventViewWithEventModel:event];
         [self.tableView addSubview:calEventView]; // will this work??? IT should... if calEventView is being modified at all?
         
@@ -81,11 +79,6 @@
     
     DailyTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"DailyEventCell" forIndexPath:indexPath];
     
-    // Only for testing until we can actually take data and things
-    // self.eventArray = [define your own test array when needed];
-    //    NSDictionary *event = self.itinerary.events[indexPath.item];      // you can't do this, #events != #cells
-    
-    
     // Adding time labels to each cell
     NSDate *midnight = [self.timeOfDayFormatter dateFromString:@"00:00:00"];
     NSDate *newTime = [midnight dateByAddingTimeInterval:1800*indexPath.row];
@@ -96,16 +89,8 @@
 }
 
 - (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    // 48 half hour increments in day
     return 48;
-}
-
-
-
-
-- (void)addEventWithTitle:(NSString *)title startDate:(NSDate *)startDate andEndDate:(NSDate *)endDate {
-    
-    
-    
 }
 
 - (void)didTapEvent:(UITapGestureRecognizer *)sender {

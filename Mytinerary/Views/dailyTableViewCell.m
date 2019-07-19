@@ -14,11 +14,6 @@ static int const DAILY_TABLE_VIEW_CELL_ROW_HEIGHT = 100;
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    // Initialization code
-//    self.rowHeight = [NSNumber numberWithInt:100];
-//    DailyTableViewCell.rowHeight = [NSNumber numberWithInt:100];
-        // can be referenced when coordinating event overlaying, only have to change the height in one place
-    
 }
 
 
@@ -27,11 +22,6 @@ static int const DAILY_TABLE_VIEW_CELL_ROW_HEIGHT = 100;
     // Configure the view for the selected state
 }
 
-//
-//+ (void) setRowHeight:(NSNumber *) newNum {
-//    self.rowHeight = [newNum copy];
-//
-//}
 
 + (NSNumber *) returnRowHeight {
     return  @(DAILY_TABLE_VIEW_CELL_ROW_HEIGHT);

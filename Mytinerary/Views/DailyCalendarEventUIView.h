@@ -18,7 +18,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property double topBorder;
 @property double eventLength;
 
-//- (void)createEventViewWithTitle:(NSString *)title startDate:(NSDate *)startDate andEndDate:(NSDate *)endDate;
 - (void)createEventViewWithEventModel:(Event *)event;
 
 

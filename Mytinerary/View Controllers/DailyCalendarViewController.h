@@ -18,6 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
+- (void)didTapEvent:(UITapGestureRecognizer *)sender;
 
 @end
 
