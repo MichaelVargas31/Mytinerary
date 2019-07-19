@@ -15,6 +15,8 @@
 		8495D7A922DE8BDD00CFED2D /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8495D7A822DE8BDD00CFED2D /* LoginViewController.m */; };
 		8495D7AE22DE991B00CFED2D /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8495D7AD22DE991B00CFED2D /* ProfileViewController.m */; };
 		8495D7B122DF879600CFED2D /* ItineraryCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8495D7B022DF879600CFED2D /* ItineraryCollectionViewCell.m */; };
+		84B5E51722E10637006F4815 /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84B5E51622E10637006F4815 /* MapViewController.m */; };
+		84B5E51922E114E4006F4815 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84B5E51822E114E4006F4815 /* MapKit.framework */; };
 		C628AEE5E20C9C7409D9B734 /* Pods_MytineraryTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 58B8F33A939BCC86C8C98935 /* Pods_MytineraryTests.framework */; };
 		FF6C5EF922DE640200D0EB83 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FF6C5EF822DE640200D0EB83 /* AppDelegate.m */; };
 		FF6C5EFC22DE640200D0EB83 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FF6C5EFB22DE640200D0EB83 /* ViewController.m */; };
@@ -59,6 +61,9 @@
 		8495D7AD22DE991B00CFED2D /* ProfileViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProfileViewController.m; sourceTree = "<group>"; };
 		8495D7AF22DF879600CFED2D /* ItineraryCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ItineraryCollectionViewCell.h; sourceTree = "<group>"; };
 		8495D7B022DF879600CFED2D /* ItineraryCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ItineraryCollectionViewCell.m; sourceTree = "<group>"; };
+		84B5E51522E10637006F4815 /* MapViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MapViewController.h; sourceTree = "<group>"; };
+		84B5E51622E10637006F4815 /* MapViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MapViewController.m; sourceTree = "<group>"; };
+		84B5E51822E114E4006F4815 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		916214B740DE6507D8D4D3D1 /* Pods-Mytinerary.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mytinerary.release.xcconfig"; path = "Target Support Files/Pods-Mytinerary/Pods-Mytinerary.release.xcconfig"; sourceTree = "<group>"; };
 		9623E20F6DCE89BAA631B91F /* Pods-Mytinerary.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mytinerary.debug.xcconfig"; path = "Target Support Files/Pods-Mytinerary/Pods-Mytinerary.debug.xcconfig"; sourceTree = "<group>"; };
 		9E1EB98CBB8F81D6B8432720 /* Pods-MytineraryUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MytineraryUITests.release.xcconfig"; path = "Target Support Files/Pods-MytineraryUITests/Pods-MytineraryUITests.release.xcconfig"; sourceTree = "<group>"; };
@@ -94,6 +99,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				84B5E51922E114E4006F4815 /* MapKit.framework in Frameworks */,
 				06B8D04C40E1C9F29C166801 /* Pods_Mytinerary.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -120,6 +126,7 @@
 		6E41998CE8EA405ABF1B9988 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				84B5E51822E114E4006F4815 /* MapKit.framework */,
 				9FBBF0DECFB9E3F7EDAD49EC /* Pods_Mytinerary.framework */,
 				58B8F33A939BCC86C8C98935 /* Pods_MytineraryTests.framework */,
 				E49E5CF74D83A7C35B144F7A /* Pods_MytineraryUITests.framework */,
@@ -149,6 +156,8 @@
 				8495D7AD22DE991B00CFED2D /* ProfileViewController.m */,
 				8495D7A722DE8BDD00CFED2D /* LoginViewController.h */,
 				8495D7A822DE8BDD00CFED2D /* LoginViewController.m */,
+				84B5E51522E10637006F4815 /* MapViewController.h */,
+				84B5E51622E10637006F4815 /* MapViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -195,8 +204,6 @@
 				FF6C5EF822DE640200D0EB83 /* AppDelegate.m */,
 				FF6C5F2F22DE8B1900D0EB83 /* Views */,
 				FF6C5F2B22DE865400D0EB83 /* View Controllers */,
-				8495D7AF22DF879600CFED2D /* ItineraryCollectionViewCell.h */,
-				8495D7B022DF879600CFED2D /* ItineraryCollectionViewCell.m */,
 				8448C0EE22DFA2C800427FB2 /* Models */,
 				8495D7AB22DE8C1400CFED2D /* Controller */,
 				FF6C5EFD22DE640200D0EB83 /* Main.storyboard */,
@@ -226,12 +233,9 @@
 			path = MytineraryUITests;
 			sourceTree = "<group>";
 		};
-
 		FF6C5F2B22DE865400D0EB83 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				FF6C5EFA22DE640200D0EB83 /* ViewController.h */,
-				FF6C5EFB22DE640200D0EB83 /* ViewController.m */,
 				FF6C5F2C22DE868D00D0EB83 /* DailyCalendarViewController.h */,
 				FF6C5F2D22DE868D00D0EB83 /* DailyCalendarViewController.m */,
 			);
@@ -243,11 +247,12 @@
 			children = (
 				FF6C5F3322DE8B8900D0EB83 /* DailyTableViewCell.h */,
 				FF6C5F3422DE8B8900D0EB83 /* DailyTableViewCell.m */,
+				8495D7AF22DF879600CFED2D /* ItineraryCollectionViewCell.h */,
+				8495D7B022DF879600CFED2D /* ItineraryCollectionViewCell.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
 		};
-
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -471,6 +476,7 @@
 				FF6C5F2E22DE868D00D0EB83 /* DailyCalendarViewController.m in Sources */,
 				8495D7B122DF879600CFED2D /* ItineraryCollectionViewCell.m in Sources */,
 				8448C0F522DFA2C800427FB2 /* User.m in Sources */,
+				84B5E51722E10637006F4815 /* MapViewController.m in Sources */,
 				8495D7A922DE8BDD00CFED2D /* LoginViewController.m in Sources */,
 				8448C0F722DFA2C800427FB2 /* Event.m in Sources */,
 				FF6C5EFC22DE640200D0EB83 /* ViewController.m in Sources */,
@@ -651,13 +657,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 82F2G2LCDZ;
+				DEVELOPMENT_TEAM = CC3NSMV262;
 				INFOPLIST_FILE = Mytinerary/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.michael.vargas99-gmail.com.Mytinerary";
+				PRODUCT_BUNDLE_IDENTIFIER = com.samason1.Itinerary;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -669,13 +675,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 82F2G2LCDZ;
+				DEVELOPMENT_TEAM = CC3NSMV262;
 				INFOPLIST_FILE = Mytinerary/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.michael.vargas99-gmail.com.Mytinerary";
+				PRODUCT_BUNDLE_IDENTIFIER = com.samason1.Itinerary;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
