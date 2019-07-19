@@ -7,6 +7,9 @@
 //
 
 #import "MapViewController.h"
+#import "AppDelegate.h"
+#import "Parse/Parse.h"
+#import "Event.h"
 
 @interface MapViewController () <CLLocationManagerDelegate, MKMapViewDelegate>
 
@@ -27,11 +30,8 @@
     }
     
     self.mapView.delegate=self;
-    
-    /* Set visible region to San Francisco when opening the map
-    MKCoordinateRegion sfRegion = MKCoordinateRegionMake(CLLocationCoordinate2DMake(37.783333, -122.416667), MKCoordinateSpanMake(0.1, 0.1));
-    [self.mapView setRegion:sfRegion animated:false];
-    */
+    [self querySearch];
+
   }
 
 //locationManager delegate method
@@ -41,6 +41,36 @@
     mapRegion.span = MKCoordinateSpanMake(0.1, 0.1);
     [self.mapView setRegion:mapRegion animated: YES];
 }
+
+//gets the addresses of the event
+-(void) querySearch{
+    PFQuery *eQuery = [Event query];
+    [eQuery orderByDescending: @"createdAt"];
+    [eQuery includeKey:@"address"];
+   
+    eQuery.limit =10;
+    
+    //fetch data
+    [eQuery findObjectsInBackgroundWithBlock:^(NSArray<Event *> * event, NSError *  error) {
+        if(event){
+            self.eArray = event;
+            NSLog(@"%@", self.eArray);
+            
+            
+            //pin location onto map maybe
+        }
+        else{
+            //handle error
+        }
+    }];
+    
+    
+}
+
+/* Set visible region to San Francisco when opening the map
+ MKCoordinateRegion sfRegion = MKCoordinateRegionMake(CLLocationCoordinate2DMake(37.783333, -122.416667), MKCoordinateSpanMake(0.1, 0.1));
+ [self.mapView setRegion:sfRegion animated:false];
+ */
 
 /*
 #pragma mark - Navigation
