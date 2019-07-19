@@ -28,6 +28,23 @@
  optional: event description, notes) */
 - (void) initNewEvent:(NSString *)title eventDescription:(NSString * _Nullable)eventDescription address:(NSString * _Nullable)address category:(NSString *)category startTime:(NSDate *)startTime endTime:(NSDate *)endTime notes:(NSString * _Nullable)notes withCompletion:(PFBooleanResultBlock)completion {
     
+    // make sure all required fields are filled, validate input
+    if ([title isEqualToString:@""]) {
+        NSError *error = [NSError errorWithDomain:@"Please add a title" code:1 userInfo:nil];
+        completion(nil, error);
+        return;
+    }
+    if ([startTime compare:endTime] != NSOrderedAscending) {
+        NSError *error = [NSError errorWithDomain:@"Start time must be before end time" code:1 userInfo:nil];
+        completion(nil, error);
+        return;
+    }
+    if ([address isEqualToString:@""]) {
+        NSError *error = [NSError errorWithDomain:@"Please add a location" code:1 userInfo:nil];
+        completion(nil, error);
+        return;
+    }
+    
     // required fields
     self.title = title;
     self.category = category;
@@ -58,6 +75,17 @@
  (required: title, category, start/end times, start/end address, transportation type, completion;
  optional: event description, cost, notes) */
 + (void) initTransportationEvent:(NSString *)title eventDescription:(NSString * _Nullable)eventDescription startAddress:(NSString *)startAddress endAddress:(NSString *)endAddress startTime:(NSDate *)startTime endTime:(NSDate *)endTime transpoType:(NSString *)transpoType cost:(float)cost notes:(NSString * _Nullable)notes withCompletion:(PFBooleanResultBlock)completion {
+    
+    if ([startAddress isEqualToString:@""]) {
+        NSError *error = [NSError errorWithDomain:@"Please add a start location" code:1 userInfo:nil];
+        completion(nil, error);
+        return;
+    }
+    if ([endAddress isEqualToString:@""]) {
+        NSError *error = [NSError errorWithDomain:@"Please add an end location" code:1 userInfo:nil];
+        completion(nil, error);
+        return;
+    }
     
     Event *event = [Event new];
     

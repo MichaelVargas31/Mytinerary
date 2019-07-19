@@ -26,6 +26,7 @@ static int const EVENT_INPUT_SUBMIT_VIEW_HEIGHT = 50;
 
 @property (strong, nonatomic) UIScrollView *scrollView;
 @property (strong, nonatomic) UIStackView *stackView;
+@property (strong, nonatomic) UIAlertController *alert;
 
 @property (weak, nonatomic) IBOutlet EventInputSharedView *eventInputSharedView;
 @property (weak, nonatomic) IBOutlet EventInputActivityView *eventInputActivityView;
@@ -45,6 +46,14 @@ static int const EVENT_INPUT_SUBMIT_VIEW_HEIGHT = 50;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    // set up alert controller
+    self.alert = [UIAlertController alertControllerWithTitle:@"Error"
+                                                     message:@"This is an alert."
+                                              preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
+                                                          handler:^(UIAlertAction * action) {}];
+    [self.alert addAction:defaultAction];
     
     // make and configure scroll view
     UIScrollView *scrollView = [[UIScrollView alloc] init];
@@ -140,6 +149,8 @@ static int const EVENT_INPUT_SUBMIT_VIEW_HEIGHT = 50;
         }
         else {
             NSLog(@"error initializing activity event: %@", error);
+            self.alert.message = error.domain;
+            [self presentViewController:self.alert animated:YES completion:nil];
         }
     }];
 }
@@ -160,6 +171,8 @@ static int const EVENT_INPUT_SUBMIT_VIEW_HEIGHT = 50;
         }
         else {
             NSLog(@"error initializing transportation event: %@", error);
+            self.alert.message = error.domain;
+            [self presentViewController:self.alert animated:YES completion:nil];
         }
     }];
 }
@@ -175,6 +188,8 @@ static int const EVENT_INPUT_SUBMIT_VIEW_HEIGHT = 50;
         }
         else {
             NSLog(@"error initializing food event: %@", error);
+            self.alert.message = error.domain;
+            [self presentViewController:self.alert animated:YES completion:nil];
         }
     }];
 }
@@ -195,6 +210,8 @@ static int const EVENT_INPUT_SUBMIT_VIEW_HEIGHT = 50;
         }
         else {
             NSLog(@"error initializing hotel event: %@", error);
+            self.alert.message = error.domain;
+            [self presentViewController:self.alert animated:YES completion:nil];
         }
     }];
 }
