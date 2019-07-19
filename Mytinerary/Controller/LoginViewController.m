@@ -41,6 +41,28 @@
     }];
 }
 
+- (IBAction)signUpUser:(id)sender {
+    //initialize a new user object
+    PFUser *newU = [PFUser user];
+    
+    //set user properties
+    newU.username=self.usernameField.text;
+    newU.password=self.passwordField.text;
+    
+    //call sign up function on user object
+    [newU signUpInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+        if(error !=nil){
+            NSLog(@"Error: %@",error.localizedDescription );
+        }
+        else {
+            NSLog(@"User sign up successful");
+            [self performSegueWithIdentifier:@"login" sender:nil];
+        }
+    }];
+    
+    
+}
+
 /*
 #pragma mark - Navigation
 
