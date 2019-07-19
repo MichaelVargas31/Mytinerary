@@ -128,6 +128,7 @@
                                             </subviews>
                                         </view>
                                         <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <gestureRecognizers/>
                                         <connections>
                                             <outlet property="title" destination="uBf-lI-Qa4" id="MrN-nA-NQ1"/>
                                         </connections>
@@ -225,13 +226,6 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="249.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Lunch with some guy" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kho-I4-hPp">
-                                                    <rect key="frame" x="35" y="37" width="218" height="21"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="12:30" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a6U-na-0tu">
                                                     <rect key="frame" x="3" y="0.0" width="74" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -248,7 +242,6 @@
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="calendarTimeLabel" destination="a6U-na-0tu" id="sML-yR-7dD"/>
-                                            <outlet property="eventNameLabel" destination="Kho-I4-hPp" id="ACe-j3-bYd"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>

@@ -28,6 +28,7 @@
 		FF6C5F1C22DE640300D0EB83 /* MytineraryUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = FF6C5F1B22DE640300D0EB83 /* MytineraryUITests.m */; };
 		FF6C5F2E22DE868D00D0EB83 /* DailyCalendarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FF6C5F2D22DE868D00D0EB83 /* DailyCalendarViewController.m */; };
 		FF6C5F3522DE8B8900D0EB83 /* DailyTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FF6C5F3422DE8B8900D0EB83 /* DailyTableViewCell.m */; };
+		FFA0333622E234EB006DAE99 /* DailyCalendarEventUIView.m in Sources */ = {isa = PBXBuildFile; fileRef = FFA0333522E234EB006DAE99 /* DailyCalendarEventUIView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -92,6 +93,8 @@
 		FF6C5F2D22DE868D00D0EB83 /* DailyCalendarViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DailyCalendarViewController.m; sourceTree = "<group>"; };
 		FF6C5F3322DE8B8900D0EB83 /* DailyTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DailyTableViewCell.h; sourceTree = "<group>"; };
 		FF6C5F3422DE8B8900D0EB83 /* DailyTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DailyTableViewCell.m; sourceTree = "<group>"; };
+		FFA0333422E234EB006DAE99 /* DailyCalendarEventUIView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DailyCalendarEventUIView.h; sourceTree = "<group>"; };
+		FFA0333522E234EB006DAE99 /* DailyCalendarEventUIView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DailyCalendarEventUIView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -137,12 +140,12 @@
 		8448C0EE22DFA2C800427FB2 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				8448C0F322DFA2C800427FB2 /* User.h */,
 				8448C0EF22DFA2C800427FB2 /* User.m */,
 				8448C0F022DFA2C800427FB2 /* Event.h */,
-				8448C0F122DFA2C800427FB2 /* Itinerary.m */,
 				8448C0F222DFA2C800427FB2 /* Event.m */,
-				8448C0F322DFA2C800427FB2 /* User.h */,
 				8448C0F422DFA2C800427FB2 /* Itinerary.h */,
+				8448C0F122DFA2C800427FB2 /* Itinerary.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -249,6 +252,8 @@
 				FF6C5F3422DE8B8900D0EB83 /* DailyTableViewCell.m */,
 				8495D7AF22DF879600CFED2D /* ItineraryCollectionViewCell.h */,
 				8495D7B022DF879600CFED2D /* ItineraryCollectionViewCell.m */,
+				FFA0333422E234EB006DAE99 /* DailyCalendarEventUIView.h */,
+				FFA0333522E234EB006DAE99 /* DailyCalendarEventUIView.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -479,6 +484,7 @@
 				84B5E51722E10637006F4815 /* MapViewController.m in Sources */,
 				8495D7A922DE8BDD00CFED2D /* LoginViewController.m in Sources */,
 				8448C0F722DFA2C800427FB2 /* Event.m in Sources */,
+				FFA0333622E234EB006DAE99 /* DailyCalendarEventUIView.m in Sources */,
 				FF6C5EFC22DE640200D0EB83 /* ViewController.m in Sources */,
 				FF6C5F3522DE8B8900D0EB83 /* DailyTableViewCell.m in Sources */,
 				FF6C5F0722DE640200D0EB83 /* main.m in Sources */,
