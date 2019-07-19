@@ -122,7 +122,6 @@
                                         <gestureRecognizers/>
                                         <connections>
                                             <outlet property="title" destination="uBf-lI-Qa4" id="MrN-nA-NQ1"/>
-                                            <segue destination="rWW-ig-3vo" kind="show" identifier="calendarSegue" id="kvB-8l-XiY"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
@@ -184,6 +183,7 @@
                     <navigationItem key="navigationItem" id="Iaj-CY-mM8"/>
                     <connections>
                         <outlet property="collectionView" destination="PWN-zR-u73" id="85v-RW-p1V"/>
+                        <segue destination="rWW-ig-3vo" kind="show" identifier="calendarSegue" id="mBk-xf-6Re"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XoH-4c-RPv" userLabel="First Responder" sceneMemberID="firstResponder"/>

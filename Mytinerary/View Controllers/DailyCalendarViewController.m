@@ -23,6 +23,7 @@
     - To add multiple events to calendar, use for loop or do it through cellForRowAtIndexPath???
     - Currently iterating through 'events' array of pointers in itinerary, using the ID to fetch said
             event from parse. More efficient way?
+    - Should I add UIView to self.tableView or self.view??
 
  */
 
@@ -56,22 +57,11 @@
         Event *event = self.itinerary.events[i];
         [event fetchIfNeeded];
         
-//        [event fetchInBackgroundWithBlock:^(PFObject * _Nullable object, NSError * _Nullable error) {
-//            if (!error) {
-//                NSLog(@"recieved: %@", object);
-////                event = object;
-//
-//            } else {
-//                NSLog(@"[DailyCalVC] error getting individual event: %@", error.localizedDescription);
-//            }
-//        }];
-        
-        NSLog(@"event: %@", event);
+        // NSLog(@"event: %@", event);
         NSString *title = event.title;
         NSDate *start = event.startTime;
-//        NSDate *start = event.startTime;
         NSDate *end   = event.endTime;
-        NSLog(@"Start: %@, end %@", [self.timeOfDayFormatter stringFromDate:start], [self.timeOfDayFormatter stringFromDate:end]);
+        // NSLog(@"Start: %@, end %@", [self.timeOfDayFormatter stringFromDate:start], [self.timeOfDayFormatter stringFromDate:end]);
         [self addEventWithTitle:title startDate:start andEndDate:end];
 
     }
@@ -117,21 +107,10 @@
     NSCalendar *calendar = [NSCalendar currentCalendar];
     [calendar setTimeZone: [NSTimeZone systemTimeZone]];
 
-    
 //    NSLog(@"Start: %@, end %@", [self.timeOfDayFormatter stringFromDate:start], [self.timeOfDayFormatter stringFromDate:end]);
 
+    //    NSDate *midnight = [self.timeOfDayFormatter dateFromString:@"00:00:00"];
     
-//    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-//    [formatter setDateStyle:NSDateFormatterNoStyle];
-//    [formatter setTimeStyle:NSDateFormatterShortStyle];
-//    NSString *startstring = [formatter stringFromDate:startDate];
-//    NSLog(@"startstring: %@", startstring);
-
-//    NSDate *midnight = [self.timeOfDayFormatter dateFromString:@"00:00:00"];
-    
-//    NSDateComponents *midnightComponents = [calendar components:(NSCalendarUnitHour | NSCalendarUnitMinute) fromDate:midnight];
-//    NSInteger midnightHour = [midnightComponents hour];
-//    NSInteger midnightMinute = [midnightComponents minute];
     NSDateComponents *eventStartComponents = [calendar components:(NSCalendarUnitHour | NSCalendarUnitMinute) fromDate:startDate];
     NSInteger eventStartHour = [eventStartComponents hour];
     NSInteger eventStartMinute = [eventStartComponents minute];
@@ -166,11 +145,18 @@
     eventNameLabel.text = title;
     [eventView addSubview:eventNameLabel];
     
+    // add tap gesture recognizer
+    [eventView setUserInteractionEnabled:YES];
+//    UIGestureRecognizer *eventTap = [[UIGestureRecognizer alloc] initWithTarget:self action:@selector(didTapEvent:)];
+    UITapGestureRecognizer *eventTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didTapEvent:)];
+    [eventView addGestureRecognizer:eventTap];
     
-    
-    [self.view addSubview:eventView];
-    //    [paintView release];  // unsure what the purpose of this is, but may be necessary at some point
     [self.tableView addSubview:eventView]; // will this work??? IT DOES
+    
+}
+
+- (void)didTapEvent:(UITapGestureRecognizer *)sender {
+    NSLog(@"tapping: %@", self);
     
 }
 

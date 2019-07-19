@@ -57,7 +57,7 @@
      [iQuery findObjectsInBackgroundWithBlock:^(NSArray<Itinerary *> * itinerary, NSError *  error) {
      if(itinerary){
          self.iArray = itinerary;
-         NSLog(@"%@", self.iArray);
+         // NSLog(@"%@", self.iArray);
          [self.collectionView reloadData];
      }
      else{
@@ -89,8 +89,7 @@
 //}
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    NSLog(@"%@", self);
-    // this is really a collectionViewCell
+//    NSLog(@"%@", self);
     UICollectionViewCell *tappedCell = [self.collectionView cellForItemAtIndexPath:indexPath];
     [self performSegueWithIdentifier:@"calendarSegue" sender:tappedCell];
 }
