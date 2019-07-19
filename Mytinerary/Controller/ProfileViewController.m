@@ -6,8 +6,10 @@
 //  Copyright © 2019 michaelvargas. All rights reserved.
 //
 
+#import "AppDelegate.h"
 #import "ProfileViewController.h"
 #import "DailyCalendarViewController.h"
+#import "LoginViewController.h"
 #import "ItineraryCollectionViewCell.h"
 #import "Itinerary.h"
 #import "Parse/Parse.h"
@@ -15,6 +17,7 @@
 
 @interface ProfileViewController () <UICollectionViewDelegate, UICollectionViewDataSource>
 
+//@property (strong, nonatomic) NSArray *iArray;
 
 @end
 
@@ -94,6 +97,18 @@
     [self performSegueWithIdentifier:@"calendarSegue" sender:tappedCell];
 }
 
+
+- (IBAction)logout:(id)sender {
+    [PFUser logOutInBackgroundWithBlock:^(NSError * _Nullable error) {
+        AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        LoginViewController *loginViewController = [storyboard instantiateViewControllerWithIdentifier:@"LoginViewController"];
+        appDelegate.window.rootViewController = loginViewController;
+    }];
+}
+- (IBAction)map:(id)sender {
+    [self performSegueWithIdentifier:@"goToMap" sender:self];
+}
 
 #pragma mark - Navigation
 
