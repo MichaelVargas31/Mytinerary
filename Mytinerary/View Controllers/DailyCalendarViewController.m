@@ -32,7 +32,7 @@
 #import "Parse/Parse.h"
 
 
-@interface DailyCalendarViewController () <UITableViewDelegate, UITableViewDataSource>
+@interface DailyCalendarViewController () <UITableViewDelegate, UITableViewDataSource, CalendarEventViewDelegate>
 
 @end
 
@@ -60,6 +60,9 @@
         DailyCalendarEventUIView *calEventView = [[DailyCalendarEventUIView alloc] init];
         [calEventView createEventViewWithEventModel:event];
         [self.tableView addSubview:calEventView]; // will this work??? IT should... if calEventView is being modified at all?
+        
+        // enable usage of protocol to pass data back to VC
+        calEventView.delegate = self;
         
     }
 }
@@ -93,9 +96,9 @@
     return 48;
 }
 
-- (void)didTapEvent:(UITapGestureRecognizer *)sender {
-    NSLog(@"tapping: %@", self);
+- (void)calendarEventView:(nonnull DailyCalendarEventUIView *)calendarEventView didTapEvent:(nonnull Event *)event {
+    // after tapping event, segue to event details view
+    [self performSegueWithIdentifier:@"eventDetailsSegue" sender:self];
 }
-
 
 @end

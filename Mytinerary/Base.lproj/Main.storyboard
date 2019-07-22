@@ -824,11 +824,12 @@
                     </view>
                     <connections>
                         <outlet property="tableView" destination="ecC-45-JY5" id="5N2-vq-HVy"/>
+                        <segue destination="vfi-ve-A7n" kind="show" identifier="eventDetailsSegue" id="d9T-RH-QQm"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Wko-au-X6b" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2079" y="301"/>
+            <point key="canvasLocation" x="2082" y="301"/>
         </scene>
         <!--Event Details View Controller-->
         <scene sceneID="H8t-UC-jw5">
@@ -847,6 +848,7 @@
                         <outlet property="hotelView" destination="5Xa-qA-xpn" id="1um-VO-XFn"/>
                         <outlet property="titleView" destination="2tG-Jo-8VX" id="8ob-EX-YlS"/>
                         <outlet property="transportationView" destination="DDv-Qj-jni" id="BXQ-UW-SKw"/>
+                        <segue destination="eHQ-Si-fcr" kind="presentation" identifier="editEventSegue" id="gy0-c7-1ub"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="k8a-Mk-oy0" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1133,6 +1135,7 @@
                             <state key="normal" title="edit"/>
                             <connections>
                                 <action selector="onTapCloseButton:" destination="vAc-0f-oMv" eventType="touchUpInside" id="Su2-6I-aLs"/>
+                                <action selector="onTapEditButton:" destination="vfi-ve-A7n" eventType="touchUpInside" id="AD1-QN-RVV"/>
                             </connections>
                         </button>
                     </subviews>
@@ -1143,7 +1146,7 @@
                     </connections>
                 </view>
             </objects>
-            <point key="canvasLocation" x="3175" y="301"/>
+            <point key="canvasLocation" x="2831" y="301"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="A03-oS-P3J">
@@ -1322,4 +1325,8 @@
             <point key="canvasLocation" x="1324" y="301"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="d9T-RH-QQm"/>
+        <segue reference="gy0-c7-1ub"/>
+    </inferredMetricsTieBreakers>
 </document>

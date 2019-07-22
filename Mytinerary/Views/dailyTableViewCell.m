@@ -23,7 +23,7 @@ static int const DAILY_TABLE_VIEW_CELL_ROW_HEIGHT = 100;
 }
 
 
-+ (NSNumber *) returnRowHeight {
++ (NSNumber *)returnRowHeight {
     return  @(DAILY_TABLE_VIEW_CELL_ROW_HEIGHT);
 }
 

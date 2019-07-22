@@ -13,6 +13,7 @@
 #import "EventDetailsTransportationView.h"
 #import "EventDetailsFoodView.h"
 #import "EventDetailsHotelView.h"
+#import "InputEventViewController.h"
 
 static int const TITLE_VIEW_HEIGHT = 100;
 static int const DESCRIPTION_VIEW_HEIGHT = 300;
@@ -116,14 +117,19 @@ static int const HOTEL_VIEW_HEIGHT = 110;
     }
 }
 
-/*
+- (IBAction)onTapEditButton:(id)sender {
+    [self performSegueWithIdentifier:@"editEventSegue" sender:self];
+}
+
+
 #pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+    if ([[segue identifier] isEqualToString:@"editEventSegue"]) {
+        InputEventViewController *inputEventVC = [segue destinationViewController];
+        inputEventVC.event = self.event;
+    }
 }
-*/
+
 
 @end
