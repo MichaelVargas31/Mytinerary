@@ -12,6 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface EventDetailsTitleView : UIView
 
+@property (weak, nonatomic) IBOutlet UILabel *titleLabel;
+
 @end
 
 NS_ASSUME_NONNULL_END

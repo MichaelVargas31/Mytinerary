@@ -69,7 +69,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-212" y="-170"/>
+            <point key="canvasLocation" x="-577" y="-287"/>
         </scene>
         <!--Profile Page-->
         <scene sceneID="2Cs-cf-7Nj">
@@ -820,7 +820,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Wko-au-X6b" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2310" y="301"/>
+            <point key="canvasLocation" x="2079" y="301"/>
         </scene>
         <!--Event Details View Controller-->
         <scene sceneID="H8t-UC-jw5">
@@ -892,6 +892,11 @@
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <viewLayoutGuide key="safeArea" id="Y35-Xn-X99"/>
+                    <connections>
+                        <outlet property="costLabel" destination="FEO-eE-32X" id="jJe-k6-t0g"/>
+                        <outlet property="descriptionLabel" destination="E3Q-zG-3ME" id="G23-FI-Tcx"/>
+                        <outlet property="notesLabel" destination="O3m-nW-uFT" id="MgO-YS-O9E"/>
+                    </connections>
                 </view>
                 <view contentMode="scaleToFill" id="jae-la-gtP" customClass="EventDetailsActivityView">
                     <rect key="frame" x="0.0" y="0.0" width="375" height="80"/>
@@ -928,6 +933,11 @@
                     </subviews>
                     <color key="backgroundColor" red="1" green="0.83234566450000003" blue="0.47320586440000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <viewLayoutGuide key="safeArea" id="oda-34-mSZ"/>
+                    <connections>
+                        <outlet property="addressLabel" destination="MjL-Gr-LZX" id="7LI-cD-K88"/>
+                        <outlet property="endTimeLabel" destination="WFc-bE-hg0" id="wov-mm-Ic1"/>
+                        <outlet property="startTimeLabel" destination="c9f-ey-KBp" id="bEP-hi-XDr"/>
+                    </connections>
                 </view>
                 <view contentMode="scaleToFill" id="DDv-Qj-jni" customClass="EventDetailsTransportationView">
                     <rect key="frame" x="0.0" y="0.0" width="375" height="180"/>
@@ -992,6 +1002,13 @@
                     </subviews>
                     <color key="backgroundColor" red="0.56283293980000004" green="0.82296055560000003" blue="0.71838458179999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                     <viewLayoutGuide key="safeArea" id="uJp-bz-Bhx"/>
+                    <connections>
+                        <outlet property="endAddressLabel" destination="lvX-Xf-7hf" id="Ecl-92-ElX"/>
+                        <outlet property="endTimeLabel" destination="IPK-wE-F9W" id="H9X-ea-PdZ"/>
+                        <outlet property="startAddressLabel" destination="i1v-4b-Ipd" id="qma-Yd-ZDZ"/>
+                        <outlet property="startTimeLabel" destination="A9t-gW-HcA" id="leF-Nc-J8X"/>
+                        <outlet property="transpoTypeLabel" destination="VbW-MB-VmT" id="l4P-N7-QWX"/>
+                    </connections>
                 </view>
                 <view contentMode="scaleToFill" id="5Tv-H4-KVj" customClass="EventDetailsFoodView">
                     <rect key="frame" x="0.0" y="0.0" width="375" height="110"/>
@@ -1035,6 +1052,12 @@
                     </subviews>
                     <color key="backgroundColor" red="0.47684186699999997" green="0.50480759139999998" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <viewLayoutGuide key="safeArea" id="5kj-W4-6ff"/>
+                    <connections>
+                        <outlet property="addressLabel" destination="yWZ-EW-cpL" id="4Dl-Ii-gg4"/>
+                        <outlet property="endTimeLabel" destination="9tg-OF-OUG" id="kn1-Jb-5Wh"/>
+                        <outlet property="foodTypeLabel" destination="5AQ-9T-4Xs" id="bNA-aP-OCv"/>
+                        <outlet property="startTimeLabel" destination="f1v-ac-WgS" id="kHK-bp-hAy"/>
+                    </connections>
                 </view>
                 <view contentMode="scaleToFill" id="5Xa-qA-xpn" customClass="EventDetailsHotelView">
                     <rect key="frame" x="0.0" y="0.0" width="375" height="110"/>
@@ -1078,6 +1101,12 @@
                     </subviews>
                     <color key="backgroundColor" red="0.93939012290000001" green="0.76825676720000002" blue="0.85953596129999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                     <viewLayoutGuide key="safeArea" id="bPs-7o-MTQ"/>
+                    <connections>
+                        <outlet property="addressLabel" destination="Aus-Pb-eGF" id="NCg-s3-BN8"/>
+                        <outlet property="endTimeLabel" destination="m5t-nU-RZ7" id="ok4-Cw-7Oe"/>
+                        <outlet property="hotelTypeLabel" destination="jto-mv-cZB" id="tgR-TC-lVf"/>
+                        <outlet property="startTimeLabel" destination="d8p-qD-fej" id="ZfX-ry-lxg"/>
+                    </connections>
                 </view>
                 <view contentMode="scaleToFill" id="2tG-Jo-8VX" customClass="EventDetailsTitleView">
                     <rect key="frame" x="0.0" y="0.0" width="375" height="100"/>
@@ -1101,9 +1130,12 @@
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <viewLayoutGuide key="safeArea" id="XIB-z3-fFA"/>
+                    <connections>
+                        <outlet property="titleLabel" destination="sBb-JL-JBQ" id="RRb-4d-28T"/>
+                    </connections>
                 </view>
             </objects>
-            <point key="canvasLocation" x="3361" y="301"/>
+            <point key="canvasLocation" x="3266" y="301"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="A03-oS-P3J">
@@ -1122,6 +1154,40 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1FQ-oA-Lhk" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="865" y="-733"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="J6j-eR-6Uz">
+            <objects>
+                <viewController id="v2s-7K-Yl1" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Ri4-NM-ZJA">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4Se-7g-a4L">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="221"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.0" green="0.56284224989999998" blue="0.31881666180000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </imageView>
+                            <view alpha="0.29999999999999999" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6SO-do-qHx">
+                                <rect key="frame" x="0.0" y="169" width="375" height="52"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Itinerary Title Here" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jhz-Gs-eIj">
+                                <rect key="frame" x="16" y="180" width="183" height="29"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" weight="light" pointSize="24"/>
+                                <color key="textColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="4GG-ta-Drv"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="4vL-kr-Pll" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="484" y="300.89955022488761"/>
         </scene>
         <!--Map View Controller-->
         <scene sceneID="kgU-Bg-WbE">

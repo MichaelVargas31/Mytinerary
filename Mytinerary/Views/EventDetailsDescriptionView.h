@@ -12,6 +12,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface EventDetailsDescriptionView : UIView
 
+@property (weak, nonatomic) IBOutlet UILabel *descriptionLabel;
+@property (weak, nonatomic) IBOutlet UILabel *costLabel;
+@property (weak, nonatomic) IBOutlet UILabel *notesLabel;
+
 @end
 
 NS_ASSUME_NONNULL_END

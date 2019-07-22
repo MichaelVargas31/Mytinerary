@@ -12,6 +12,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface EventDetailsTransportationView : UIView
 
+@property (weak, nonatomic) IBOutlet UILabel *startTimeLabel;
+@property (weak, nonatomic) IBOutlet UILabel *endTimeLabel;
+@property (weak, nonatomic) IBOutlet UILabel *transpoTypeLabel;
+@property (weak, nonatomic) IBOutlet UILabel *startAddressLabel;
+@property (weak, nonatomic) IBOutlet UILabel *endAddressLabel;
+
 @end
 
 NS_ASSUME_NONNULL_END

@@ -12,6 +12,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface EventDetailsActivityView : UIView
 
+@property (weak, nonatomic) IBOutlet UILabel *startTimeLabel;
+@property (weak, nonatomic) IBOutlet UILabel *endTimeLabel;
+@property (weak, nonatomic) IBOutlet UILabel *addressLabel;
+
 @end
 
 NS_ASSUME_NONNULL_END
