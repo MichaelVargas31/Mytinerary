@@ -17,9 +17,4 @@
     // Drawing code
 }
 */
-
-- (IBAction)onTapCloseButton:(id)sender {
-    NSLog(@"close button tapped");
-    [sender dismissViewControllerAnimated:YES completion:nil];
-}
 @end

@@ -18,8 +18,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UIDatePicker *startTimeDatePicker;
 @property (weak, nonatomic) IBOutlet UIDatePicker *endTimeDatePicker;
 
-- (IBAction)onTapCloseButton:(id)sender;
-
 @end
 
 NS_ASSUME_NONNULL_END
