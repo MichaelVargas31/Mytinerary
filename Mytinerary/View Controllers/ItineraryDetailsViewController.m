@@ -29,6 +29,7 @@
     dateFormatter.locale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US_POSIX"];
     dateFormatter.dateFormat = @"h:mm a, MMM d";
     
+    // initialize labels on view
     self.titleLabel.text = self.itinerary.title;
     self.startTimeLabel.text = [dateFormatter stringFromDate:self.itinerary.startTime];
     self.endTimeLabel.text = [dateFormatter stringFromDate:self.itinerary.endTime];
