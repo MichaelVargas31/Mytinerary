@@ -11,6 +11,7 @@
 #import "DailyCalendarViewController.h"
 #import "LoginViewController.h"
 #import "ItineraryCollectionViewCell.h"
+#import "ProfileCollectionReusableView.h"
 #import "Itinerary.h"
 #import "Parse/Parse.h"
 
@@ -29,6 +30,8 @@
    
     self.collectionView.dataSource=self;
     self.collectionView.delegate=self;
+    
+    // insert profile cell
     
     //fetch itineraries
     [self fetchitineraries];
@@ -71,9 +74,7 @@
 - (nonnull __kindof UICollectionViewCell *)collectionView:(nonnull UICollectionView *)collectionView cellForItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
     
     ItineraryCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"ItineraryCollectionViewCell" forIndexPath:indexPath];
-   
     Itinerary *itinerary = self.iArray[indexPath.item];
-
     cell.title.text=itinerary.title;
     
     return cell;
@@ -81,7 +82,24 @@
 
 - (NSInteger)collectionView:(nonnull UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
    return self.iArray.count;
-   }
+}
+
+
+
+
+// Method to add profile header to collection View
+- (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
+    
+    UICollectionReusableView *reusableview = nil;
+    
+    if (kind == UICollectionElementKindSectionHeader) {
+        ProfileCollectionReusableView *profileHeaderView = [self.collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"ProfileCell" forIndexPath:indexPath];
+        profileHeaderView.usernameLabel.text = @"USERNAME [hard-coded]";
+        reusableview = profileHeaderView;
+    }
+    
+    return reusableview;
+}
 
 
 
