@@ -48,24 +48,34 @@
     
 }
 -(void) fetchitineraries{
-    
     //Itinerary Query
-    
-     PFQuery *iQuery = [Itinerary query];
-     [iQuery orderByDescending: @"createdAt"];
-     [iQuery includeKey: @"author"];
-     iQuery.limit =6;
-     
-     //fetch data
-     [iQuery findObjectsInBackgroundWithBlock:^(NSArray<Itinerary *> * itinerary, NSError *  error) {
-     if(itinerary){
-     self.iArray = itinerary;
-     [self.collectionView reloadData];
-     }
-     else{
-         //handle error
-     }
-     }];
+    PFQuery *iQuery = [Itinerary query];
+    //Search Where author of itineraries is equal to the current user logged in
+    [iQuery whereKey:@"author" equalTo:PFUser.currentUser];
+    [iQuery getFirstObjectInBackgroundWithBlock:^(PFObject *object, NSError *error)
+    {
+        if (!error) {
+            //You found the user!
+            PFUser *queriedUser = (PFUser *)object;
+            
+            [iQuery orderByDescending: @"createdAt"];
+            [iQuery includeKey: @"author"];
+            iQuery.limit =10;
+            
+            //fetch data
+            [iQuery findObjectsInBackgroundWithBlock:^(NSArray<Itinerary *> * itinerary, NSError *  error) {
+                if(itinerary){
+                    self.iArray = itinerary;
+                    [self.collectionView reloadData];
+                }
+                else{
+                    NSLog(@"Error fetching data");
+                }
+            }];
+        }
+        
+    }];
+  
 }
 
 - (nonnull __kindof UICollectionViewCell *)collectionView:(nonnull UICollectionView *)collectionView cellForItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
