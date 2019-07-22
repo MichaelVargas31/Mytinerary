@@ -211,6 +211,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="collectionView" destination="PWN-zR-u73" id="85v-RW-p1V"/>
+                        <outlet property="usernameLabel" destination="8Ht-bu-hEt" id="fNd-pF-zZC"/>
                         <segue destination="P9I-0f-YVX" kind="show" identifier="goToMap" id="S7B-S6-hJV"/>
                         <segue destination="rWW-ig-3vo" kind="show" identifier="calendarSegue" id="hey-4Z-0eK"/>
                     </connections>

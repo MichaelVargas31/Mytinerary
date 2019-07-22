@@ -13,11 +13,10 @@
 #import "ItineraryCollectionViewCell.h"
 #import "Itinerary.h"
 #import "Parse/Parse.h"
+#import "User.h"
 
 
 @interface ProfileViewController () <UICollectionViewDelegate, UICollectionViewDataSource>
-
-//@property (strong, nonatomic) NSArray *iArray;
 
 @end
 
@@ -30,6 +29,9 @@
     self.collectionView.dataSource=self;
     self.collectionView.delegate=self;
     
+    //sets the username on the profile view
+    self.usernameLabel.text=User.currentUser.username;
+    
     //fetch itineraries
     [self fetchitineraries];
     
@@ -38,7 +40,7 @@
     
     //spacing
     
-    //posters per line - (maybe) CGFloat postersPerLine=2;
+    //posters per line (maybe) CGFloat postersPerLine=2;
     
     //item size
     //Fix size later to make it look better
