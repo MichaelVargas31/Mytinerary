@@ -206,6 +206,14 @@
                                     <segue destination="vfi-ve-A7n" kind="show" id="3Jp-OF-e5h"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Uye-vP-can">
+                                <rect key="frame" x="133" y="151" width="101" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="itin details test"/>
+                                <connections>
+                                    <segue destination="v2s-7K-Yl1" kind="show" id="M1X-SP-v6r"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="IqF-BB-M5L"/>
@@ -1188,7 +1196,7 @@
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="118" id="j6n-ky-dFq">
                                         <rect key="frame" x="0.0" y="28" width="375" height="118"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="j6n-ky-dFq" id="noQ-VV-4Rh">
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="j6n-ky-dFq" id="noQ-VV-4Rh" customClass="EventTableViewCell">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="117.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
@@ -1229,6 +1237,12 @@
                                                 </label>
                                             </subviews>
                                             <color key="backgroundColor" red="1" green="0.83234566450000003" blue="0.47320586440000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <connections>
+                                                <outlet property="descriptionLabel" destination="9q0-u1-LdN" id="yDm-IR-rdB"/>
+                                                <outlet property="endTimeLabel" destination="jGq-FJ-NC7" id="NSt-Ss-BKh"/>
+                                                <outlet property="startTimeLabel" destination="VKv-dn-8Pp" id="9SB-xQ-3Wj"/>
+                                                <outlet property="titleLabel" destination="gfE-zp-WIR" id="TE5-29-KII"/>
+                                            </connections>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                 </prototypes>
@@ -1272,6 +1286,12 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="4GG-ta-Drv"/>
                     </view>
+                    <connections>
+                        <outlet property="budgetLabel" destination="1S5-LT-6h4" id="FXN-hu-iGE"/>
+                        <outlet property="endTimeLabel" destination="M5T-jR-ujS" id="Kui-WB-t0m"/>
+                        <outlet property="startTimeLabel" destination="qlY-B4-Sol" id="H3A-DE-WTb"/>
+                        <outlet property="titleLabel" destination="jhz-Gs-eIj" id="kLK-ac-KhY"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4vL-kr-Pll" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

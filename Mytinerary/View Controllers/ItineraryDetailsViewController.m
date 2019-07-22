@@ -10,13 +10,29 @@
 
 @interface ItineraryDetailsViewController ()
 
+@property (weak, nonatomic) IBOutlet UILabel *titleLabel;
+@property (weak, nonatomic) IBOutlet UILabel *startTimeLabel;
+@property (weak, nonatomic) IBOutlet UILabel *endTimeLabel;
+@property (weak, nonatomic) IBOutlet UILabel *budgetLabel;
+
 @end
 
 @implementation ItineraryDetailsViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    
+    // setup date formatter
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    dateFormatter.dateStyle = NSDateFormatterMediumStyle;
+    dateFormatter.timeStyle = NSDateFormatterNoStyle;
+    dateFormatter.locale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US_POSIX"];
+    dateFormatter.dateFormat = @"h:mm a, MMM d";
+    
+    self.titleLabel.text = self.itinerary.title;
+    self.startTimeLabel.text = [dateFormatter stringFromDate:self.itinerary.startTime];
+    self.endTimeLabel.text = [dateFormatter stringFromDate:self.itinerary.endTime];
+    self.budgetLabel.text = [NSString stringWithFormat:@"$%@", self.itinerary.budget];
 }
 
 /*
