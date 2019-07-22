@@ -28,6 +28,7 @@
 #import "DailyCalendarViewController.h"
 #import "DailyTableViewCell.h"
 #import "DailyCalendarEventUIView.h"
+#import "EventDetailsViewController.h"
 #import "Event.h"
 #import "Parse/Parse.h"
 
@@ -67,16 +68,16 @@
     }
 }
 
-
-/*
-#pragma mark - Navigationr
+#pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+    if ([[segue identifier] isEqualToString:@"eventDetailsSegue"]) {
+        EventDetailsViewController *eventDetailsViewController = [segue destinationViewController];
+        eventDetailsViewController.event = sender;
+    }
 }
-*/
+
 
 - (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
     
@@ -98,7 +99,7 @@
 
 - (void)calendarEventView:(nonnull DailyCalendarEventUIView *)calendarEventView didTapEvent:(nonnull Event *)event {
     // after tapping event, segue to event details view
-    [self performSegueWithIdentifier:@"eventDetailsSegue" sender:self];
+    [self performSegueWithIdentifier:@"eventDetailsSegue" sender:event];
 }
 
 @end

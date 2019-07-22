@@ -68,10 +68,15 @@ static int const HOTEL_VIEW_HEIGHT = 110;
     // add shared event details title view
     [stackView addArrangedSubview:self.titleView];
     [self.titleView.heightAnchor constraintEqualToConstant:TITLE_VIEW_HEIGHT].active = YES;
+    // initialize title view labels
+    self.titleView.titleLabel.text = self.event.title;
     
     // add shared event description view
     [stackView addArrangedSubview:self.descriptionView];
     [self.descriptionView.heightAnchor constraintEqualToConstant:DESCRIPTION_VIEW_HEIGHT].active = YES;
+    self.descriptionView.descriptionLabel.text = self.event.eventDescription;
+    self.descriptionView.costLabel.text = [NSString stringWithFormat:@"$%@", self.event.cost];
+    self.descriptionView.notesLabel.text = self.event.notes;
     
     // render view according to category
     NSString *eventCategory = @"activity"; // testing... self.event.category;
