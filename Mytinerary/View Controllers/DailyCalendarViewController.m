@@ -29,10 +29,11 @@
 #import "DailyTableViewCell.h"
 #import "DailyCalendarEventUIView.h"
 #import "Event.h"
+#import "FSCalendar.h"
 #import "Parse/Parse.h"
 
 
-@interface DailyCalendarViewController () <UITableViewDelegate, UITableViewDataSource>
+@interface DailyCalendarViewController () <UITableViewDelegate, UITableViewDataSource, FSCalendarDataSource, FSCalendarDelegate>
 
 @end
 
@@ -43,7 +44,11 @@
     // Do any additional setup after loading the view.
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
+    self.itineraryFSCalendar.dataSource = self;
+    self.itineraryFSCalendar.delegate = self;
     
+    // initially, only the daily calendar view will be visible
+    [self.itineraryFSCalendar setFrame:CGRectMake(self.itineraryFSCalendar.frame.origin.x, self.itineraryFSCalendar.frame.origin.y, self.itineraryFSCalendar.frame.size.width, 0)];
     // initializing formatter for calculating cell's times
     self.timeOfDayFormatter = [[NSDateFormatter alloc] init];
     [self.timeOfDayFormatter setDateFormat:@"HH:mm:ss"];
