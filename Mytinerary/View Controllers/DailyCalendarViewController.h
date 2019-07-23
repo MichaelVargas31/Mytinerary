@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "Itinerary.h"
+#import "FSCalendar.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -15,11 +16,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (strong, nonatomic) Itinerary *itinerary;
 @property (strong, nonatomic) NSDateFormatter *timeOfDayFormatter;
-@property (strong, nonatomic) NSArray *eventArray;
+@property (strong, nonatomic) NSArray *sortedEventsArray;
 
+@property (weak, nonatomic) IBOutlet FSCalendar *itineraryFSCalendar;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-
-- (void)didTapEvent:(UITapGestureRecognizer *)sender;
 
 @end
 

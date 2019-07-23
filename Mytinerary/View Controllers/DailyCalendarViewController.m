@@ -6,25 +6,17 @@
 //  Copyright © 2019 michaelvargas. All rights reserved.
 //
 
-
-/*
- 
- Questions:
-    - Should formatter be defined as a property of the Daily View Controller?
-    - Currently iterating through 'events' array of pointers in itinerary, using the ID to fetch said
-            event from parse. More efficient way?
-    - How do I access the tableview.rowheight from the UIView file?
-
- */
-
 #import "DailyCalendarViewController.h"
 #import "DailyTableViewCell.h"
 #import "DailyCalendarEventUIView.h"
+#import "EventDetailsViewController.h"
 #import "Event.h"
+#import "FSCalendar.h"
 #import "Parse/Parse.h"
 
 
-@interface DailyCalendarViewController () <UITableViewDelegate, UITableViewDataSource>
+@interface DailyCalendarViewController () <UITableViewDelegate, UITableViewDataSource, FSCalendarDataSource, FSCalendarDelegate>
+
 
 @end
 
@@ -35,6 +27,11 @@
     // Do any additional setup after loading the view.
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
+    self.itineraryFSCalendar.dataSource = self;
+    self.itineraryFSCalendar.delegate = self;
+    
+    // initially, only the daily calendar view will be visible
+    [self.itineraryFSCalendar setFrame:CGRectMake(self.itineraryFSCalendar.frame.origin.x, self.itineraryFSCalendar.frame.origin.y, self.itineraryFSCalendar.frame.size.width, 0)];
     
     // initializing formatter for calculating cell's times
     self.timeOfDayFormatter = [[NSDateFormatter alloc] init];
@@ -43,12 +40,39 @@
     self.tableView.rowHeight = 200;
     
     
-    
     NSArray *events = [NSArray arrayWithArray:self.itinerary.events];
     NSMutableArray *eventIDs = [[NSMutableArray alloc] init];
     for (int i =0; i < events.count; i ++) {
         Event *one = events[i];
         [eventIDs addObject:one.objectId];
+//     // store events in temporary mutable array
+//     NSMutableArray *tempEventArray = [[NSMutableArray alloc] init];
+//     for (NSInteger i = 0; i < self.itinerary.events.count; i++) {
+//         Event *event = self.itinerary.events[i];
+//         [event fetchIfNeeded];  // might be whats taking long time
+//         [tempEventArray addObject:event];
+//         NSLog(@"Event arraY: %@", tempEventArray);
+//     }
+    
+    // sort events  [ERROR CHECK WHEN WE HAVE MORE EVENTS]
+    [tempEventArray sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull event1, id  _Nonnull event2) {
+        NSDate *first = [event1 startTime];
+        NSDate *second = [event2 startTime];
+        return [first compare:second];
+    }];
+    self.sortedEventsArray = [NSArray arrayWithArray:tempEventArray];
+    
+    // now add sorted onto tableView
+    // If events overlap incorrectly, it may be because we are sorting in the opposite direction
+    for (NSInteger i = self.sortedEventsArray.count; i > 0; i--) {
+        // Create event & add to tableView
+        DailyCalendarEventUIView *calEventView = [[DailyCalendarEventUIView alloc] init];
+        [calEventView createEventViewWithEventModel:self.sortedEventsArray[i-1]];
+        [self.tableView addSubview:calEventView]; // will this work??? IT should... if calEventView is being modified at all?
+        
+        // enable usage of protocol to pass data back to VC
+        calEventView.delegate = self;
+        
     }
     
     PFQuery *query = [Event query];
@@ -58,6 +82,9 @@
             NSLog(@"  recieved:  %@", fullEventArray);
             self.eventArray = fullEventArray;
             NSLog(@"  new array:  %@", self.eventArray);
+          
+          
+          
             for (int i =0; i < self.eventArray.count; i++) {
                 DailyCalendarEventUIView *calEventView = [[DailyCalendarEventUIView alloc] init];
                 [calEventView createEventViewWithEventModel:self.eventArray[i]];
@@ -67,39 +94,17 @@
             NSLog(@"error: %@", error.localizedDescription);
         }
     }];
-    
-    
-    
-//    List<ParseObject> parseObjects = new ArrayList<>();
-//    for (String objectId : listObjectId) {
-//        parseObjects.add(ParseObject.createWithoutData(ItemModel.class, objectId));
-//    }
-//
-//    ParseObject.fetchAll(parseObjects);
-//    // parseObjects will now contain all data retrieved from Parse.
-//
-//    for (NSInteger i = 0; i < self.itinerary.events.count; i++) {
-//        Event *event = self.itinerary.events[i];
-//        [event fetchIfNeeded];  // might be whats taking long time
-//
-//        // Create event & add to tableView
-//        DailyCalendarEventUIView *calEventView = [[DailyCalendarEventUIView alloc] init];
-//        [calEventView createEventViewWithEventModel:event];
-//        [self.tableView addSubview:calEventView]; // will this work??? IT should... if calEventView is being modified at all?
-//
-//    }
-}
 
-
-/*
-#pragma mark - Navigationr
+#pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+    if ([[segue identifier] isEqualToString:@"eventDetailsSegue"]) {
+        EventDetailsViewController *eventDetailsViewController = [segue destinationViewController];
+        eventDetailsViewController.event = sender;
+    }
 }
-*/
+
 
 - (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
     
@@ -119,9 +124,9 @@
     return 48;
 }
 
-- (void)didTapEvent:(UITapGestureRecognizer *)sender {
-    NSLog(@"tapping: %@", self);
+- (void)calendarEventView:(nonnull DailyCalendarEventUIView *)calendarEventView didTapEvent:(nonnull Event *)event {
+    // after tapping event, segue to event details view
+    [self performSegueWithIdentifier:@"eventDetailsSegue" sender:event];
 }
-
 
 @end
