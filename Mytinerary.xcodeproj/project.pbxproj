@@ -20,6 +20,7 @@
 		8448C0F522DFA2C800427FB2 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 8448C0EF22DFA2C800427FB2 /* User.m */; };
 		8448C0F622DFA2C800427FB2 /* Itinerary.m in Sources */ = {isa = PBXBuildFile; fileRef = 8448C0F122DFA2C800427FB2 /* Itinerary.m */; };
 		8448C0F722DFA2C800427FB2 /* Event.m in Sources */ = {isa = PBXBuildFile; fileRef = 8448C0F222DFA2C800427FB2 /* Event.m */; };
+		8468099222E67F4A001F9F0C /* SearchLocationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8468099022E67F4A001F9F0C /* SearchLocationViewController.m */; };
 		8495D7A922DE8BDD00CFED2D /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8495D7A822DE8BDD00CFED2D /* LoginViewController.m */; };
 		8495D7AE22DE991B00CFED2D /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8495D7AD22DE991B00CFED2D /* ProfileViewController.m */; };
 		8495D7B122DF879600CFED2D /* ItineraryCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8495D7B022DF879600CFED2D /* ItineraryCollectionViewCell.m */; };
@@ -80,6 +81,8 @@
 		8448C0F222DFA2C800427FB2 /* Event.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Event.m; sourceTree = "<group>"; };
 		8448C0F322DFA2C800427FB2 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
 		8448C0F422DFA2C800427FB2 /* Itinerary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Itinerary.h; sourceTree = "<group>"; };
+		8468099022E67F4A001F9F0C /* SearchLocationViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = SearchLocationViewController.m; path = /Users/samason1/Desktop/Mytinerary/Mytinerary/SearchLocationViewController.m; sourceTree = "<absolute>"; };
+		8468099122E67F4A001F9F0C /* SearchLocationViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SearchLocationViewController.h; path = /Users/samason1/Desktop/Mytinerary/Mytinerary/SearchLocationViewController.h; sourceTree = "<absolute>"; };
 		8495D7A722DE8BDD00CFED2D /* LoginViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		8495D7A822DE8BDD00CFED2D /* LoginViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		8495D7AC22DE991B00CFED2D /* ProfileViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProfileViewController.h; sourceTree = "<group>"; };
@@ -263,6 +266,8 @@
 		FF6C5F2B22DE865400D0EB83 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				8468099122E67F4A001F9F0C /* SearchLocationViewController.h */,
+				8468099022E67F4A001F9F0C /* SearchLocationViewController.m */,
 				23F5A9ED22E0D9B50084086B /* InputEventViewController.h */,
 				23F5A9EE22E0D9B50084086B /* InputEventViewController.m */,
 				FF6C5F2C22DE868D00D0EB83 /* DailyCalendarViewController.h */,
@@ -525,6 +530,7 @@
 				8448C0F522DFA2C800427FB2 /* User.m in Sources */,
 				23F5A9E922DFE59A0084086B /* InputItineraryViewController.m in Sources */,
 				23F5AA3622E120AB0084086B /* EventInputFoodView.m in Sources */,
+				8468099222E67F4A001F9F0C /* SearchLocationViewController.m in Sources */,
 				8495D7A922DE8BDD00CFED2D /* LoginViewController.m in Sources */,
 				8448C0F722DFA2C800427FB2 /* Event.m in Sources */,
 				23F5A9EF22E0D9B50084086B /* InputEventViewController.m in Sources */,
