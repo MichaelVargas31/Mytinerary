@@ -1,14 +1,14 @@
 //
-//  EventInputSharedView.m
+//  EventDetailsActivityView.m
 //  Mytinerary
 //
-//  Created by ehhong on 7/18/19.
+//  Created by ehhong on 7/22/19.
 //  Copyright © 2019 michaelvargas. All rights reserved.
 //
 
-#import "EventInputSharedView.h"
+#import "EventDetailsActivityView.h"
 
-@implementation EventInputSharedView
+@implementation EventDetailsActivityView
 
 /*
 // Only override drawRect: if you perform custom drawing.
@@ -18,8 +18,4 @@
 }
 */
 
-- (IBAction)onTapCloseButton:(id)sender {
-    NSLog(@"close button tapped");
-    [sender dismissViewControllerAnimated:YES completion:nil];
-}
 @end

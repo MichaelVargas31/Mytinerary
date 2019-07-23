@@ -17,6 +17,15 @@
 		23F5AA3622E120AB0084086B /* EventInputFoodView.m in Sources */ = {isa = PBXBuildFile; fileRef = 23F5AA3522E120AB0084086B /* EventInputFoodView.m */; };
 		23F5AA3922E124380084086B /* EventInputHotelView.m in Sources */ = {isa = PBXBuildFile; fileRef = 23F5AA3822E124380084086B /* EventInputHotelView.m */; };
 		23F5AA3C22E22DFA0084086B /* EventInputSubmitView.m in Sources */ = {isa = PBXBuildFile; fileRef = 23F5AA3B22E22DFA0084086B /* EventInputSubmitView.m */; };
+		23F5AA4222E617D30084086B /* EventDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 23F5AA4122E617D30084086B /* EventDetailsViewController.m */; };
+		23F5AA4722E61DA40084086B /* EventDetailsTitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 23F5AA4622E61DA40084086B /* EventDetailsTitleView.m */; };
+		23F5AA4A22E61DBE0084086B /* EventDetailsDescriptionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 23F5AA4922E61DBE0084086B /* EventDetailsDescriptionView.m */; };
+		23F5AA4D22E61DCF0084086B /* EventDetailsActivityView.m in Sources */ = {isa = PBXBuildFile; fileRef = 23F5AA4C22E61DCF0084086B /* EventDetailsActivityView.m */; };
+		23F5AA5022E61DE10084086B /* EventDetailsTransportationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 23F5AA4F22E61DE10084086B /* EventDetailsTransportationView.m */; };
+		23F5AA5322E61DF40084086B /* EventDetailsFoodView.m in Sources */ = {isa = PBXBuildFile; fileRef = 23F5AA5222E61DF40084086B /* EventDetailsFoodView.m */; };
+		23F5AA5622E61E090084086B /* EventDetailsHotelView.m in Sources */ = {isa = PBXBuildFile; fileRef = 23F5AA5522E61E090084086B /* EventDetailsHotelView.m */; };
+		23F5AA5922E62B520084086B /* ItineraryDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 23F5AA5822E62B520084086B /* ItineraryDetailsViewController.m */; };
+		23F5AA5D22E641EC0084086B /* EventTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 23F5AA5C22E641EC0084086B /* EventTableViewCell.m */; };
 		8448C0F522DFA2C800427FB2 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 8448C0EF22DFA2C800427FB2 /* User.m */; };
 		8448C0F622DFA2C800427FB2 /* Itinerary.m in Sources */ = {isa = PBXBuildFile; fileRef = 8448C0F122DFA2C800427FB2 /* Itinerary.m */; };
 		8448C0F722DFA2C800427FB2 /* Event.m in Sources */ = {isa = PBXBuildFile; fileRef = 8448C0F222DFA2C800427FB2 /* Event.m */; };
@@ -75,6 +84,24 @@
 		23F5AA3822E124380084086B /* EventInputHotelView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EventInputHotelView.m; sourceTree = "<group>"; };
 		23F5AA3A22E22DFA0084086B /* EventInputSubmitView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EventInputSubmitView.h; sourceTree = "<group>"; };
 		23F5AA3B22E22DFA0084086B /* EventInputSubmitView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EventInputSubmitView.m; sourceTree = "<group>"; };
+		23F5AA4022E617D30084086B /* EventDetailsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EventDetailsViewController.h; sourceTree = "<group>"; };
+		23F5AA4122E617D30084086B /* EventDetailsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EventDetailsViewController.m; sourceTree = "<group>"; };
+		23F5AA4522E61DA40084086B /* EventDetailsTitleView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EventDetailsTitleView.h; sourceTree = "<group>"; };
+		23F5AA4622E61DA40084086B /* EventDetailsTitleView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EventDetailsTitleView.m; sourceTree = "<group>"; };
+		23F5AA4822E61DBE0084086B /* EventDetailsDescriptionView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EventDetailsDescriptionView.h; sourceTree = "<group>"; };
+		23F5AA4922E61DBE0084086B /* EventDetailsDescriptionView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EventDetailsDescriptionView.m; sourceTree = "<group>"; };
+		23F5AA4B22E61DCF0084086B /* EventDetailsActivityView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EventDetailsActivityView.h; sourceTree = "<group>"; };
+		23F5AA4C22E61DCF0084086B /* EventDetailsActivityView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EventDetailsActivityView.m; sourceTree = "<group>"; };
+		23F5AA4E22E61DE10084086B /* EventDetailsTransportationView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EventDetailsTransportationView.h; sourceTree = "<group>"; };
+		23F5AA4F22E61DE10084086B /* EventDetailsTransportationView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EventDetailsTransportationView.m; sourceTree = "<group>"; };
+		23F5AA5122E61DF40084086B /* EventDetailsFoodView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EventDetailsFoodView.h; sourceTree = "<group>"; };
+		23F5AA5222E61DF40084086B /* EventDetailsFoodView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EventDetailsFoodView.m; sourceTree = "<group>"; };
+		23F5AA5422E61E090084086B /* EventDetailsHotelView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EventDetailsHotelView.h; sourceTree = "<group>"; };
+		23F5AA5522E61E090084086B /* EventDetailsHotelView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EventDetailsHotelView.m; sourceTree = "<group>"; };
+		23F5AA5722E62B520084086B /* ItineraryDetailsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ItineraryDetailsViewController.h; sourceTree = "<group>"; };
+		23F5AA5822E62B520084086B /* ItineraryDetailsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ItineraryDetailsViewController.m; sourceTree = "<group>"; };
+		23F5AA5B22E641EC0084086B /* EventTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EventTableViewCell.h; sourceTree = "<group>"; };
+		23F5AA5C22E641EC0084086B /* EventTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EventTableViewCell.m; sourceTree = "<group>"; };
 		58B8F33A939BCC86C8C98935 /* Pods_MytineraryTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MytineraryTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8448C0EF22DFA2C800427FB2 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
 		8448C0F022DFA2C800427FB2 /* Event.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Event.h; sourceTree = "<group>"; };
@@ -156,6 +183,44 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		23F5AA4422E61D6E0084086B /* Event Input Views */ = {
+			isa = PBXGroup;
+			children = (
+				23F5A9EA22E0D3890084086B /* EventInputSharedView.h */,
+				23F5A9EB22E0D3890084086B /* EventInputSharedView.m */,
+				23F5A9F022E0DEAD0084086B /* EventInputActivityView.h */,
+				23F5A9F122E0DEAD0084086B /* EventInputActivityView.m */,
+				23F5AA3122E11F310084086B /* EventInputTransportationView.h */,
+				23F5AA3222E11F310084086B /* EventInputTransportationView.m */,
+				23F5AA3422E120AB0084086B /* EventInputFoodView.h */,
+				23F5AA3522E120AB0084086B /* EventInputFoodView.m */,
+				23F5AA3722E124380084086B /* EventInputHotelView.h */,
+				23F5AA3822E124380084086B /* EventInputHotelView.m */,
+				23F5AA3A22E22DFA0084086B /* EventInputSubmitView.h */,
+				23F5AA3B22E22DFA0084086B /* EventInputSubmitView.m */,
+			);
+			path = "Event Input Views";
+			sourceTree = "<group>";
+		};
+		23F5AA5A22E62B600084086B /* Event Details Views */ = {
+			isa = PBXGroup;
+			children = (
+				23F5AA4522E61DA40084086B /* EventDetailsTitleView.h */,
+				23F5AA4622E61DA40084086B /* EventDetailsTitleView.m */,
+				23F5AA4822E61DBE0084086B /* EventDetailsDescriptionView.h */,
+				23F5AA4922E61DBE0084086B /* EventDetailsDescriptionView.m */,
+				23F5AA4B22E61DCF0084086B /* EventDetailsActivityView.h */,
+				23F5AA4C22E61DCF0084086B /* EventDetailsActivityView.m */,
+				23F5AA4E22E61DE10084086B /* EventDetailsTransportationView.h */,
+				23F5AA4F22E61DE10084086B /* EventDetailsTransportationView.m */,
+				23F5AA5122E61DF40084086B /* EventDetailsFoodView.h */,
+				23F5AA5222E61DF40084086B /* EventDetailsFoodView.m */,
+				23F5AA5422E61E090084086B /* EventDetailsHotelView.h */,
+				23F5AA5522E61E090084086B /* EventDetailsHotelView.m */,
+			);
+			path = "Event Details Views";
+			sourceTree = "<group>";
+		};
 		6E41998CE8EA405ABF1B9988 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -277,6 +342,10 @@
 				FF6C5F2D22DE868D00D0EB83 /* DailyCalendarViewController.m */,
 				23F5A9E722DFE59A0084086B /* InputItineraryViewController.h */,
 				23F5A9E822DFE59A0084086B /* InputItineraryViewController.m */,
+				23F5AA4022E617D30084086B /* EventDetailsViewController.h */,
+				23F5AA4122E617D30084086B /* EventDetailsViewController.m */,
+				23F5AA5722E62B520084086B /* ItineraryDetailsViewController.h */,
+				23F5AA5822E62B520084086B /* ItineraryDetailsViewController.m */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -284,24 +353,16 @@
 		FF6C5F2F22DE8B1900D0EB83 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				23F5AA4422E61D6E0084086B /* Event Input Views */,
+				23F5AA5A22E62B600084086B /* Event Details Views */,
 				FF6C5F3322DE8B8900D0EB83 /* DailyTableViewCell.h */,
 				FF6C5F3422DE8B8900D0EB83 /* DailyTableViewCell.m */,
-				23F5A9EA22E0D3890084086B /* EventInputSharedView.h */,
-				23F5A9EB22E0D3890084086B /* EventInputSharedView.m */,
-				23F5A9F022E0DEAD0084086B /* EventInputActivityView.h */,
-				23F5A9F122E0DEAD0084086B /* EventInputActivityView.m */,
-				23F5AA3122E11F310084086B /* EventInputTransportationView.h */,
-				23F5AA3222E11F310084086B /* EventInputTransportationView.m */,
-				23F5AA3422E120AB0084086B /* EventInputFoodView.h */,
-				23F5AA3522E120AB0084086B /* EventInputFoodView.m */,
-				23F5AA3722E124380084086B /* EventInputHotelView.h */,
-				23F5AA3822E124380084086B /* EventInputHotelView.m */,
-				23F5AA3A22E22DFA0084086B /* EventInputSubmitView.h */,
-				23F5AA3B22E22DFA0084086B /* EventInputSubmitView.m */,
 				8495D7AF22DF879600CFED2D /* ItineraryCollectionViewCell.h */,
 				8495D7B022DF879600CFED2D /* ItineraryCollectionViewCell.m */,
 				FFA0333422E234EB006DAE99 /* DailyCalendarEventUIView.h */,
 				FFA0333522E234EB006DAE99 /* DailyCalendarEventUIView.m */,
+				23F5AA5B22E641EC0084086B /* EventTableViewCell.h */,
+				23F5AA5C22E641EC0084086B /* EventTableViewCell.m */,
 				FF47EC5D22E67B64001C0DA7 /* ProfileCollectionReusableView.h */,
 				FF47EC5E22E67B64001C0DA7 /* ProfileCollectionReusableView.m */,
 			);
@@ -528,19 +589,28 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				23F5AA5322E61DF40084086B /* EventDetailsFoodView.m in Sources */,
 				23F5A9F222E0DEAD0084086B /* EventInputActivityView.m in Sources */,
 				23F5AA3922E124380084086B /* EventInputHotelView.m in Sources */,
+				23F5AA4D22E61DCF0084086B /* EventDetailsActivityView.m in Sources */,
 				FF6C5F2E22DE868D00D0EB83 /* DailyCalendarViewController.m in Sources */,
+				23F5AA5922E62B520084086B /* ItineraryDetailsViewController.m in Sources */,
 				8495D7B122DF879600CFED2D /* ItineraryCollectionViewCell.m in Sources */,
 				8448C0F522DFA2C800427FB2 /* User.m in Sources */,
+				23F5AA5022E61DE10084086B /* EventDetailsTransportationView.m in Sources */,
 				23F5A9E922DFE59A0084086B /* InputItineraryViewController.m in Sources */,
 				23F5AA3622E120AB0084086B /* EventInputFoodView.m in Sources */,
+				23F5AA4A22E61DBE0084086B /* EventDetailsDescriptionView.m in Sources */,
 				8468099222E67F4A001F9F0C /* SearchLocationViewController.m in Sources */,
 				8495D7A922DE8BDD00CFED2D /* LoginViewController.m in Sources */,
+				23F5AA4222E617D30084086B /* EventDetailsViewController.m in Sources */,
+				23F5AA5D22E641EC0084086B /* EventTableViewCell.m in Sources */,
 				8448C0F722DFA2C800427FB2 /* Event.m in Sources */,
 				23F5A9EF22E0D9B50084086B /* InputEventViewController.m in Sources */,
 				84B5E51722E10637006F4815 /* MapViewController.m in Sources */,
 				FFA0333622E234EB006DAE99 /* DailyCalendarEventUIView.m in Sources */,
+				23F5AA5622E61E090084086B /* EventDetailsHotelView.m in Sources */,
+				23F5AA4722E61DA40084086B /* EventDetailsTitleView.m in Sources */,
 				FF6C5EFC22DE640200D0EB83 /* ViewController.m in Sources */,
 				FF47EC5F22E67B64001C0DA7 /* ProfileCollectionReusableView.m in Sources */,
 				FF6C5F3522DE8B8900D0EB83 /* DailyTableViewCell.m in Sources */,

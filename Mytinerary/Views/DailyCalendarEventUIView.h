@@ -11,8 +11,11 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@protocol CalendarEventViewDelegate;
+
 @interface DailyCalendarEventUIView : UIView
 
+@property (nonatomic, weak) id<CalendarEventViewDelegate> delegate;
 @property (strong, nonatomic) Event *event;
 @property (strong, nonatomic) UILabel *eventTitleLabel;
 @property double topBorder;
@@ -20,6 +23,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)createEventViewWithEventModel:(Event *)event;
 
+@end
+
+// protocol to pass data from event view --> calendar VC --> event details view
+@protocol CalendarEventViewDelegate
+
+- (void)calendarEventView:(DailyCalendarEventUIView *)calendarEventView didTapEvent:(Event *)event;
 
 @end
 

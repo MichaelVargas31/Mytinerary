@@ -1,8 +1,8 @@
 //
-//  InputEventViewController.h
+//  EventDetailsViewController.h
 //  Mytinerary
 //
-//  Created by ehhong on 7/18/19.
+//  Created by ehhong on 7/22/19.
 //  Copyright © 2019 michaelvargas. All rights reserved.
 //
 
@@ -11,7 +11,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface InputEventViewController : UIViewController
+@interface EventDetailsViewController : UIViewController
 
 @property (strong, nonatomic) Event *event;
 
