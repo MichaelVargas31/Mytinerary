@@ -47,11 +47,8 @@
     NSArray *events = [NSArray arrayWithArray:self.itinerary.events];
     NSMutableArray *eventIDs = [[NSMutableArray alloc] init];
     for (int i =0; i < events.count; i ++) {
-//        NSLog(@"event i = %@", events[i]);
         Event *one = events[i];
-//        NSLog(@"one.objectID = %@", one.objectId);
         [eventIDs addObject:one.objectId];
-
     }
     
     PFQuery *query = [Event query];
