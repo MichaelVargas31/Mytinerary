@@ -29,12 +29,14 @@
 		8448C0F522DFA2C800427FB2 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 8448C0EF22DFA2C800427FB2 /* User.m */; };
 		8448C0F622DFA2C800427FB2 /* Itinerary.m in Sources */ = {isa = PBXBuildFile; fileRef = 8448C0F122DFA2C800427FB2 /* Itinerary.m */; };
 		8448C0F722DFA2C800427FB2 /* Event.m in Sources */ = {isa = PBXBuildFile; fileRef = 8448C0F222DFA2C800427FB2 /* Event.m */; };
+		8468099222E67F4A001F9F0C /* SearchLocationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8468099022E67F4A001F9F0C /* SearchLocationViewController.m */; };
 		8495D7A922DE8BDD00CFED2D /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8495D7A822DE8BDD00CFED2D /* LoginViewController.m */; };
 		8495D7AE22DE991B00CFED2D /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8495D7AD22DE991B00CFED2D /* ProfileViewController.m */; };
 		8495D7B122DF879600CFED2D /* ItineraryCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8495D7B022DF879600CFED2D /* ItineraryCollectionViewCell.m */; };
 		84B5E51722E10637006F4815 /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84B5E51622E10637006F4815 /* MapViewController.m */; };
 		84B5E51922E114E4006F4815 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84B5E51822E114E4006F4815 /* MapKit.framework */; };
 		C628AEE5E20C9C7409D9B734 /* Pods_MytineraryTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 58B8F33A939BCC86C8C98935 /* Pods_MytineraryTests.framework */; };
+		FF47EC5F22E67B64001C0DA7 /* ProfileCollectionReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = FF47EC5E22E67B64001C0DA7 /* ProfileCollectionReusableView.m */; };
 		FF6C5EF922DE640200D0EB83 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FF6C5EF822DE640200D0EB83 /* AppDelegate.m */; };
 		FF6C5EFC22DE640200D0EB83 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FF6C5EFB22DE640200D0EB83 /* ViewController.m */; };
 		FF6C5EFF22DE640200D0EB83 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FF6C5EFD22DE640200D0EB83 /* Main.storyboard */; };
@@ -107,6 +109,8 @@
 		8448C0F222DFA2C800427FB2 /* Event.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Event.m; sourceTree = "<group>"; };
 		8448C0F322DFA2C800427FB2 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
 		8448C0F422DFA2C800427FB2 /* Itinerary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Itinerary.h; sourceTree = "<group>"; };
+		8468099022E67F4A001F9F0C /* SearchLocationViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = SearchLocationViewController.m; path = /Users/samason1/Desktop/Mytinerary/Mytinerary/SearchLocationViewController.m; sourceTree = "<absolute>"; };
+		8468099122E67F4A001F9F0C /* SearchLocationViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SearchLocationViewController.h; path = /Users/samason1/Desktop/Mytinerary/Mytinerary/SearchLocationViewController.h; sourceTree = "<absolute>"; };
 		8495D7A722DE8BDD00CFED2D /* LoginViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		8495D7A822DE8BDD00CFED2D /* LoginViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		8495D7AC22DE991B00CFED2D /* ProfileViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProfileViewController.h; sourceTree = "<group>"; };
@@ -124,6 +128,8 @@
 		A79C438CDB5AA7C703E473D4 /* Pods-MytineraryUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MytineraryUITests.debug.xcconfig"; path = "Target Support Files/Pods-MytineraryUITests/Pods-MytineraryUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		D62311D88DD929F67D92DCA2 /* Pods-MytineraryTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MytineraryTests.debug.xcconfig"; path = "Target Support Files/Pods-MytineraryTests/Pods-MytineraryTests.debug.xcconfig"; sourceTree = "<group>"; };
 		E49E5CF74D83A7C35B144F7A /* Pods_MytineraryUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MytineraryUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		FF47EC5D22E67B64001C0DA7 /* ProfileCollectionReusableView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProfileCollectionReusableView.h; sourceTree = "<group>"; };
+		FF47EC5E22E67B64001C0DA7 /* ProfileCollectionReusableView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProfileCollectionReusableView.m; sourceTree = "<group>"; };
 		FF6C5EF422DE640200D0EB83 /* Mytinerary.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Mytinerary.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FF6C5EF722DE640200D0EB83 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		FF6C5EF822DE640200D0EB83 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -328,6 +334,8 @@
 		FF6C5F2B22DE865400D0EB83 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				8468099122E67F4A001F9F0C /* SearchLocationViewController.h */,
+				8468099022E67F4A001F9F0C /* SearchLocationViewController.m */,
 				23F5A9ED22E0D9B50084086B /* InputEventViewController.h */,
 				23F5A9EE22E0D9B50084086B /* InputEventViewController.m */,
 				FF6C5F2C22DE868D00D0EB83 /* DailyCalendarViewController.h */,
@@ -355,6 +363,8 @@
 				FFA0333522E234EB006DAE99 /* DailyCalendarEventUIView.m */,
 				23F5AA5B22E641EC0084086B /* EventTableViewCell.h */,
 				23F5AA5C22E641EC0084086B /* EventTableViewCell.m */,
+				FF47EC5D22E67B64001C0DA7 /* ProfileCollectionReusableView.h */,
+				FF47EC5E22E67B64001C0DA7 /* ProfileCollectionReusableView.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -591,6 +601,7 @@
 				23F5A9E922DFE59A0084086B /* InputItineraryViewController.m in Sources */,
 				23F5AA3622E120AB0084086B /* EventInputFoodView.m in Sources */,
 				23F5AA4A22E61DBE0084086B /* EventDetailsDescriptionView.m in Sources */,
+				8468099222E67F4A001F9F0C /* SearchLocationViewController.m in Sources */,
 				8495D7A922DE8BDD00CFED2D /* LoginViewController.m in Sources */,
 				23F5AA4222E617D30084086B /* EventDetailsViewController.m in Sources */,
 				23F5AA5D22E641EC0084086B /* EventTableViewCell.m in Sources */,
@@ -601,6 +612,7 @@
 				23F5AA5622E61E090084086B /* EventDetailsHotelView.m in Sources */,
 				23F5AA4722E61DA40084086B /* EventDetailsTitleView.m in Sources */,
 				FF6C5EFC22DE640200D0EB83 /* ViewController.m in Sources */,
+				FF47EC5F22E67B64001C0DA7 /* ProfileCollectionReusableView.m in Sources */,
 				FF6C5F3522DE8B8900D0EB83 /* DailyTableViewCell.m in Sources */,
 				23F5A9EC22E0D3890084086B /* EventInputSharedView.m in Sources */,
 				FF6C5F0722DE640200D0EB83 /* main.m in Sources */,
