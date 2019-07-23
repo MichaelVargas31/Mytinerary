@@ -302,19 +302,14 @@ static int const EVENT_INPUT_SUBMIT_VIEW_HEIGHT = 50;
     switch (pickerView.tag) {
         case 0:
             return self.eventCategoryPickerData.count;
-            break;
         case 1:
             return self.transportationTypePickerData.count;
-            break;
         case 2:
             return self.foodCostPickerData.count;
-            break;
         case 3:
             return self.hotelTypePickerData.count;
-            break;
         default:
             return 1;
-            break;
     }
 }
 
@@ -323,19 +318,14 @@ static int const EVENT_INPUT_SUBMIT_VIEW_HEIGHT = 50;
     switch (pickerView.tag) {
         case 0:
             return self.eventCategoryPickerData[row];
-            break;
         case 1:
             return self.transportationTypePickerData[row];
-            break;
         case 2:
             return self.foodCostPickerData[row];
-            break;
         case 3:
             return self.hotelTypePickerData[row];
-            break;
         default:
             return @"broken";
-            break;
     }
 }
 
