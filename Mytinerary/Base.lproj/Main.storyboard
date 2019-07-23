@@ -134,30 +134,6 @@
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <state key="normal" title="Edit"/>
                                         </button>
-                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2Qx-ml-3et">
-                                            <rect key="frame" x="247" y="41" width="88" height="31"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <state key="normal" title="Add itinerary"/>
-                                            <connections>
-                                                <segue destination="vAc-0f-oMv" kind="presentation" id="0lK-vv-Wn3"/>
-                                            </connections>
-                                        </button>
-                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AwQ-sa-PB6">
-                                            <rect key="frame" x="255" y="80" width="88" height="31"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <state key="normal" title="Add event"/>
-                                            <connections>
-                                                <segue destination="eHQ-Si-fcr" kind="presentation" id="jy8-iQ-Z5q"/>
-                                            </connections>
-                                        </button>
-                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="90q-D9-SiS">
-                                            <rect key="frame" x="305" y="131" width="30" height="30"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <state key="normal" title="Map"/>
-                                            <connections>
-                                                <action selector="map:" destination="4gg-9d-2Wa" eventType="touchUpInside" id="hXe-pa-kMg"/>
-                                            </connections>
-                                        </button>
                                     </subviews>
                                     <connections>
                                         <outlet property="profilePicImageView" destination="mHW-ih-tsZ" id="m9G-fY-Z6t"/>
@@ -254,7 +230,6 @@
                     </navigationItem>
                     <connections>
                         <outlet property="collectionView" destination="PWN-zR-u73" id="85v-RW-p1V"/>
-                        <outlet property="usernameLabel" destination="8Ht-bu-hEt" id="fNd-pF-zZC"/>
                         <segue destination="P9I-0f-YVX" kind="show" identifier="goToMap" id="S7B-S6-hJV"/>
                         <segue destination="rWW-ig-3vo" kind="show" identifier="calendarSegue" id="hey-4Z-0eK"/>
                     </connections>
