@@ -198,22 +198,6 @@
                                     <action selector="map:" destination="4gg-9d-2Wa" eventType="touchUpInside" id="hXe-pa-kMg"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9HX-X3-0ku">
-                                <rect key="frame" x="124" y="189" width="118" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="event details test"/>
-                                <connections>
-                                    <segue destination="vfi-ve-A7n" kind="show" id="3Jp-OF-e5h"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Uye-vP-can">
-                                <rect key="frame" x="133" y="151" width="101" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="itin details test"/>
-                                <connections>
-                                    <segue destination="v2s-7K-Yl1" kind="show" id="M1X-SP-v6r"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="IqF-BB-M5L"/>
@@ -1146,7 +1130,7 @@
                     </connections>
                 </view>
             </objects>
-            <point key="canvasLocation" x="2831" y="301"/>
+            <point key="canvasLocation" x="2793" y="301"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="A03-oS-P3J">
@@ -1326,7 +1310,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="d9T-RH-QQm"/>
         <segue reference="gy0-c7-1ub"/>
     </inferredMetricsTieBreakers>
 </document>

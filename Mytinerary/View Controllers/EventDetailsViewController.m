@@ -131,8 +131,8 @@ static int const HOTEL_VIEW_HEIGHT = 110;
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([[segue identifier] isEqualToString:@"editEventSegue"]) {
-        InputEventViewController *inputEventVC = [segue destinationViewController];
-        inputEventVC.event = self.event;
+        InputEventViewController *inputEventViewController = [segue destinationViewController];
+        inputEventViewController.event = self.event;
     }
 }
 

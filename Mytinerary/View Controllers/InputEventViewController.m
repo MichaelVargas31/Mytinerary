@@ -110,6 +110,71 @@ static int const EVENT_INPUT_SUBMIT_VIEW_HEIGHT = 50;
     self.eventInputHotelView.typePickerView.delegate = self;
     self.eventInputHotelView.typePickerView.dataSource = self;
     self.hotelTypePickerData = [NSArray arrayWithObjects:@"hotel", @"campground", @"hostel", @"airbnb", nil];
+    
+    // if from preexisting event (event details page), prefill fields w/ existing data
+    if (self.event) {
+        [self prefillEventFields:self.event];
+    }
+}
+
+// prefill event fields if editing preexisting event
+- (void)prefillEventFields:(Event *)event {
+    self.eventInputSharedView.titleTextField.text = event.title;
+    self.eventInputSharedView.descriptionTextView.text = event.eventDescription;
+    [self.eventInputSharedView.startTimeDatePicker setDate:event.startTime];
+    [self.eventInputSharedView.endTimeDatePicker setDate:event.endTime];
+    
+    // set category picker to current event category, prefill category specific fields
+    if ([event.category isEqualToString:@"activity"]) {
+        [self.eventInputSharedView.categoryPickerView selectRow:0 inComponent:0 animated:YES];
+        [self prefillActivityEventFields:event];
+    }
+    else if ([event.category isEqualToString:@"transportation"]) {
+        [self.eventInputSharedView.categoryPickerView selectRow:1 inComponent:0 animated:YES];
+        [self prefillTransportationEventFields:event];
+    }
+    else if ([event.category isEqualToString:@"food"]) {
+        [self.eventInputSharedView.categoryPickerView selectRow:2 inComponent:0 animated:YES];
+        [self prefillFoodEventFields:event];
+    }
+    else if ([event.category isEqualToString:@"hotel"]) {
+        [self.eventInputSharedView.categoryPickerView selectRow:3 inComponent:0 animated:YES];
+        [self prefillHotelEventFields:event];
+    }
+}
+
+- (void)prefillActivityEventFields:(Event *)event {
+    self.eventInputActivityView.locationTextField.text = event.address;
+    self.eventInputActivityView.costTextField.text = [NSString stringWithFormat:@"$%@", event.cost];
+    self.eventInputActivityView.notesTextView.text = event.notes;
+}
+
+- (void)prefillTransportationEventFields:(Event *)event {
+    self.eventInputTransportationView.startLocationTextField.text = event.address;
+    self.eventInputTransportationView.endLocationTextField.text = event.endAddress;
+    self.eventInputTransportationView.costTextField.text = [NSString stringWithFormat:@"$%@", event.cost];
+    self.eventInputTransportationView.notesTextView.text = event.notes;
+    
+    if ([event.transpoType isEqualToString:@"walk"]) {
+        [self.eventInputSharedView.categoryPickerView selectRow:0 inComponent:0 animated:YES];
+    }
+    else if ([event.transpoType isEqualToString:@"bike"]) {
+        [self.eventInputSharedView.categoryPickerView selectRow:1 inComponent:0 animated:YES];
+    }
+    else if ([event.transpoType isEqualToString:@"car"]) {
+        [self.eventInputSharedView.categoryPickerView selectRow:2 inComponent:0 animated:YES];
+    }
+    else if ([event.transpoType isEqualToString:@"public transportation"]) {
+        [self.eventInputSharedView.categoryPickerView selectRow:3 inComponent:0 animated:YES];
+    }
+}
+
+- (void)prefillFoodEventFields:(Event *)event {
+    // TODO
+}
+
+- (void)prefillHotelEventFields:(Event *)event {
+    // TODO
 }
 
 - (IBAction)onTapCloseButton:(id)sender {
