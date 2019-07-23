@@ -17,8 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UIPickerView *categoryPickerView;
 @property (weak, nonatomic) IBOutlet UIDatePicker *startTimeDatePicker;
 @property (weak, nonatomic) IBOutlet UIDatePicker *endTimeDatePicker;
-
-- (IBAction)onTapCloseButton:(id)sender;
+@property (weak, nonatomic) IBOutlet UILabel *viewTitleLabel;
 
 @end
 

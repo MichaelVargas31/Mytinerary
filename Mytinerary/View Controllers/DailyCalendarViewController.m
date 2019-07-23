@@ -9,12 +9,14 @@
 #import "DailyCalendarViewController.h"
 #import "DailyTableViewCell.h"
 #import "DailyCalendarEventUIView.h"
+#import "EventDetailsViewController.h"
 #import "Event.h"
 #import "FSCalendar.h"
 #import "Parse/Parse.h"
 
 
 @interface DailyCalendarViewController () <UITableViewDelegate, UITableViewDataSource, FSCalendarDataSource, FSCalendarDelegate>
+
 
 @end
 
@@ -63,18 +65,22 @@
         [calEventView createEventViewWithEventModel:self.sortedEventsArray[i-1]];
         [self.tableView addSubview:calEventView]; // will this work??? IT should... if calEventView is being modified at all?
         
+        // enable usage of protocol to pass data back to VC
+        calEventView.delegate = self;
+        
     }
 }
 
-/*
-#pragma mark - Navigationr
+#pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+    if ([[segue identifier] isEqualToString:@"eventDetailsSegue"]) {
+        EventDetailsViewController *eventDetailsViewController = [segue destinationViewController];
+        eventDetailsViewController.event = sender;
+    }
 }
-*/
+
 
 - (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
     
@@ -94,9 +100,9 @@
     return 48;
 }
 
-- (void)didTapEvent:(UITapGestureRecognizer *)sender {
-    NSLog(@"tapping: %@", self);
+- (void)calendarEventView:(nonnull DailyCalendarEventUIView *)calendarEventView didTapEvent:(nonnull Event *)event {
+    // after tapping event, segue to event details view
+    [self performSegueWithIdentifier:@"eventDetailsSegue" sender:event];
 }
-
 
 @end

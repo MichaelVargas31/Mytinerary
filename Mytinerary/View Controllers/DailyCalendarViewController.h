@@ -21,8 +21,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet FSCalendar *itineraryFSCalendar;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
-- (void)didTapEvent:(UITapGestureRecognizer *)sender;
-
 @end
 
 NS_ASSUME_NONNULL_END

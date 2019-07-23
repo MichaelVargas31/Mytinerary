@@ -21,6 +21,8 @@
 */
 
 - (void)createEventViewWithEventModel:(Event *)event {
+    // assign event as view property
+    self.event = event;
     
     NSCalendar *calendar = [NSCalendar currentCalendar];
     [calendar setTimeZone: [NSTimeZone systemTimeZone]];
@@ -66,6 +68,12 @@
     [self setUserInteractionEnabled:YES];
     UITapGestureRecognizer *eventTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didTapEvent:)];
     [self addGestureRecognizer:eventTap];
+}
+
+- (void)didTapEvent:(UITapGestureRecognizer *)sender {
+    // when event is tapped, launch event details view
+    // initiate segue to details view, pass event in as sender
+    [self.delegate calendarEventView:self didTapEvent:self.event];
 }
 
 
