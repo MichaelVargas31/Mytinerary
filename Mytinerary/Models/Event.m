@@ -71,6 +71,14 @@
     [event initNewEvent:title eventDescription:eventDescription address:address category:@"activity" startTime:startTime endTime:endTime notes:notes withCompletion:completion];
 }
 
+// update a preexisting activity event
+- (void) updateActivityEvent:(NSString *)title eventDescription:(NSString * _Nullable)eventDescription address:(NSString *)address startTime:(NSDate *)startTime endTime:(NSDate *)endTime cost:(float)cost notes:(NSString * _Nullable)notes withCompletion:(PFBooleanResultBlock)completion {
+    // activity specific field
+    self.cost = @(cost);
+    
+    [self initNewEvent:title eventDescription:eventDescription address:address category:@"activity" startTime:startTime endTime:endTime notes:notes withCompletion:completion];
+}
+
 /* initialize a transportation event
  (required: title, category, start/end times, start/end address, transportation type, completion;
  optional: event description, cost, notes) */
@@ -97,6 +105,27 @@
     [event initNewEvent:title eventDescription:eventDescription address:startAddress category:@"transportation" startTime:startTime endTime:endTime notes:notes withCompletion:completion];
 }
 
+// update preexisting transportation event
+- (void) updateTransportationEvent:(NSString *)title eventDescription:(NSString * _Nullable)eventDescription startAddress:(NSString *)startAddress endAddress:(NSString *)endAddress startTime:(NSDate *)startTime endTime:(NSDate *)endTime transpoType:(NSString *)transpoType cost:(float)cost notes:(NSString * _Nullable)notes withCompletion:(PFBooleanResultBlock)completion {
+    if ([startAddress isEqualToString:@""]) {
+        NSError *error = [NSError errorWithDomain:@"Please add a start location" code:1 userInfo:nil];
+        completion(nil, error);
+        return;
+    }
+    if ([endAddress isEqualToString:@""]) {
+        NSError *error = [NSError errorWithDomain:@"Please add an end location" code:1 userInfo:nil];
+        completion(nil, error);
+        return;
+    }
+    
+    // transportation specific fields
+    self.cost = @(cost);
+    self.endAddress = endAddress;
+    self.transpoType = transpoType;
+    
+    [self initNewEvent:title eventDescription:eventDescription address:startAddress category:@"transportation" startTime:startTime endTime:endTime notes:notes withCompletion:completion];
+}
+
 /* initialize a food event
  (required: title, category, start/end times, address, food cost, completion;
  optional: event description, food type, notes) */
@@ -111,6 +140,16 @@
     [event initNewEvent:title eventDescription:eventDescription address:address category:@"food" startTime:startTime endTime:endTime notes:notes withCompletion:completion];
 }
 
+// update preexisting food event
+- (void) updateFoodEvent:(NSString *)title eventDescription:(NSString * _Nullable)eventDescription address:(NSString *)address startTime:(NSDate *)startTime endTime:(NSDate *)endTime foodType:(NSString *)foodType foodCost:(NSString *)foodCost notes:(NSString * _Nullable)notes withCompletion:(PFBooleanResultBlock)completion {
+    
+    // food specific fields
+    self.foodType = foodType;
+    self.foodCost = foodCost;
+    
+    [self initNewEvent:title eventDescription:eventDescription address:address category:@"food" startTime:startTime endTime:endTime notes:notes withCompletion:completion];
+}
+
 /* initialize a hotel event
  (required: title, category, start/end times, address, hotel type, completion;
  optional: event description, cost, notes) */
@@ -122,6 +161,16 @@
     event.cost = @(cost);
     
     [event initNewEvent:title eventDescription:eventDescription address:address category:@"hotel" startTime:startTime endTime:endTime notes:notes withCompletion:completion];
+}
+
+// update preexisting hotel event
+- (void) updateHotelEvent:(NSString *)title eventDescription:(NSString * _Nullable)eventDescription address:(NSString *)address startTime:(NSDate *)startTime endTime:(NSDate *)endTime hotelType:(NSString *)hotelType cost:(float)cost notes:(NSString * _Nullable)notes withCompletion:(PFBooleanResultBlock)completion {
+    
+    // hotel specific fields
+    self.hotelType = hotelType;
+    self.cost = @(cost);
+    
+    [self initNewEvent:title eventDescription:eventDescription address:address category:@"hotel" startTime:startTime endTime:endTime notes:notes withCompletion:completion];
 }
 
 
