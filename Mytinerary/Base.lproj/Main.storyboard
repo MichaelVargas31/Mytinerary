@@ -786,14 +786,18 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ecC-45-JY5">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <rect key="frame" x="0.0" y="383" width="375" height="240"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="240" id="L45-7K-oIm"/>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="240" id="Nom-Dy-qCu"/>
+                                </constraints>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="DailyEventCell" rowHeight="250" id="WRN-i9-cQ4" customClass="DailyTableViewCell">
-                                        <rect key="frame" x="0.0" y="28" width="375" height="250"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="DailyEventCell" rowHeight="99" id="WRN-i9-cQ4" customClass="DailyTableViewCell">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="99"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="WRN-i9-cQ4" id="9RW-Gc-mcU">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="249.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="98.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="12:30" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a6U-na-0tu">
@@ -804,7 +808,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7VN-Wo-yJI">
-                                                    <rect key="frame" x="85" y="9" width="323" height="3"/>
+                                                    <rect key="frame" x="70" y="0.0" width="290" height="3"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </view>
@@ -816,24 +820,61 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="w80-C5-rJ4">
+                                <rect key="frame" x="0.0" y="623" width="375" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="6nU-fK-XSV"/>
+                                </constraints>
+                                <items>
+                                    <barButtonItem title="Daily" id="gTX-LK-6kc"/>
+                                    <barButtonItem width="42" style="plain" systemItem="fixedSpace" id="Sax-pr-AJy"/>
+                                    <barButtonItem title="Week" id="IPY-Be-c7G"/>
+                                </items>
+                            </toolbar>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IFV-qY-Uho" customClass="FSCalendar">
+                                <rect key="frame" x="0.0" y="64" width="375" height="319"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="ecC-45-JY5" firstAttribute="leading" secondItem="BQN-GC-MwF" secondAttribute="leading" id="Hy3-If-ysp"/>
-                            <constraint firstItem="ecC-45-JY5" firstAttribute="trailing" secondItem="BQN-GC-MwF" secondAttribute="trailing" id="PA0-AS-jOO"/>
-                            <constraint firstItem="ecC-45-JY5" firstAttribute="top" secondItem="e7X-fC-HXC" secondAttribute="top" id="f94-Ic-kMM"/>
-                            <constraint firstAttribute="bottom" secondItem="ecC-45-JY5" secondAttribute="bottom" id="hjF-av-MPZ"/>
+                            <constraint firstItem="IFV-qY-Uho" firstAttribute="leading" secondItem="BQN-GC-MwF" secondAttribute="leading" id="0rP-oF-aYJ"/>
+                            <constraint firstItem="ecC-45-JY5" firstAttribute="leading" secondItem="BQN-GC-MwF" secondAttribute="leading" id="AGr-rQ-ft4"/>
+                            <constraint firstItem="w80-C5-rJ4" firstAttribute="top" secondItem="ecC-45-JY5" secondAttribute="bottom" id="GHC-Qd-MJx"/>
+                            <constraint firstItem="IFV-qY-Uho" firstAttribute="top" secondItem="BQN-GC-MwF" secondAttribute="top" id="NJS-PC-DKH"/>
+                            <constraint firstItem="w80-C5-rJ4" firstAttribute="leading" secondItem="BQN-GC-MwF" secondAttribute="leading" id="PKM-br-Oqm"/>
+                            <constraint firstItem="ecC-45-JY5" firstAttribute="top" secondItem="IFV-qY-Uho" secondAttribute="bottom" id="b9e-bu-VtZ"/>
+                            <constraint firstItem="IFV-qY-Uho" firstAttribute="trailing" secondItem="BQN-GC-MwF" secondAttribute="trailing" id="dvT-Gm-19M"/>
+                            <constraint firstItem="ecC-45-JY5" firstAttribute="trailing" secondItem="BQN-GC-MwF" secondAttribute="trailing" id="nYG-58-NeO"/>
+                            <constraint firstItem="w80-C5-rJ4" firstAttribute="bottom" secondItem="BQN-GC-MwF" secondAttribute="bottom" id="qyu-Op-zpH"/>
+                            <constraint firstItem="w80-C5-rJ4" firstAttribute="trailing" secondItem="BQN-GC-MwF" secondAttribute="trailing" id="tDw-gL-KyP"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="BQN-GC-MwF"/>
                     </view>
                     <connections>
+                        <outlet property="itineraryFSCalendar" destination="IFV-qY-Uho" id="xYv-rK-Xuk"/>
                         <outlet property="tableView" destination="ecC-45-JY5" id="5N2-vq-HVy"/>
                         <segue destination="vfi-ve-A7n" kind="show" identifier="eventDetailsSegue" id="d9T-RH-QQm"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Wko-au-X6b" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2082" y="301"/>
+            <point key="canvasLocation" x="2309.5999999999999" y="300.89955022488761"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="b4g-tj-U9n">
+            <objects>
+                <viewController id="z1m-J2-Sps" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="6MN-qj-4uV">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="tX9-Kr-mpP"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="lqs-0F-0K1" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2310" y="1045"/>
         </scene>
         <!--Event Details View Controller-->
         <scene sceneID="H8t-UC-jw5">

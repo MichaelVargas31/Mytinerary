@@ -6,34 +6,17 @@
 //  Copyright © 2019 michaelvargas. All rights reserved.
 //
 
-
-/*
- Brainstorming:
-    - Probably going to have increments of 15(?) minutes that are cells
-    - Use gesture recognizer to detect tap, which adds UIView to the screen?
- 
-    Maybe NSCalendar could be useful?
-
- 
- Questions:
-    - Should formatter be defined as a property of the Daily View Controller?
-    - Possible to add addEventWith() to scheduledEventView.m file?? outsourcing?
-    - Currently iterating through 'events' array of pointers in itinerary, using the ID to fetch said
-            event from parse. More efficient way?
-    - How can I move addEvent() to its own "View"?
-    - How do I access the tableview.rowheight from the UIView file?
-
- */
-
 #import "DailyCalendarViewController.h"
 #import "DailyTableViewCell.h"
 #import "DailyCalendarEventUIView.h"
 #import "EventDetailsViewController.h"
 #import "Event.h"
+#import "FSCalendar.h"
 #import "Parse/Parse.h"
 
 
-@interface DailyCalendarViewController () <UITableViewDelegate, UITableViewDataSource, CalendarEventViewDelegate>
+@interface DailyCalendarViewController () <UITableViewDelegate, UITableViewDataSource, FSCalendarDataSource, FSCalendarDelegate>
+
 
 @end
 
@@ -44,6 +27,11 @@
     // Do any additional setup after loading the view.
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
+    self.itineraryFSCalendar.dataSource = self;
+    self.itineraryFSCalendar.delegate = self;
+    
+    // initially, only the daily calendar view will be visible
+    [self.itineraryFSCalendar setFrame:CGRectMake(self.itineraryFSCalendar.frame.origin.x, self.itineraryFSCalendar.frame.origin.y, self.itineraryFSCalendar.frame.size.width, 0)];
     
     // initializing formatter for calculating cell's times
     self.timeOfDayFormatter = [[NSDateFormatter alloc] init];
@@ -51,15 +39,30 @@
     
     self.tableView.rowHeight = 200;
     
-//    NSLog(@"Recieved itinerary with events: %@", self.itinerary.events);
     
+    // store events in temporary mutable array
+    NSMutableArray *tempEventArray = [[NSMutableArray alloc] init];
     for (NSInteger i = 0; i < self.itinerary.events.count; i++) {
         Event *event = self.itinerary.events[i];
         [event fetchIfNeeded];  // might be whats taking long time
-        
+        [tempEventArray addObject:event];
+        NSLog(@"Event arraY: %@", tempEventArray);
+    }
+    
+    // sort events  [ERROR CHECK WHEN WE HAVE MORE EVENTS]
+    [tempEventArray sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull event1, id  _Nonnull event2) {
+        NSDate *first = [event1 startTime];
+        NSDate *second = [event2 startTime];
+        return [first compare:second];
+    }];
+    self.sortedEventsArray = [NSArray arrayWithArray:tempEventArray];
+    
+    // now add sorted onto tableView
+    // If events overlap incorrectly, it may be because we are sorting in the opposite direction
+    for (NSInteger i = self.sortedEventsArray.count; i > 0; i--) {
         // Create event & add to tableView
         DailyCalendarEventUIView *calEventView = [[DailyCalendarEventUIView alloc] init];
-        [calEventView createEventViewWithEventModel:event];
+        [calEventView createEventViewWithEventModel:self.sortedEventsArray[i-1]];
         [self.tableView addSubview:calEventView]; // will this work??? IT should... if calEventView is being modified at all?
         
         // enable usage of protocol to pass data back to VC

@@ -7,6 +7,7 @@ target 'Mytinerary' do
 
   # Pods for Mytinerary
 	pod 'Parse'
+	pod 'FSCalendar'
 
   target 'MytineraryTests' do
     inherit! :search_paths
