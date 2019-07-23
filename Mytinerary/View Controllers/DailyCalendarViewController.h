@@ -15,6 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (strong, nonatomic) Itinerary *itinerary;
 @property (strong, nonatomic) NSDateFormatter *timeOfDayFormatter;
+@property (strong, nonatomic) NSArray *eventArray;
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 

@@ -8,19 +8,11 @@
 
 
 /*
- Brainstorming:
-    - Probably going to have increments of 15(?) minutes that are cells
-    - Use gesture recognizer to detect tap, which adds UIView to the screen?
- 
-    Maybe NSCalendar could be useful?
-
  
  Questions:
     - Should formatter be defined as a property of the Daily View Controller?
-    - Possible to add addEventWith() to scheduledEventView.m file?? outsourcing?
     - Currently iterating through 'events' array of pointers in itinerary, using the ID to fetch said
             event from parse. More efficient way?
-    - How can I move addEvent() to its own "View"?
     - How do I access the tableview.rowheight from the UIView file?
 
  */
@@ -50,18 +42,55 @@
     
     self.tableView.rowHeight = 200;
     
-//    NSLog(@"Recieved itinerary with events: %@", self.itinerary.events);
     
-    for (NSInteger i = 0; i < self.itinerary.events.count; i++) {
-        Event *event = self.itinerary.events[i];
-        [event fetchIfNeeded];  // might be whats taking long time
-        
-        // Create event & add to tableView
-        DailyCalendarEventUIView *calEventView = [[DailyCalendarEventUIView alloc] init];
-        [calEventView createEventViewWithEventModel:event];
-        [self.tableView addSubview:calEventView]; // will this work??? IT should... if calEventView is being modified at all?
-        
+    
+    NSArray *events = [NSArray arrayWithArray:self.itinerary.events];
+    NSMutableArray *eventIDs = [[NSMutableArray alloc] init];
+    for (int i =0; i < events.count; i ++) {
+//        NSLog(@"event i = %@", events[i]);
+        Event *one = events[i];
+//        NSLog(@"one.objectID = %@", one.objectId);
+        [eventIDs addObject:one.objectId];
+
     }
+    
+    PFQuery *query = [Event query];
+    [query whereKey:@"objectId" containedIn:eventIDs];
+    [query findObjectsInBackgroundWithBlock:^(NSArray * _Nullable fullEventArray, NSError * _Nullable error) {
+        if (!error) {
+            NSLog(@"  recieved:  %@", fullEventArray);
+            self.eventArray = fullEventArray;
+            NSLog(@"  new array:  %@", self.eventArray);
+            for (int i =0; i < self.eventArray.count; i++) {
+                DailyCalendarEventUIView *calEventView = [[DailyCalendarEventUIView alloc] init];
+                [calEventView createEventViewWithEventModel:self.eventArray[i]];
+                [self.tableView addSubview:calEventView]; // will this work??? IT should... if calEventView is being modified at all?
+            }
+        } else {
+            NSLog(@"error: %@", error.localizedDescription);
+        }
+    }];
+    
+    
+    
+//    List<ParseObject> parseObjects = new ArrayList<>();
+//    for (String objectId : listObjectId) {
+//        parseObjects.add(ParseObject.createWithoutData(ItemModel.class, objectId));
+//    }
+//
+//    ParseObject.fetchAll(parseObjects);
+//    // parseObjects will now contain all data retrieved from Parse.
+//
+//    for (NSInteger i = 0; i < self.itinerary.events.count; i++) {
+//        Event *event = self.itinerary.events[i];
+//        [event fetchIfNeeded];  // might be whats taking long time
+//
+//        // Create event & add to tableView
+//        DailyCalendarEventUIView *calEventView = [[DailyCalendarEventUIView alloc] init];
+//        [calEventView createEventViewWithEventModel:event];
+//        [self.tableView addSubview:calEventView]; // will this work??? IT should... if calEventView is being modified at all?
+//
+//    }
 }
 
 

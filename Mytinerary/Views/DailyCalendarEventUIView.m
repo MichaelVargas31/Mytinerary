@@ -25,9 +25,6 @@
     NSCalendar *calendar = [NSCalendar currentCalendar];
     [calendar setTimeZone: [NSTimeZone systemTimeZone]];
     
-    //    NSLog(@"Start: %@, end %@", [self.timeOfDayFormatter stringFromDate:start], [self.timeOfDayFormatter stringFromDate:end]);
-    //    NSDate *midnight = [self.timeOfDayFormatter dateFromString:@"00:00:00"];
-    
     NSDateComponents *eventStartComponents = [calendar components:(NSCalendarUnitHour | NSCalendarUnitMinute) fromDate:event.startTime];
     NSInteger eventStartHour = [eventStartComponents hour];
     NSInteger eventStartMinute = [eventStartComponents minute];
@@ -37,10 +34,8 @@
     NSInteger eventEndMinute = [eventEndComponents minute];
     
     NSLog(@"hour: %ld minute:%ld", (long)eventStartHour, (long)eventStartMinute);
-    //    NSLog(@"Time interval: %f", timeFromMidnight);
     
     // distance from top = HOURS*rowheight*2 + (MINS/30)*rowheight
-    
     long rowHeight = [DailyTableViewCell returnRowHeight].unsignedLongValue;
 
     self.topBorder = (eventStartHour * rowHeight)*2 + ((eventStartMinute/30.0) * rowHeight);
