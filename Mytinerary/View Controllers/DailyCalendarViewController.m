@@ -40,14 +40,19 @@
     self.tableView.rowHeight = 200;
     
     
-    // store events in temporary mutable array
-    NSMutableArray *tempEventArray = [[NSMutableArray alloc] init];
-    for (NSInteger i = 0; i < self.itinerary.events.count; i++) {
-        Event *event = self.itinerary.events[i];
-        [event fetchIfNeeded];  // might be whats taking long time
-        [tempEventArray addObject:event];
-        NSLog(@"Event arraY: %@", tempEventArray);
-    }
+    NSArray *events = [NSArray arrayWithArray:self.itinerary.events];
+    NSMutableArray *eventIDs = [[NSMutableArray alloc] init];
+    for (int i =0; i < events.count; i ++) {
+        Event *one = events[i];
+        [eventIDs addObject:one.objectId];
+//     // store events in temporary mutable array
+//     NSMutableArray *tempEventArray = [[NSMutableArray alloc] init];
+//     for (NSInteger i = 0; i < self.itinerary.events.count; i++) {
+//         Event *event = self.itinerary.events[i];
+//         [event fetchIfNeeded];  // might be whats taking long time
+//         [tempEventArray addObject:event];
+//         NSLog(@"Event arraY: %@", tempEventArray);
+//     }
     
     // sort events  [ERROR CHECK WHEN WE HAVE MORE EVENTS]
     [tempEventArray sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull event1, id  _Nonnull event2) {
@@ -69,7 +74,26 @@
         calEventView.delegate = self;
         
     }
-}
+    
+    PFQuery *query = [Event query];
+    [query whereKey:@"objectId" containedIn:eventIDs];
+    [query findObjectsInBackgroundWithBlock:^(NSArray * _Nullable fullEventArray, NSError * _Nullable error) {
+        if (!error) {
+            NSLog(@"  recieved:  %@", fullEventArray);
+            self.eventArray = fullEventArray;
+            NSLog(@"  new array:  %@", self.eventArray);
+          
+          
+          
+            for (int i =0; i < self.eventArray.count; i++) {
+                DailyCalendarEventUIView *calEventView = [[DailyCalendarEventUIView alloc] init];
+                [calEventView createEventViewWithEventModel:self.eventArray[i]];
+                [self.tableView addSubview:calEventView]; // will this work??? IT should... if calEventView is being modified at all?
+            }
+        } else {
+            NSLog(@"error: %@", error.localizedDescription);
+        }
+    }];
 
 #pragma mark - Navigation
 
