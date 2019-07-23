@@ -14,11 +14,10 @@
 #import "ProfileCollectionReusableView.h"
 #import "Itinerary.h"
 #import "Parse/Parse.h"
+#import "User.h"
 
 
 @interface ProfileViewController () <UICollectionViewDelegate, UICollectionViewDataSource>
-
-//@property (strong, nonatomic) NSArray *iArray;
 
 @end
 
@@ -31,8 +30,9 @@
     self.collectionView.dataSource=self;
     self.collectionView.delegate=self;
     
-    // insert profile cell
-    
+    //sets the username on the profile view
+    self.usernameLabel.text=User.currentUser.username;
+
     //fetch itineraries
     [self fetchitineraries];
     
@@ -41,7 +41,7 @@
     
     //spacing
     
-    //posters per line - (maybe) CGFloat postersPerLine=2;
+    //posters per line (maybe) CGFloat postersPerLine=2;
     
     //item size
     //Fix size later to make it look better
@@ -51,24 +51,34 @@
     
 }
 -(void) fetchitineraries{
-    
     //Itinerary Query
-    
-     PFQuery *iQuery = [Itinerary query];
-     [iQuery orderByDescending: @"createdAt"];
-     [iQuery includeKey: @"author"];
-     iQuery.limit =6;
-     
-     //fetch data
-     [iQuery findObjectsInBackgroundWithBlock:^(NSArray<Itinerary *> * itinerary, NSError *  error) {
-     if(itinerary){
-     self.iArray = itinerary;
-     [self.collectionView reloadData];
-     }
-     else{
-         //handle error
-     }
-     }];
+    PFQuery *iQuery = [Itinerary query];
+    //Search Where author of itineraries is equal to the current user logged in
+    [iQuery whereKey:@"author" equalTo:PFUser.currentUser];
+    [iQuery getFirstObjectInBackgroundWithBlock:^(PFObject *object, NSError *error)
+    {
+        if (!error) {
+            //You found the user!
+            PFUser *queriedUser = (PFUser *)object;
+            
+            [iQuery orderByDescending: @"createdAt"];
+            [iQuery includeKey: @"author"];
+            iQuery.limit =10;
+            
+            //fetch data
+            [iQuery findObjectsInBackgroundWithBlock:^(NSArray<Itinerary *> * itinerary, NSError *  error) {
+                if(itinerary){
+                    self.iArray = itinerary;
+                    [self.collectionView reloadData];
+                }
+                else{
+                    NSLog(@"Error fetching data");
+                }
+            }];
+        }
+        
+    }];
+  
 }
 
 - (nonnull __kindof UICollectionViewCell *)collectionView:(nonnull UICollectionView *)collectionView cellForItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
