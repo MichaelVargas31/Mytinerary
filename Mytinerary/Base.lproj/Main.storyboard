@@ -752,6 +752,7 @@
                         <outlet property="endTimeDatePicker" destination="kAK-qH-Z2Z" id="u7k-1d-c3y"/>
                         <outlet property="startTimeDatePicker" destination="ww3-4Y-eTu" id="hBk-Cq-Q7Q"/>
                         <outlet property="titleTextField" destination="QOF-Lo-hxJ" id="xGU-L6-al8"/>
+                        <outlet property="viewTitleLabel" destination="6Y2-L0-ICX" id="4gw-gr-tGa"/>
                     </connections>
                 </view>
             </objects>

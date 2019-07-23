@@ -91,6 +91,14 @@ static int const EVENT_INPUT_SUBMIT_VIEW_HEIGHT = 50;
     [stackView addArrangedSubview:self.eventInputSubmitView];
     [self.eventInputSubmitView.heightAnchor constraintEqualToConstant:EVENT_INPUT_SUBMIT_VIEW_HEIGHT].active = YES;
     
+    // set title of event input (edit or new)
+    if (self.event) {
+        self.eventInputSharedView.viewTitleLabel.text = @"Edit event";
+    }
+    else {
+        self.eventInputSharedView.viewTitleLabel.text = @"New event";
+    }
+    
     // setup shared category picker view
     self.eventInputSharedView.categoryPickerView.delegate = self;
     self.eventInputSharedView.categoryPickerView.dataSource = self;
@@ -145,14 +153,14 @@ static int const EVENT_INPUT_SUBMIT_VIEW_HEIGHT = 50;
 
 - (void)prefillActivityEventFields:(Event *)event {
     self.eventInputActivityView.locationTextField.text = event.address;
-    self.eventInputActivityView.costTextField.text = [NSString stringWithFormat:@"$%@", event.cost];
+    self.eventInputActivityView.costTextField.text = [NSString stringWithFormat:@"%@", event.cost];
     self.eventInputActivityView.notesTextView.text = event.notes;
 }
 
 - (void)prefillTransportationEventFields:(Event *)event {
     self.eventInputTransportationView.startLocationTextField.text = event.address;
     self.eventInputTransportationView.endLocationTextField.text = event.endAddress;
-    self.eventInputTransportationView.costTextField.text = [NSString stringWithFormat:@"$%@", event.cost];
+    self.eventInputTransportationView.costTextField.text = [NSString stringWithFormat:@"%@", event.cost];
     self.eventInputTransportationView.notesTextView.text = event.notes;
     
     if ([event.transpoType isEqualToString:@"walk"]) {
@@ -190,7 +198,7 @@ static int const EVENT_INPUT_SUBMIT_VIEW_HEIGHT = 50;
 
 - (void)prefillHotelEventFields:(Event *)event {
     self.eventInputHotelView.locationTextField.text = event.address;
-    self.eventInputHotelView.costTextField.text = [NSString stringWithFormat:@"$%@", event.cost];
+    self.eventInputHotelView.costTextField.text = [NSString stringWithFormat:@"%@", event.cost];
     self.eventInputHotelView.notesTextView.text = event.notes;
     
     if ([event.hotelType isEqualToString:@"hotel"]) {
@@ -216,18 +224,36 @@ static int const EVENT_INPUT_SUBMIT_VIEW_HEIGHT = 50;
     int selectedCategoryIdx = (int)[self.eventInputSharedView.categoryPickerView selectedRowInComponent:0];
     NSString *selectedCategory = self.eventCategoryPickerData[selectedCategoryIdx];
     
-    // initialize event depending on selected event type
-    if ([selectedCategory isEqualToString:@"activity"]) {
-        [self initActivityEvent];
+    // if updating preexisting event
+    if (self.event) {
+        if ([selectedCategory isEqualToString:@"activity"]) {
+            [self updateActivityEvent:self.event];
+        }
+        else if ([selectedCategory isEqualToString:@"transportation"]) {
+            [self updateTransportationEvent:self.event];
+        }
+        else if ([selectedCategory isEqualToString:@"food"]) {
+            [self updateFoodEvent:self.event];
+        }
+        else if ([selectedCategory isEqualToString:@"hotel"]) {
+            [self updateHotelEvent:self.event];
+        }
     }
-    else if ([selectedCategory isEqualToString:@"transportation"]) {
-        [self initTransportationEvent];
-    }
-    else if ([selectedCategory isEqualToString:@"food"]) {
-        [self initFoodEvent];
-    }
-    else if ([selectedCategory isEqualToString:@"hotel"]) {
-        [self initHotelEvent];
+    // if creating a new event
+    else {
+        // initialize event depending on selected event type
+        if ([selectedCategory isEqualToString:@"activity"]) {
+            [self initActivityEvent];
+        }
+        else if ([selectedCategory isEqualToString:@"transportation"]) {
+            [self initTransportationEvent];
+        }
+        else if ([selectedCategory isEqualToString:@"food"]) {
+            [self initFoodEvent];
+        }
+        else if ([selectedCategory isEqualToString:@"hotel"]) {
+            [self initHotelEvent];
+        }
     }
 }
 
@@ -244,6 +270,25 @@ static int const EVENT_INPUT_SUBMIT_VIEW_HEIGHT = 50;
         }
         else {
             NSLog(@"error initializing activity event: %@", error);
+            self.alert.message = error.domain;
+            [self presentViewController:self.alert animated:YES completion:nil];
+        }
+    }];
+}
+
+- (void)updateActivityEvent:(Event *)event {
+    float cost = (float)0.0;
+    if (![self.eventInputActivityView.costTextField.text isEqualToString:@""]) {
+        cost = [self.eventInputActivityView.costTextField.text floatValue];
+    }
+    
+    [event updateActivityEvent:self.eventInputSharedView.titleTextField.text eventDescription:self.eventInputSharedView.descriptionTextView.text address:self.eventInputActivityView.locationTextField.text startTime:self.eventInputSharedView.startTimeDatePicker.date endTime:self.eventInputSharedView.endTimeDatePicker.date cost:cost notes:self.eventInputActivityView.notesTextView.text withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
+        if (succeeded) {
+            NSLog(@"activity event successfully updated!");
+            [self dismissViewControllerAnimated:YES completion:nil];
+        }
+        else {
+            NSLog(@"error updating activity event: %@", error);
             self.alert.message = error.domain;
             [self presentViewController:self.alert animated:YES completion:nil];
         }
@@ -272,6 +317,28 @@ static int const EVENT_INPUT_SUBMIT_VIEW_HEIGHT = 50;
     }];
 }
 
+- (void)updateTransportationEvent:(Event *)event {
+    float cost = (float)0.0;
+    if (![self.eventInputTransportationView.costTextField.text isEqualToString:@""]) {
+        cost = [self.eventInputTransportationView.costTextField.text floatValue];
+    }
+    
+    int selectedTranspoTypeIdx = (int)[self.eventInputTransportationView.typePickerView selectedRowInComponent:0];
+    NSString *selectedTranspoType = self.transportationTypePickerData[selectedTranspoTypeIdx];
+    
+    [event updateTransportationEvent:self.eventInputSharedView.titleTextField.text eventDescription:self.eventInputSharedView.descriptionTextView.text startAddress:self.eventInputTransportationView.startLocationTextField.text endAddress:self.eventInputTransportationView.endLocationTextField.text startTime:self.eventInputSharedView.startTimeDatePicker.date endTime:self.eventInputSharedView.endTimeDatePicker.date transpoType:selectedTranspoType cost:cost notes:self.eventInputTransportationView.notesTextView.text withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
+        if (succeeded) {
+            NSLog(@"transportation event successfully updated!");
+            [self dismissViewControllerAnimated:YES completion:nil];
+        }
+        else {
+            NSLog(@"error updating transportation event: %@", error);
+            self.alert.message = error.domain;
+            [self presentViewController:self.alert animated:YES completion:nil];
+        }
+    }];
+}
+
 - (void)initFoodEvent {
     int selectedFoodCostIdx = (int)[self.eventInputFoodView.costPickerView selectedRowInComponent:0];
     NSString *selectedFoodCost = self.foodCostPickerData[selectedFoodCostIdx];
@@ -283,6 +350,23 @@ static int const EVENT_INPUT_SUBMIT_VIEW_HEIGHT = 50;
         }
         else {
             NSLog(@"error initializing food event: %@", error);
+            self.alert.message = error.domain;
+            [self presentViewController:self.alert animated:YES completion:nil];
+        }
+    }];
+}
+
+- (void)updateFoodEvent:(Event *)event {
+    int selectedFoodCostIdx = (int)[self.eventInputFoodView.costPickerView selectedRowInComponent:0];
+    NSString *selectedFoodCost = self.foodCostPickerData[selectedFoodCostIdx];
+    
+    [event updateFoodEvent:self.eventInputSharedView.titleTextField.text eventDescription:self.eventInputSharedView.descriptionTextView.text address:self.eventInputFoodView.locationTextField.text startTime:self.eventInputSharedView.startTimeDatePicker.date endTime:self.eventInputSharedView.endTimeDatePicker.date foodType:self.eventInputFoodView.typeTextField.text foodCost:selectedFoodCost notes:self.eventInputFoodView.notesTextView.text withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
+        if (succeeded) {
+            NSLog(@"food event successfully updated!");
+            [self dismissViewControllerAnimated:YES completion:nil];
+        }
+        else {
+            NSLog(@"error updating food event: %@", error);
             self.alert.message = error.domain;
             [self presentViewController:self.alert animated:YES completion:nil];
         }
@@ -305,6 +389,28 @@ static int const EVENT_INPUT_SUBMIT_VIEW_HEIGHT = 50;
         }
         else {
             NSLog(@"error initializing hotel event: %@", error);
+            self.alert.message = error.domain;
+            [self presentViewController:self.alert animated:YES completion:nil];
+        }
+    }];
+}
+
+- (void)updateHotelEvent:(Event *)event {
+    float cost = (float)0.0;
+    if (![self.eventInputHotelView.costTextField.text isEqualToString:@""]) {
+        cost = [self.eventInputHotelView.costTextField.text floatValue];
+    }
+    
+    int selectedHotelTypeIdx = (int)[self.eventInputHotelView.typePickerView selectedRowInComponent:0];
+    NSString *selectedHotelType = self.hotelTypePickerData[selectedHotelTypeIdx];
+    
+    [event updateHotelEvent:self.eventInputSharedView.titleTextField.text eventDescription:self.eventInputSharedView.descriptionTextView.text address:self.eventInputHotelView.locationTextField.text startTime:self.eventInputSharedView.startTimeDatePicker.date endTime:self.eventInputSharedView.endTimeDatePicker.date hotelType:selectedHotelType cost:cost notes:self.eventInputHotelView.notesTextView.text withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
+        if (succeeded) {
+            NSLog(@"hotel event successfully updated!");
+            [self dismissViewControllerAnimated:YES completion:nil];
+        }
+        else {
+            NSLog(@"error updating hotel event: %@", error);
             self.alert.message = error.domain;
             [self presentViewController:self.alert animated:YES completion:nil];
         }
