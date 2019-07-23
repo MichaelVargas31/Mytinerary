@@ -44,6 +44,7 @@
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
     [self GoogleAPIImplementation:searchBar.text];
 }
+
 -(void)GoogleAPIImplementation :(NSString *)query {
     
     NSLog(@"%@", self.searchBar.text);
