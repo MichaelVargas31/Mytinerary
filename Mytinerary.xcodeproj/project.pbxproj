@@ -29,7 +29,6 @@
 		8448C0F522DFA2C800427FB2 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 8448C0EF22DFA2C800427FB2 /* User.m */; };
 		8448C0F622DFA2C800427FB2 /* Itinerary.m in Sources */ = {isa = PBXBuildFile; fileRef = 8448C0F122DFA2C800427FB2 /* Itinerary.m */; };
 		8448C0F722DFA2C800427FB2 /* Event.m in Sources */ = {isa = PBXBuildFile; fileRef = 8448C0F222DFA2C800427FB2 /* Event.m */; };
-		8468099222E67F4A001F9F0C /* SearchLocationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8468099022E67F4A001F9F0C /* SearchLocationViewController.m */; };
 		8495D7A922DE8BDD00CFED2D /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8495D7A822DE8BDD00CFED2D /* LoginViewController.m */; };
 		8495D7AE22DE991B00CFED2D /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8495D7AD22DE991B00CFED2D /* ProfileViewController.m */; };
 		8495D7B122DF879600CFED2D /* ItineraryCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8495D7B022DF879600CFED2D /* ItineraryCollectionViewCell.m */; };
@@ -601,7 +600,6 @@
 				23F5A9E922DFE59A0084086B /* InputItineraryViewController.m in Sources */,
 				23F5AA3622E120AB0084086B /* EventInputFoodView.m in Sources */,
 				23F5AA4A22E61DBE0084086B /* EventDetailsDescriptionView.m in Sources */,
-				8468099222E67F4A001F9F0C /* SearchLocationViewController.m in Sources */,
 				8495D7A922DE8BDD00CFED2D /* LoginViewController.m in Sources */,
 				23F5AA4222E617D30084086B /* EventDetailsViewController.m in Sources */,
 				23F5AA5D22E641EC0084086B /* EventTableViewCell.m in Sources */,
