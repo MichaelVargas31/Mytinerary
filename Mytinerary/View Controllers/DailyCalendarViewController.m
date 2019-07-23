@@ -6,25 +6,6 @@
 //  Copyright © 2019 michaelvargas. All rights reserved.
 //
 
-
-/*
- Brainstorming:
-    - Probably going to have increments of 15(?) minutes that are cells
-    - Use gesture recognizer to detect tap, which adds UIView to the screen?
- 
-    Maybe NSCalendar could be useful?
-
- 
- Questions:
-    - Should formatter be defined as a property of the Daily View Controller?
-    - Possible to add addEventWith() to scheduledEventView.m file?? outsourcing?
-    - Currently iterating through 'events' array of pointers in itinerary, using the ID to fetch said
-            event from parse. More efficient way?
-    - How can I move addEvent() to its own "View"?
-    - How do I access the tableview.rowheight from the UIView file?
-
- */
-
 #import "DailyCalendarViewController.h"
 #import "DailyTableViewCell.h"
 #import "DailyCalendarEventUIView.h"
@@ -63,7 +44,6 @@
         Event *event = self.itinerary.events[i];
         [event fetchIfNeeded];  // might be whats taking long time
         [tempEventArray addObject:event];
-//        [self.sortedEventsArray arrayByAddingObject:event];
         NSLog(@"Event arraY: %@", tempEventArray);
     }
     
