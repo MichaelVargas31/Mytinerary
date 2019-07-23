@@ -170,11 +170,41 @@ static int const EVENT_INPUT_SUBMIT_VIEW_HEIGHT = 50;
 }
 
 - (void)prefillFoodEventFields:(Event *)event {
-    // TODO
+    self.eventInputFoodView.locationTextField.text = event.address;
+    self.eventInputFoodView.typeTextField.text = event.foodType;
+    self.eventInputFoodView.notesTextView.text = event.notes;
+    
+    if ([event.foodCost isEqualToString:@"$"]) {
+        [self.eventInputSharedView.categoryPickerView selectRow:0 inComponent:0 animated:YES];
+    }
+    else if ([event.foodCost isEqualToString:@"$$"]) {
+        [self.eventInputSharedView.categoryPickerView selectRow:1 inComponent:0 animated:YES];
+    }
+    else if ([event.foodCost isEqualToString:@"$$$"]) {
+        [self.eventInputSharedView.categoryPickerView selectRow:2 inComponent:0 animated:YES];
+    }
+    else if ([event.foodCost isEqualToString:@"$$$$"]) {
+        [self.eventInputSharedView.categoryPickerView selectRow:3 inComponent:0 animated:YES];
+    }
 }
 
 - (void)prefillHotelEventFields:(Event *)event {
-    // TODO
+    self.eventInputHotelView.locationTextField.text = event.address;
+    self.eventInputHotelView.costTextField.text = [NSString stringWithFormat:@"$%@", event.cost];
+    self.eventInputHotelView.notesTextView.text = event.notes;
+    
+    if ([event.hotelType isEqualToString:@"hotel"]) {
+        [self.eventInputSharedView.categoryPickerView selectRow:0 inComponent:0 animated:YES];
+    }
+    else if ([event.hotelType isEqualToString:@"campground"]) {
+        [self.eventInputSharedView.categoryPickerView selectRow:1 inComponent:0 animated:YES];
+    }
+    else if ([event.hotelType isEqualToString:@"hostel"]) {
+        [self.eventInputSharedView.categoryPickerView selectRow:2 inComponent:0 animated:YES];
+    }
+    else if ([event.hotelType isEqualToString:@"airbnb"]) {
+        [self.eventInputSharedView.categoryPickerView selectRow:3 inComponent:0 animated:YES];
+    }
 }
 
 - (IBAction)onTapCloseButton:(id)sender {
