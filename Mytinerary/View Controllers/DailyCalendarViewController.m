@@ -10,6 +10,7 @@
 #import "DailyTableViewCell.h"
 #import "DailyCalendarEventUIView.h"
 #import "EventDetailsViewController.h"
+#import "ItineraryDetailsViewController.h"
 #import "InputEventViewController.h"
 #import "Event.h"
 #import "FSCalendar.h"
@@ -90,6 +91,10 @@
         // send itinerary to input event VC to add new event to appropriate itinerary
         InputEventViewController *inputEventViewController = [segue destinationViewController];
         inputEventViewController.itinerary = self.itinerary;
+    }
+    else if ([[segue identifier] isEqualToString:@"itineraryDetailsSegue"]) {
+        ItineraryDetailsViewController *itineraryDetailsViewController = [segue destinationViewController];
+        itineraryDetailsViewController.itinerary = self.itinerary;
     }
 }
 
