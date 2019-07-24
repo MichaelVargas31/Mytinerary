@@ -23,7 +23,7 @@ static int const EVENT_INPUT_FOOD_VIEW_HEIGHT = 460;
 static int const EVENT_INPUT_HOTEL_VIEW_HEIGHT = 460;
 static int const EVENT_INPUT_SUBMIT_VIEW_HEIGHT = 50;
 
-@interface InputEventViewController () <UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate>
+@interface InputEventViewController () <UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate, SearchLocationDelegate>
 
 @property (strong, nonatomic) UIScrollView *scrollView;
 @property (strong, nonatomic) UIStackView *stackView;
@@ -41,7 +41,9 @@ static int const EVENT_INPUT_SUBMIT_VIEW_HEIGHT = 50;
 @property (strong, nonatomic) NSArray *foodCostPickerData;
 @property (strong, nonatomic) NSArray *hotelTypePickerData;
 
-@property (strong, nonatomic) SearchLocationViewController* searchVC;
+@property (strong, nonatomic) Location *location;
+@property (strong, nonatomic) Location *endLocation;
+
 @end
 
 @implementation InputEventViewController
@@ -108,11 +110,18 @@ static int const EVENT_INPUT_SUBMIT_VIEW_HEIGHT = 50;
     
     // setup activity location text field
     self.eventInputActivityView.locationTextField.delegate = self;
+    self.eventInputTransportationView.startLocationTextField.delegate = self;
+    self.eventInputTransportationView.endLocationTextField.delegate = self;
+    self.eventInputFoodView.locationTextField.delegate = self;
+    self.eventInputHotelView.locationTextField.delegate = self;
     
     // setup transportation category picker view
     self.eventInputTransportationView.typePickerView.delegate = self;
     self.eventInputTransportationView.typePickerView.dataSource = self;
     self.transportationTypePickerData = [NSArray arrayWithObjects:@"walk", @"bike", @"car", @"public transportation", nil];
+    // setup transportation location text view tags
+    self.eventInputTransportationView.startLocationTextField.tag = 1;
+    self.eventInputTransportationView.endLocationTextField.tag = 2;
     
     // setup food cost picker view
     self.eventInputFoodView.costPickerView.delegate = self;
@@ -275,16 +284,17 @@ static int const EVENT_INPUT_SUBMIT_VIEW_HEIGHT = 50;
 
 - (Event *)makeActivityEvent {
     // testing purposes for now
-    NSNumber *latitude = @(0); //need to add a close button
-    NSNumber *longitude = @(0);
-    NSString *locationType = @"test type";
-    
+    NSNumber *latitude = self.location.latitude;
+    NSNumber *longitude = self.location.longitude;
+    NSString *locationType = self.location.type;
+    NSString *address = self.location.address;
+
     float cost = (float)0.0;
     if (![self.eventInputActivityView.costTextField.text isEqualToString:@""]) {
         cost = [self.eventInputActivityView.costTextField.text floatValue];
     }
     
-    Event *event = [Event initActivityEvent:self.eventInputSharedView.titleTextField.text eventDescription:self.eventInputSharedView.descriptionTextView.text address:self.eventInputActivityView.locationTextField.text latitude:latitude longitude:longitude locationType:locationType startTime:self.eventInputSharedView.startTimeDatePicker.date endTime:self.eventInputSharedView.endTimeDatePicker.date cost:cost notes:self.eventInputActivityView.notesTextView.text withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
+    Event *event = [Event initActivityEvent:self.eventInputSharedView.titleTextField.text eventDescription:self.eventInputSharedView.descriptionTextView.text address:address latitude:latitude longitude:longitude locationType:locationType startTime:self.eventInputSharedView.startTimeDatePicker.date endTime:self.eventInputSharedView.endTimeDatePicker.date cost:cost notes:self.eventInputActivityView.notesTextView.text withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
         if (succeeded) {
             NSLog(@"activity event successfully initialized!");
             [self dismissViewControllerAnimated:YES completion:nil];
@@ -301,9 +311,9 @@ static int const EVENT_INPUT_SUBMIT_VIEW_HEIGHT = 50;
 
 - (Event *)updateActivityEvent:(Event *)event {
     // testing purposes for now
-    NSNumber *latitude = @(0);
-    NSNumber *longitude = @(0);
-    NSString *locationType = @"test type";
+    NSNumber *latitude = self.location.latitude;
+    NSNumber *longitude = self.location.longitude;
+    NSString *locationType = self.location.type;
     
     float cost = (float)0.0;
     if (![self.eventInputActivityView.costTextField.text isEqualToString:@""]) {
@@ -327,10 +337,10 @@ static int const EVENT_INPUT_SUBMIT_VIEW_HEIGHT = 50;
 
 - (Event *)makeTransportationEvent {
     // testing purposes for now
-    NSNumber *startLatitude = @(0);
-    NSNumber *startLongitude = @(0);
-    NSNumber *endLatitude = @(0);
-    NSNumber *endLongitude = @(0);
+    NSNumber *startLatitude = self.location.latitude;
+    NSNumber *startLongitude = self.location.longitude;
+    NSNumber *endLatitude = self.endLocation.latitude;
+    NSNumber *endLongitude = self.endLocation.longitude;
     
     float cost = (float)0.0;
     if (![self.eventInputTransportationView.costTextField.text isEqualToString:@""]) {
@@ -387,9 +397,9 @@ static int const EVENT_INPUT_SUBMIT_VIEW_HEIGHT = 50;
 
 - (Event *)makeFoodEvent {
     // testing purposes for now
-    NSNumber *latitude = @(0);
-    NSNumber *longitude = @(0);
-    NSString *locationType = @"test type";
+    NSNumber *latitude = self.location.latitude;
+    NSNumber *longitude = self.location.longitude;
+    NSString *locationType = self.location.type;
     
     int selectedFoodCostIdx = (int)[self.eventInputFoodView.costPickerView selectedRowInComponent:0];
     NSString *selectedFoodCost = self.foodCostPickerData[selectedFoodCostIdx];
@@ -410,10 +420,9 @@ static int const EVENT_INPUT_SUBMIT_VIEW_HEIGHT = 50;
 }
 
 - (Event *)updateFoodEvent:(Event *)event {
-    // testing purposes for now
-    NSNumber *latitude = @(0);
-    NSNumber *longitude = @(0);
-    NSString *locationType = @"test type";
+    NSNumber *latitude = self.location.latitude;
+    NSNumber *longitude = self.location.longitude;
+    NSString *locationType = self.location.type;
     
     int selectedFoodCostIdx = (int)[self.eventInputFoodView.costPickerView selectedRowInComponent:0];
     NSString *selectedFoodCost = self.foodCostPickerData[selectedFoodCostIdx];
@@ -435,9 +444,9 @@ static int const EVENT_INPUT_SUBMIT_VIEW_HEIGHT = 50;
 
 - (Event *)makeHotelEvent {
     // testing purposes for now
-    NSNumber *latitude = @(0);
-    NSNumber *longitude = @(0);
-    NSString *locationType = @"test type";
+    NSNumber *latitude = self.location.latitude;
+    NSNumber *longitude = self.location.longitude;
+    NSString *locationType = self.location.type;
     
     float cost = (float)0.0;
     if (![self.eventInputHotelView.costTextField.text isEqualToString:@""]) {
@@ -464,9 +473,9 @@ static int const EVENT_INPUT_SUBMIT_VIEW_HEIGHT = 50;
 
 - (Event *)updateHotelEvent:(Event *)event {
     // testing purposes for now
-    NSNumber *latitude = @(0);
-    NSNumber *longitude = @(0);
-    NSString *locationType = @"test type";
+    NSNumber *latitude = self.location.latitude;
+    NSNumber *longitude = self.location.longitude;
+    NSString *locationType = self.location.type;
     
     float cost = (float)0.0;
     if (![self.eventInputHotelView.costTextField.text isEqualToString:@""]) {
@@ -491,16 +500,18 @@ static int const EVENT_INPUT_SUBMIT_VIEW_HEIGHT = 50;
     return event;
 }
 
-/*
+
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+    if ([[segue identifier] isEqualToString:@"getLocationSegue"]) {
+        UINavigationController *navigationController = [segue destinationViewController];
+        SearchLocationViewController *searchLocationViewController = [[navigationController viewControllers] firstObject];
+        searchLocationViewController.delegate = self;
+        searchLocationViewController.textField = sender;
+    }
 }
-*/
-
 
 // picker view functions
 - (NSInteger)numberOfComponentsInPickerView:(nonnull UIPickerView *)pickerView {
@@ -574,9 +585,46 @@ static int const EVENT_INPUT_SUBMIT_VIEW_HEIGHT = 50;
 }
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField {
-    NSLog(@"text field did begin editing, %@", textField);
     // segue to location search form
-//    [self performSegueWithIdentifier:@"getLocationSegue" sender:nil];
+    if (textField.tag == 1) {
+        NSLog(@"start location");
+    }
+    else if (textField.tag == 2) {
+        NSLog(@"end location");
+    }
+    
+    [self performSegueWithIdentifier:@"getLocationSegue" sender:textField];
+}
+
+- (void)didTapLocation:(nonnull Location *)location textField:(nonnull UITextField *)textField{
+    int selectedCategoryIdx = (int)[self.eventInputSharedView.categoryPickerView selectedRowInComponent:0];
+    NSString *selectedCategory = self.eventCategoryPickerData[selectedCategoryIdx];
+    
+    // update location text field after location is chosen
+    if ([selectedCategory isEqualToString:@"activity"]) {
+        self.eventInputActivityView.locationTextField.text = location.address;
+        self.location = location;
+    }
+    else if ([selectedCategory isEqualToString:@"transportation"]) {
+        // from start location text field
+        if (textField.tag == 1) {
+            self.eventInputTransportationView.startLocationTextField.text = location.address;
+            self.location = location;
+        }
+        // from end location text field
+        else if (textField.tag == 2) {
+            self.eventInputTransportationView.endLocationTextField.text = location.address;
+            self.endLocation = location;
+        }
+    }
+    else if ([selectedCategory isEqualToString:@"food"]) {
+        self.eventInputFoodView.locationTextField.text = location.address;
+        self.location = location;
+    }
+    else if ([selectedCategory isEqualToString:@"hotel"]) {
+        self.eventInputHotelView.locationTextField.text = location.address;
+        self.location = location;
+    }
 }
 
 @end

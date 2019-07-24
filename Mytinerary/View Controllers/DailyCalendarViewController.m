@@ -18,7 +18,6 @@
 
 @interface DailyCalendarViewController () <UITableViewDelegate, UITableViewDataSource, FSCalendarDataSource, FSCalendarDelegate, CalendarEventViewDelegate>
 
-
 @end
 
 @implementation DailyCalendarViewController

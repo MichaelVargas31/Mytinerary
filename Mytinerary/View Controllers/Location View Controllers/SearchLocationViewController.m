@@ -28,8 +28,6 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     LocationCellTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"LocationCellTableViewCell" forIndexPath:indexPath];
-    NSLog(@"array: %@", self.results);
-    
     Location *location = self.results[indexPath.row];
     
     cell.eventName.text = location.name;
@@ -42,6 +40,19 @@
     return self.results.count;
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (self.delegate) {
+        Location *location = self.results[indexPath.row];
+        NSLog(@"delegate: %@", self.delegate);
+        NSLog(@"selected location %@", location.name);
+        [self.delegate didTapLocation:location textField:self.textField];
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }
+    else {
+        NSLog(@"search delegate is null");
+    }
+}
+
 - (BOOL)searchBar:(UISearchBar *)searchBar shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
     NSString *newText = [searchBar.text stringByReplacingCharactersInRange:range withString:text];
     return true;
@@ -51,7 +62,7 @@
     [self GoogleAPIImplementation:searchBar.text];
 }
 
--(void)GoogleAPIImplementation :(NSString *)query {
+-(void)GoogleAPIImplementation:(NSString *)query {
     
     NSLog(@"%@", self.searchBar.text);
     

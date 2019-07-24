@@ -15,8 +15,8 @@
     Location *location = [[Location alloc] init];
     location.name = dict[@"name"];
     location.address = dict[@"formatted_address"];
-    location.latitude = dict[@"geometry.location.lat"];
-    location.longitude = dict[@"geometry.location.lng"];
+    location.latitude = dict[@"geometry"][@"location"][@"lat"];
+    location.longitude = dict[@"geometry"][@"location"][@"lng"];
     location.type = [dict[@"types"] firstObject];
     
     return location;
