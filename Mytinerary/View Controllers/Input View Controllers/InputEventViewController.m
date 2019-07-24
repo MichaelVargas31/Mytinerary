@@ -275,7 +275,7 @@ static int const EVENT_INPUT_SUBMIT_VIEW_HEIGHT = 50;
 
 - (Event *)makeActivityEvent {
     // testing purposes for now
-    NSNumber *latitude = self.searchVC.latitude; //need to add a close button
+    NSNumber *latitude = @(0); //need to add a close button
     NSNumber *longitude = @(0);
     NSString *locationType = @"test type";
     

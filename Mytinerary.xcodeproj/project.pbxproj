@@ -26,6 +26,7 @@
 		23F5AA5622E61E090084086B /* EventDetailsHotelView.m in Sources */ = {isa = PBXBuildFile; fileRef = 23F5AA5522E61E090084086B /* EventDetailsHotelView.m */; };
 		23F5AA5922E62B520084086B /* ItineraryDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 23F5AA5822E62B520084086B /* ItineraryDetailsViewController.m */; };
 		23F5AA5D22E641EC0084086B /* EventTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 23F5AA5C22E641EC0084086B /* EventTableViewCell.m */; };
+		23F5AA6122E8DA630084086B /* Location.m in Sources */ = {isa = PBXBuildFile; fileRef = 23F5AA6022E8DA630084086B /* Location.m */; };
 		8448C0F522DFA2C800427FB2 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 8448C0EF22DFA2C800427FB2 /* User.m */; };
 		8448C0F622DFA2C800427FB2 /* Itinerary.m in Sources */ = {isa = PBXBuildFile; fileRef = 8448C0F122DFA2C800427FB2 /* Itinerary.m */; };
 		8448C0F722DFA2C800427FB2 /* Event.m in Sources */ = {isa = PBXBuildFile; fileRef = 8448C0F222DFA2C800427FB2 /* Event.m */; };
@@ -102,6 +103,8 @@
 		23F5AA5822E62B520084086B /* ItineraryDetailsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ItineraryDetailsViewController.m; sourceTree = "<group>"; };
 		23F5AA5B22E641EC0084086B /* EventTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EventTableViewCell.h; sourceTree = "<group>"; };
 		23F5AA5C22E641EC0084086B /* EventTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EventTableViewCell.m; sourceTree = "<group>"; };
+		23F5AA5F22E8DA630084086B /* Location.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Location.h; sourceTree = "<group>"; };
+		23F5AA6022E8DA630084086B /* Location.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Location.m; sourceTree = "<group>"; };
 		58B8F33A939BCC86C8C98935 /* Pods_MytineraryTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MytineraryTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8448C0EF22DFA2C800427FB2 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
 		8448C0F022DFA2C800427FB2 /* Event.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Event.h; sourceTree = "<group>"; };
@@ -241,6 +244,8 @@
 				8448C0F222DFA2C800427FB2 /* Event.m */,
 				8448C0F422DFA2C800427FB2 /* Itinerary.h */,
 				8448C0F122DFA2C800427FB2 /* Itinerary.m */,
+				23F5AA5F22E8DA630084086B /* Location.h */,
+				23F5AA6022E8DA630084086B /* Location.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -609,6 +614,7 @@
 				23F5A9F222E0DEAD0084086B /* EventInputActivityView.m in Sources */,
 				23F5AA3922E124380084086B /* EventInputHotelView.m in Sources */,
 				23F5AA4D22E61DCF0084086B /* EventDetailsActivityView.m in Sources */,
+				23F5AA6122E8DA630084086B /* Location.m in Sources */,
 				FF6C5F2E22DE868D00D0EB83 /* DailyCalendarViewController.m in Sources */,
 				23F5AA5922E62B520084086B /* ItineraryDetailsViewController.m in Sources */,
 				8495D7B122DF879600CFED2D /* ItineraryCollectionViewCell.m in Sources */,

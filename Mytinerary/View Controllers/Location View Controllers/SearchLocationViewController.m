@@ -7,6 +7,7 @@
 
 #import "SearchLocationViewController.h"
 #import "LocationCellTableViewCell.h"
+#import "Location.h"
 
 @interface SearchLocationViewController () <UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate>
 
@@ -29,10 +30,10 @@
     LocationCellTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"LocationCellTableViewCell" forIndexPath:indexPath];
     NSLog(@"array: %@", self.results);
     
-    NSDictionary *location = self.results[indexPath.row];
+    Location *location = self.results[indexPath.row];
     
-    cell.eventName.text = location[@"name"];
-    cell.eventAddress.text = location[@"formatted_address"];
+    cell.eventName.text = location.name;
+    cell.eventAddress.text = location.address;
     
     return cell;
 }
@@ -67,8 +68,9 @@
         if (data) {
             
             NSDictionary *responseDictionary = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
-            self.results = [responseDictionary valueForKeyPath: @"candidates"];// [responseDictionary valueForKeyPath:@"candidates.name"];
-            
+            NSArray *locations = [responseDictionary valueForKeyPath: @"candidates"];
+            self.results = [Location initWithDictionaries:locations];
+      
             [self.tableView reloadData];
         }
     }];
