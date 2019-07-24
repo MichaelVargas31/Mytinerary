@@ -79,7 +79,7 @@ static int const HOTEL_VIEW_HEIGHT = 110;
     self.descriptionView.notesLabel.text = self.event.notes;
     
     // render view according to category
-    NSString *eventCategory = @"activity"; // testing... self.event.category;
+    NSString *eventCategory = self.event.category;
     if ([eventCategory isEqualToString:@"activity"]) {
         // add activity view
         [stackView insertArrangedSubview:self.activityView atIndex:1];

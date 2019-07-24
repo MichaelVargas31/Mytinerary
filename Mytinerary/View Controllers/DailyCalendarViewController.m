@@ -10,13 +10,14 @@
 #import "DailyTableViewCell.h"
 #import "DailyCalendarEventUIView.h"
 #import "EventDetailsViewController.h"
+#import "ItineraryDetailsViewController.h"
+#import "InputEventViewController.h"
 #import "Event.h"
 #import "FSCalendar.h"
 #import "Parse/Parse.h"
 
 
 @interface DailyCalendarViewController () <UITableViewDelegate, UITableViewDataSource, FSCalendarDataSource, FSCalendarDelegate, CalendarEventViewDelegate>
-
 
 @end
 
@@ -29,6 +30,14 @@
     self.tableView.delegate = self;
     self.itineraryFSCalendar.dataSource = self;
     self.itineraryFSCalendar.delegate = self;
+    
+    // setup navigation bar title with button
+    UIButton *button = [[UIButton alloc] init];
+    [button setAccessibilityFrame:CGRectMake(0, 0, 100, 40)];
+    [button setTitle:self.itinerary.title forState:UIControlStateNormal];
+    [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [button addTarget:self action:@selector(onTapItineraryTitle) forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.titleView = button;
     
     // initially, only the daily calendar view will be visible
     [self.itineraryFSCalendar setFrame:CGRectMake(self.itineraryFSCalendar.frame.origin.x, self.itineraryFSCalendar.frame.origin.y, self.itineraryFSCalendar.frame.size.width, 0)];
@@ -46,8 +55,6 @@
         Event *one = events[i];
         [eventIDs addObject:one.objectId];
     }
-    
-    
     
     PFQuery *query = [Event query];
     [query whereKey:@"objectId" containedIn:eventIDs];
@@ -80,6 +87,15 @@
         EventDetailsViewController *eventDetailsViewController = [segue destinationViewController];
         eventDetailsViewController.event = sender;
     }
+    else if ([[segue identifier] isEqualToString:@"addEventSegue"]) {
+        // send itinerary to input event VC to add new event to appropriate itinerary
+        InputEventViewController *inputEventViewController = [segue destinationViewController];
+        inputEventViewController.itinerary = self.itinerary;
+    }
+    else if ([[segue identifier] isEqualToString:@"itineraryDetailsSegue"]) {
+        ItineraryDetailsViewController *itineraryDetailsViewController = [segue destinationViewController];
+        itineraryDetailsViewController.itinerary = self.itinerary;
+    }
 }
 
 
@@ -105,5 +121,14 @@
     // after tapping event, segue to event details view
     [self performSegueWithIdentifier:@"eventDetailsSegue" sender:event];
 }
+
+- (IBAction)onTapAddEventButton:(id)sender {
+    [self performSegueWithIdentifier:@"addEventSegue" sender:self];
+}
+
+- (void)onTapItineraryTitle {
+    [self performSegueWithIdentifier:@"itineraryDetailsSegue" sender:nil];
+}
+
 
 @end

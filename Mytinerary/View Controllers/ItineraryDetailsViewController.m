@@ -7,13 +7,19 @@
 //
 
 #import "ItineraryDetailsViewController.h"
+#import "EventTableViewCell.h"
 
-@interface ItineraryDetailsViewController ()
+@interface ItineraryDetailsViewController () <UITableViewDelegate, UITableViewDataSource>
 
+// itinerary labels
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @property (weak, nonatomic) IBOutlet UILabel *startTimeLabel;
 @property (weak, nonatomic) IBOutlet UILabel *endTimeLabel;
 @property (weak, nonatomic) IBOutlet UILabel *budgetLabel;
+
+// events
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (strong, nonatomic) NSArray *events;
 
 @end
 
@@ -21,6 +27,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.tableView.delegate = self;
+    self.tableView.dataSource = self;
     
     // setup date formatter
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
@@ -45,5 +54,15 @@
     // Pass the selected object to the new view controller.
 }
 */
+
+- (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
+    EventTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"EventTableViewCell" forIndexPath:indexPath];
+
+    return cell;
+}
+
+- (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return 5; // self.events.count;
+}
 
 @end
