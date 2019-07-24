@@ -353,6 +353,7 @@ static int const EVENT_INPUT_SUBMIT_VIEW_HEIGHT = 50;
     [event updateTransportationEvent:self.eventInputSharedView.titleTextField.text eventDescription:self.eventInputSharedView.descriptionTextView.text startAddress:self.eventInputTransportationView.startLocationTextField.text startLatitude:startLatitude startLongitude:startLongitude endAddress:self.eventInputTransportationView.endLocationTextField.text endLatitude:endLatitude endLongitude:endLongitude startTime:self.eventInputSharedView.startTimeDatePicker.date endTime:self.eventInputSharedView.endTimeDatePicker.date transpoType:selectedTranspoType cost:cost notes:self.eventInputTransportationView.notesTextView.text withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
         if (succeeded) {
             NSLog(@"transportation event successfully updated!");
+            [self.delegate didUpdateEvent:event];
             [self dismissViewControllerAnimated:YES completion:nil];
         }
         else {
@@ -397,6 +398,7 @@ static int const EVENT_INPUT_SUBMIT_VIEW_HEIGHT = 50;
     [event updateFoodEvent:self.eventInputSharedView.titleTextField.text eventDescription:self.eventInputSharedView.descriptionTextView.text address:self.eventInputFoodView.locationTextField.text latitude:latitude longitude:longitude locationType:locationType startTime:self.eventInputSharedView.startTimeDatePicker.date endTime:self.eventInputSharedView.endTimeDatePicker.date foodType:self.eventInputFoodView.typeTextField.text foodCost:selectedFoodCost notes:self.eventInputFoodView.notesTextView.text withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
         if (succeeded) {
             NSLog(@"food event successfully updated!");
+            [self.delegate didUpdateEvent:event];
             [self dismissViewControllerAnimated:YES completion:nil];
         }
         else {
@@ -451,6 +453,7 @@ static int const EVENT_INPUT_SUBMIT_VIEW_HEIGHT = 50;
     [event updateHotelEvent:self.eventInputSharedView.titleTextField.text eventDescription:self.eventInputSharedView.descriptionTextView.text address:self.eventInputHotelView.locationTextField.text latitude:latitude longitude:longitude locationType:locationType startTime:self.eventInputSharedView.startTimeDatePicker.date endTime:self.eventInputSharedView.endTimeDatePicker.date hotelType:selectedHotelType cost:cost notes:self.eventInputHotelView.notesTextView.text withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
         if (succeeded) {
             NSLog(@"hotel event successfully updated!");
+            [self.delegate didUpdateEvent:event];
             [self dismissViewControllerAnimated:YES completion:nil];
         }
         else {

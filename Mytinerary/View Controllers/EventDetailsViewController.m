@@ -87,13 +87,24 @@ static int const HOTEL_VIEW_HEIGHT = 110;
     
     // check to make sure there aren't 3 views already
     if ([self.stackView arrangedSubviews].count == 3) {
-        // remove the second view
-        [self.stackView removeArrangedSubview:[self.stackView arrangedSubviews][1]];
-        [[self.stackView arrangedSubviews][1] removeFromSuperview];
+        // remove the extra view
+        NSArray *subviews = self.stackView.arrangedSubviews;
+        UIView *viewToBeRemoved;
+        for (int i = 0; i<subviews.count; i++) {
+            if (![subviews[i] isKindOfClass:[EventDetailsTitleView class]] && ![subviews[i] isKindOfClass:[EventDetailsDescriptionView class]]) {
+                NSLog(@"view = %@", viewToBeRemoved);
+
+                viewToBeRemoved = subviews[i];
+                [self.stackView removeArrangedSubview:viewToBeRemoved];
+                [viewToBeRemoved removeFromSuperview];
+//                [viewToBeRemoved setHidden:YES];
+
+            }
+        }
     }
     
     // render view according to category
-    NSString *eventCategory = @"activity"; // testing... self.event.category;
+    NSString *eventCategory = self.event.category; // testing... self.event.category;
     if ([eventCategory isEqualToString:@"activity"]) {
         // add activity view
         [self.stackView insertArrangedSubview:self.activityView atIndex:1];
@@ -154,6 +165,7 @@ static int const HOTEL_VIEW_HEIGHT = 110;
 
 
 - (void)didUpdateEvent:(nonnull Event *)updatedEvent {
+    NSLog(@"Updated event: %@", updatedEvent);
     self.event = updatedEvent;
     [self refreshViews];
     [self viewDidLoad]; // not efficient
