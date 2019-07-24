@@ -104,4 +104,9 @@
     [self performSegueWithIdentifier:@"eventDetailsSegue" sender:event];
 }
 
+- (IBAction)onTapAddEventButton:(id)sender {
+    
+}
+
+
 @end

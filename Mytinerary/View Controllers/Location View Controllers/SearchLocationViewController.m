@@ -21,7 +21,6 @@
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     self.searchBar.delegate = self;
-    
 }
 
 #pragma mark - Table view data source

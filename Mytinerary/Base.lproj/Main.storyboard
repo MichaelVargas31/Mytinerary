@@ -230,8 +230,8 @@
                     </navigationItem>
                     <connections>
                         <outlet property="collectionView" destination="PWN-zR-u73" id="85v-RW-p1V"/>
-                        <segue destination="P9I-0f-YVX" kind="show" identifier="goToMap" id="S7B-S6-hJV"/>
-                        <segue destination="rWW-ig-3vo" kind="show" identifier="calendarSegue" id="hey-4Z-0eK"/>
+                        <segue destination="Cse-Zz-3XH" kind="show" identifier="goToMap" id="S7B-S6-hJV"/>
+                        <segue destination="LRs-zy-NRI" kind="show" identifier="calendarSegue" id="hey-4Z-0eK"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XoH-4c-RPv" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -338,7 +338,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iEG-eb-U2D" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3361" y="-398"/>
+            <point key="canvasLocation" x="4042" y="-287"/>
         </scene>
         <!--Input Event View Controller-->
         <scene sceneID="7mh-AC-M0N">
@@ -776,7 +776,7 @@
                     </connections>
                 </view>
             </objects>
-            <point key="canvasLocation" x="3361" y="-1078"/>
+            <point key="canvasLocation" x="3865" y="985"/>
         </scene>
         <!--Daily Calendar View Controller-->
         <scene sceneID="LDD-gY-UEN">
@@ -830,6 +830,13 @@
                                     <barButtonItem title="Daily" id="gTX-LK-6kc"/>
                                     <barButtonItem width="42" style="plain" systemItem="fixedSpace" id="Sax-pr-AJy"/>
                                     <barButtonItem title="Week" id="IPY-Be-c7G"/>
+                                    <barButtonItem width="108" style="plain" systemItem="fixedSpace" id="cRv-Ex-iXl"/>
+                                    <barButtonItem title="Add event" id="uko-z9-HP0">
+                                        <connections>
+                                            <action selector="onTapAddEventButton:" destination="rWW-ig-3vo" id="9cj-DQ-izx"/>
+                                            <segue destination="eHQ-Si-fcr" kind="presentation" id="bVr-rO-J3L"/>
+                                        </connections>
+                                    </barButtonItem>
                                 </items>
                             </toolbar>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IFV-qY-Uho" customClass="FSCalendar">
@@ -852,6 +859,20 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="BQN-GC-MwF"/>
                     </view>
+                    <navigationItem key="navigationItem" id="jVa-tE-iwp">
+                        <rightBarButtonItems>
+                            <barButtonItem title="map" id="1l9-sf-R1H">
+                                <connections>
+                                    <segue destination="Cse-Zz-3XH" kind="show" id="qdm-iR-svW"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem title="profile" id="8Dq-it-gXc">
+                                <connections>
+                                    <segue destination="zcb-mO-9dQ" kind="show" id="jrK-2N-UHa"/>
+                                </connections>
+                            </barButtonItem>
+                        </rightBarButtonItems>
+                    </navigationItem>
                     <connections>
                         <outlet property="itineraryFSCalendar" destination="IFV-qY-Uho" id="xYv-rK-Xuk"/>
                         <outlet property="tableView" destination="ecC-45-JY5" id="5N2-vq-HVy"/>
@@ -860,7 +881,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Wko-au-X6b" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2309.5999999999999" y="300.89955022488761"/>
+            <point key="canvasLocation" x="2073" y="985"/>
         </scene>
         <!--Event Details View Controller-->
         <scene sceneID="H8t-UC-jw5">
@@ -1177,7 +1198,7 @@
                     </connections>
                 </view>
             </objects>
-            <point key="canvasLocation" x="3023" y="301"/>
+            <point key="canvasLocation" x="2902" y="985"/>
         </scene>
         <!--Search Location View Controller-->
         <scene sceneID="3Tn-uy-CTc">
@@ -1197,7 +1218,7 @@
                                 <rect key="frame" x="0.0" y="72" width="375" height="147"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="kxm-1F-FIV" id="Ufg-oT-zsW">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="139.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="146.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oVm-rx-TQk">
@@ -1243,7 +1264,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZkV-Lo-BM8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5017" y="-1078"/>
+            <point key="canvasLocation" x="3865" y="2401"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="A03-oS-P3J">
@@ -1413,13 +1434,20 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="qu1-eQ-0kq"/>
                     </view>
+                    <navigationItem key="navigationItem" id="fnH-oE-JUS">
+                        <barButtonItem key="rightBarButtonItem" title="calendar" id="kTH-2Y-RA1">
+                            <connections>
+                                <segue destination="LRs-zy-NRI" kind="show" id="ZJx-tO-anp"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="mapView" destination="Ypp-lD-JTy" id="LOL-df-Hok"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="d8L-Cq-QBq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1324" y="301"/>
+            <point key="canvasLocation" x="1324" y="986"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Kgc-Sh-I9d">
@@ -1437,11 +1465,50 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="H02-Hc-cxd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4286" y="-1078"/>
+            <point key="canvasLocation" x="3865" y="1737"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="p3R-kY-0cq">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Cse-Zz-3XH" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="MLC-H1-7n5">
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="P9I-0f-YVX" kind="relationship" relationship="rootViewController" id="h9J-nS-UmE"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Jex-o4-2QZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1324" y="300.89955022488761"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="Z50-OK-YZu">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="LRs-zy-NRI" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="efH-2z-aDa">
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="rWW-ig-3vo" kind="relationship" relationship="rootViewController" id="fai-A2-8OF"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dcJ-QG-9VO" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2072.8000000000002" y="300.89955022488761"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
+        <segue reference="ZJx-tO-anp"/>
+        <segue reference="qdm-iR-svW"/>
         <segue reference="a8N-p0-ajg"/>
-        <segue reference="gy0-c7-1ub"/>
+        <segue reference="jrK-2N-UHa"/>
+        <segue reference="bVr-rO-J3L"/>
     </inferredMetricsTieBreakers>
 </document>

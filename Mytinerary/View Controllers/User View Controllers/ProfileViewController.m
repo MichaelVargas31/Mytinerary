@@ -146,7 +146,8 @@
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
     if ([segue.identifier isEqualToString:@"calendarSegue"]) {
-        DailyCalendarViewController *dailyCalendarVC = [segue destinationViewController];
+        UINavigationController *navigationController = [segue destinationViewController];
+        DailyCalendarViewController *dailyCalendarVC = [navigationController.viewControllers firstObject];
         ItineraryCollectionViewCell *tappedCell = sender;
         NSLog(@"Tapped Cell name: %@", tappedCell.title);
         
