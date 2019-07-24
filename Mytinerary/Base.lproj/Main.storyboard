@@ -357,6 +357,7 @@
                         <outlet property="eventInputSharedView" destination="qBl-CW-RwM" id="gPK-Rc-Ram"/>
                         <outlet property="eventInputSubmitView" destination="0Mz-DC-EVM" id="HTY-jE-nL7"/>
                         <outlet property="eventInputTransportationView" destination="H6K-tF-Ewc" id="ams-bd-HUL"/>
+                        <segue destination="sEt-qt-KBS" kind="presentation" identifier="getLocationSegue" id="a8N-p0-ajg"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dHC-gh-g5I" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1223,13 +1224,15 @@
                             <outlet property="delegate" destination="sEt-qt-KBS" id="Q7c-QL-hg1"/>
                         </connections>
                     </tableView>
+                    <toolbarItems/>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="searchBar" destination="cE7-hv-xAm" id="sQU-Jm-kiT"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZkV-Lo-BM8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4121" y="-1078"/>
+            <point key="canvasLocation" x="4217" y="-1078"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="A03-oS-P3J">
@@ -1409,6 +1412,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
+        <segue reference="a8N-p0-ajg"/>
         <segue reference="gy0-c7-1ub"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -22,7 +22,7 @@ static int const EVENT_INPUT_FOOD_VIEW_HEIGHT = 460;
 static int const EVENT_INPUT_HOTEL_VIEW_HEIGHT = 460;
 static int const EVENT_INPUT_SUBMIT_VIEW_HEIGHT = 50;
 
-@interface InputEventViewController () <UIPickerViewDelegate, UIPickerViewDataSource>
+@interface InputEventViewController () <UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate>
 
 @property (strong, nonatomic) UIScrollView *scrollView;
 @property (strong, nonatomic) UIStackView *stackView;
@@ -103,6 +103,9 @@ static int const EVENT_INPUT_SUBMIT_VIEW_HEIGHT = 50;
     self.eventInputSharedView.categoryPickerView.delegate = self;
     self.eventInputSharedView.categoryPickerView.dataSource = self;
     self.eventCategoryPickerData = [NSArray arrayWithObjects:@"activity", @"transportation", @"food", @"hotel", nil];
+    
+    // setup activity location text field
+    self.eventInputActivityView.locationTextField.delegate = self;
     
     // setup transportation category picker view
     self.eventInputTransportationView.typePickerView.delegate = self;
@@ -541,4 +544,11 @@ static int const EVENT_INPUT_SUBMIT_VIEW_HEIGHT = 50;
     }
 }
 
+- (void)textFieldDidBeginEditing:(UITextField *)textField {
+    NSLog(@"text field did begin editing, %@", textField);
+    // segue to location search form
+    [self performSegueWithIdentifier:@"getLocationSegue" sender:nil];
+}
+
 @end
+
