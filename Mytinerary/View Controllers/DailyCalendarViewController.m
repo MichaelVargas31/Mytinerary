@@ -10,6 +10,7 @@
 #import "DailyTableViewCell.h"
 #import "DailyCalendarEventUIView.h"
 #import "EventDetailsViewController.h"
+#import "InputEventViewController.h"
 #import "Event.h"
 #import "FSCalendar.h"
 #import "Parse/Parse.h"
@@ -78,6 +79,11 @@
         EventDetailsViewController *eventDetailsViewController = [segue destinationViewController];
         eventDetailsViewController.event = sender;
     }
+    else if ([[segue identifier] isEqualToString:@"addEventSegue"]) {
+        // send itinerary to input event VC to add new event to appropriate itinerary
+        InputEventViewController *inputEventViewController = [segue destinationViewController];
+        inputEventViewController.itinerary = self.itinerary;
+    }
 }
 
 
@@ -105,7 +111,7 @@
 }
 
 - (IBAction)onTapAddEventButton:(id)sender {
-    
+    [self performSegueWithIdentifier:@"addEventSegue" sender:self];
 }
 
 

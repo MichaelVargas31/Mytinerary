@@ -246,23 +246,34 @@ static int const EVENT_INPUT_SUBMIT_VIEW_HEIGHT = 50;
     }
     // if creating a new event
     else {
+        Event *event = [[Event alloc] init];
         // initialize event depending on selected event type
         if ([selectedCategory isEqualToString:@"activity"]) {
-            [self initActivityEvent];
+            event = [self makeActivityEvent];
         }
         else if ([selectedCategory isEqualToString:@"transportation"]) {
-            [self initTransportationEvent];
+            event = [self makeTransportationEvent];
         }
         else if ([selectedCategory isEqualToString:@"food"]) {
-            [self initFoodEvent];
+            event = [self makeFoodEvent];
         }
         else if ([selectedCategory isEqualToString:@"hotel"]) {
-            [self initHotelEvent];
+            event = [self makeHotelEvent];
         }
+        
+        // add new event to current itinerary
+        [self.itinerary addEventToItinerary:event withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
+            if (succeeded) {
+                NSLog(@"event: event successfully added to itin");
+            }
+            else {
+                NSLog(@"event failed to add to itin: %@", error);
+            }
+        }];
     }
 }
 
-- (void)initActivityEvent {
+- (Event *)makeActivityEvent {
     // testing purposes for now
     NSNumber *latitude = self.searchVC.latitude; //need to add a close button
     NSNumber *longitude = @(0);
@@ -273,7 +284,7 @@ static int const EVENT_INPUT_SUBMIT_VIEW_HEIGHT = 50;
         cost = [self.eventInputActivityView.costTextField.text floatValue];
     }
     
-    [Event initActivityEvent:self.eventInputSharedView.titleTextField.text eventDescription:self.eventInputSharedView.descriptionTextView.text address:self.eventInputActivityView.locationTextField.text latitude:latitude longitude:longitude locationType:locationType startTime:self.eventInputSharedView.startTimeDatePicker.date endTime:self.eventInputSharedView.endTimeDatePicker.date cost:cost notes:self.eventInputActivityView.notesTextView.text withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
+    Event *event = [Event initActivityEvent:self.eventInputSharedView.titleTextField.text eventDescription:self.eventInputSharedView.descriptionTextView.text address:self.eventInputActivityView.locationTextField.text latitude:latitude longitude:longitude locationType:locationType startTime:self.eventInputSharedView.startTimeDatePicker.date endTime:self.eventInputSharedView.endTimeDatePicker.date cost:cost notes:self.eventInputActivityView.notesTextView.text withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
         if (succeeded) {
             NSLog(@"activity event successfully initialized!");
             [self dismissViewControllerAnimated:YES completion:nil];
@@ -284,9 +295,11 @@ static int const EVENT_INPUT_SUBMIT_VIEW_HEIGHT = 50;
             [self presentViewController:self.alert animated:YES completion:nil];
         }
     }];
+    
+    return event;
 }
 
-- (void)updateActivityEvent:(Event *)event {
+- (Event *)updateActivityEvent:(Event *)event {
     // testing purposes for now
     NSNumber *latitude = @(0);
     NSNumber *longitude = @(0);
@@ -297,7 +310,7 @@ static int const EVENT_INPUT_SUBMIT_VIEW_HEIGHT = 50;
         cost = [self.eventInputActivityView.costTextField.text floatValue];
     }
     
-    [event updateActivityEvent:self.eventInputSharedView.titleTextField.text eventDescription:self.eventInputSharedView.descriptionTextView.text address:self.eventInputActivityView.locationTextField.text latitude:latitude longitude:longitude locationType:locationType startTime:self.eventInputSharedView.startTimeDatePicker.date endTime:self.eventInputSharedView.endTimeDatePicker.date cost:cost notes:self.eventInputActivityView.notesTextView.text withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
+    event = [event updateActivityEvent:self.eventInputSharedView.titleTextField.text eventDescription:self.eventInputSharedView.descriptionTextView.text address:self.eventInputActivityView.locationTextField.text latitude:latitude longitude:longitude locationType:locationType startTime:self.eventInputSharedView.startTimeDatePicker.date endTime:self.eventInputSharedView.endTimeDatePicker.date cost:cost notes:self.eventInputActivityView.notesTextView.text withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
         if (succeeded) {
             NSLog(@"activity event successfully updated!");
             [self dismissViewControllerAnimated:YES completion:nil];
@@ -308,9 +321,11 @@ static int const EVENT_INPUT_SUBMIT_VIEW_HEIGHT = 50;
             [self presentViewController:self.alert animated:YES completion:nil];
         }
     }];
+    
+    return event;
 }
 
-- (void)initTransportationEvent {
+- (Event *)makeTransportationEvent {
     // testing purposes for now
     NSNumber *startLatitude = @(0);
     NSNumber *startLongitude = @(0);
@@ -325,7 +340,7 @@ static int const EVENT_INPUT_SUBMIT_VIEW_HEIGHT = 50;
     int selectedTranspoTypeIdx = (int)[self.eventInputTransportationView.typePickerView selectedRowInComponent:0];
     NSString *selectedTranspoType = self.transportationTypePickerData[selectedTranspoTypeIdx];
     
-    [Event initTransportationEvent:self.eventInputSharedView.titleTextField.text eventDescription:self.eventInputSharedView.descriptionTextView.text startAddress:self.eventInputTransportationView.startLocationTextField.text startLatitude:startLatitude startLongitude:startLongitude endAddress:self.eventInputTransportationView.endLocationTextField.text endLatitude:endLatitude endLongitude:endLongitude startTime:self.eventInputSharedView.startTimeDatePicker.date endTime:self.eventInputSharedView.endTimeDatePicker.date transpoType:selectedTranspoType cost:cost notes:self.eventInputTransportationView.notesTextView.text withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
+    Event *event = [Event initTransportationEvent:self.eventInputSharedView.titleTextField.text eventDescription:self.eventInputSharedView.descriptionTextView.text startAddress:self.eventInputTransportationView.startLocationTextField.text startLatitude:startLatitude startLongitude:startLongitude endAddress:self.eventInputTransportationView.endLocationTextField.text endLatitude:endLatitude endLongitude:endLongitude startTime:self.eventInputSharedView.startTimeDatePicker.date endTime:self.eventInputSharedView.endTimeDatePicker.date transpoType:selectedTranspoType cost:cost notes:self.eventInputTransportationView.notesTextView.text withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
         if (succeeded) {
             NSLog(@"transportation event successfully initialized!");
             [self dismissViewControllerAnimated:YES completion:nil];
@@ -336,9 +351,11 @@ static int const EVENT_INPUT_SUBMIT_VIEW_HEIGHT = 50;
             [self presentViewController:self.alert animated:YES completion:nil];
         }
     }];
+    
+    return event;
 }
 
-- (void)updateTransportationEvent:(Event *)event {
+- (Event *)updateTransportationEvent:(Event *)event {
     // testing purposes for now
     NSNumber *startLatitude = @(0);
     NSNumber *startLongitude = @(0);
@@ -353,7 +370,7 @@ static int const EVENT_INPUT_SUBMIT_VIEW_HEIGHT = 50;
     int selectedTranspoTypeIdx = (int)[self.eventInputTransportationView.typePickerView selectedRowInComponent:0];
     NSString *selectedTranspoType = self.transportationTypePickerData[selectedTranspoTypeIdx];
     
-    [event updateTransportationEvent:self.eventInputSharedView.titleTextField.text eventDescription:self.eventInputSharedView.descriptionTextView.text startAddress:self.eventInputTransportationView.startLocationTextField.text startLatitude:startLatitude startLongitude:startLongitude endAddress:self.eventInputTransportationView.endLocationTextField.text endLatitude:endLatitude endLongitude:endLongitude startTime:self.eventInputSharedView.startTimeDatePicker.date endTime:self.eventInputSharedView.endTimeDatePicker.date transpoType:selectedTranspoType cost:cost notes:self.eventInputTransportationView.notesTextView.text withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
+    event = [event updateTransportationEvent:self.eventInputSharedView.titleTextField.text eventDescription:self.eventInputSharedView.descriptionTextView.text startAddress:self.eventInputTransportationView.startLocationTextField.text startLatitude:startLatitude startLongitude:startLongitude endAddress:self.eventInputTransportationView.endLocationTextField.text endLatitude:endLatitude endLongitude:endLongitude startTime:self.eventInputSharedView.startTimeDatePicker.date endTime:self.eventInputSharedView.endTimeDatePicker.date transpoType:selectedTranspoType cost:cost notes:self.eventInputTransportationView.notesTextView.text withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
         if (succeeded) {
             NSLog(@"transportation event successfully updated!");
             [self dismissViewControllerAnimated:YES completion:nil];
@@ -364,9 +381,11 @@ static int const EVENT_INPUT_SUBMIT_VIEW_HEIGHT = 50;
             [self presentViewController:self.alert animated:YES completion:nil];
         }
     }];
+    
+    return event;
 }
 
-- (void)initFoodEvent {
+- (Event *)makeFoodEvent {
     // testing purposes for now
     NSNumber *latitude = @(0);
     NSNumber *longitude = @(0);
@@ -375,7 +394,7 @@ static int const EVENT_INPUT_SUBMIT_VIEW_HEIGHT = 50;
     int selectedFoodCostIdx = (int)[self.eventInputFoodView.costPickerView selectedRowInComponent:0];
     NSString *selectedFoodCost = self.foodCostPickerData[selectedFoodCostIdx];
     
-    [Event initFoodEvent:self.eventInputSharedView.titleTextField.text eventDescription:self.eventInputSharedView.descriptionTextView.text address:self.eventInputFoodView.locationTextField.text latitude:latitude longitude:longitude locationType:locationType startTime:self.eventInputSharedView.startTimeDatePicker.date endTime:self.eventInputSharedView.endTimeDatePicker.date foodType:self.eventInputFoodView.typeTextField.text foodCost:selectedFoodCost notes:self.eventInputFoodView.notesTextView.text withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
+    Event *event = [Event initFoodEvent:self.eventInputSharedView.titleTextField.text eventDescription:self.eventInputSharedView.descriptionTextView.text address:self.eventInputFoodView.locationTextField.text latitude:latitude longitude:longitude locationType:locationType startTime:self.eventInputSharedView.startTimeDatePicker.date endTime:self.eventInputSharedView.endTimeDatePicker.date foodType:self.eventInputFoodView.typeTextField.text foodCost:selectedFoodCost notes:self.eventInputFoodView.notesTextView.text withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
         if (succeeded) {
             NSLog(@"food event successfully initialized!");
             [self dismissViewControllerAnimated:YES completion:nil];
@@ -386,9 +405,11 @@ static int const EVENT_INPUT_SUBMIT_VIEW_HEIGHT = 50;
             [self presentViewController:self.alert animated:YES completion:nil];
         }
     }];
+    
+    return event;
 }
 
-- (void)updateFoodEvent:(Event *)event {
+- (Event *)updateFoodEvent:(Event *)event {
     // testing purposes for now
     NSNumber *latitude = @(0);
     NSNumber *longitude = @(0);
@@ -396,8 +417,8 @@ static int const EVENT_INPUT_SUBMIT_VIEW_HEIGHT = 50;
     
     int selectedFoodCostIdx = (int)[self.eventInputFoodView.costPickerView selectedRowInComponent:0];
     NSString *selectedFoodCost = self.foodCostPickerData[selectedFoodCostIdx];
-    
-    [event updateFoodEvent:self.eventInputSharedView.titleTextField.text eventDescription:self.eventInputSharedView.descriptionTextView.text address:self.eventInputFoodView.locationTextField.text latitude:latitude longitude:longitude locationType:locationType startTime:self.eventInputSharedView.startTimeDatePicker.date endTime:self.eventInputSharedView.endTimeDatePicker.date foodType:self.eventInputFoodView.typeTextField.text foodCost:selectedFoodCost notes:self.eventInputFoodView.notesTextView.text withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
+                                  
+    event = [event updateFoodEvent:self.eventInputSharedView.titleTextField.text eventDescription:self.eventInputSharedView.descriptionTextView.text address:self.eventInputFoodView.locationTextField.text latitude:latitude longitude:longitude locationType:locationType startTime:self.eventInputSharedView.startTimeDatePicker.date endTime:self.eventInputSharedView.endTimeDatePicker.date foodType:self.eventInputFoodView.typeTextField.text foodCost:selectedFoodCost notes:self.eventInputFoodView.notesTextView.text withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
         if (succeeded) {
             NSLog(@"food event successfully updated!");
             [self dismissViewControllerAnimated:YES completion:nil];
@@ -408,9 +429,11 @@ static int const EVENT_INPUT_SUBMIT_VIEW_HEIGHT = 50;
             [self presentViewController:self.alert animated:YES completion:nil];
         }
     }];
+    
+    return event;
 }
 
-- (void)initHotelEvent {
+- (Event *)makeHotelEvent {
     // testing purposes for now
     NSNumber *latitude = @(0);
     NSNumber *longitude = @(0);
@@ -424,7 +447,7 @@ static int const EVENT_INPUT_SUBMIT_VIEW_HEIGHT = 50;
     int selectedHotelTypeIdx = (int)[self.eventInputHotelView.typePickerView selectedRowInComponent:0];
     NSString *selectedHotelType = self.hotelTypePickerData[selectedHotelTypeIdx];
     
-    [Event initHotelEvent:self.eventInputSharedView.titleTextField.text eventDescription:self.eventInputSharedView.descriptionTextView.text address:self.eventInputHotelView.locationTextField.text latitude:latitude longitude:longitude locationType:locationType startTime:self.eventInputSharedView.startTimeDatePicker.date endTime:self.eventInputSharedView.endTimeDatePicker.date hotelType:selectedHotelType cost:cost notes:self.eventInputHotelView.notesTextView.text withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
+    Event *event = [Event initHotelEvent:self.eventInputSharedView.titleTextField.text eventDescription:self.eventInputSharedView.descriptionTextView.text address:self.eventInputHotelView.locationTextField.text latitude:latitude longitude:longitude locationType:locationType startTime:self.eventInputSharedView.startTimeDatePicker.date endTime:self.eventInputSharedView.endTimeDatePicker.date hotelType:selectedHotelType cost:cost notes:self.eventInputHotelView.notesTextView.text withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
         if (succeeded) {
             NSLog(@"hotel event successfully initialized!");
             [self dismissViewControllerAnimated:YES completion:nil];
@@ -435,9 +458,11 @@ static int const EVENT_INPUT_SUBMIT_VIEW_HEIGHT = 50;
             [self presentViewController:self.alert animated:YES completion:nil];
         }
     }];
+    
+    return event;
 }
 
-- (void)updateHotelEvent:(Event *)event {
+- (Event *)updateHotelEvent:(Event *)event {
     // testing purposes for now
     NSNumber *latitude = @(0);
     NSNumber *longitude = @(0);
@@ -451,7 +476,7 @@ static int const EVENT_INPUT_SUBMIT_VIEW_HEIGHT = 50;
     int selectedHotelTypeIdx = (int)[self.eventInputHotelView.typePickerView selectedRowInComponent:0];
     NSString *selectedHotelType = self.hotelTypePickerData[selectedHotelTypeIdx];
     
-    [event updateHotelEvent:self.eventInputSharedView.titleTextField.text eventDescription:self.eventInputSharedView.descriptionTextView.text address:self.eventInputHotelView.locationTextField.text latitude:latitude longitude:longitude locationType:locationType startTime:self.eventInputSharedView.startTimeDatePicker.date endTime:self.eventInputSharedView.endTimeDatePicker.date hotelType:selectedHotelType cost:cost notes:self.eventInputHotelView.notesTextView.text withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
+    event = [event updateHotelEvent:self.eventInputSharedView.titleTextField.text eventDescription:self.eventInputSharedView.descriptionTextView.text address:self.eventInputHotelView.locationTextField.text latitude:latitude longitude:longitude locationType:locationType startTime:self.eventInputSharedView.startTimeDatePicker.date endTime:self.eventInputSharedView.endTimeDatePicker.date hotelType:selectedHotelType cost:cost notes:self.eventInputHotelView.notesTextView.text withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
         if (succeeded) {
             NSLog(@"hotel event successfully updated!");
             [self dismissViewControllerAnimated:YES completion:nil];
@@ -462,6 +487,8 @@ static int const EVENT_INPUT_SUBMIT_VIEW_HEIGHT = 50;
             [self presentViewController:self.alert animated:YES completion:nil];
         }
     }];
+    
+    return event;
 }
 
 /*
@@ -549,7 +576,7 @@ static int const EVENT_INPUT_SUBMIT_VIEW_HEIGHT = 50;
 - (void)textFieldDidBeginEditing:(UITextField *)textField {
     NSLog(@"text field did begin editing, %@", textField);
     // segue to location search form
-    [self performSegueWithIdentifier:@"getLocationSegue" sender:nil];
+//    [self performSegueWithIdentifier:@"getLocationSegue" sender:nil];
 }
 
 @end

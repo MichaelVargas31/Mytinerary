@@ -8,12 +8,14 @@
 
 #import <UIKit/UIKit.h>
 #import "Event.h"
+#import "Itinerary.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface InputEventViewController : UIViewController
 
 @property (strong, nonatomic) Event *event;
+@property (strong, nonatomic) Itinerary *itinerary;
 
 @end
 
