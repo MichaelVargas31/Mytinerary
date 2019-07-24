@@ -47,8 +47,6 @@
         [eventIDs addObject:one.objectId];
     }
     
-    
-    
     PFQuery *query = [Event query];
     [query whereKey:@"objectId" containedIn:eventIDs];
     [query orderByAscending:@"startTime"];

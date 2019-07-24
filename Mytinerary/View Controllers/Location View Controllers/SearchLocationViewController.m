@@ -112,6 +112,11 @@
  }
  */
 
+- (IBAction)onTapCancelButton:(id)sender {
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+
 /*
  #pragma mark - Navigation
  
