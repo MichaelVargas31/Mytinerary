@@ -31,6 +31,14 @@
     self.itineraryFSCalendar.dataSource = self;
     self.itineraryFSCalendar.delegate = self;
     
+    // setup navigation bar title with button
+    UIButton *button = [[UIButton alloc] init];
+    [button setAccessibilityFrame:CGRectMake(0, 0, 100, 40)];
+    [button setTitle:self.itinerary.title forState:UIControlStateNormal];
+    [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [button addTarget:self action:@selector(onTapItineraryTitle) forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.titleView = button;
+    
     // initially, only the daily calendar view will be visible
     [self.itineraryFSCalendar setFrame:CGRectMake(self.itineraryFSCalendar.frame.origin.x, self.itineraryFSCalendar.frame.origin.y, self.itineraryFSCalendar.frame.size.width, 0)];
     
@@ -112,6 +120,10 @@
 
 - (IBAction)onTapAddEventButton:(id)sender {
     [self performSegueWithIdentifier:@"addEventSegue" sender:self];
+}
+
+- (void)onTapItineraryTitle {
+    [self performSegueWithIdentifier:@"itineraryDetailsSegue" sender:nil];
 }
 
 

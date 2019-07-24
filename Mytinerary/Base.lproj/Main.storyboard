@@ -877,6 +877,7 @@
                         <outlet property="tableView" destination="ecC-45-JY5" id="5N2-vq-HVy"/>
                         <segue destination="vfi-ve-A7n" kind="show" identifier="eventDetailsSegue" id="d9T-RH-QQm"/>
                         <segue destination="eHQ-Si-fcr" kind="presentation" identifier="addEventSegue" id="LIW-WB-8EA"/>
+                        <segue destination="v2s-7K-Yl1" kind="show" identifier="itineraryDetailsSegue" id="xi0-ST-P49"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Wko-au-X6b" userLabel="First Responder" sceneMemberID="firstResponder"/>
