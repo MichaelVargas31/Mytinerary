@@ -12,11 +12,22 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@protocol InputEventViewControllerDelegate
+
+- (void)didUpdateEvent:(Event *)updatedEvent;
+
+@end
+
+
 @interface InputEventViewController : UIViewController
 
+@property (nonatomic, weak) id<InputEventViewControllerDelegate> delegate;
 @property (strong, nonatomic) Event *event;
 @property (strong, nonatomic) Itinerary *itinerary;
 
 @end
+
+
+
 
 NS_ASSUME_NONNULL_END

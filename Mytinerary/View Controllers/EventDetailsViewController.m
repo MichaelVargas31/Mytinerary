@@ -22,8 +22,10 @@ static int const TRANSPORTATION_VIEW_HEIGHT = 180;
 static int const FOOD_VIEW_HEIGHT = 110;
 static int const HOTEL_VIEW_HEIGHT = 110;
 
-@interface EventDetailsViewController ()
+@interface EventDetailsViewController () <InputEventViewControllerDelegate>
 
+@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
+@property (weak, nonatomic) IBOutlet UIStackView *stackView;
 @property (nonatomic, strong) IBOutlet EventDetailsTitleView *titleView;
 @property (nonatomic, strong) IBOutlet EventDetailsDescriptionView *descriptionView;
 @property (nonatomic, strong) IBOutlet EventDetailsActivityView *activityView;
@@ -44,45 +46,55 @@ static int const HOTEL_VIEW_HEIGHT = 110;
     dateFormatter.timeStyle = NSDateFormatterNoStyle;
     dateFormatter.locale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US_POSIX"];
     dateFormatter.dateFormat = @"h:mm a, MMM d";
+
     
-    // make and configure scroll view
-    UIScrollView *scrollView = [[UIScrollView alloc] init];
-    [self.view addSubview:scrollView];
-    scrollView.translatesAutoresizingMaskIntoConstraints = false;
+    [self refreshViews];
+}
+
+- (void) refreshViews {
     
-    NSArray *scrollConstraints = [NSArray arrayWithObjects:[scrollView.leadingAnchor constraintEqualToAnchor:self.view.leadingAnchor], [scrollView.trailingAnchor constraintEqualToAnchor:self.view.trailingAnchor], [scrollView.topAnchor constraintEqualToAnchor:self.view.topAnchor], [scrollView.bottomAnchor constraintEqualToAnchor:self.view.bottomAnchor], nil];
-    [NSLayoutConstraint activateConstraints:scrollConstraints];
-    
-    // make and configure stack view as subview of scroll view
-    UIStackView *stackView = [[UIStackView alloc] init];
-    stackView.axis = UILayoutConstraintAxisVertical;
-    stackView.alignment = UIStackViewAlignmentFill;
-    stackView.spacing = 0;
-    stackView.distribution = UIStackViewDistributionFill;
-    [scrollView addSubview:stackView];
-    
-    stackView.translatesAutoresizingMaskIntoConstraints = false;
-    NSArray *stackConstraints = [NSArray arrayWithObjects:[stackView.leadingAnchor constraintEqualToAnchor:scrollView.leadingAnchor], [stackView.trailingAnchor constraintEqualToAnchor:scrollView.trailingAnchor], [stackView.topAnchor constraintEqualToAnchor:scrollView.topAnchor], [stackView.bottomAnchor constraintEqualToAnchor:scrollView.bottomAnchor], [stackView.widthAnchor constraintEqualToAnchor:scrollView.widthAnchor], nil];
-    [NSLayoutConstraint activateConstraints:stackConstraints];
+    // setup date formatter
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    dateFormatter.dateStyle = NSDateFormatterMediumStyle;
+    dateFormatter.timeStyle = NSDateFormatterNoStyle;
+    dateFormatter.locale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US_POSIX"];
+    dateFormatter.dateFormat = @"h:mm a, MMM d";
     
     // add shared event details title view
-    [stackView addArrangedSubview:self.titleView];
+    [self.stackView addArrangedSubview:self.titleView];
     [self.titleView.heightAnchor constraintEqualToConstant:TITLE_VIEW_HEIGHT].active = YES;
     // initialize title view labels
     self.titleView.titleLabel.text = self.event.title;
     
     // add shared event description view
-    [stackView addArrangedSubview:self.descriptionView];
+    [self.stackView addArrangedSubview:self.descriptionView];
     [self.descriptionView.heightAnchor constraintEqualToConstant:DESCRIPTION_VIEW_HEIGHT].active = YES;
     self.descriptionView.descriptionLabel.text = self.event.eventDescription;
     self.descriptionView.costLabel.text = [NSString stringWithFormat:@"$%@", self.event.cost];
     self.descriptionView.notesLabel.text = self.event.notes;
     
+    
+    // check to make sure there aren't 3 views already
+    if ([self.stackView arrangedSubviews].count == 3) {
+        // remove the extra view
+        NSArray *subviews = self.stackView.arrangedSubviews;
+        UIView *viewToBeRemoved;
+        for (int i = 0; i<subviews.count; i++) {
+            if (![subviews[i] isKindOfClass:[EventDetailsTitleView class]] && ![subviews[i] isKindOfClass:[EventDetailsDescriptionView class]]) {
+                NSLog(@"view = %@", viewToBeRemoved);
+
+                viewToBeRemoved = subviews[i];
+                [self.stackView removeArrangedSubview:viewToBeRemoved];
+                [viewToBeRemoved removeFromSuperview];
+            }
+        }
+    }
+    
     // render view according to category
     NSString *eventCategory = self.event.category;
     if ([eventCategory isEqualToString:@"activity"]) {
         // add activity view
-        [stackView insertArrangedSubview:self.activityView atIndex:1];
+        [self.stackView insertArrangedSubview:self.activityView atIndex:1];
         [self.activityView.heightAnchor constraintEqualToConstant:ACTIVITY_VIEW_HEIGHT].active = YES;
         // initialize activity view labels
         self.activityView.startTimeLabel.text = [dateFormatter stringFromDate:self.event.startTime];
@@ -91,7 +103,7 @@ static int const HOTEL_VIEW_HEIGHT = 110;
     }
     else if ([eventCategory isEqualToString:@"transportation"]) {
         // add transportation view
-        [stackView insertArrangedSubview:self.transportationView atIndex:1];
+        [self.stackView insertArrangedSubview:self.transportationView atIndex:1];
         [self.transportationView.heightAnchor constraintEqualToConstant:TRANSPORTATION_VIEW_HEIGHT].active = YES;
         // initialize transportation view labels
         self.transportationView.startTimeLabel.text = [dateFormatter stringFromDate:self.event.startTime];
@@ -102,7 +114,7 @@ static int const HOTEL_VIEW_HEIGHT = 110;
     }
     else if ([eventCategory isEqualToString:@"food"]) {
         // add food view
-        [stackView insertArrangedSubview:self.foodView atIndex:1];
+        [self.stackView insertArrangedSubview:self.foodView atIndex:1];
         [self.foodView.heightAnchor constraintEqualToConstant:FOOD_VIEW_HEIGHT].active = YES;
         // initialize food view labels
         self.foodView.startTimeLabel.text = [dateFormatter stringFromDate:self.event.startTime];
@@ -112,7 +124,7 @@ static int const HOTEL_VIEW_HEIGHT = 110;
     }
     else if ([eventCategory isEqualToString:@"hotel"]) {
         // add hotel view
-        [stackView insertArrangedSubview:self.hotelView atIndex:1];
+        [self.stackView insertArrangedSubview:self.hotelView atIndex:1];
         [self.hotelView.heightAnchor constraintEqualToConstant:HOTEL_VIEW_HEIGHT].active = YES;
         // initialize hotel view labels
         self.hotelView.startTimeLabel.text = [dateFormatter stringFromDate:self.event.startTime];
@@ -121,6 +133,7 @@ static int const HOTEL_VIEW_HEIGHT = 110;
         self.hotelView.addressLabel.text = self.event.address;
     }
 }
+
 
 - (IBAction)onTapEditButton:(id)sender {
     [self performSegueWithIdentifier:@"editEventSegue" sender:self];
@@ -133,7 +146,15 @@ static int const HOTEL_VIEW_HEIGHT = 110;
     if ([[segue identifier] isEqualToString:@"editEventSegue"]) {
         InputEventViewController *inputEventViewController = [segue destinationViewController];
         inputEventViewController.event = self.event;
+        inputEventViewController.delegate = self;
     }
+}
+
+
+- (void)didUpdateEvent:(nonnull Event *)updatedEvent {
+    NSLog(@"Updated event: %@", updatedEvent);
+    self.event = updatedEvent;
+    [self refreshViews];
 }
 
 
