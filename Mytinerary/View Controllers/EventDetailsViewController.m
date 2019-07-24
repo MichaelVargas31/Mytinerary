@@ -46,17 +46,6 @@ static int const HOTEL_VIEW_HEIGHT = 110;
     dateFormatter.timeStyle = NSDateFormatterNoStyle;
     dateFormatter.locale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US_POSIX"];
     dateFormatter.dateFormat = @"h:mm a, MMM d";
-    
-    
-    // make and configure stack view as subview of scroll view
-//    UIStackView *stackView = [[UIStackView alloc] init];
-//    self.stackView.axis = UILayoutConstraintAxisVertical;
-//    self.stackView.alignment = UIStackViewAlignmentFill;
-//    self.stackView.spacing = 0;
-//    self.stackView.distribution = UIStackViewDistributionFill;
-//    [self.scrollView addSubview:self.stackView];
-    
-//    self.stackView.translatesAutoresizingMaskIntoConstraints = false;
 
     
     [self refreshViews];
@@ -97,8 +86,6 @@ static int const HOTEL_VIEW_HEIGHT = 110;
                 viewToBeRemoved = subviews[i];
                 [self.stackView removeArrangedSubview:viewToBeRemoved];
                 [viewToBeRemoved removeFromSuperview];
-//                [viewToBeRemoved setHidden:YES];
-
             }
         }
     }
@@ -168,16 +155,6 @@ static int const HOTEL_VIEW_HEIGHT = 110;
     NSLog(@"Updated event: %@", updatedEvent);
     self.event = updatedEvent;
     [self refreshViews];
-    [self viewDidLoad]; // not efficient
-    
-//    [self.descriptionView setNeedsDisplay];
-//    [self.titleView reloadInputViews];
-//    [self.descriptionView reloadInputViews];
-//    [self.activityView reloadInputViews];
-//    [self.transportationView reloadInputViews];
-//    [self.foodView reloadInputViews];
-//    [self.hotelView reloadInputViews];
-//    [self reloadInputViews];
 }
 
 
