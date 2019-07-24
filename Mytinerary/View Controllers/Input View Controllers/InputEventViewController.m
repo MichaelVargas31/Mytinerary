@@ -295,6 +295,8 @@ static int const EVENT_INPUT_SUBMIT_VIEW_HEIGHT = 50;
     [event updateActivityEvent:self.eventInputSharedView.titleTextField.text eventDescription:self.eventInputSharedView.descriptionTextView.text address:self.eventInputActivityView.locationTextField.text latitude:latitude longitude:longitude locationType:locationType startTime:self.eventInputSharedView.startTimeDatePicker.date endTime:self.eventInputSharedView.endTimeDatePicker.date cost:cost notes:self.eventInputActivityView.notesTextView.text withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
         if (succeeded) {
             NSLog(@"activity event successfully updated!");
+            // calling the didUpdateEvent method in its delegate to update information
+            [self.delegate didUpdateEvent:event];
             [self dismissViewControllerAnimated:YES completion:nil];
         }
         else {
