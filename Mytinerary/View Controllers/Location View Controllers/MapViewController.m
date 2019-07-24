@@ -10,6 +10,7 @@
 #import "AppDelegate.h"
 #import "Parse/Parse.h"
 #import "Event.h"
+#import "Location.h"
 
 @interface MapViewController () <CLLocationManagerDelegate, MKMapViewDelegate>
 
