@@ -1222,21 +1222,26 @@
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="146.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oVm-rx-TQk">
-                                            <rect key="frame" x="63" y="11" width="45" height="21"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oVm-rx-TQk">
+                                            <rect key="frame" x="24" y="19" width="45" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Address" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="j7P-q3-uuQ">
-                                            <rect key="frame" x="63" y="54" width="63" height="21"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Address" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="j7P-q3-uuQ">
+                                            <rect key="frame" x="24" y="52" width="63" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
+                                    <constraints>
+                                        <constraint firstItem="j7P-q3-uuQ" firstAttribute="leading" secondItem="Ufg-oT-zsW" secondAttribute="leadingMargin" constant="8" id="BTm-Mq-AOn"/>
+                                        <constraint firstAttribute="bottomMargin" relation="greaterThanOrEqual" secondItem="j7P-q3-uuQ" secondAttribute="bottom" constant="8" id="Gqb-Wr-jiB"/>
+                                        <constraint firstItem="oVm-rx-TQk" firstAttribute="leading" secondItem="Ufg-oT-zsW" secondAttribute="leadingMargin" constant="8" id="HJN-KN-vTE"/>
+                                        <constraint firstItem="j7P-q3-uuQ" firstAttribute="top" secondItem="oVm-rx-TQk" secondAttribute="bottom" constant="12" id="NHd-V4-Beo"/>
+                                        <constraint firstItem="oVm-rx-TQk" firstAttribute="top" secondItem="Ufg-oT-zsW" secondAttribute="topMargin" constant="8" id="TnJ-tP-xQD"/>
+                                    </constraints>
                                 </tableViewCellContentView>
                                 <accessibility key="accessibilityConfiguration" identifier="LocationCellTableViewCell"/>
                                 <connections>

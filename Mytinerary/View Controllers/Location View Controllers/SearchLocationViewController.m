@@ -25,12 +25,17 @@
 
 #pragma mark - Table view data source
 
- - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
- UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"LocationCell" forIndexPath:indexPath];
-     //LocationCell *cell = [tableView dequeueReusableCellWithIdentifier:@"LocationCell" forIndexPath:indexPath];
- return cell;
- }
-
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    LocationCellTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"LocationCellTableViewCell" forIndexPath:indexPath];
+    NSLog(@"array: %@", self.results);
+    
+    NSDictionary *location = self.results[indexPath.row];
+    
+    cell.eventName.text = location[@"name"];
+    cell.eventAddress.text = location[@"formatted_address"];
+    
+    return cell;
+}
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return self.results.count;
@@ -60,42 +65,15 @@
     NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration] delegate:nil delegateQueue:[NSOperationQueue mainQueue]];
     NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         if (data) {
-            //Assigns pieces of data to variable
+            
             NSDictionary *responseDictionary = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+            self.results = [responseDictionary valueForKeyPath: @"candidates"];// [responseDictionary valueForKeyPath:@"candidates.name"];
             
-           
-            self.address = [responseDictionary valueForKeyPath: @"candidates.formatted_address"];
-             NSLog(@"Address: %@", self.address);
-            
-             self.name = [responseDictionary valueForKeyPath: @"candidates.name"];
-            NSLog(@"Name: %@", self.name);
-
-             self.type = [responseDictionary valueForKeyPath: @"candidates.types"];
-            NSLog(@"Type: %@", self.type);
-
-            self.latitude = [responseDictionary valueForKeyPath: @"candidates.geometry.location.lat"];
-            NSLog(@"Latitude %@", self.latitude);
-
-            self.longitude = [responseDictionary valueForKeyPath: @"candidates.geometry.location.lng"];
-            NSLog(@"Longitude%@", self.longitude);
-
+            [self.tableView reloadData];
         }
     }];
     [task resume];
 }
-/*
- - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
- return 0;
- }
- 
- - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
- UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
- 
- // Configure the cell...
- 
- return cell;
- }
- */
 
 /*
  // Override to support conditional editing of the table view.
