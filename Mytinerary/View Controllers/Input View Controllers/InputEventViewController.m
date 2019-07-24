@@ -14,6 +14,7 @@
 #import "EventInputHotelView.h"
 #import "EventInputSubmitView.h"
 #import "Event.h"
+#import "SearchLocationViewController.h"
 
 static int const EVENT_INPUT_SHARED_VIEW_HEIGHT = 600;
 static int const EVENT_INPUT_ACTIVITY_VIEW_HEIGHT = 370;
@@ -40,6 +41,7 @@ static int const EVENT_INPUT_SUBMIT_VIEW_HEIGHT = 50;
 @property (strong, nonatomic) NSArray *foodCostPickerData;
 @property (strong, nonatomic) NSArray *hotelTypePickerData;
 
+@property (strong, nonatomic) SearchLocationViewController* searchVC;
 @end
 
 @implementation InputEventViewController
@@ -259,7 +261,7 @@ static int const EVENT_INPUT_SUBMIT_VIEW_HEIGHT = 50;
 
 - (void)initActivityEvent {
     // testing purposes for now
-    NSNumber *latitude = @(0);
+    NSNumber *latitude = self.searchVC.latitude; //need to add a close button
     NSNumber *longitude = @(0);
     NSString *locationType = @"test type";
     

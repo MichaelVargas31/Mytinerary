@@ -1192,7 +1192,7 @@
                             <textInputTraits key="textInputTraits"/>
                         </searchBar>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="LocationCell" rowHeight="147" id="kxm-1F-FIV" userLabel="Location Cell">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="LocationCellTableViewCell" rowHeight="147" id="kxm-1F-FIV" userLabel="Location Cell" customClass="LocationCellTableViewCell">
                                 <rect key="frame" x="0.0" y="72" width="375" height="147"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="kxm-1F-FIV" id="Ufg-oT-zsW">
@@ -1215,7 +1215,11 @@
                                         </label>
                                     </subviews>
                                 </tableViewCellContentView>
-                                <accessibility key="accessibilityConfiguration" identifier="LocationCell"/>
+                                <accessibility key="accessibilityConfiguration" identifier="LocationCellTableViewCell"/>
+                                <connections>
+                                    <outlet property="eventAddress" destination="j7P-q3-uuQ" id="z9a-dK-9qF"/>
+                                    <outlet property="eventName" destination="oVm-rx-TQk" id="56g-Vi-aks"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
