@@ -6,10 +6,11 @@
 //
 
 #import "SearchLocationViewController.h"
+#import "LocationCellTableViewCell.h"
+#import "Location.h"
 
 @interface SearchLocationViewController () <UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate>
-@property (strong, nonatomic) NSString *texxt;
-@property (strong, nonatomic) NSArray *results;
+
 
 @end
 
@@ -21,23 +22,39 @@
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     self.searchBar.delegate = self;
-    
 }
 
 #pragma mark - Table view data source
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-#warning Incomplete implementation, return the number of sections
-    return 0;
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    LocationCellTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"LocationCellTableViewCell" forIndexPath:indexPath];
+    Location *location = self.results[indexPath.row];
+    
+    cell.eventName.text = location.name;
+    cell.eventAddress.text = location.address;
+    
+    return cell;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-#warning Incomplete implementation, return the number of rows
-    return 0;
+    return self.results.count;
 }
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (self.delegate) {
+        Location *location = self.results[indexPath.row];
+        NSLog(@"delegate: %@", self.delegate);
+        NSLog(@"selected location %@", location.name);
+        [self.delegate didTapLocation:location textField:self.textField];
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }
+    else {
+        NSLog(@"search delegate is null");
+    }
+}
+
 - (BOOL)searchBar:(UISearchBar *)searchBar shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
     NSString *newText = [searchBar.text stringByReplacingCharactersInRange:range withString:text];
-    [self GoogleAPIImplementation:newText ];
     return true;
 }
 
@@ -45,7 +62,7 @@
     [self GoogleAPIImplementation:searchBar.text];
 }
 
--(void)GoogleAPIImplementation :(NSString *)query {
+-(void)GoogleAPIImplementation:(NSString *)query {
     
     NSLog(@"%@", self.searchBar.text);
     
@@ -60,23 +77,16 @@
     NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration] delegate:nil delegateQueue:[NSOperationQueue mainQueue]];
     NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         if (data) {
-            NSDictionary *responseDictionary = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
-            NSLog(@"response: %@", responseDictionary);
             
+            NSDictionary *responseDictionary = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+            NSArray *locations = [responseDictionary valueForKeyPath: @"candidates"];
+            self.results = [Location initWithDictionaries:locations];
+      
+            [self.tableView reloadData];
         }
     }];
     [task resume];
-    
 }
-/*
- - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
- UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
- 
- // Configure the cell...
- 
- return cell;
- }
- */
 
 /*
  // Override to support conditional editing of the table view.
@@ -111,6 +121,11 @@
  return YES;
  }
  */
+
+- (IBAction)onTapCancelButton:(id)sender {
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
 
 /*
  #pragma mark - Navigation

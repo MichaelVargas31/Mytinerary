@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "Event.h"
+#import "Itinerary.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -22,6 +23,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, weak) id<InputEventViewControllerDelegate> delegate;
 @property (strong, nonatomic) Event *event;
+@property (strong, nonatomic) Itinerary *itinerary;
 
 @end
 

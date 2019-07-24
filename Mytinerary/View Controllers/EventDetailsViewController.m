@@ -91,7 +91,7 @@ static int const HOTEL_VIEW_HEIGHT = 110;
     }
     
     // render view according to category
-    NSString *eventCategory = self.event.category; // testing... self.event.category;
+    NSString *eventCategory = self.event.category;
     if ([eventCategory isEqualToString:@"activity"]) {
         // add activity view
         [self.stackView insertArrangedSubview:self.activityView atIndex:1];
