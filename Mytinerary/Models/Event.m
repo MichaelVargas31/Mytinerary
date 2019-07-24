@@ -2,6 +2,7 @@
 
 #import "Event.h"
 #import "Parse/Parse.h"
+#import "SearchLocationViewController.h"
 
 @implementation Event
 

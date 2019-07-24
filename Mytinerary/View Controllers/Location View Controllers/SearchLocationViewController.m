@@ -6,10 +6,10 @@
 //
 
 #import "SearchLocationViewController.h"
+#import "LocationCellTableViewCell.h"
 
 @interface SearchLocationViewController () <UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate>
-@property (strong, nonatomic) NSString *texxt;
-@property (strong, nonatomic) NSArray *results;
+
 
 @end
 
@@ -26,18 +26,19 @@
 
 #pragma mark - Table view data source
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-#warning Incomplete implementation, return the number of sections
-    return 0;
-}
+ - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+ UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"LocationCell" forIndexPath:indexPath];
+     //LocationCell *cell = [tableView dequeueReusableCellWithIdentifier:@"LocationCell" forIndexPath:indexPath];
+ return cell;
+ }
+
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-#warning Incomplete implementation, return the number of rows
-    return 0;
+    return self.results.count;
 }
+
 - (BOOL)searchBar:(UISearchBar *)searchBar shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
     NSString *newText = [searchBar.text stringByReplacingCharactersInRange:range withString:text];
-    [self GoogleAPIImplementation:newText ];
     return true;
 }
 
@@ -60,15 +61,34 @@
     NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration] delegate:nil delegateQueue:[NSOperationQueue mainQueue]];
     NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         if (data) {
+            //Assigns pieces of data to variable
             NSDictionary *responseDictionary = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
-            NSLog(@"response: %@", responseDictionary);
             
+           
+            self.address = [responseDictionary valueForKeyPath: @"candidates.formatted_address"];
+             NSLog(@"Address: %@", self.address);
+            
+             self.name = [responseDictionary valueForKeyPath: @"candidates.name"];
+            NSLog(@"Name: %@", self.name);
+
+             self.type = [responseDictionary valueForKeyPath: @"candidates.types"];
+            NSLog(@"Type: %@", self.type);
+
+            self.latitude = [responseDictionary valueForKeyPath: @"candidates.geometry.location.lat"];
+            NSLog(@"Latitude %@", self.latitude);
+
+            self.longitude = [responseDictionary valueForKeyPath: @"candidates.geometry.location.lng"];
+            NSLog(@"Longitude%@", self.longitude);
+
         }
     }];
     [task resume];
-    
 }
 /*
+ - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+ return 0;
+ }
+ 
  - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
  UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
  
