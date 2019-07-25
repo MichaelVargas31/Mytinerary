@@ -256,15 +256,17 @@ static int const EVENT_INPUT_SUBMIT_VIEW_HEIGHT = 50;
     // if creating a new event
     else {
         Event *event = [[Event alloc] init];
-        // initialize event depending on selected event type
         
         // validate event times with itinerary times
         NSDate *eventStartTime = self.eventInputSharedView.startTimeDatePicker.date;
         NSDate *eventEndTime = self.eventInputSharedView.endTimeDatePicker.date;
         if (![self.itinerary isEventDateValid:eventStartTime eventEndTime:eventEndTime]) {
             NSLog(@"event times invalid with itinerary times");
+            self.alert.message = @"event times invalid with itinerary times";
+            [self presentViewController:self.alert animated:YES completion:nil];
         }
         else {
+            // initialize event depending on selected event type
             if ([selectedCategory isEqualToString:@"activity"]) {
                 event = [self makeActivityEvent];
             }
