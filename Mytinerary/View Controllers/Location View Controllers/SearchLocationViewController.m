@@ -81,7 +81,7 @@
             NSDictionary *responseDictionary = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
             NSArray *locations = [responseDictionary valueForKeyPath: @"candidates"];
             self.results = [Location initWithDictionaries:locations];
-      
+            
             [self.tableView reloadData];
         }
     }];

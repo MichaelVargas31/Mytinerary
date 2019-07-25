@@ -149,7 +149,6 @@
         UINavigationController *navigationController = [segue destinationViewController];
         DailyCalendarViewController *dailyCalendarVC = [navigationController.viewControllers firstObject];
         ItineraryCollectionViewCell *tappedCell = sender;
-        NSLog(@"Tapped Cell name: %@", tappedCell.title);
         
         // create indexPath, which specifies exactly which cell we're referencing
         NSIndexPath *indexPath = [self.collectionView indexPathForCell:tappedCell];
