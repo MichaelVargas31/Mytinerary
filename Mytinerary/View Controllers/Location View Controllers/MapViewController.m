@@ -14,13 +14,13 @@
 
 #import "MyAnnotation.h"
 
-
 @interface MapViewController () <CLLocationManagerDelegate, MKMapViewDelegate, MKAnnotation>
 
 @property (strong, nonatomic) Event *event;
 @property (strong, nonatomic) Location *lolo;
 @property (nonatomic, strong) NSArray * events;
-//@property NSMutableArray *coordinatesArray;
+
+
 @end
 
 @implementation MapViewController
@@ -39,14 +39,8 @@
     
     self.mapView.delegate=self;
     
-    
-   
-    
-    //[self loadCoordinatesFromParse];
-     //MKPointAnnotation *annotation = [[MKPointAnnotation alloc] init];
-    
     PFQuery *q = [Event query];
-    [q orderByDescending:@"createdAt"];
+    [q orderByAscending:@"createdAt"];
     [q includeKey:@"address"];
     q.limit = 30;
     
@@ -61,7 +55,7 @@
                 NSNumber *lon = e.longitude;
                 NSString *n = e.title;
                 NSString *ne = e.category;
-                NSLog(@"Background%@", ne);
+                //NSLog(@"Background%@", ne);
                 CGFloat l = [la doubleValue];
                 CGFloat lg = [lon doubleValue];
                 CLLocationCoordinate2D coord = CLLocationCoordinate2DMake(l,lg);
@@ -80,19 +74,15 @@
                 }
                 [self.mapView addAnnotation:annotation];
               
+               MKCoordinateRegion region = MKCoordinateRegionMake(CLLocationCoordinate2DMake(l, lg), MKCoordinateSpanMake(0.1, 0.1));
+               [self.mapView setRegion:region animated:false];
+                
             }
-        }}];
-  
+           
+        }
+    }];
+   
   }
-
-//locationManager delegate method
--(void) locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations{
-    MKCoordinateRegion mapRegion;
-   mapRegion.center = self.mapView.userLocation.coordinate;
-    mapRegion.span = MKCoordinateSpanMake(0.1, 0.1);
-    [self.mapView setRegion:mapRegion animated: YES];
-}
-
 
 - (MKAnnotationView *)mapView:(MKMapView *)mV viewForAnnotation:(id )annotation
 {
@@ -139,11 +129,21 @@
     return result;
 }
 
-
-
 /* Set visible region to San Francisco when opening the map
  MKCoordinateRegion sfRegion = MKCoordinateRegionMake(CLLocationCoordinate2DMake(37.783333, -122.416667), MKCoordinateSpanMake(0.1, 0.1));
  [self.mapView setRegion:sfRegion animated:false];
+ */
+
+/*
+ //locationManager delegate method
+ -(void) locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations{
+ MKCoordinateRegion mapRegion;
+ mapRegion.center = self.mapView.userLocation.coordinate;
+ mapRegion.span = MKCoordinateSpanMake(0.1, 0.1);
+ [self.mapView setRegion:mapRegion animated: YES];
+ 
+ 
+ }
  */
 
 /*
