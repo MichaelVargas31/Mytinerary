@@ -20,7 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) CLLocationManager *locationManager;
 @property (nonatomic, strong) CLLocation* currentLocation;
 @property (nonatomic, strong) NSArray *eArray;
-//@property (nonatomic, weak) id<MKAnnotationView> delegate;
+@property (nonatomic, strong) MKAnnotationView *pin;
 
 @end
 
@@ -28,10 +28,10 @@ NS_ASSUME_NONNULL_BEGIN
 -(CGFloat)myCGFloatValue;
 @end
 
-@protocol MKAnnotation
+@protocol MKAnnotationView
 
 //- (void)addAnnotation:(id <MKAnnotationView>)annotation;
-//- (MKAnnotationView *)viewForAnnotation:(id<MKAnnotation>)annotation;
+- (MKAnnotationView *)viewForAnnotation:(id)annotation;
 
 @end
 

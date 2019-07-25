@@ -13,7 +13,7 @@
 #import "Location.h"
 
 
-@interface MapViewController () <CLLocationManagerDelegate, MKMapViewDelegate>
+@interface MapViewController () <CLLocationManagerDelegate, MKMapViewDelegate, MKAnnotation>
 
 @property (strong, nonatomic) Event *event;
 @property (strong, nonatomic) Location *lolo;
@@ -36,6 +36,9 @@
     }
     
     self.mapView.delegate=self;
+    
+    
+    
     
     //[self loadCoordinatesFromParse];
      MKPointAnnotation *annotation = [[MKPointAnnotation alloc] init];
@@ -90,6 +93,38 @@
     [self.mapView setRegion:mapRegion animated: YES];
 }
 
+- (MKAnnotationView *)mapView:(MKMapView *)mV viewForAnnotation:(id )annotation
+{
+    MKPinAnnotationView *pinView = nil;
+    
+    static NSString *defaultPinID = @"com.invasivecode.pin";
+    pinView = (MKPinAnnotationView *)[self.mapView dequeueReusableAnnotationViewWithIdentifier:defaultPinID];
+    if ( pinView == nil ){
+      //pinView = [[[MKPinAnnotationView alloc] initWithAnnotation:annotation]];
+       //must fix this
+        
+        
+        NSLog(@"PIN"); //Is gettig here WOOHOO
+        if (annotation) {
+            MKPinAnnotationView *neutralPinView = (MKPinAnnotationView *)[self.mapView dequeueReusableAnnotationViewWithIdentifier:@"neutral"];
+            if(!neutralPinView){
+                neutralPinView = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"neutral"];
+            }
+
+        //[self.mapView selectAnnotation:pinView animated:YES];
+    pinView.pinColor = MKPinAnnotationColorPurple;
+    pinView.canShowCallout = YES;
+    pinView.animatesDrop = YES;
+    
+    UIButton *infoButton = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
+    [infoButton addTarget:self action:@selector(infoButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+    pinView.rightCalloutAccessoryView = infoButton;
+    //[defaultPinID release];
+    }
+    
+}
+    return pinView;
+}
 /*
 -(void) loadCoordinatesFromParse {
     NSDictionary * parseData;
