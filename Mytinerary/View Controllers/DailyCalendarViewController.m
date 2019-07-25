@@ -49,22 +49,10 @@
     self.tableView.rowHeight = 200;
     
     
-    NSArray *events = [NSArray arrayWithArray:self.itinerary.events];
-    NSMutableArray *eventIDs = [[NSMutableArray alloc] init];
-    for (int i =0; i < events.count; i ++) {
-        Event *one = events[i];
-        [eventIDs addObject:one.objectId];
-    }
-    
-    PFQuery *query = [Event query];
-    [query whereKey:@"objectId" containedIn:eventIDs];
-    [query orderByAscending:@"startTime"];
-    [query findObjectsInBackgroundWithBlock:^(NSArray * _Nullable fullEventArray, NSError * _Nullable error) {
+    [Event fetchAllInBackground:self.itinerary.events block:^(NSArray * _Nullable objects, NSError * _Nullable error) {
         if (!error) {
-            NSLog(@"  recieved:  %@", fullEventArray);
-            self.eventsArray = fullEventArray;
-            NSLog(@"  new array:  %@", self.eventsArray);
-
+            self.eventsArray = self.itinerary.events;
+            NSLog(@"events: %@", self.eventsArray);
             for (int i =0; i < self.eventsArray.count; i++) {
                 DailyCalendarEventUIView *calEventView = [[DailyCalendarEventUIView alloc] init];
                 [calEventView createEventViewWithEventModel:self.eventsArray[i]];
