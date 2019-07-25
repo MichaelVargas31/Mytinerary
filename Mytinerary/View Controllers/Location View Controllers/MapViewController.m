@@ -20,7 +20,6 @@
 @property (strong, nonatomic) Location *lolo;
 @property (nonatomic, strong) NSArray * events;
 
-
 @end
 
 @implementation MapViewController
@@ -42,20 +41,17 @@
     PFQuery *q = [Event query];
     [q orderByAscending:@"createdAt"];
     [q includeKey:@"address"];
-    q.limit = 30;
+    q.limit = 50;
     
     [q findObjectsInBackgroundWithBlock:^(NSArray *  eArray, NSError *  error) {
         if (!error) {
-            NSLog(@"  recieved:  %@", eArray);
             self.events = eArray;
-            NSLog(@"  new array:  %@", self.events);
             for(int i =0; i< self.events.count; i++){
                 Event *e = self.events[i];
                 NSNumber *la = e.latitude;
                 NSNumber *lon = e.longitude;
                 NSString *n = e.title;
                 NSString *ne = e.category;
-                //NSLog(@"Background%@", ne);
                 CGFloat l = [la doubleValue];
                 CGFloat lg = [lon doubleValue];
                 CLLocationCoordinate2D coord = CLLocationCoordinate2DMake(l,lg);
@@ -63,6 +59,7 @@
                 MyAnnotation *annotation =[[MyAnnotation alloc] init];
                 [annotation setCoordinate:coord];
                 [annotation setTitle:n];
+                
                 if([ne  isEqual: @"food"]){
                     annotation.grupo = 1;
                 }else if([ne  isEqual: @"activity"]){
@@ -72,16 +69,16 @@
                 }else{
                     annotation.grupo = 4;
                 }
+                
                 [self.mapView addAnnotation:annotation];
               
+                //spans to event pin most recently created
                MKCoordinateRegion region = MKCoordinateRegionMake(CLLocationCoordinate2DMake(l, lg), MKCoordinateSpanMake(0.1, 0.1));
                [self.mapView setRegion:region animated:false];
                 
             }
-           
         }
     }];
-   
   }
 
 - (MKAnnotationView *)mapView:(MKMapView *)mV viewForAnnotation:(id )annotation
@@ -119,15 +116,16 @@
     pinView.animatesDrop = YES;
     pinView.canShowCallout = YES;
   
-    
     return pinView;
 }
+
 
 -(CGFloat)myCGFloatValue{
     CGFloat result;
     CFNumberGetValue((__bridge CFNumberRef)(self), kCFNumberCGFloatType, &result);
     return result;
 }
+
 
 /* Set visible region to San Francisco when opening the map
  MKCoordinateRegion sfRegion = MKCoordinateRegionMake(CLLocationCoordinate2DMake(37.783333, -122.416667), MKCoordinateSpanMake(0.1, 0.1));
@@ -145,6 +143,7 @@
  
  }
  */
+
 
 /*
 #pragma mark - Navigation
