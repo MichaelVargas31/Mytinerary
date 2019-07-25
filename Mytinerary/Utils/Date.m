@@ -29,4 +29,13 @@
     return [difference day] + 1;
 }
 
+// increments date by [dayOffset] days
++ (NSDate *)incrementDayBy:(NSDate *)date dayOffset:(int)dayOffset {
+    NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+    NSDateComponents *offsetComponents = [[NSDateComponents alloc] init];
+    [offsetComponents setDay:dayOffset];
+    NSDate *incrementedDate = [gregorian dateByAddingComponents:offsetComponents toDate:date options:0];
+    return incrementedDate;
+}
+
 @end

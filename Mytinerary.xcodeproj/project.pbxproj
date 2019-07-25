@@ -29,6 +29,7 @@
 		23F5AA6622E9197F0084086B /* DateFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 23F5AA6522E9197F0084086B /* DateFormatter.m */; };
 		23F5AA6C22E92A7F0084086B /* EventTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 23F5AA6B22E92A7F0084086B /* EventTableViewCell.m */; };
 		23F5AA6F22EA0D480084086B /* Date.m in Sources */ = {isa = PBXBuildFile; fileRef = 23F5AA6E22EA0D480084086B /* Date.m */; };
+		23F5AA7822EA3B020084086B /* DateHeaderTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 23F5AA7722EA3B020084086B /* DateHeaderTableViewCell.m */; };
 		8448C0F522DFA2C800427FB2 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 8448C0EF22DFA2C800427FB2 /* User.m */; };
 		8448C0F622DFA2C800427FB2 /* Itinerary.m in Sources */ = {isa = PBXBuildFile; fileRef = 8448C0F122DFA2C800427FB2 /* Itinerary.m */; };
 		8448C0F722DFA2C800427FB2 /* Event.m in Sources */ = {isa = PBXBuildFile; fileRef = 8448C0F222DFA2C800427FB2 /* Event.m */; };
@@ -111,6 +112,8 @@
 		23F5AA6B22E92A7F0084086B /* EventTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EventTableViewCell.m; sourceTree = "<group>"; };
 		23F5AA6D22EA0D480084086B /* Date.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Date.h; sourceTree = "<group>"; };
 		23F5AA6E22EA0D480084086B /* Date.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Date.m; sourceTree = "<group>"; };
+		23F5AA7622EA3B010084086B /* DateHeaderTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DateHeaderTableViewCell.h; sourceTree = "<group>"; };
+		23F5AA7722EA3B020084086B /* DateHeaderTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DateHeaderTableViewCell.m; sourceTree = "<group>"; };
 		58B8F33A939BCC86C8C98935 /* Pods_MytineraryTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MytineraryTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8448C0EF22DFA2C800427FB2 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
 		8448C0F022DFA2C800427FB2 /* Event.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Event.h; sourceTree = "<group>"; };
@@ -404,6 +407,8 @@
 				8468099422E7DD1F001F9F0C /* LocationCellTableViewCell.m */,
 				23F5AA6A22E92A7F0084086B /* EventTableViewCell.h */,
 				23F5AA6B22E92A7F0084086B /* EventTableViewCell.m */,
+				23F5AA7622EA3B010084086B /* DateHeaderTableViewCell.h */,
+				23F5AA7722EA3B020084086B /* DateHeaderTableViewCell.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -634,6 +639,7 @@
 				23F5AA4D22E61DCF0084086B /* EventDetailsActivityView.m in Sources */,
 				23F5AA6122E8DA630084086B /* Location.m in Sources */,
 				FF6C5F2E22DE868D00D0EB83 /* DailyCalendarViewController.m in Sources */,
+				23F5AA7822EA3B020084086B /* DateHeaderTableViewCell.m in Sources */,
 				23F5AA5922E62B520084086B /* ItineraryDetailsViewController.m in Sources */,
 				8495D7B122DF879600CFED2D /* ItineraryCollectionViewCell.m in Sources */,
 				23F5AA6622E9197F0084086B /* DateFormatter.m in Sources */,

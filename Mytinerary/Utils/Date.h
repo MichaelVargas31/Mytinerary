@@ -14,6 +14,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (NSInteger)daysBetweenDate:(NSDate*)fromDateTime andDate:(NSDate*)toDateTime;
 
++ (NSDate *)incrementDayBy:(NSDate *)date dayOffset:(int)dayOffset;
+
 @end
 
 NS_ASSUME_NONNULL_END

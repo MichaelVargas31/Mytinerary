@@ -12,7 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface DateFormatter : NSObject
 
-+ (NSDateFormatter *)formatter;
++ (NSDateFormatter *)hourDateFormatter;
++ (NSDateFormatter *)dayDateFormatter;
 
 @end
 

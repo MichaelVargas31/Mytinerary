@@ -8,9 +8,12 @@
 
 #import "ItineraryDetailsViewController.h"
 #import "EventTableViewCell.h"
+#import "DateHeaderTableViewCell.h"
 #import "DateFormatter.h"
 #import "Date.h"
 #import "Parse/Parse.h"
+
+static const int TABLE_VIEW_HEADER_HEIGHT = 44;
 
 @interface ItineraryDetailsViewController () <UITableViewDelegate, UITableViewDataSource>
 
@@ -66,14 +69,19 @@
         if (objects) {
             self.events = objects;
             
-            // TODO FIX EVENT DATE VALIDITY
-//            for (int i = 0; i < self.events.count; i++) {
-//                Event *event = self.events[i];
-//                NSInteger itinDayIndex = [Date daysBetweenDate:self.itinerary.startTime andDate:event.startTime];
-//                [eventsByDay[itinDayIndex] addObject:event];
-//            }
-            
-            NSLog(@"eventsByDay: %@", eventsByDay);
+            // organize events by day
+            for (int i = 0; i < self.events.count; i++) {
+                Event *event = self.events[i];
+                NSInteger itinDayIndex = [Date daysBetweenDate:self.itinerary.startTime andDate:event.startTime] - 1;
+                
+                if (itinDayIndex >= self.events.count) {
+                    NSLog(@"legacy: INVALID EVENT");
+                }
+                else {
+                    [eventsByDay[itinDayIndex] addObject:event];
+                }
+            }
+            self.eventsByDay = eventsByDay;
             
             [self.tableView reloadData];
         }
@@ -93,12 +101,23 @@
 }
 */
 
+#pragma mark - Table View Configuration
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return self.eventsByDay.count;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    NSArray *dayEvents = self.eventsByDay[section];
+    return dayEvents.count;
+}
+
 - (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
-    NSDateFormatter *dateFormatter = [DateFormatter formatter];
+    NSDateFormatter *dateFormatter = [DateFormatter hourDateFormatter];
     
     EventTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"EventTableViewCell"];
     
-    Event *event = self.events[indexPath.row];
+    Event *event = self.eventsByDay[indexPath.section][indexPath.row];
     
     cell.titleLabel.text = event.title;
     cell.startTimeLabel.text = [dateFormatter stringFromDate:event.startTime];
@@ -123,8 +142,18 @@
     return cell;
 }
 
-- (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.events.count;
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    DateHeaderTableViewCell *header = [tableView dequeueReusableCellWithIdentifier:@"DateHeaderTableViewCell"];
+    NSDate *sectionDate = [Date incrementDayBy:self.itinerary.startTime dayOffset:(int)section];
+    
+    NSDateFormatter *formatter = [DateFormatter dayDateFormatter];
+    header.dateLabel.text = [formatter stringFromDate:sectionDate];
+    
+    return header;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    return TABLE_VIEW_HEADER_HEIGHT;
 }
 
 @end
