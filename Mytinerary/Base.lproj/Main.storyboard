@@ -748,12 +748,8 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ecC-45-JY5">
-                                <rect key="frame" x="0.0" y="383" width="375" height="240"/>
+                                <rect key="frame" x="0.0" y="387" width="375" height="236"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="240" id="L45-7K-oIm"/>
-                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="240" id="Nom-Dy-qCu"/>
-                                </constraints>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="DailyEventCell" rowHeight="99" id="WRN-i9-cQ4" customClass="DailyTableViewCell">
                                         <rect key="frame" x="0.0" y="28" width="375" height="99"/>
@@ -800,18 +796,21 @@
                                 </items>
                             </toolbar>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IFV-qY-Uho" customClass="FSCalendar">
-                                <rect key="frame" x="0.0" y="64" width="375" height="319"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="320"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="320" id="k7Y-Or-RX1"/>
+                                </constraints>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" red="0.0" green="0.97680455450000003" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="IFV-qY-Uho" firstAttribute="leading" secondItem="BQN-GC-MwF" secondAttribute="leading" id="0rP-oF-aYJ"/>
                             <constraint firstItem="ecC-45-JY5" firstAttribute="leading" secondItem="BQN-GC-MwF" secondAttribute="leading" id="AGr-rQ-ft4"/>
                             <constraint firstItem="w80-C5-rJ4" firstAttribute="top" secondItem="ecC-45-JY5" secondAttribute="bottom" id="GHC-Qd-MJx"/>
                             <constraint firstItem="IFV-qY-Uho" firstAttribute="top" secondItem="BQN-GC-MwF" secondAttribute="top" id="NJS-PC-DKH"/>
+                            <constraint firstItem="ecC-45-JY5" firstAttribute="top" secondItem="IFV-qY-Uho" secondAttribute="bottom" constant="3" id="NdB-pa-WGG"/>
                             <constraint firstItem="w80-C5-rJ4" firstAttribute="leading" secondItem="BQN-GC-MwF" secondAttribute="leading" id="PKM-br-Oqm"/>
-                            <constraint firstItem="ecC-45-JY5" firstAttribute="top" secondItem="IFV-qY-Uho" secondAttribute="bottom" id="b9e-bu-VtZ"/>
                             <constraint firstItem="IFV-qY-Uho" firstAttribute="trailing" secondItem="BQN-GC-MwF" secondAttribute="trailing" id="dvT-Gm-19M"/>
                             <constraint firstItem="ecC-45-JY5" firstAttribute="trailing" secondItem="BQN-GC-MwF" secondAttribute="trailing" id="nYG-58-NeO"/>
                             <constraint firstItem="w80-C5-rJ4" firstAttribute="bottom" secondItem="BQN-GC-MwF" secondAttribute="bottom" id="qyu-Op-zpH"/>
@@ -1500,7 +1499,7 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="hey-4Z-0eK"/>
-        <segue reference="S7B-S6-hJV"/>
+        <segue reference="qdm-iR-svW"/>
         <segue reference="QYY-fI-C3q"/>
         <segue reference="jrK-2N-UHa"/>
         <segue reference="LIW-WB-8EA"/>

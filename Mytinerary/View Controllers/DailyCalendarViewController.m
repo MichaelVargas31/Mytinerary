@@ -46,6 +46,9 @@
     self.timeOfDayFormatter = [[NSDateFormatter alloc] init];
     [self.timeOfDayFormatter setDateFormat:@"HH:mm:ss"];
     
+    [self.calendar setTimeZone:[NSTimeZone timeZoneWithName:@"UTC"]];
+
+    
     self.tableView.rowHeight = 200;
     
     
@@ -65,8 +68,6 @@
             NSLog(@"error: %@", error.localizedDescription);
         }
     }];
-    // Anything you put here can't depend on information from query.
-    // Its asynchonous => This line will be executed without necessary info
 }
 
 // For grouping the array of events into a dictionary.
@@ -74,37 +75,32 @@
 // value = NSArray with events
 - (void) setupDayDictionary {
     
-    // get the start date from itinerary, set that as first day, set the time to 12:00am
-    NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
-    [calendar setTimeZone:[NSTimeZone timeZoneWithName:@"UTC"]];
-    
     // setting up looping variables
-    NSDate *loopDay = [calendar startOfDayForDate:self.itinerary.startTime];
-    NSDate *endDay = [calendar dateBySettingHour:0 minute:0 second:00 ofDate:self.itinerary.endTime options:0];
+    NSDate *loopDay = [self.calendar startOfDayForDate:self.itinerary.startTime];
+    NSDate *endDay = [self.calendar dateBySettingHour:0 minute:0 second:00 ofDate:self.itinerary.endTime options:0];
     NSDateComponents *oneDay = [NSDateComponents new];
     oneDay.day = 1;
-    endDay = [calendar dateByAddingComponents:oneDay toDate:endDay options:0];     // Include last day in loop
+    endDay = [self.calendar dateByAddingComponents:oneDay toDate:endDay options:0];     // Include last day in loop
     NSMutableDictionary *tempEventsDict = [NSMutableDictionary dictionaryWithDictionary:self.eventsDictionary];
     
     // loop through # of days in itinerary using an NSDate
     while ([loopDay compare:endDay] == NSOrderedAscending) {
         NSMutableArray *thisDatesEvents = [[NSMutableArray alloc] init];
         
-        // loop through
+        // loop through, add if its between current loop day and next day
         for (Event *event in self.eventsArray) {
-            NSDate *loopDayPlusOne = [calendar dateByAddingComponents:oneDay toDate:loopDay options:0];
-            if ([event.startTime compare:loopDay] == NSOrderedDescending && [event.startTime compare:loopDayPlusOne] == NSOrderedAscending) {
+            if ([self.calendar isDate:event.startTime inSameDayAsDate:loopDay]){
                 [thisDatesEvents addObject:event];
             }
         }
         
         // add the event array to dictionary with NSDate as key
         [tempEventsDict setObject:thisDatesEvents forKey:loopDay];
-        
         // increment the loop day
-        loopDay = [calendar dateByAddingComponents:oneDay toDate:loopDay options:0];
+        loopDay = [self.calendar dateByAddingComponents:oneDay toDate:loopDay options:0];
     }
     self.eventsDictionary = [NSDictionary dictionaryWithDictionary:tempEventsDict];
+    NSLog(@"%@", self.eventsDictionary);
 }
 
 #pragma mark - Navigation
