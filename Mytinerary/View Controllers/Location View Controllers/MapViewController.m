@@ -41,7 +41,7 @@
     
     
     //[self loadCoordinatesFromParse];
-     MKPointAnnotation *annotation = [[MKPointAnnotation alloc] init];
+     //MKPointAnnotation *annotation = [[MKPointAnnotation alloc] init];
     
     PFQuery *q = [Event query];
     [q orderByDescending:@"name"];
@@ -61,7 +61,7 @@
                 CGFloat l = [la doubleValue];
                 CGFloat lg = [lon doubleValue];
                 CLLocationCoordinate2D coord = CLLocationCoordinate2DMake(l,lg);
-
+                MKPointAnnotation *annotation = [[MKPointAnnotation alloc] init];
                 [annotation setCoordinate:coord];
                 [annotation setTitle:n];
                 [self.mapView addAnnotation:annotation];
@@ -92,16 +92,28 @@
     mapRegion.span = MKCoordinateSpanMake(0.1, 0.1);
     [self.mapView setRegion:mapRegion animated: YES];
 }
-
+/*
 - (MKAnnotationView *)mapView:(MKMapView *)mV viewForAnnotation:(id )annotation
-{
-    MKPinAnnotationView *pinView = nil;
+{MKPinAnnotationView *annotationView = (MKPinAnnotationView*)[self.mapView dequeueReusableAnnotationViewWithIdentifier:@"Pin"];
+    if (annotationView == nil) {
+        annotationView = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"Pin"];
+        
+        annotationView.canShowCallout = true;
+        annotationView.leftCalloutAccessoryView = [[UIImageView alloc] initWithFrame:CGRectMake(0.0, 0.0, 50.0, 50.0)];
+    }
+    
+    //UIImageView *imageView = (UIImageView*)annotationView.leftCalloutAccessoryView;
+    //imageView.image = [UIImage imageNamed:@"camera"];
+    
+    return annotationView;*/
+   /* MKPinAnnotationView *pinView = nil;
     
     static NSString *defaultPinID = @"com.invasivecode.pin";
     pinView = (MKPinAnnotationView *)[self.mapView dequeueReusableAnnotationViewWithIdentifier:defaultPinID];
     if ( pinView == nil ){
       //pinView = [[[MKPinAnnotationView alloc] initWithAnnotation:annotation]];
        //must fix this
+        pinView = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"neutral"];
         
         
         NSLog(@"PIN"); //Is gettig here WOOHOO
@@ -123,8 +135,8 @@
     }
     
 }
-    return pinView;
-}
+    return pinView;*/
+//}
 /*
 -(void) loadCoordinatesFromParse {
     NSDictionary * parseData;
