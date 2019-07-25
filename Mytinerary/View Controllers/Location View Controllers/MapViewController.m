@@ -12,6 +12,8 @@
 #import "Event.h"
 #import "Location.h"
 
+#import "MyAnnotation.h"
+
 
 @interface MapViewController () <CLLocationManagerDelegate, MKMapViewDelegate, MKAnnotation>
 
@@ -38,15 +40,15 @@
     self.mapView.delegate=self;
     
     
-    
+   
     
     //[self loadCoordinatesFromParse];
      //MKPointAnnotation *annotation = [[MKPointAnnotation alloc] init];
     
     PFQuery *q = [Event query];
-    [q orderByDescending:@"name"];
+    [q orderByDescending:@"createdAt"];
     [q includeKey:@"address"];
-    q.limit = 20;
+    q.limit = 30;
     
     [q findObjectsInBackgroundWithBlock:^(NSArray *  eArray, NSError *  error) {
         if (!error) {
@@ -58,31 +60,29 @@
                 NSNumber *la = e.latitude;
                 NSNumber *lon = e.longitude;
                 NSString *n = e.title;
+                NSString *ne = e.category;
+                NSLog(@"Background%@", ne);
                 CGFloat l = [la doubleValue];
                 CGFloat lg = [lon doubleValue];
                 CLLocationCoordinate2D coord = CLLocationCoordinate2DMake(l,lg);
-                MKPointAnnotation *annotation = [[MKPointAnnotation alloc] init];
+                
+                MyAnnotation *annotation =[[MyAnnotation alloc] init];
                 [annotation setCoordinate:coord];
                 [annotation setTitle:n];
+                if([ne  isEqual: @"food"]){
+                    annotation.grupo = 1;
+                }else if([ne  isEqual: @"activity"]){
+                    annotation.grupo = 2;
+                }else if([ne  isEqual: @"hotel"]){
+                    annotation.grupo = 3;
+                }else{
+                    annotation.grupo = 4;
+                }
                 [self.mapView addAnnotation:annotation];
-
+              
             }
         }}];
-    
-    
-   /* NSNumber *la =  self.event.latitude;
-    NSNumber *lon = self.event.longitude;
-    NSLog(@"Is getting here ");
-    CGFloat l = [la myCGFloatValue];
-    CGFloat lg = [lon myCGFloatValue];
-    CLLocationCoordinate2D coord = CLLocationCoordinate2DMake(0.5,0.5);
-    CLLocationCoordinate2D coordinate;
-    [annotation setCoordinate:coord];
-    NSLog(@"Coordinates together%@", la);
-    [annotation setTitle:self.event.title]; //You can set the subtitle too
-    [self.mapView addAnnotation:annotation];
-    //[self.mapView showAnnotations:annotation animated:YES];*/
-
+  
   }
 
 //locationManager delegate method
@@ -92,126 +92,46 @@
     mapRegion.span = MKCoordinateSpanMake(0.1, 0.1);
     [self.mapView setRegion:mapRegion animated: YES];
 }
-/*
+
+
 - (MKAnnotationView *)mapView:(MKMapView *)mV viewForAnnotation:(id )annotation
-{MKPinAnnotationView *annotationView = (MKPinAnnotationView*)[self.mapView dequeueReusableAnnotationViewWithIdentifier:@"Pin"];
-    if (annotationView == nil) {
-        annotationView = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"Pin"];
-        
-        annotationView.canShowCallout = true;
-        annotationView.leftCalloutAccessoryView = [[UIImageView alloc] initWithFrame:CGRectMake(0.0, 0.0, 50.0, 50.0)];
-    }
-    
-    //UIImageView *imageView = (UIImageView*)annotationView.leftCalloutAccessoryView;
-    //imageView.image = [UIImage imageNamed:@"camera"];
-    
-    return annotationView;*/
-   /* MKPinAnnotationView *pinView = nil;
-    
-    static NSString *defaultPinID = @"com.invasivecode.pin";
-    pinView = (MKPinAnnotationView *)[self.mapView dequeueReusableAnnotationViewWithIdentifier:defaultPinID];
-    if ( pinView == nil ){
-      //pinView = [[[MKPinAnnotationView alloc] initWithAnnotation:annotation]];
-       //must fix this
-        pinView = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"neutral"];
-        
-        
-        NSLog(@"PIN"); //Is gettig here WOOHOO
-        if (annotation) {
-            MKPinAnnotationView *neutralPinView = (MKPinAnnotationView *)[self.mapView dequeueReusableAnnotationViewWithIdentifier:@"neutral"];
-            if(!neutralPinView){
-                neutralPinView = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"neutral"];
-            }
-
-        //[self.mapView selectAnnotation:pinView animated:YES];
-    pinView.pinColor = MKPinAnnotationColorPurple;
-    pinView.canShowCallout = YES;
-    pinView.animatesDrop = YES;
-    
-    UIButton *infoButton = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
-    [infoButton addTarget:self action:@selector(infoButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-    pinView.rightCalloutAccessoryView = infoButton;
-    //[defaultPinID release];
-    }
-    
-}
-    return pinView;*/
-//}
-/*
--(void) loadCoordinatesFromParse {
-    NSDictionary * parseData;
-    //load parseData from Parse here
-    PFQuery *q = [Event query];
-    [q orderByDescending:@"name"];
-    [q includeKey:@"address"];
-    q.limit = 20;
-    
-    [q findObjectsInBackgroundWithBlock:^(NSArray *  coordinatesArray, NSError *  error) {
-        if (!error) {
-            NSLog(@"  recieved:  %@", coordinatesArray);
-            self.locations = coordinatesArray;
-            NSLog(@"  new array:  %@", self.locations);
-
-        }}];
-    
-    NSMutableArray * coordinates = [NSMutableArray array];
-    
-       //parseData *location = [Event initWithDictionary:dict];
-       // [locations addObject:location];
-
-
-    NSLog(@"parse data%@", parseData);
-    NSArray * latitudes = [parseData objectForKey:@"latitude"];
-    
-    NSArray *longitudes = [parseData objectForKey:@"longitude"];
-    
-    for (int i = 0; i < [latitudes count]; i++) {
-        double latitude = [latitudes[i] doubleValue];
-        double longitude = [longitudes[i] doubleValue];
-        CLLocationCoordinate2D coordinate = CLLocationCoordinate2DMake(latitude, longitude);
-        [coordinates addObject: [NSValue valueWithMKCoordinate:coordinate]];
-    }
-    
-    NSLog(@"coordinates array = %@", coordinates);
-    self.locations = [NSArray arrayWithArray: coordinates];
-}*/
-   
-/*
-- (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id             <MKAnnotation>)annotation
 {
-    MKPinAnnotationView *pinView = nil;
+    MKPinAnnotationView *pinView = (MKPinAnnotationView*)[self.mapView dequeueReusableAnnotationViewWithIdentifier:@"Pin"];
     
-    static NSString *defaultPinID = @"identifier";
-    pinView = (MKPinAnnotationView *)[mapView dequeueReusableAnnotationViewWithIdentifier:defaultPinID];
-    if ( pinView == nil )
-    {
-        NSLog(@"Inside IF");
-        pinView = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:defaultPinID];
+    if (pinView == nil) {
+        pinView = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"Pin"];
         
-        pinView.pinColor = MKPinAnnotationColorRed;  //or Green or Purple
-        
-        pinView.enabled = YES;
-        pinView.canShowCallout = YES;
-        
-        UIButton *btn = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
-        
-        //Accessoryview for the annotation view in ios.
-        pinView.rightCalloutAccessoryView = btn;
     }
-    else
+    if ([annotation isKindOfClass:[MyAnnotation class]])
     {
-        pinView.annotation = annotation;
+        MyAnnotation *myAnn = (MyAnnotation *)annotation;
+        switch (myAnn.grupo)
+        {
+            case 1: //food
+                pinView.pinTintColor=UIColor.purpleColor;
+                break;
+            case 2: //activity
+                pinView.pinTintColor=UIColor.yellowColor;
+                break;
+            case 3: //hotel
+                pinView.pinTintColor=UIColor.redColor;
+                break;
+            case 4: //transportation
+                pinView.pinTintColor=UIColor.greenColor;
+                break;
+            default:
+                pinView.pinTintColor=UIColor.cyanColor;
+                break;
+        }
     }
+
+    pinView.annotation=annotation;
+    pinView.animatesDrop = YES;
+    pinView.canShowCallout = YES;
+  
     
     return pinView;
-}*/
-/*
-NSNumber *la =  self.event.latitude;
-NSNumber *lon = self.event.longitude;
-
-NSNumber *n = self.event.latitude;
-CGFloat f = [n myCGFloatValue];*/
-
+}
 
 -(CGFloat)myCGFloatValue{
     CGFloat result;
@@ -220,31 +140,6 @@ CGFloat f = [n myCGFloatValue];*/
 }
 
 
-/*
-//gets the addresses of the event
--(void) querySearch{
-    PFQuery *eQuery = [Event query];
-    [eQuery orderByDescending: @"createdAt"];
-    [eQuery includeKey:@"address"];
-   
-    eQuery.limit =10;
-    
-    //fetch data
-    [eQuery findObjectsInBackgroundWithBlock:^(NSArray<Event *> * event, NSError *  error) {
-        if(event){
-            self.eArray = event;
-            NSLog(@"Events: %@", self.eArray);
-            
-            
-            //pin location onto map maybe
-        }
-        else{
-            //handle error
-        }
-    }];
-    
-    
-}*/
 
 /* Set visible region to San Francisco when opening the map
  MKCoordinateRegion sfRegion = MKCoordinateRegionMake(CLLocationCoordinate2DMake(37.783333, -122.416667), MKCoordinateSpanMake(0.1, 0.1));
