@@ -77,45 +77,34 @@
     // get the start date from itinerary, set that as first day, set the time to 12:00am
     NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
     [calendar setTimeZone:[NSTimeZone timeZoneWithName:@"UTC"]];
-    NSDate *startTime = self.itinerary.startTime;
-    NSLog(@"Itinerary start date = %@", self.itinerary.startTime);
-    NSDateComponents *startComps = [calendar components:NSCalendarUnitYear|NSCalendarUnitMonth|NSCalendarUnitDay fromDate:self.itinerary.startTime];
-    NSLog(@"itin start components:\nstart.year = %ld, start.month = %ld, start.day = %ld", (long)startComps.year, (long)startComps.month, startComps.day);
     
-//    NSDate *loopDay = [calendar dateBySettingHour:00 minute:00 second:00 ofDate:self.itinerary.startTime options:0];
+    // setting up looping variables
     NSDate *loopDay = [calendar startOfDayForDate:self.itinerary.startTime];
     NSDate *endDay = [calendar dateBySettingHour:0 minute:0 second:00 ofDate:self.itinerary.endTime options:0];
     NSDateComponents *oneDay = [NSDateComponents new];
     oneDay.day = 1;
-    // in order to include the last day, we add a day to end date
-    endDay = [calendar dateByAddingComponents:oneDay toDate:endDay options:0];
-    
+    endDay = [calendar dateByAddingComponents:oneDay toDate:endDay options:0];     // Include last day in loop
     NSMutableDictionary *tempEventsDict = [NSMutableDictionary dictionaryWithDictionary:self.eventsDictionary];
-    NSMutableArray *tempEventsArray = [NSMutableArray arrayWithArray:self.eventsArray];
-    // now user this event to loop through events
+    
+    // loop through # of days in itinerary using an NSDate
     while ([loopDay compare:endDay] == NSOrderedAscending) {
-        NSDateComponents *calendarDayComponents = [calendar components:NSCalendarUnitYear|NSCalendarUnitMonth|NSCalendarUnitDay fromDate:loopDay];
-//        NSLog(@"loop day = %@, loopday.day= %ld, loopday.month= %ld, loopday.year= %ld", loopDay, (long)calendarDayComponents.day, calendarDayComponents.month, calendarDayComponents.year);
-        
         NSMutableArray *thisDatesEvents = [[NSMutableArray alloc] init];
-        for (Event *event in tempEventsArray) {
-            // check whether the date matches
+        
+        // loop through
+        for (Event *event in self.eventsArray) {
             NSDate *loopDayPlusOne = [calendar dateByAddingComponents:oneDay toDate:loopDay options:0];
-            // if its within this day range
             if ([event.startTime compare:loopDay] == NSOrderedDescending && [event.startTime compare:loopDayPlusOne] == NSOrderedAscending) {
                 [thisDatesEvents addObject:event];
-//                [tempEventsArray removeObject:event];  Can't edit array while its being iterated over.
             }
         }
         
+        // add the event array to dictionary with NSDate as key
         [tempEventsDict setObject:thisDatesEvents forKey:loopDay];
         
-        // Nothing below this line, this is the iterating line
+        // increment the loop day
         loopDay = [calendar dateByAddingComponents:oneDay toDate:loopDay options:0];
     }
-    NSLog(@"___dictionary = %@", tempEventsDict);
     self.eventsDictionary = [NSDictionary dictionaryWithDictionary:tempEventsDict];
-    NSLog(@"Done");
 }
 
 #pragma mark - Navigation
