@@ -26,6 +26,13 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+
+//    @try {
+//        NSLog(@"itin title: %@", self.itinerary.title);
+//    } @catch (NSException *exception) {
+//        [Itinerary fetchAll:[NSArray arrayWithObject:self.itinerary]];
+//    }
+    
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     self.itineraryFSCalendar.dataSource = self;
@@ -61,9 +68,7 @@
     [query orderByAscending:@"startTime"];
     [query findObjectsInBackgroundWithBlock:^(NSArray * _Nullable fullEventArray, NSError * _Nullable error) {
         if (!error) {
-            NSLog(@"  recieved:  %@", fullEventArray);
             self.eventsArray = fullEventArray;
-            NSLog(@"  new array:  %@", self.eventsArray);
 
             for (int i =0; i < self.eventsArray.count; i++) {
                 DailyCalendarEventUIView *calEventView = [[DailyCalendarEventUIView alloc] init];

@@ -50,7 +50,7 @@
     layout.itemSize= CGSizeMake(itemWidth, itemHeight);
     
 }
--(void) fetchitineraries{
+-(void)fetchitineraries {
     //Itinerary Query
     PFQuery *iQuery = [Itinerary query];
     //Search Where author of itineraries is equal to the current user logged in
@@ -58,9 +58,6 @@
     [iQuery getFirstObjectInBackgroundWithBlock:^(PFObject *object, NSError *error)
     {
         if (!error) {
-            //You found the user!
-            PFUser *queriedUser = (PFUser *)object;
-            
             [iQuery orderByDescending: @"createdAt"];
             [iQuery includeKey: @"author"];
             iQuery.limit =10;
@@ -85,6 +82,7 @@
     
     ItineraryCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"ItineraryCollectionViewCell" forIndexPath:indexPath];
     Itinerary *itinerary = self.iArray[indexPath.item];
+    cell.itinerary = itinerary;
     cell.title.text=itinerary.title;
     
     return cell;
@@ -93,9 +91,6 @@
 - (NSInteger)collectionView:(nonnull UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
    return self.iArray.count;
 }
-
-
-
 
 // Method to add profile header to collection View
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
@@ -111,8 +106,6 @@
     return reusableview;
 }
 
-
-
 //-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 //{
 //    [self performSegueWithIdentifier:@"yourSegue" sender:self];
@@ -126,7 +119,7 @@
 
 
 - (IBAction)logout:(id)sender {
-    [PFUser logOutInBackgroundWithBlock:^(NSError * _Nullable error) {
+    [User logoutUser:^(NSError * _Nullable error) {
         AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
         LoginViewController *loginViewController = [storyboard instantiateViewControllerWithIdentifier:@"LoginViewController"];
@@ -155,7 +148,18 @@
         NSIndexPath *indexPath = [self.collectionView indexPathForCell:tappedCell];
         dailyCalendarVC.itinerary = [self.iArray objectAtIndex:indexPath.item];
         
-    } else {
+        // reset current user's default itinerary
+        Itinerary *itinerary = tappedCell.itinerary;
+        [User resetDefaultItinerary:PFUser.currentUser itinerary:itinerary withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
+            if (succeeded) {
+                NSLog(@"'%@' default itinerary successfully set to: %@", PFUser.currentUser.username, itinerary.title);
+            }
+            else {
+                NSLog(@"failed to set '%@' default itinerary", PFUser.currentUser.username);
+            }
+        }];
+    }
+    else {
         NSLog(@"If you're getting this message, you need to edit the prepareForSegue() method to add another segue");
     }
 }

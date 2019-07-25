@@ -7,6 +7,9 @@
 //
 
 #import "LoginViewController.h"
+#import "DailyCalendarViewController.h"
+#import "User.h"
+#import "Itinerary.h"
 #import "Parse/Parse.h"
 
 @interface LoginViewController ()
@@ -25,32 +28,34 @@
 }
 
 //logs in user 
-- (void) loginUser {
+- (void)loginUser {
     NSString *userName = self.usernameField.text;
     NSString *passWord = self.passwordField.text;
 
-    [PFUser logInWithUsernameInBackground:userName password:passWord block:^(PFUser * user, NSError *  error) {
-        
-        if(error != nil){
+    [User loginUser:userName password:passWord withCompletion:^(PFUser * _Nullable pfuser, NSError * _Nullable error) {
+        if (error != nil) {
             NSLog(@"Login failed");
-        } else {
+        }
+        else {
             NSLog(@"Login was sucessful");
-           
-            [self performSegueWithIdentifier:@"login" sender:nil];
+            
+            User *user = [User initUserWithPFUser:pfuser];
+            if (user.defaultItinerary) {
+                [self performSegueWithIdentifier:@"defaultItinerarySegue" sender:user];
+            }
+            else {
+                [self performSegueWithIdentifier:@"login" sender:nil];
+            }
         }
     }];
 }
 
 - (IBAction)signUpUser:(id)sender {
-    //initialize a new user object
-    PFUser *newU = [PFUser user];
-    
     //set user properties
-    newU.username=self.usernameField.text;
-    newU.password=self.passwordField.text;
+    NSString *username = self.usernameField.text;
+    NSString *password = self.passwordField.text;
     
-    //call sign up function on user object
-    [newU signUpInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+    [User registerUser:username password:password withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
         if(error !=nil){
             NSLog(@"Error: %@",error.localizedDescription );
         }
@@ -59,18 +64,23 @@
             [self performSegueWithIdentifier:@"login" sender:nil];
         }
     }];
-    
-    
 }
 
-/*
+
 #pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+    if ([[segue identifier] isEqualToString:@"defaultItinerarySegue"]) {
+        UINavigationController *navigationController = [segue destinationViewController];
+        DailyCalendarViewController *dailyCalendarViewController = [[navigationController viewControllers] firstObject];
+
+        User *user = sender;
+        
+        // triggering warning -- long operation executed on main thread
+        [Itinerary fetchAll:[NSArray arrayWithObject:user.defaultItinerary]];
+        dailyCalendarViewController.itinerary = user.defaultItinerary;
+    }
 }
-*/
+
 
 @end

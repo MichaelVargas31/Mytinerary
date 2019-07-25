@@ -65,11 +65,12 @@
                         <outlet property="passwordField" destination="1D0-YV-BXE" id="ra7-3d-rmr"/>
                         <outlet property="usernameField" destination="Sss-66-m8N" id="16Y-1i-Ths"/>
                         <segue destination="zcb-mO-9dQ" kind="presentation" identifier="login" id="rMc-Si-arj"/>
+                        <segue destination="LRs-zy-NRI" kind="show" identifier="defaultItinerarySegue" id="xxW-4u-C6h"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-577" y="-287"/>
+            <point key="canvasLocation" x="-426" y="-373"/>
         </scene>
         <!--Profile Page-->
         <scene sceneID="2Cs-cf-7Nj">
@@ -222,7 +223,6 @@
                     </navigationItem>
                     <connections>
                         <outlet property="collectionView" destination="PWN-zR-u73" id="85v-RW-p1V"/>
-                        <segue destination="Cse-Zz-3XH" kind="show" identifier="goToMap" id="S7B-S6-hJV"/>
                         <segue destination="LRs-zy-NRI" kind="show" identifier="calendarSegue" id="hey-4Z-0eK"/>
                     </connections>
                 </viewController>
@@ -891,10 +891,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="I7A-PG-fR6">
-                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="DlF-gi-F6b">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
                                     </stackView>
                                 </subviews>
                                 <constraints>
@@ -1557,10 +1557,9 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="hey-4Z-0eK"/>
-        <segue reference="S7B-S6-hJV"/>
-        <segue reference="QYY-fI-C3q"/>
-        <segue reference="jrK-2N-UHa"/>
+        <segue reference="xxW-4u-C6h"/>
+        <segue reference="a8N-p0-ajg"/>
+        <segue reference="rMc-Si-arj"/>
         <segue reference="LIW-WB-8EA"/>
     </inferredMetricsTieBreakers>
 </document>
