@@ -18,4 +18,6 @@
 
 - (void) addEventToItinerary:(Event *)event withCompletion:(PFBooleanResultBlock)completion;
 
+- (BOOL)isEventDateValid:(NSDate *)eventStartTime eventEndTime:(NSDate *)eventEndTime;
+
 @end
