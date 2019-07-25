@@ -1,6 +1,7 @@
 //  Itinerary.m
 
 #import "Itinerary.h"
+#import "DateFormatter.h"
 #import "Parse/Parse.h"
 #import "Event.h"
 
@@ -44,13 +45,26 @@
 
 // add event to an itinerary's list of events
 - (void) addEventToItinerary:(Event *)event withCompletion:(PFBooleanResultBlock)completion {
+    
     [self fetchInBackgroundWithBlock:^(PFObject * _Nullable object, NSError * _Nullable error) {
         if (error) {
             NSLog(@"Error fetching itinerary events: %@", error);
         }
         else {
-            self.events = [self.events arrayByAddingObjectsFromArray:[NSArray arrayWithObjects:event, nil]];
-            [self saveInBackgroundWithBlock:completion];
+            // ensure that event date is within itinerary dates
+            if ([event.startTime compare:self.startTime] == NSOrderedAscending) {
+                NSError *error = [NSError errorWithDomain:@"Event start time cannot be before itinerary start time" code:1 userInfo:nil];
+                completion(nil, error);
+            }
+            else if ([event.endTime compare:self.endTime] == NSOrderedDescending) {
+                NSError *error = [NSError errorWithDomain:@"Event end time cannot be after itinerary end time" code:1 userInfo:nil];
+                completion(nil, error);
+            }
+            // if valid event
+            else {
+                self.events = [self.events arrayByAddingObjectsFromArray:[NSArray arrayWithObjects:event, nil]];
+                [self saveInBackgroundWithBlock:completion];
+            }
         }
     }];
 }

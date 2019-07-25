@@ -9,6 +9,7 @@
 #import "ItineraryDetailsViewController.h"
 #import "EventTableViewCell.h"
 #import "DateFormatter.h"
+#import "Date.h"
 #import "Parse/Parse.h"
 
 @interface ItineraryDetailsViewController () <UITableViewDelegate, UITableViewDataSource>
@@ -22,6 +23,7 @@
 // events
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) NSArray *events;
+@property (strong, nonatomic) NSMutableArray *eventsByDay;
 
 @end
 
@@ -51,9 +53,28 @@
 }
 
 - (void)reloadEventTable {
+    // get number of days in itinerary
+    NSInteger numItinDays = [Date daysBetweenDate:self.itinerary.startTime andDate:self.itinerary.endTime];
+    
+    // TODO initialize eventsByDay
+    NSMutableArray *eventsByDay = [NSMutableArray arrayWithCapacity:numItinDays];
+    for (int i = 0; i < numItinDays; i++) {
+        eventsByDay[i] = [NSMutableArray array];
+    }
+    
     [Event fetchAllInBackground:self.itinerary.events block:^(NSArray * _Nullable objects, NSError * _Nullable error) {
         if (objects) {
             self.events = objects;
+            
+            // TODO FIX EVENT DATE VALIDITY
+//            for (int i = 0; i < self.events.count; i++) {
+//                Event *event = self.events[i];
+//                NSInteger itinDayIndex = [Date daysBetweenDate:self.itinerary.startTime andDate:event.startTime];
+//                [eventsByDay[itinDayIndex] addObject:event];
+//            }
+            
+            NSLog(@"eventsByDay: %@", eventsByDay);
+            
             [self.tableView reloadData];
         }
         else {
@@ -84,6 +105,8 @@
     cell.endTimeLabel.text = [dateFormatter stringFromDate:event.endTime];
     cell.descriptionLabel.text = event.eventDescription;
     
+    
+    // TODO: make colors more appealing here
     if ([event.category isEqualToString:@"activity"]) {
         cell.backgroundColor = [UIColor yellowColor];
     }
