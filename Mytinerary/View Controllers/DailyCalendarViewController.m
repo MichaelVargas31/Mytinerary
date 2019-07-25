@@ -45,6 +45,10 @@
     self.timeOfDayFormatter = [[NSDateFormatter alloc] init];
     [self.timeOfDayFormatter setDateFormat:@"HH:mm:ss"];
     
+    self.timeOfDayFormatter = [[NSDateFormatter alloc] init];
+    [self.dateFormatter setDateFormat:@"yyyy-MM-dd"];
+
+    
     self.calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
     [self.calendar setTimeZone:[NSTimeZone timeZoneWithName:@"UTC"]];
 
@@ -100,7 +104,6 @@
         // increment the loop day
         loopDay = [self.calendar dateByAddingComponents:oneDay toDate:loopDay options:0];
     }
-//    [tempEventsDict keysSortedByValueUsingSelector:@selector(compare:)];      // need to sort this somehow
     self.eventsDictionary = [NSDictionary dictionaryWithDictionary:tempEventsDict];
 }
 
@@ -148,7 +151,7 @@
     WeekdayCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"WeekdayCollectionViewCell" forIndexPath:indexPath];
     
     NSMutableArray *allDates = [NSMutableArray arrayWithArray:[self.eventsDictionary allKeys]];
-    [allDates sortedArrayUsingSelector:@selector(compare:)];
+    allDates = (NSMutableArray *)[allDates sortedArrayUsingSelector:@selector(compare:)];
     NSDate *date = allDates[indexPath.item];
     
     // take information from startdate and add it to cell
