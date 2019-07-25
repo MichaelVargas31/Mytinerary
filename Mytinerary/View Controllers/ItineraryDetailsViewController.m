@@ -8,6 +8,8 @@
 
 #import "ItineraryDetailsViewController.h"
 #import "EventTableViewCell.h"
+#import "DateFormatter.h"
+#import "Parse/Parse.h"
 
 @interface ItineraryDetailsViewController () <UITableViewDelegate, UITableViewDataSource>
 
@@ -43,6 +45,21 @@
     self.startTimeLabel.text = [dateFormatter stringFromDate:self.itinerary.startTime];
     self.endTimeLabel.text = [dateFormatter stringFromDate:self.itinerary.endTime];
     self.budgetLabel.text = [NSString stringWithFormat:@"$%@", self.itinerary.budget];
+    
+    // get itinerary's events
+    [self reloadEventTable];
+}
+
+- (void)reloadEventTable {
+    [Event fetchAllInBackground:self.itinerary.events block:^(NSArray * _Nullable objects, NSError * _Nullable error) {
+        if (objects) {
+            self.events = objects;
+            [self.tableView reloadData];
+        }
+        else {
+            NSLog(@"error loading events: %@", error);
+        }
+    }];
 }
 
 /*
@@ -56,13 +73,35 @@
 */
 
 - (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
-    EventTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"EventTableViewCell" forIndexPath:indexPath];
-
+    NSDateFormatter *dateFormatter = [DateFormatter formatter];
+    
+    EventTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"EventTableViewCell"];
+    
+    Event *event = self.events[indexPath.row];
+    
+    cell.titleLabel.text = event.title;
+    cell.startTimeLabel.text = [dateFormatter stringFromDate:event.startTime];
+    cell.endTimeLabel.text = [dateFormatter stringFromDate:event.endTime];
+    cell.descriptionLabel.text = event.eventDescription;
+    
+    if ([event.category isEqualToString:@"activity"]) {
+        cell.backgroundColor = [UIColor yellowColor];
+    }
+    else if ([event.category isEqualToString:@"transportation"]) {
+        cell.backgroundColor = [UIColor greenColor];
+    }
+    else if ([event.category isEqualToString:@"food"]) {
+        cell.backgroundColor = [UIColor purpleColor];
+    }
+    else if ([event.category isEqualToString:@"hotel"]) {
+        cell.backgroundColor = [UIColor redColor];
+    }
+    
     return cell;
 }
 
 - (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 5; // self.events.count;
+    return self.events.count;
 }
 
 @end

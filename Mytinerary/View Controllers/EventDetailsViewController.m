@@ -52,7 +52,6 @@ static int const HOTEL_VIEW_HEIGHT = 110;
 }
 
 - (void) refreshViews {
-    
     // setup date formatter
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     dateFormatter.dateStyle = NSDateFormatterMediumStyle;
