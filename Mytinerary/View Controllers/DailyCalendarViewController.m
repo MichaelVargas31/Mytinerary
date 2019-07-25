@@ -8,6 +8,7 @@
 
 #import "DailyCalendarViewController.h"
 #import "DailyTableViewCell.h"
+#import "WeekdayCollectionViewCell.h"
 #import "DailyCalendarEventUIView.h"
 #import "EventDetailsViewController.h"
 #import "ItineraryDetailsViewController.h"
@@ -17,7 +18,7 @@
 #import "Parse/Parse.h"
 
 
-@interface DailyCalendarViewController () <UITableViewDelegate, UITableViewDataSource, FSCalendarDataSource, FSCalendarDelegate, CalendarEventViewDelegate>
+@interface DailyCalendarViewController () <UITableViewDelegate, UITableViewDataSource, CalendarEventViewDelegate, UICollectionViewDelegate, UICollectionViewDataSource>
 
 @end
 
@@ -28,8 +29,8 @@
     // Do any additional setup after loading the view.
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
-    self.itineraryFSCalendar.dataSource = self;
-    self.itineraryFSCalendar.delegate = self;
+    self.WeeklyCalendarCollectionView.dataSource = self;
+    self.WeeklyCalendarCollectionView.delegate = self;
     
     // setup navigation bar title with button
     UIButton *button = [[UIButton alloc] init];
@@ -39,13 +40,12 @@
     [button addTarget:self action:@selector(onTapItineraryTitle) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.titleView = button;
     
-    // initially, only the daily calendar view will be visible
-    [self.itineraryFSCalendar setFrame:CGRectMake(self.itineraryFSCalendar.frame.origin.x, self.itineraryFSCalendar.frame.origin.y, self.itineraryFSCalendar.frame.size.width, 0)];
     
     // initializing formatter for calculating cell's times
     self.timeOfDayFormatter = [[NSDateFormatter alloc] init];
     [self.timeOfDayFormatter setDateFormat:@"HH:mm:ss"];
     
+    self.calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
     [self.calendar setTimeZone:[NSTimeZone timeZoneWithName:@"UTC"]];
 
     
@@ -56,6 +56,7 @@
         if (!error) {
             self.eventsArray = self.itinerary.events;
             [self setupDayDictionary];
+            [self.WeeklyCalendarCollectionView reloadData];
             for (int i =0; i < self.eventsArray.count; i++) {
                 DailyCalendarEventUIView *calEventView = [[DailyCalendarEventUIView alloc] init];
                 [calEventView createEventViewWithEventModel:self.eventsArray[i]];
@@ -99,8 +100,8 @@
         // increment the loop day
         loopDay = [self.calendar dateByAddingComponents:oneDay toDate:loopDay options:0];
     }
+//    [tempEventsDict keysSortedByValueUsingSelector:@selector(compare:)];      // need to sort this somehow
     self.eventsDictionary = [NSDictionary dictionaryWithDictionary:tempEventsDict];
-    NSLog(@"%@", self.eventsDictionary);
 }
 
 #pragma mark - Navigation
@@ -136,10 +137,33 @@
 
 }
 
+
 - (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     // 48 half hour increments in day
     return 48;
 }
+
+
+- (nonnull __kindof UICollectionViewCell *)collectionView:(nonnull UICollectionView *)collectionView cellForItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
+    WeekdayCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"WeekdayCollectionViewCell" forIndexPath:indexPath];
+    
+    NSMutableArray *allDates = [NSMutableArray arrayWithArray:[self.eventsDictionary allKeys]];
+    [allDates sortedArrayUsingSelector:@selector(compare:)];
+    NSDate *date = allDates[indexPath.item];
+    
+    // take information from startdate and add it to cell
+    NSDateComponents *dateComponents = [self.calendar components:NSCalendarUnitDay|NSCalendarUnitWeekday fromDate:date];
+    NSArray *weekdayArray = [NSArray arrayWithObjects: @"Sun", @"Mon", @"Tue", @"Wed", @"Thu", @"Fri", @"Sat", nil];
+    cell.weekdayLabel.text = [NSString stringWithFormat:@"%@", weekdayArray[([dateComponents weekday])-1]];
+    cell.dateLabel.text = [NSString stringWithFormat:@"%ld", (long)[dateComponents day]];
+    return cell;
+}
+
+
+- (NSInteger)collectionView:(nonnull UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+    return self.eventsDictionary.count;     // dictionary has 1 entry per day in itinerary
+}
+
 
 - (void)calendarEventView:(nonnull DailyCalendarEventUIView *)calendarEventView didTapEvent:(nonnull Event *)event {
     // after tapping event, segue to event details view

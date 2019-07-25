@@ -24,6 +24,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (weak, nonatomic) IBOutlet FSCalendar *itineraryFSCalendar;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (weak, nonatomic) IBOutlet UICollectionView *WeeklyCalendarCollectionView;
 
 @end
 
