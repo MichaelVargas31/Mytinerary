@@ -76,7 +76,14 @@
     
     // get the start date from itinerary, set that as first day, set the time to 12:00am
     NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
-    NSDate *loopDay = [calendar dateBySettingHour:0 minute:0 second:00 ofDate:self.itinerary.startTime options:0];
+    [calendar setTimeZone:[NSTimeZone timeZoneWithName:@"UTC"]];
+    NSDate *startTime = self.itinerary.startTime;
+    NSLog(@"Itinerary start date = %@", self.itinerary.startTime);
+    NSDateComponents *startComps = [calendar components:NSCalendarUnitYear|NSCalendarUnitMonth|NSCalendarUnitDay fromDate:self.itinerary.startTime];
+    NSLog(@"itin start components:\nstart.year = %ld, start.month = %ld, start.day = %ld", (long)startComps.year, (long)startComps.month, startComps.day);
+    
+//    NSDate *loopDay = [calendar dateBySettingHour:00 minute:00 second:00 ofDate:self.itinerary.startTime options:0];
+    NSDate *loopDay = [calendar startOfDayForDate:self.itinerary.startTime];
     NSDate *endDay = [calendar dateBySettingHour:0 minute:0 second:00 ofDate:self.itinerary.endTime options:0];
     NSDateComponents *oneDay = [NSDateComponents new];
     oneDay.day = 1;
