@@ -39,11 +39,7 @@ static const int TABLE_VIEW_HEADER_HEIGHT = 44;
     self.tableView.dataSource = self;
     
     // setup date formatter
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    dateFormatter.dateStyle = NSDateFormatterMediumStyle;
-    dateFormatter.timeStyle = NSDateFormatterNoStyle;
-    dateFormatter.locale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US_POSIX"];
-    dateFormatter.dateFormat = @"h:mm a, MMM d";
+    NSDateFormatter *dateFormatter = [DateFormatter hourDateFormatter];
     
     // initialize labels on view
     self.titleLabel.text = self.itinerary.title;

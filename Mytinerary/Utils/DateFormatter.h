@@ -14,6 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (NSDateFormatter *)hourDateFormatter;
 + (NSDateFormatter *)dayDateFormatter;
++ (NSDateFormatter *)timeOfDayFormatter;
 
 @end
 

@@ -13,6 +13,7 @@
 #import "ItineraryDetailsViewController.h"
 #import "InputEventViewController.h"
 #import "Event.h"
+#import "DateFormatter.h"
 #import "FSCalendar.h"
 #import "Parse/Parse.h"
 
@@ -34,12 +35,13 @@
     self.itineraryFSCalendar.dataSource = self;
     self.itineraryFSCalendar.delegate = self;
     
+    // load calendar table view
     // initializing formatter for calculating cell's times
-    self.timeOfDayFormatter = [[NSDateFormatter alloc] init];
-    [self.timeOfDayFormatter setDateFormat:@"HH:mm:ss"];
+    self.timeOfDayFormatter = [DateFormatter timeOfDayFormatter];
     // set up table view
     self.tableView.rowHeight = 200;
     
+    // if from login, itinerary obj must be fetched first
     if (self.fromLogin) {
         [self fetchItineraryAndLoadView];
     }

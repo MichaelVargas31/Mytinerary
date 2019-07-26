@@ -14,6 +14,7 @@
 #import "EventDetailsFoodView.h"
 #import "EventDetailsHotelView.h"
 #import "InputEventViewController.h"
+#import "DateFormatter.h"
 
 static int const TITLE_VIEW_HEIGHT = 100;
 static int const DESCRIPTION_VIEW_HEIGHT = 300;
@@ -40,24 +41,12 @@ static int const HOTEL_VIEW_HEIGHT = 110;
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    // setup date formatter
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    dateFormatter.dateStyle = NSDateFormatterMediumStyle;
-    dateFormatter.timeStyle = NSDateFormatterNoStyle;
-    dateFormatter.locale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US_POSIX"];
-    dateFormatter.dateFormat = @"h:mm a, MMM d";
-
-    
     [self refreshViews];
 }
 
 - (void) refreshViews {
     // setup date formatter
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    dateFormatter.dateStyle = NSDateFormatterMediumStyle;
-    dateFormatter.timeStyle = NSDateFormatterNoStyle;
-    dateFormatter.locale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US_POSIX"];
-    dateFormatter.dateFormat = @"h:mm a, MMM d";
+    NSDateFormatter *dateFormatter = [DateFormatter hourDateFormatter];
     
     // add shared event details title view
     [self.stackView addArrangedSubview:self.titleView];
