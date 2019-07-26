@@ -58,8 +58,7 @@
     
     [Event fetchAllInBackground:self.itinerary.events block:^(NSArray * _Nullable objects, NSError * _Nullable error) {
         if (!error) {
-            self.eventsArray = self.itinerary.events;
-            [self setupDayDictionary];
+            [self setupDayDictionary:self.itinerary.events];
             [self.WeeklyCalendarCollectionView reloadData];
             [self refreshViewUsingDate:[self.calendar startOfDayForDate:self.itinerary.startTime]];
         } else {
@@ -68,6 +67,8 @@
     }];
 }
 
+
+#pragma mark - Data Handling
 
 -(void)refreshViewUsingDate:(NSDate *)newDate {
     // remove old events from screen
@@ -92,7 +93,7 @@
 // For grouping the array of events into a dictionary.
 // key = NSDate [with time set to midnight]
 // value = NSArray with events
-- (void) setupDayDictionary {
+- (void) setupDayDictionary:(NSArray *)eventsArray {
     
     // setting up looping variables
     NSDate *loopDay = [self.calendar startOfDayForDate:self.itinerary.startTime];
@@ -107,7 +108,7 @@
         NSMutableArray *thisDatesEvents = [[NSMutableArray alloc] init];
         
         // loop through, add if its between current loop day and next day
-        for (Event *event in self.eventsArray) {
+        for (Event *event in eventsArray) {
             if ([self.calendar isDate:event.startTime inSameDayAsDate:loopDay]){
                 [thisDatesEvents addObject:event];
             }
@@ -121,36 +122,16 @@
     self.eventsDictionary = [NSDictionary dictionaryWithDictionary:tempEventsDict];
 }
 
-#pragma mark - Navigation
 
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if ([[segue identifier] isEqualToString:@"eventDetailsSegue"]) {
-        EventDetailsViewController *eventDetailsViewController = [segue destinationViewController];
-        eventDetailsViewController.event = sender;
-    }
-    else if ([[segue identifier] isEqualToString:@"addEventSegue"]) {
-        // send itinerary to input event VC to add new event to appropriate itinerary
-        InputEventViewController *inputEventViewController = [segue destinationViewController];
-        inputEventViewController.itinerary = self.itinerary;
-    }
-    else if ([[segue identifier] isEqualToString:@"itineraryDetailsSegue"]) {
-        ItineraryDetailsViewController *itineraryDetailsViewController = [segue destinationViewController];
-        itineraryDetailsViewController.itinerary = self.itinerary;
-    }
-}
-
+#pragma mark - Table & Collection Views
 
 - (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
-    
     DailyTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"DailyEventCell" forIndexPath:indexPath];
-    
     // Adding time labels to each cell
     NSDate *midnight = [self.timeOfDayFormatter dateFromString:@"00:00:00"];
     NSDate *newTime = [midnight dateByAddingTimeInterval:1800*indexPath.row];
     cell.calendarTimeLabel.text = [[self.timeOfDayFormatter stringFromDate:newTime] substringToIndex:5];
-    
     return cell;
-
 }
 
 
@@ -186,12 +167,11 @@
     return self.eventsDictionary.count;     // dictionary has 1 entry per day in itinerary
 }
 
-
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     // reset the tableview and all the sheiza on it
     WeekdayCollectionViewCell *cell = (WeekdayCollectionViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
     cell.dateLabel.backgroundColor = [UIColor colorWithRed:.5 green:.5 blue:.5 alpha:1];
-    NSLog(@"tapped cell's Date [7 hours behind] = %@", cell.date);
+    // NSLog(@"tapped cell's Date [7 hours behind] = %@", cell.date);
     [self refreshViewUsingDate:cell.date];
     
 }
@@ -202,9 +182,26 @@
     
 }
 
+#pragma mark - Navigation
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([[segue identifier] isEqualToString:@"eventDetailsSegue"]) {
+        EventDetailsViewController *eventDetailsViewController = [segue destinationViewController];
+        eventDetailsViewController.event = sender;
+    }
+    else if ([[segue identifier] isEqualToString:@"addEventSegue"]) {
+        // send itinerary to input event VC to add new event to appropriate itinerary
+        InputEventViewController *inputEventViewController = [segue destinationViewController];
+        inputEventViewController.itinerary = self.itinerary;
+    }
+    else if ([[segue identifier] isEqualToString:@"itineraryDetailsSegue"]) {
+        ItineraryDetailsViewController *itineraryDetailsViewController = [segue destinationViewController];
+        itineraryDetailsViewController.itinerary = self.itinerary;
+    }
+}
+
 
 - (void)calendarEventView:(nonnull DailyCalendarEventUIView *)calendarEventView didTapEvent:(nonnull Event *)event {
-    // after tapping event, segue to event details view
     [self performSegueWithIdentifier:@"eventDetailsSegue" sender:event];
 }
 
