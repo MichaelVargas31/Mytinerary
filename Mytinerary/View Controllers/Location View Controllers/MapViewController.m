@@ -7,6 +7,7 @@
 //
 
 #import "MapViewController.h"
+#import "DailyCalendarViewController.h"
 #import "AppDelegate.h"
 #import "Parse/Parse.h"
 #import "Event.h"
@@ -66,6 +67,17 @@
     }];
     
     
+}
+
+- (IBAction)onTapCalendarButton:(id)sender {
+    UINavigationController *navigationController = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"ItineraryNavigationController"];
+    
+    DailyCalendarViewController *dailyCalendarViewController = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"DailyCalendarViewController"];
+    
+    // TODO: pass itinerary from map to daily calendar
+    
+    [navigationController setViewControllers:[NSArray arrayWithObject:dailyCalendarViewController]];
+    [self presentViewController:navigationController animated:YES completion:nil];
 }
 
 /* Set visible region to San Francisco when opening the map

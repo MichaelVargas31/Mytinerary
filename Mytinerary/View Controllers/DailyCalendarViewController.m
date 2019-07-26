@@ -163,6 +163,7 @@
     UINavigationController *navigationController = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"ItineraryNavigationController"];
     
     MapViewController *mapViewController = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"MapViewController"];
+    // TODO: pass itinerary from daily calendar to map
     
     [navigationController setViewControllers:[NSArray arrayWithObject:mapViewController]];
     [self presentViewController:navigationController animated:YES completion:nil];

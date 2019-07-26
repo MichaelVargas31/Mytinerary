@@ -779,7 +779,7 @@
         <!--Daily Calendar View Controller-->
         <scene sceneID="LDD-gY-UEN">
             <objects>
-                <viewController id="rWW-ig-3vo" customClass="DailyCalendarViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="DailyCalendarViewController" id="rWW-ig-3vo" customClass="DailyCalendarViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="e7X-fC-HXC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1489,7 +1489,7 @@
                     <navigationItem key="navigationItem" id="fnH-oE-JUS">
                         <barButtonItem key="rightBarButtonItem" title="calendar" id="kTH-2Y-RA1">
                             <connections>
-                                <segue destination="LRs-zy-NRI" kind="show" id="ZJx-tO-anp"/>
+                                <action selector="onTapCalendarButton:" destination="P9I-0f-YVX" id="Eoa-uK-nL6"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -1499,7 +1499,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="d8L-Cq-QBq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1110" y="1101"/>
+            <point key="canvasLocation" x="1324" y="1155"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Kgc-Sh-I9d">
@@ -1539,7 +1539,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="ZJx-tO-anp"/>
+        <segue reference="xxW-4u-C6h"/>
         <segue reference="QYY-fI-C3q"/>
         <segue reference="jrK-2N-UHa"/>
         <segue reference="LIW-WB-8EA"/>
