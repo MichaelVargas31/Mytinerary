@@ -12,6 +12,7 @@
 #import "EventDetailsViewController.h"
 #import "ItineraryDetailsViewController.h"
 #import "InputEventViewController.h"
+#import "MapViewController.h"
 #import "Event.h"
 #import "DateFormatter.h"
 #import "FSCalendar.h"
@@ -154,6 +155,17 @@
 - (void)calendarEventView:(nonnull DailyCalendarEventUIView *)calendarEventView didTapEvent:(nonnull Event *)event {
     // after tapping event, segue to event details view
     [self performSegueWithIdentifier:@"eventDetailsSegue" sender:event];
+}
+
+- (IBAction)onTapMapButton:(id)sender {
+    // navigate to map by resetting nav controller view controller stack
+    
+    UINavigationController *navigationController = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"ItineraryNavigationController"];
+    
+    MapViewController *mapViewController = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"MapViewController"];
+    
+    [navigationController setViewControllers:[NSArray arrayWithObject:mapViewController]];
+    [self presentViewController:navigationController animated:YES completion:nil];
 }
 
 - (IBAction)onTapAddEventButton:(id)sender {
