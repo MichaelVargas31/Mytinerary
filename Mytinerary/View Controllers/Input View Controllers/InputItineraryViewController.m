@@ -7,6 +7,7 @@
 //
 
 #import "InputItineraryViewController.h"
+#import "InputValidation.h"
 #import "Itinerary.h"
 
 @interface InputItineraryViewController ()
@@ -41,38 +42,52 @@
 }
 
 - (IBAction)onTapCreateItinerary:(id)sender {
-    // ensure title is inputted
     NSString *title = self.titleTextField.text;
-    if ([title isEqualToString:@""]) {
-        self.alert.message = @"Missing itinerary title";
-        [self presentViewController:self.alert animated:YES completion:nil];
-    }
-    
-    // ensure start and end times are valid
     NSDate *startTime = self.startTimeDatePicker.date;
     NSDate *endTime = self.endTimeDatePicker.date;
-    if ([startTime compare:endTime] != NSOrderedAscending) {
-        self.alert.message = @"End time must be after start time";
+    NSNumber *budget = @([self.budgetTextField.text floatValue]);
+    
+    NSString *itinValidity = [InputValidation itineraryValidation:title startTime:startTime endTime:endTime budget:budget];
+    
+    // if itinerary not valid
+    if (![itinValidity isEqualToString:@""]) {
+        self.alert.message = itinValidity;
         [self presentViewController:self.alert animated:YES completion:nil];
+    }
+    else {
+        // create new itinerary
+        [Itinerary initNewItinerary:title startTime:startTime endTime:endTime budget:budget withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
+            if (succeeded) {
+                NSLog(@"Itinerary successfully created!");
+                [self dismissViewControllerAnimated:YES completion:nil];
+            }
+            else {
+                NSLog(@"Error creating itinerary: %@", error);
+            }
+        }];
     }
     
-    // check budget validity
-    NSNumber *budget = @([self.budgetTextField.text floatValue]);
-    if (budget < 0) {
-        self.alert.message = @"Budget cannot be negative";
-        [self presentViewController:self.alert animated:YES completion:nil];
-    }
-
-    // create new itinerary
-    [Itinerary initNewItinerary:title startTime:startTime endTime:endTime budget:budget withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
-        if (succeeded) {
-            NSLog(@"Itinerary successfully created!");
-            [self dismissViewControllerAnimated:YES completion:nil];
-        }
-        else {
-            NSLog(@"Error creating itinerary: %@", error);
-        }
-    }];
+    // ensure title is inputted
+//    NSString *title = self.titleTextField.text;
+//    if ([title isEqualToString:@""]) {
+//        self.alert.message = @"Missing itinerary title";
+//        [self presentViewController:self.alert animated:YES completion:nil];
+//    }
+//
+//    // ensure start and end times are valid
+//    NSDate *startTime = self.startTimeDatePicker.date;
+//    NSDate *endTime = self.endTimeDatePicker.date;
+//    if ([startTime compare:endTime] != NSOrderedAscending) {
+//        self.alert.message = @"End time must be after start time";
+//        [self presentViewController:self.alert animated:YES completion:nil];
+//    }
+//
+//    // check budget validity
+//    NSNumber *budget = @([self.budgetTextField.text floatValue]);
+//    if (budget < 0) {
+//        self.alert.message = @"Budget cannot be negative";
+//        [self presentViewController:self.alert animated:YES completion:nil];
+    //    }
 }
 
 /*
