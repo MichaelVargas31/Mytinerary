@@ -13,12 +13,16 @@
 #import "EventDetailsViewController.h"
 #import "ItineraryDetailsViewController.h"
 #import "InputEventViewController.h"
+#import "MapViewController.h"
 #import "Event.h"
+#import "DateFormatter.h"
 #import "FSCalendar.h"
 #import "Parse/Parse.h"
 
 
 @interface DailyCalendarViewController () <UITableViewDelegate, UITableViewDataSource, CalendarEventViewDelegate, UICollectionViewDelegate, UICollectionViewDataSource>
+
+@property (strong, nonatomic) UIActivityIndicatorView *activityIndicator;
 
 @end
 
@@ -40,11 +44,48 @@
     [self.calendar setTimeZone:[NSTimeZone timeZoneWithName:@"UTC"]];
     
     // Do any additional setup after loading the view.
+    
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     self.WeeklyCalendarCollectionView.dataSource = self;
     self.WeeklyCalendarCollectionView.delegate = self;
     
+    // load calendar table view
+    // initializing formatter for calculating cell's times
+    self.timeOfDayFormatter = [DateFormatter timeOfDayFormatter];
+    // set up table view
+    self.tableView.rowHeight = 200;
+    
+    // if from login, itinerary obj must be fetched first
+    if (self.fromLogin) {
+        [self fetchItineraryAndLoadView];
+    }
+    else {
+        [self loadItinView];
+    }
+}
+
+- (void)fetchItineraryAndLoadView {
+    // set up activity indicator -- TODO: not sure if this actually works
+    self.activityIndicator = [[UIActivityIndicatorView alloc] init];
+    self.activityIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyleWhiteLarge;
+    self.activityIndicator.center = self.view.center;
+    [self.view addSubview:self.activityIndicator];
+    [self.activityIndicator startAnimating];
+    
+    [Itinerary fetchAllInBackground:[NSArray arrayWithObject:self.itinerary] block:^(NSArray * _Nullable objects, NSError * _Nullable error) {
+        if (objects) {
+            NSLog(@"itinerary successfully fetched!");
+            self.itinerary = [objects firstObject];
+            [self loadItinView];
+        }
+        else {
+            NSLog(@"error fetching itinerary object: %@", error);
+        }
+    }];
+}
+
+- (void)loadItinView {
     // setup navigation bar title with button
     UIButton *button = [[UIButton alloc] init];
     [button setAccessibilityFrame:CGRectMake(0, 0, 100, 40)];
@@ -52,12 +93,6 @@
     [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [button addTarget:self action:@selector(onTapItineraryTitle) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.titleView = button;
-    
-
-
-    
-    self.tableView.rowHeight = 200;
-    
     
     [Event fetchAllInBackground:self.itinerary.events block:^(NSArray * _Nullable objects, NSError * _Nullable error) {
         if (!error) {
@@ -206,6 +241,18 @@
 
 - (void)calendarEventView:(nonnull DailyCalendarEventUIView *)calendarEventView didTapEvent:(nonnull Event *)event {
     [self performSegueWithIdentifier:@"eventDetailsSegue" sender:event];
+}
+
+- (IBAction)onTapMapButton:(id)sender {
+    // navigate to map by resetting nav controller view controller stack
+    
+    UINavigationController *navigationController = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"ItineraryNavigationController"];
+    
+    MapViewController *mapViewController = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"MapViewController"];
+    // TODO: pass itinerary from daily calendar to map
+    
+    [navigationController setViewControllers:[NSArray arrayWithObject:mapViewController]];
+    [self presentViewController:navigationController animated:YES completion:nil];
 }
 
 - (IBAction)onTapAddEventButton:(id)sender {

@@ -24,6 +24,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UICollectionView *WeeklyCalendarCollectionView;
 
+// config default itin functionality
+@property BOOL fromLogin;
+
 @end
 
 NS_ASSUME_NONNULL_END

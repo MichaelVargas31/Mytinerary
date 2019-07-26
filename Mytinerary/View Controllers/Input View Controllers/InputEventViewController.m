@@ -256,29 +256,40 @@ static int const EVENT_INPUT_SUBMIT_VIEW_HEIGHT = 50;
     // if creating a new event
     else {
         Event *event = [[Event alloc] init];
-        // initialize event depending on selected event type
-        if ([selectedCategory isEqualToString:@"activity"]) {
-            event = [self makeActivityEvent];
-        }
-        else if ([selectedCategory isEqualToString:@"transportation"]) {
-            event = [self makeTransportationEvent];
-        }
-        else if ([selectedCategory isEqualToString:@"food"]) {
-            event = [self makeFoodEvent];
-        }
-        else if ([selectedCategory isEqualToString:@"hotel"]) {
-            event = [self makeHotelEvent];
-        }
         
-        // add new event to current itinerary
-        [self.itinerary addEventToItinerary:event withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
-            if (succeeded) {
-                NSLog(@"event: event successfully added to itin");
+        // validate event times with itinerary times
+        NSDate *eventStartTime = self.eventInputSharedView.startTimeDatePicker.date;
+        NSDate *eventEndTime = self.eventInputSharedView.endTimeDatePicker.date;
+        if (![self.itinerary isEventDateValid:eventStartTime eventEndTime:eventEndTime]) {
+            NSLog(@"event times invalid with itinerary times");
+            self.alert.message = @"event times invalid with itinerary times";
+            [self presentViewController:self.alert animated:YES completion:nil];
+        }
+        else {
+            // initialize event depending on selected event type
+            if ([selectedCategory isEqualToString:@"activity"]) {
+                event = [self makeActivityEvent];
             }
-            else {
-                NSLog(@"event failed to add to itin: %@", error);
+            else if ([selectedCategory isEqualToString:@"transportation"]) {
+                event = [self makeTransportationEvent];
             }
-        }];
+            else if ([selectedCategory isEqualToString:@"food"]) {
+                event = [self makeFoodEvent];
+            }
+            else if ([selectedCategory isEqualToString:@"hotel"]) {
+                event = [self makeHotelEvent];
+            }
+            
+            // add new event to current itinerary
+            [self.itinerary addEventToItinerary:event withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
+                if (succeeded) {
+                    NSLog(@"event: event successfully added to itin");
+                }
+                else {
+                    NSLog(@"event failed to add to itin: %@", error);
+                }
+            }];
+        }
     }
 }
 

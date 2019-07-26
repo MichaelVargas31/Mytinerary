@@ -10,6 +10,8 @@
 @property (nonatomic, strong) NSString *password;
 @property (nonatomic, strong) Itinerary *defaultItinerary;
 
++ (User *)initUserWithPFUser:(PFUser *)user;
+
 + (void)registerUser:(NSString *)username password:(NSString *)password withCompletion:(PFBooleanResultBlock)completion;
 
 // example usage of registerUser
