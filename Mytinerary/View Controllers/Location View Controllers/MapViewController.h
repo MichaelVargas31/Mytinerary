@@ -12,11 +12,27 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@protocol MKAnnotation;
+
 @interface MapViewController : UIViewController
+
 @property (weak, nonatomic) IBOutlet MKMapView *mapView;
 @property (nonatomic, strong) CLLocationManager *locationManager;
 @property (nonatomic, strong) CLLocation* currentLocation;
 @property (nonatomic, strong) NSArray *eArray;
+@property (nonatomic, strong) MKAnnotationView *pin;
+
+@end
+
+@interface NSNumber (MyCGFloatValue)
+-(CGFloat)myCGFloatValue;
+@end
+
+@protocol MKAnnotationView
+
+//- (void)addAnnotation:(id <MKAnnotationView>)annotation;
+- (MKAnnotationView *)viewForAnnotation:(id)annotation;
+
 @end
 
 NS_ASSUME_NONNULL_END

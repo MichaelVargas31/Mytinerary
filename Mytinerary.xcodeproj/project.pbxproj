@@ -31,6 +31,7 @@
 		8448C0F622DFA2C800427FB2 /* Itinerary.m in Sources */ = {isa = PBXBuildFile; fileRef = 8448C0F122DFA2C800427FB2 /* Itinerary.m */; };
 		8448C0F722DFA2C800427FB2 /* Event.m in Sources */ = {isa = PBXBuildFile; fileRef = 8448C0F222DFA2C800427FB2 /* Event.m */; };
 		8468099522E7DD1F001F9F0C /* LocationCellTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8468099422E7DD1F001F9F0C /* LocationCellTableViewCell.m */; };
+		8468099822E93EAF001F9F0C /* MyAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 8468099722E93EAF001F9F0C /* MyAnnotation.m */; };
 		8495D7A922DE8BDD00CFED2D /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8495D7A822DE8BDD00CFED2D /* LoginViewController.m */; };
 		8495D7AE22DE991B00CFED2D /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8495D7AD22DE991B00CFED2D /* ProfileViewController.m */; };
 		8495D7B122DF879600CFED2D /* ItineraryCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8495D7B022DF879600CFED2D /* ItineraryCollectionViewCell.m */; };
@@ -114,6 +115,8 @@
 		8448C0F422DFA2C800427FB2 /* Itinerary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Itinerary.h; sourceTree = "<group>"; };
 		8468099322E7DD1F001F9F0C /* LocationCellTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LocationCellTableViewCell.h; sourceTree = "<group>"; };
 		8468099422E7DD1F001F9F0C /* LocationCellTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LocationCellTableViewCell.m; sourceTree = "<group>"; };
+		8468099622E93EAF001F9F0C /* MyAnnotation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyAnnotation.h; sourceTree = "<group>"; };
+		8468099722E93EAF001F9F0C /* MyAnnotation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyAnnotation.m; sourceTree = "<group>"; };
 		8495D7A722DE8BDD00CFED2D /* LoginViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		8495D7A822DE8BDD00CFED2D /* LoginViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		8495D7AC22DE991B00CFED2D /* ProfileViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProfileViewController.h; sourceTree = "<group>"; };
@@ -324,6 +327,8 @@
 				FF6C5EF722DE640200D0EB83 /* AppDelegate.h */,
 				FF6C5EF822DE640200D0EB83 /* AppDelegate.m */,
 				FF6C5F2F22DE8B1900D0EB83 /* Views */,
+				8468099622E93EAF001F9F0C /* MyAnnotation.h */,
+				8468099722E93EAF001F9F0C /* MyAnnotation.m */,
 				FF6C5F2B22DE865400D0EB83 /* View Controllers */,
 				8448C0EE22DFA2C800427FB2 /* Models */,
 				FF6C5EFD22DE640200D0EB83 /* Main.storyboard */,
@@ -628,6 +633,7 @@
 				23F5AA5D22E641EC0084086B /* EventTableViewCell.m in Sources */,
 				8448C0F722DFA2C800427FB2 /* Event.m in Sources */,
 				23F5A9EF22E0D9B50084086B /* InputEventViewController.m in Sources */,
+				8468099822E93EAF001F9F0C /* MyAnnotation.m in Sources */,
 				84B5E51722E10637006F4815 /* MapViewController.m in Sources */,
 				8468099522E7DD1F001F9F0C /* LocationCellTableViewCell.m in Sources */,
 				FFA0333622E234EB006DAE99 /* DailyCalendarEventUIView.m in Sources */,
