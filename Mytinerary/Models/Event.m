@@ -3,6 +3,7 @@
 #import "Event.h"
 #import "Parse/Parse.h"
 #import "SearchLocationViewController.h"
+#import "InputValidation.h"
 
 @implementation Event
 
@@ -35,22 +36,13 @@
 - (Event *) initNewEvent:(NSString *)title eventDescription:(NSString * _Nullable)eventDescription address:(NSString * _Nullable)address latitude:(NSNumber *)latitude longitude:(NSNumber *)longitude locationType:(NSString *)locationType category:(NSString *)category startTime:(NSDate *)startTime endTime:(NSDate *)endTime notes:(NSString * _Nullable)notes withCompletion:(PFBooleanResultBlock)completion {
     
     // make sure all required fields are filled, validate input
-    if ([title isEqualToString:@""]) {
-        NSError *error = [NSError errorWithDomain:@"Please add a title" code:1 userInfo:nil];
+    NSString *errorStr = [InputValidation eventSharedValidation:title startTime:startTime endTime:endTime address:address];
+    if (![errorStr isEqualToString:@""]) {
+        NSError *error = [NSError errorWithDomain:errorStr code:1 userInfo:nil];
         completion(nil, error);
         return nil;
     }
-    if ([startTime compare:endTime] != NSOrderedAscending) {
-        NSError *error = [NSError errorWithDomain:@"Start time must be before end time" code:1 userInfo:nil];
-        completion(nil, error);
-        return nil;
-    }
-    if ([address isEqualToString:@""]) {
-        NSError *error = [NSError errorWithDomain:@"Please add a location" code:1 userInfo:nil];
-        completion(nil, error);
-        return nil;
-    }
-    
+
     // required fields
     self.title = title;
     self.category = category;
@@ -100,13 +92,9 @@
  optional: event description, cost, notes) */
 + (Event *) initTransportationEvent:(NSString *)title eventDescription:(NSString * _Nullable)eventDescription startAddress:(NSString *)startAddress startLatitude:(NSNumber *)startLatitude startLongitude:(NSNumber *)startLongitude endAddress:(NSString *)endAddress endLatitude:(NSNumber *)endLatitude endLongitude:(NSNumber *)endLongitude startTime:(NSDate *)startTime endTime:(NSDate *)endTime transpoType:(NSString *)transpoType cost:(float)cost notes:(NSString * _Nullable)notes withCompletion:(PFBooleanResultBlock)completion {
     
-    if ([startAddress isEqualToString:@""]) {
-        NSError *error = [NSError errorWithDomain:@"Please add a start location" code:1 userInfo:nil];
-        completion(nil, error);
-        return nil;
-    }
-    if ([endAddress isEqualToString:@""]) {
-        NSError *error = [NSError errorWithDomain:@"Please add an end location" code:1 userInfo:nil];
+    NSString *errorStr = [InputValidation startEndAddressValidation:startAddress endAddress:endAddress];
+    if (![errorStr isEqualToString:@""]) {
+        NSError *error = [NSError errorWithDomain:errorStr code:1 userInfo:nil];
         completion(nil, error);
         return nil;
     }
@@ -127,13 +115,10 @@
 
 // update preexisting transportation event
 - (Event *) updateTransportationEvent:(NSString *)title eventDescription:(NSString * _Nullable)eventDescription startAddress:(NSString *)startAddress startLatitude:(NSNumber *)startLatitude startLongitude:(NSNumber *)startLongitude endAddress:(NSString *)endAddress endLatitude:(NSNumber *)endLatitude endLongitude:(NSNumber *)endLongitude startTime:(NSDate *)startTime endTime:(NSDate *)endTime transpoType:(NSString *)transpoType cost:(float)cost notes:(NSString * _Nullable)notes withCompletion:(PFBooleanResultBlock)completion {
-    if ([startAddress isEqualToString:@""]) {
-        NSError *error = [NSError errorWithDomain:@"Please add a start location" code:1 userInfo:nil];
-        completion(nil, error);
-        return nil;
-    }
-    if ([endAddress isEqualToString:@""]) {
-        NSError *error = [NSError errorWithDomain:@"Please add an end location" code:1 userInfo:nil];
+    
+    NSString *errorStr = [InputValidation startEndAddressValidation:startAddress endAddress:endAddress];
+    if (![errorStr isEqualToString:@""]) {
+        NSError *error = [NSError errorWithDomain:errorStr code:1 userInfo:nil];
         completion(nil, error);
         return nil;
     }
