@@ -21,6 +21,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet FSCalendar *itineraryFSCalendar;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
+// config default itin functionality
+@property BOOL fromLogin;
+
 @end
 
 NS_ASSUME_NONNULL_END

@@ -19,6 +19,8 @@
 
 @interface DailyCalendarViewController () <UITableViewDelegate, UITableViewDataSource, FSCalendarDataSource, FSCalendarDelegate, CalendarEventViewDelegate>
 
+@property (strong, nonatomic) UIActivityIndicatorView *activityIndicator;
+
 @end
 
 @implementation DailyCalendarViewController
@@ -26,18 +28,42 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-
-//    @try {
-//        NSLog(@"itin title: %@", self.itinerary.title);
-//    } @catch (NSException *exception) {
-//        [Itinerary fetchAll:[NSArray arrayWithObject:self.itinerary]];
-//    }
     
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     self.itineraryFSCalendar.dataSource = self;
     self.itineraryFSCalendar.delegate = self;
     
+    if (self.fromLogin) {
+        self.tableView.rowHeight = 200; // temp fix for bug
+        [self fetchItineraryAndLoadView];
+    }
+    else {
+        [self loadItinView];
+    }
+}
+
+- (void)fetchItineraryAndLoadView {
+    // set up activity indicator -- TODO: not sure if this actually works
+    self.activityIndicator = [[UIActivityIndicatorView alloc] init];
+    self.activityIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyleWhiteLarge;
+    self.activityIndicator.center = self.view.center;
+    [self.view addSubview:self.activityIndicator];
+    [self.activityIndicator startAnimating];
+    
+    [Itinerary fetchAllInBackground:[NSArray arrayWithObject:self.itinerary] block:^(NSArray * _Nullable objects, NSError * _Nullable error) {
+        if (objects) {
+            NSLog(@"itinerary successfully fetched!");
+            self.itinerary = [objects firstObject];
+            [self loadItinView];
+        }
+        else {
+            NSLog(@"error fetching itinerary object: %@", error);
+        }
+    }];
+}
+
+- (void)loadItinView {
     // setup navigation bar title with button
     UIButton *button = [[UIButton alloc] init];
     [button setAccessibilityFrame:CGRectMake(0, 0, 100, 40)];
@@ -55,7 +81,6 @@
     
     self.tableView.rowHeight = 200;
     
-    
     NSArray *events = [NSArray arrayWithArray:self.itinerary.events];
     NSMutableArray *eventIDs = [[NSMutableArray alloc] init];
     for (int i =0; i < events.count; i ++) {
@@ -69,7 +94,7 @@
     [query findObjectsInBackgroundWithBlock:^(NSArray * _Nullable fullEventArray, NSError * _Nullable error) {
         if (!error) {
             self.eventsArray = fullEventArray;
-
+            
             for (int i =0; i < self.eventsArray.count; i++) {
                 DailyCalendarEventUIView *calEventView = [[DailyCalendarEventUIView alloc] init];
                 [calEventView createEventViewWithEventModel:self.eventsArray[i]];
@@ -77,6 +102,9 @@
                 
                 // enable tapping on calendar event to launch details
                 calEventView.delegate = self;
+                
+                // TODO not sure if this actually works...
+                [self.activityIndicator stopAnimating];
             }
         } else {
             NSLog(@"error: %@", error.localizedDescription);
