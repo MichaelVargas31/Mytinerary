@@ -75,6 +75,10 @@
     }];
 }
 
+
+
+
+
 // For grouping the array of events into a dictionary.
 // key = NSDate [with time set to midnight]
 // value = NSArray with events
@@ -109,7 +113,6 @@
 
 #pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([[segue identifier] isEqualToString:@"eventDetailsSegue"]) {
         EventDetailsViewController *eventDetailsViewController = [segue destinationViewController];
@@ -153,18 +156,39 @@
     NSMutableArray *allDates = [NSMutableArray arrayWithArray:[self.eventsDictionary allKeys]];
     allDates = (NSMutableArray *)[allDates sortedArrayUsingSelector:@selector(compare:)];
     NSDate *date = allDates[indexPath.item];
+    cell.date = date;
     
     // take information from startdate and add it to cell
     NSDateComponents *dateComponents = [self.calendar components:NSCalendarUnitDay|NSCalendarUnitWeekday fromDate:date];
     NSArray *weekdayArray = [NSArray arrayWithObjects: @"Sun", @"Mon", @"Tue", @"Wed", @"Thu", @"Fri", @"Sat", nil];
     cell.weekdayLabel.text = [NSString stringWithFormat:@"%@", weekdayArray[([dateComponents weekday])-1]];
     cell.dateLabel.text = [NSString stringWithFormat:@"%ld", (long)[dateComponents day]];
+    
+    NSArray *individualDayEvents = [NSArray arrayWithArray:self.eventsDictionary[date]];
+    cell.eventArray = individualDayEvents;
+//    NSLog(@"self.eventsDictionary = %@", self.eventsDictionary);
+//    NSLog(@"\n\nFor date:%@, individualDayEvents = %@", date, individualDayEvents);
     return cell;
 }
 
 
 - (NSInteger)collectionView:(nonnull UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     return self.eventsDictionary.count;     // dictionary has 1 entry per day in itinerary
+}
+
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    // reset the tableview and all the sheiza on it
+    WeekdayCollectionViewCell *cell = (WeekdayCollectionViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
+    cell.dateLabel.backgroundColor = [UIColor colorWithRed:.5 green:.5 blue:.5 alpha:1];
+    NSLog(@"tapped cell's eventarray = %@", cell.eventArray);
+    // now you have to access the associated date
+    
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath {
+    WeekdayCollectionViewCell *cell = (WeekdayCollectionViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
+    cell.dateLabel.backgroundColor = [UIColor colorWithRed:.2 green:.6 blue:.99 alpha:1];
 }
 
 
