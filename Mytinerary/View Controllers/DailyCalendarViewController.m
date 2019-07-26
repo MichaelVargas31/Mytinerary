@@ -64,7 +64,14 @@
             for (int i =0; i < self.eventsArray.count; i++) {
                 DailyCalendarEventUIView *calEventView = [[DailyCalendarEventUIView alloc] init];
                 [calEventView createEventViewWithEventModel:self.eventsArray[i]];
+                calEventView.tag = i;
                 [self.tableView addSubview:calEventView];
+                
+                
+                // add the calEventView to array of views
+                NSMutableArray *newEventUIViewArray = [NSMutableArray arrayWithArray:self.eventUIViewArray];
+                [newEventUIViewArray addObject:calEventView];
+                self.eventUIViewArray = newEventUIViewArray;
                 
                 // enable tapping on calendar event to launch details
                 calEventView.delegate = self;
@@ -76,7 +83,22 @@
 }
 
 
-
+-(void)refreshViewUsingDate:(NSDate *)newDate {
+    // check whether the new date is different from old date?
+    
+    // remove old events from screen
+    for(UIView *view in [self.tableView subviews]) {
+        if ([view isKindOfClass:[DailyCalendarEventUIView class]] == YES) {
+            [view removeFromSuperview];
+            view.hidden = YES;
+        }
+    }
+    NSLog(@"did it work?");
+    
+    // add the events to the array
+    
+    
+}
 
 
 // For grouping the array of events into a dictionary.
@@ -189,6 +211,8 @@
 - (void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath {
     WeekdayCollectionViewCell *cell = (WeekdayCollectionViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
     cell.dateLabel.backgroundColor = [UIColor colorWithRed:.2 green:.6 blue:.99 alpha:1];
+    [self refreshViewUsingDate:cell.date];
+    
 }
 
 

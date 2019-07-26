@@ -269,6 +269,8 @@
 		FF0E77EF22EA532F00CFEF9A /* Calendar Views */ = {
 			isa = PBXGroup;
 			children = (
+				FF6C5F3322DE8B8900D0EB83 /* DailyTableViewCell.h */,
+				FF6C5F3422DE8B8900D0EB83 /* DailyTableViewCell.m */,
 				FFA0333422E234EB006DAE99 /* DailyCalendarEventUIView.h */,
 				FFA0333522E234EB006DAE99 /* DailyCalendarEventUIView.m */,
 				FF0E77F322EA53A200CFEF9A /* WeekdayCollectionViewCell.h */,
@@ -389,8 +391,6 @@
 				FF0E77EF22EA532F00CFEF9A /* Calendar Views */,
 				23F5AA4422E61D6E0084086B /* Event Input Views */,
 				23F5AA5A22E62B600084086B /* Event Details Views */,
-				FF6C5F3322DE8B8900D0EB83 /* DailyTableViewCell.h */,
-				FF6C5F3422DE8B8900D0EB83 /* DailyTableViewCell.m */,
 				8495D7AF22DF879600CFED2D /* ItineraryCollectionViewCell.h */,
 				8495D7B022DF879600CFED2D /* ItineraryCollectionViewCell.m */,
 				23F5AA5B22E641EC0084086B /* EventTableViewCell.h */,

@@ -21,7 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, nonatomic) NSArray *eventsArray;
 @property (strong, nonatomic) NSDictionary *eventsDictionary;
 @property (strong, nonatomic) NSCalendar *calendar;
-@property (strong, nonatomic) NSArray *eventViewArray;
+@property (strong, nonatomic) NSArray *eventUIViewArray;        // views currently on screen
 
 @property (weak, nonatomic) IBOutlet FSCalendar *itineraryFSCalendar;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
