@@ -10,8 +10,8 @@
 @property (nonatomic, strong) NSString *title;
 @property (nonatomic, strong) NSString *eventDescription;
 @property (nonatomic, strong) NSString *address;
-@property (nonatomic, strong) NSNumber *latitude;
-@property (nonatomic, strong) NSNumber *longitude;
+@property (nonatomic, strong) NSArray *latitude; //chnaged from ns number 
+@property (nonatomic, strong) NSArray *longitude;
 @property (nonatomic, strong) NSString *locationType;
 @property (nonatomic, strong) NSString *category;
 @property (nonatomic, strong) NSString *notes;
