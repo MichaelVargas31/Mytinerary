@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <MapKit/MapKit.h>
 #import <CoreLocation/CoreLocation.h>
+#import "Itinerary.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -21,6 +22,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) CLLocation* currentLocation;
 @property (nonatomic, strong) NSArray *eArray;
 @property (nonatomic, strong) MKAnnotationView *pin;
+
+// emily did this, ask her about it
+@property (nonatomic, strong) Itinerary *itinerary;
 
 @end
 

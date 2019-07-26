@@ -99,7 +99,9 @@
     
     if (kind == UICollectionElementKindSectionHeader) {
         ProfileCollectionReusableView *profileHeaderView = [self.collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"ProfileCell" forIndexPath:indexPath];
-        profileHeaderView.usernameLabel.text = @"USERNAME [hard-coded]";
+        NSLog(@"user: %@", PFUser.currentUser);
+        User *currentUser = [User initUserWithPFUser:PFUser.currentUser];
+        profileHeaderView.usernameLabel.text = currentUser.username;
         reusableview = profileHeaderView;
     }
     
@@ -125,11 +127,6 @@
         LoginViewController *loginViewController = [storyboard instantiateViewControllerWithIdentifier:@"LoginViewController"];
         appDelegate.window.rootViewController = loginViewController;
     }];
-}
-
-
-- (IBAction)map:(id)sender {
-    [self performSegueWithIdentifier:@"goToMap" sender:self];
 }
 
 #pragma mark - Navigation

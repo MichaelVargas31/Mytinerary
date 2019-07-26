@@ -13,12 +13,12 @@
 @implementation DailyCalendarEventUIView
 
 /*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    // Drawing code
-}
-*/
+ // Only override drawRect: if you perform custom drawing.
+ // An empty implementation adversely affects performance during animation.
+ - (void)drawRect:(CGRect)rect {
+ // Drawing code
+ }
+ */
 
 - (void)createEventViewWithEventModel:(Event *)event {
     // assign event as view property
@@ -33,10 +33,10 @@
     NSDateComponents *eventEndComponents = [calendar components:(NSCalendarUnitHour | NSCalendarUnitMinute) fromDate:event.endTime];
     NSInteger eventEndHour = [eventEndComponents hour];
     NSInteger eventEndMinute = [eventEndComponents minute];
-        
+    
     // distance from top = HOURS*rowheight*2 + (MINS/30)*rowheight
     long rowHeight = [DailyTableViewCell returnRowHeight].unsignedLongValue;
-
+    
     self.topBorder = (eventStartHour * rowHeight)*2 + ((eventStartMinute/30.0) * rowHeight);
     self.eventLength = (eventEndHour * rowHeight)*2 + ((eventEndMinute/30.0) * rowHeight) - self.topBorder;
     

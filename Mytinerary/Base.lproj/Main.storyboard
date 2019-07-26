@@ -70,7 +70,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-150" y="-734"/>
+            <point key="canvasLocation" x="54" y="-735"/>
         </scene>
         <!--Profile Page-->
         <scene sceneID="2Cs-cf-7Nj">
@@ -155,14 +155,6 @@
                                 <state key="normal" title="Add itinerary"/>
                                 <connections>
                                     <segue destination="vAc-0f-oMv" kind="presentation" id="0lK-vv-Wn3"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="90q-D9-SiS">
-                                <rect key="frame" x="321" y="189" width="30" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Map"/>
-                                <connections>
-                                    <action selector="map:" destination="4gg-9d-2Wa" eventType="touchUpInside" id="hXe-pa-kMg"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="g7q-Qx-5sY">
@@ -293,7 +285,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iEG-eb-U2D" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4042" y="-287"/>
+            <point key="canvasLocation" x="3282" y="-734"/>
         </scene>
         <!--Input Event View Controller-->
         <scene sceneID="7mh-AC-M0N">
@@ -737,7 +729,7 @@
                     </connections>
                 </view>
             </objects>
-            <point key="canvasLocation" x="3865" y="985"/>
+            <point key="canvasLocation" x="3830" y="1142"/>
         </scene>
         <!--Daily Calendar View Controller-->
         <scene sceneID="LDD-gY-UEN">
@@ -788,10 +780,7 @@
                                     <constraint firstAttribute="height" constant="44" id="6nU-fK-XSV"/>
                                 </constraints>
                                 <items>
-                                    <barButtonItem title="Daily" id="gTX-LK-6kc"/>
-                                    <barButtonItem width="42" style="plain" systemItem="fixedSpace" id="Sax-pr-AJy"/>
-                                    <barButtonItem title="Week" id="IPY-Be-c7G"/>
-                                    <barButtonItem width="108" style="plain" systemItem="fixedSpace" id="cRv-Ex-iXl"/>
+                                    <barButtonItem width="308" style="plain" systemItem="fixedSpace" id="cRv-Ex-iXl"/>
                                     <barButtonItem title="Add event" id="uko-z9-HP0">
                                         <connections>
                                             <action selector="onTapAddEventButton:" destination="rWW-ig-3vo" id="9cj-DQ-izx"/>
@@ -879,7 +868,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Wko-au-X6b" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2072.8000000000002" y="984.55772113943033"/>
+            <point key="canvasLocation" x="2057" y="1142"/>
         </scene>
         <!--Event Details View Controller-->
         <scene sceneID="H8t-UC-jw5">
@@ -890,10 +879,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="I7A-PG-fR6">
-                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="DlF-gi-F6b">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
                                     </stackView>
                                 </subviews>
                                 <constraints>
@@ -1222,7 +1211,7 @@
                     </connections>
                 </view>
             </objects>
-            <point key="canvasLocation" x="3040.8000000000002" y="300.89955022488761"/>
+            <point key="canvasLocation" x="3044" y="1142"/>
         </scene>
         <!--Search Location View Controller-->
         <scene sceneID="3Tn-uy-CTc">
@@ -1293,7 +1282,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZkV-Lo-BM8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3865" y="2401"/>
+            <point key="canvasLocation" x="3865" y="2525"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="A03-oS-P3J">
@@ -1498,7 +1487,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="d8L-Cq-QBq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1324" y="1155"/>
+            <point key="canvasLocation" x="1268" y="1142"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Kgc-Sh-I9d">
@@ -1516,7 +1505,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="H02-Hc-cxd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3865" y="1737"/>
+            <point key="canvasLocation" x="3865" y="1833"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Z50-OK-YZu">
@@ -1534,14 +1523,12 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dcJ-QG-9VO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2073" y="376"/>
+            <point key="canvasLocation" x="2057" y="376"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="xxW-4u-C6h"/>
         <segue reference="hey-4Z-0eK"/>
-        <segue reference="qdm-iR-svW"/>
-        <segue reference="QYY-fI-C3q"/>
+        <segue reference="a8N-p0-ajg"/>
         <segue reference="jrK-2N-UHa"/>
         <segue reference="LIW-WB-8EA"/>
     </inferredMetricsTieBreakers>

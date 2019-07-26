@@ -17,8 +17,7 @@
 
 + (User *)initUserWithPFUser:(PFUser *)PFUser {
     User *user = [[User alloc] init];
-    user.username = PFUser.username;
-    user.password = PFUser.password;
+    user.username = PFUser[@"username"];
     user.defaultItinerary = PFUser[@"defaultItinerary"];
     return user;
 }

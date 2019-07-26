@@ -54,7 +54,7 @@
     // initializing formatter for calculating cell's times
     self.timeOfDayFormatter = [DateFormatter timeOfDayFormatter];
     // set up table view
-    self.tableView.rowHeight = 200;
+    self.tableView.rowHeight = [DailyTableViewCell returnRowHeight].floatValue;
     
     // if from login, itinerary obj must be fetched first
     if (self.fromLogin) {
@@ -249,7 +249,9 @@
     UINavigationController *navigationController = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"ItineraryNavigationController"];
     
     MapViewController *mapViewController = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"MapViewController"];
-    // TODO: pass itinerary from daily calendar to map
+    
+    // pass itinerary from daily calendar to map
+    mapViewController.itinerary = self.itinerary;
     
     [navigationController setViewControllers:[NSArray arrayWithObject:mapViewController]];
     [self presentViewController:navigationController animated:YES completion:nil];

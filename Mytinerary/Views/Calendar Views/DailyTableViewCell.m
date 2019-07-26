@@ -10,7 +10,7 @@
 
 @implementation DailyTableViewCell
 
-static int const DAILY_TABLE_VIEW_CELL_ROW_HEIGHT = 100;
+static int const DAILY_TABLE_VIEW_CELL_ROW_HEIGHT = 30;
 
 - (void)awakeFromNib {
     [super awakeFromNib];
@@ -24,7 +24,7 @@ static int const DAILY_TABLE_VIEW_CELL_ROW_HEIGHT = 100;
 
 
 + (NSNumber *)returnRowHeight {
-    return  @(DAILY_TABLE_VIEW_CELL_ROW_HEIGHT);
+    return @(DAILY_TABLE_VIEW_CELL_ROW_HEIGHT);
 }
 
 @end
