@@ -61,20 +61,7 @@
             self.eventsArray = self.itinerary.events;
             [self setupDayDictionary];
             [self.WeeklyCalendarCollectionView reloadData];
-            for (int i =0; i < self.eventsArray.count; i++) {
-                DailyCalendarEventUIView *calEventView = [[DailyCalendarEventUIView alloc] init];
-                [calEventView createEventViewWithEventModel:self.eventsArray[i]];
-                [self.tableView addSubview:calEventView];
-                
-                
-                // add the calEventView to array of views
-                NSMutableArray *newEventUIViewArray = [NSMutableArray arrayWithArray:self.eventUIViewArray];
-                [newEventUIViewArray addObject:calEventView];
-                self.eventUIViewArray = newEventUIViewArray;
-                
-                // enable tapping on calendar event to launch details
-                calEventView.delegate = self;
-            }
+            [self refreshViewUsingDate:[self.calendar startOfDayForDate:self.itinerary.startTime]];
         } else {
             NSLog(@"error: %@", error.localizedDescription);
         }
@@ -83,8 +70,6 @@
 
 
 -(void)refreshViewUsingDate:(NSDate *)newDate {
-    // check whether the new date is different from old date?
-    
     // remove old events from screen
     for(UIView *view in [self.tableView subviews]) {
         if ([view isKindOfClass:[DailyCalendarEventUIView class]] == YES) {
@@ -92,7 +77,6 @@
             view.hidden = YES;
         }
     }
-    NSLog(@"did it work?");
     
     // add the events to the array
     NSArray *thisDatesEventsArray = self.eventsDictionary[newDate];
@@ -100,8 +84,8 @@
         DailyCalendarEventUIView *calEventView = [[DailyCalendarEventUIView alloc] init];
         [calEventView createEventViewWithEventModel:event];
         [self.tableView addSubview:calEventView];
+        calEventView.delegate = self;
     }
-    NSLog(@"how about now?");
 }
 
 
