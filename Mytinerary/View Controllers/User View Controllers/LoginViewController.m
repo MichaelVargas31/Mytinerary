@@ -73,12 +73,7 @@
     if ([[segue identifier] isEqualToString:@"defaultItinerarySegue"]) {
         UINavigationController *navigationController = [segue destinationViewController];
         DailyCalendarViewController *dailyCalendarViewController = [[navigationController viewControllers] firstObject];
-
         User *user = sender;
-        
-        // triggering warning -- long operation executed on main thread
-//        [Itinerary fetchAll:[NSArray arrayWithObject:user.defaultItinerary]];
-        
         dailyCalendarViewController.itinerary = user.defaultItinerary;
         dailyCalendarViewController.fromLogin = true;
     }
