@@ -30,13 +30,10 @@
     NSDateComponents *eventStartComponents = [calendar components:(NSCalendarUnitHour | NSCalendarUnitMinute) fromDate:event.startTime];
     NSInteger eventStartHour = [eventStartComponents hour];
     NSInteger eventStartMinute = [eventStartComponents minute];
-    NSLog(@"time zone: %@", calendar.timeZone);
     NSDateComponents *eventEndComponents = [calendar components:(NSCalendarUnitHour | NSCalendarUnitMinute) fromDate:event.endTime];
     NSInteger eventEndHour = [eventEndComponents hour];
     NSInteger eventEndMinute = [eventEndComponents minute];
-    
-    NSLog(@"hour: %ld minute:%ld", (long)eventStartHour, (long)eventStartMinute);
-    
+        
     // distance from top = HOURS*rowheight*2 + (MINS/30)*rowheight
     long rowHeight = [DailyTableViewCell returnRowHeight].unsignedLongValue;
 

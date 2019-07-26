@@ -38,6 +38,7 @@
 		84B5E51722E10637006F4815 /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84B5E51622E10637006F4815 /* MapViewController.m */; };
 		84B5E51922E114E4006F4815 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84B5E51822E114E4006F4815 /* MapKit.framework */; };
 		C628AEE5E20C9C7409D9B734 /* Pods_MytineraryTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 58B8F33A939BCC86C8C98935 /* Pods_MytineraryTests.framework */; };
+		FF0E77F522EA53A200CFEF9A /* WeekdayCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FF0E77F422EA53A200CFEF9A /* WeekdayCollectionViewCell.m */; };
 		FF47EC5F22E67B64001C0DA7 /* ProfileCollectionReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = FF47EC5E22E67B64001C0DA7 /* ProfileCollectionReusableView.m */; };
 		FF47EC6722E7C829001C0DA7 /* SearchLocationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FF47EC6622E7C829001C0DA7 /* SearchLocationViewController.m */; };
 		FF6C5EF922DE640200D0EB83 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FF6C5EF822DE640200D0EB83 /* AppDelegate.m */; };
@@ -134,6 +135,8 @@
 		A79C438CDB5AA7C703E473D4 /* Pods-MytineraryUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MytineraryUITests.debug.xcconfig"; path = "Target Support Files/Pods-MytineraryUITests/Pods-MytineraryUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		D62311D88DD929F67D92DCA2 /* Pods-MytineraryTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MytineraryTests.debug.xcconfig"; path = "Target Support Files/Pods-MytineraryTests/Pods-MytineraryTests.debug.xcconfig"; sourceTree = "<group>"; };
 		E49E5CF74D83A7C35B144F7A /* Pods_MytineraryUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MytineraryUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		FF0E77F322EA53A200CFEF9A /* WeekdayCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WeekdayCollectionViewCell.h; sourceTree = "<group>"; };
+		FF0E77F422EA53A200CFEF9A /* WeekdayCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WeekdayCollectionViewCell.m; sourceTree = "<group>"; };
 		FF47EC5D22E67B64001C0DA7 /* ProfileCollectionReusableView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProfileCollectionReusableView.h; sourceTree = "<group>"; };
 		FF47EC5E22E67B64001C0DA7 /* ProfileCollectionReusableView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProfileCollectionReusableView.m; sourceTree = "<group>"; };
 		FF47EC6522E7C829001C0DA7 /* SearchLocationViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SearchLocationViewController.h; sourceTree = "<group>"; };
@@ -266,6 +269,19 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		FF0E77EF22EA532F00CFEF9A /* Calendar Views */ = {
+			isa = PBXGroup;
+			children = (
+				FF6C5F3322DE8B8900D0EB83 /* DailyTableViewCell.h */,
+				FF6C5F3422DE8B8900D0EB83 /* DailyTableViewCell.m */,
+				FFA0333422E234EB006DAE99 /* DailyCalendarEventUIView.h */,
+				FFA0333522E234EB006DAE99 /* DailyCalendarEventUIView.m */,
+				FF0E77F322EA53A200CFEF9A /* WeekdayCollectionViewCell.h */,
+				FF0E77F422EA53A200CFEF9A /* WeekdayCollectionViewCell.m */,
+			);
+			path = "Calendar Views";
+			sourceTree = "<group>";
+		};
 		FF47EC6022E7C67E001C0DA7 /* Input View Controllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -377,14 +393,11 @@
 		FF6C5F2F22DE8B1900D0EB83 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				FF0E77EF22EA532F00CFEF9A /* Calendar Views */,
 				23F5AA4422E61D6E0084086B /* Event Input Views */,
 				23F5AA5A22E62B600084086B /* Event Details Views */,
-				FF6C5F3322DE8B8900D0EB83 /* DailyTableViewCell.h */,
-				FF6C5F3422DE8B8900D0EB83 /* DailyTableViewCell.m */,
 				8495D7AF22DF879600CFED2D /* ItineraryCollectionViewCell.h */,
 				8495D7B022DF879600CFED2D /* ItineraryCollectionViewCell.m */,
-				FFA0333422E234EB006DAE99 /* DailyCalendarEventUIView.h */,
-				FFA0333522E234EB006DAE99 /* DailyCalendarEventUIView.m */,
 				23F5AA5B22E641EC0084086B /* EventTableViewCell.h */,
 				23F5AA5C22E641EC0084086B /* EventTableViewCell.m */,
 				FF47EC5D22E67B64001C0DA7 /* ProfileCollectionReusableView.h */,
@@ -620,6 +633,7 @@
 				23F5AA3922E124380084086B /* EventInputHotelView.m in Sources */,
 				23F5AA4D22E61DCF0084086B /* EventDetailsActivityView.m in Sources */,
 				23F5AA6122E8DA630084086B /* Location.m in Sources */,
+				FF0E77F522EA53A200CFEF9A /* WeekdayCollectionViewCell.m in Sources */,
 				FF6C5F2E22DE868D00D0EB83 /* DailyCalendarViewController.m in Sources */,
 				23F5AA5922E62B520084086B /* ItineraryDetailsViewController.m in Sources */,
 				8495D7B122DF879600CFED2D /* ItineraryCollectionViewCell.m in Sources */,
