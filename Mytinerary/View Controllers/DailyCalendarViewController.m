@@ -64,7 +64,6 @@
             for (int i =0; i < self.eventsArray.count; i++) {
                 DailyCalendarEventUIView *calEventView = [[DailyCalendarEventUIView alloc] init];
                 [calEventView createEventViewWithEventModel:self.eventsArray[i]];
-                calEventView.tag = i;
                 [self.tableView addSubview:calEventView];
                 
                 
@@ -96,8 +95,13 @@
     NSLog(@"did it work?");
     
     // add the events to the array
-    
-    
+    NSArray *thisDatesEventsArray = self.eventsDictionary[newDate];
+    for (Event *event in thisDatesEventsArray) {
+        DailyCalendarEventUIView *calEventView = [[DailyCalendarEventUIView alloc] init];
+        [calEventView createEventViewWithEventModel:event];
+        [self.tableView addSubview:calEventView];
+    }
+    NSLog(@"how about now?");
 }
 
 
@@ -203,15 +207,14 @@
     // reset the tableview and all the sheiza on it
     WeekdayCollectionViewCell *cell = (WeekdayCollectionViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
     cell.dateLabel.backgroundColor = [UIColor colorWithRed:.5 green:.5 blue:.5 alpha:1];
-    NSLog(@"tapped cell's eventarray = %@", cell.eventArray);
-    // now you have to access the associated date
+    NSLog(@"tapped cell's Date [7 hours behind] = %@", cell.date);
+    [self refreshViewUsingDate:cell.date];
     
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath {
     WeekdayCollectionViewCell *cell = (WeekdayCollectionViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
     cell.dateLabel.backgroundColor = [UIColor colorWithRed:.2 green:.6 blue:.99 alpha:1];
-    [self refreshViewUsingDate:cell.date];
     
 }
 
