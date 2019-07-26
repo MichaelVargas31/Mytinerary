@@ -34,8 +34,13 @@
     self.itineraryFSCalendar.dataSource = self;
     self.itineraryFSCalendar.delegate = self;
     
+    // initializing formatter for calculating cell's times
+    self.timeOfDayFormatter = [[NSDateFormatter alloc] init];
+    [self.timeOfDayFormatter setDateFormat:@"HH:mm:ss"];
+    // set up table view
+    self.tableView.rowHeight = 200;
+    
     if (self.fromLogin) {
-        self.tableView.rowHeight = 200; // temp fix for bug
         [self fetchItineraryAndLoadView];
     }
     else {
@@ -74,12 +79,6 @@
     
     // initially, only the daily calendar view will be visible
     [self.itineraryFSCalendar setFrame:CGRectMake(self.itineraryFSCalendar.frame.origin.x, self.itineraryFSCalendar.frame.origin.y, self.itineraryFSCalendar.frame.size.width, 0)];
-    
-    // initializing formatter for calculating cell's times
-    self.timeOfDayFormatter = [[NSDateFormatter alloc] init];
-    [self.timeOfDayFormatter setDateFormat:@"HH:mm:ss"];
-    
-    self.tableView.rowHeight = 200;
     
     NSArray *events = [NSArray arrayWithArray:self.itinerary.events];
     NSMutableArray *eventIDs = [[NSMutableArray alloc] init];
