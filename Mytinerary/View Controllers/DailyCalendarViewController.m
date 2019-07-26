@@ -26,6 +26,19 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    
+    // initializing formatter for calculating cell's times
+    self.timeOfDayFormatter = [[NSDateFormatter alloc] init];
+    [self.timeOfDayFormatter setDateFormat:@"HH:mm:ss"];
+    
+    self.timeOfDayFormatter = [[NSDateFormatter alloc] init];
+    [self.dateFormatter setDateFormat:@"yyyy-MM-dd"];
+    
+    
+    self.calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+    [self.calendar setTimeZone:[NSTimeZone timeZoneWithName:@"UTC"]];
+    
     // Do any additional setup after loading the view.
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
@@ -40,17 +53,7 @@
     [button addTarget:self action:@selector(onTapItineraryTitle) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.titleView = button;
     
-    
-    // initializing formatter for calculating cell's times
-    self.timeOfDayFormatter = [[NSDateFormatter alloc] init];
-    [self.timeOfDayFormatter setDateFormat:@"HH:mm:ss"];
-    
-    self.timeOfDayFormatter = [[NSDateFormatter alloc] init];
-    [self.dateFormatter setDateFormat:@"yyyy-MM-dd"];
 
-    
-    self.calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
-    [self.calendar setTimeZone:[NSTimeZone timeZoneWithName:@"UTC"]];
 
     
     self.tableView.rowHeight = 200;

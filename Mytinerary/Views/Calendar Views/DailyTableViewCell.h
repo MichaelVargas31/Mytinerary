@@ -14,7 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (weak, nonatomic) IBOutlet UILabel *calendarTimeLabel;
 @property (weak, nonatomic) IBOutlet UILabel *eventNameLabel;
-//@property (class, nonatomic, assign, reccduifreduidlgnkdbjggljlenglbkjradonly) NSNumber *rowHe ight;
+//@property (class, nonatomic, assign, readonly) NSNumber *rowHeight;
 
 + (NSNumber *)returnRowHeight;
 
