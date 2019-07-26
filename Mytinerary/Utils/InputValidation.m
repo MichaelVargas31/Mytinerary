@@ -22,7 +22,7 @@
     }
     
     // check budget validity
-    if (budget < 0) {
+    if (budget.floatValue < 0) {
         return @"Budget cannot be negative";
     }
     

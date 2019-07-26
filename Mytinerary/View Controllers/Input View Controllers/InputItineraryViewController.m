@@ -66,28 +66,6 @@
             }
         }];
     }
-    
-    // ensure title is inputted
-//    NSString *title = self.titleTextField.text;
-//    if ([title isEqualToString:@""]) {
-//        self.alert.message = @"Missing itinerary title";
-//        [self presentViewController:self.alert animated:YES completion:nil];
-//    }
-//
-//    // ensure start and end times are valid
-//    NSDate *startTime = self.startTimeDatePicker.date;
-//    NSDate *endTime = self.endTimeDatePicker.date;
-//    if ([startTime compare:endTime] != NSOrderedAscending) {
-//        self.alert.message = @"End time must be after start time";
-//        [self presentViewController:self.alert animated:YES completion:nil];
-//    }
-//
-//    // check budget validity
-//    NSNumber *budget = @([self.budgetTextField.text floatValue]);
-//    if (budget < 0) {
-//        self.alert.message = @"Budget cannot be negative";
-//        [self presentViewController:self.alert animated:YES completion:nil];
-    //    }
 }
 
 /*
