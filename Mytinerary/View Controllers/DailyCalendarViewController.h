@@ -24,6 +24,11 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UICollectionView *WeeklyCalendarCollectionView;
 
+
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *expandBtn;
+
+@property (weak, nonatomic) IBOutlet UIView *expandView;
+
 // config default itin functionality
 @property BOOL fromLogin;
 

@@ -761,11 +761,6 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7VN-Wo-yJI">
-                                                    <rect key="frame" x="70" y="0.0" width="290" height="3"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                </view>
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
@@ -788,6 +783,11 @@
                                     </barButtonItem>
                                 </items>
                             </toolbar>
+                            <view opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6a6-Qf-NBs">
+                                <rect key="frame" x="0.0" y="0.0" width="195" height="667"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </view>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceHorizontal="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="jpi-hd-an0">
                                 <rect key="frame" x="0.0" y="64" width="375" height="77"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -856,11 +856,18 @@
                                     <segue destination="zcb-mO-9dQ" kind="show" id="jrK-2N-UHa"/>
                                 </connections>
                             </barButtonItem>
+                            <barButtonItem title="Expand" id="FeG-5G-F6y">
+                                <connections>
+                                    <action selector="expandPressed:" destination="rWW-ig-3vo" id="zL6-Z6-nqV"/>
+                                </connections>
+                            </barButtonItem>
                         </rightBarButtonItems>
                     </navigationItem>
                     <connections>
                         <outlet property="WeeklyCalendarCollectionView" destination="jpi-hd-an0" id="bKP-UX-dKe"/>
+                        <outlet property="expandView" destination="6a6-Qf-NBs" id="pnF-3N-JGn"/>
                         <outlet property="tableView" destination="ecC-45-JY5" id="5N2-vq-HVy"/>
+                        <outlet property="view" destination="6a6-Qf-NBs" id="nXl-hb-TfZ"/>
                         <segue destination="vfi-ve-A7n" kind="show" identifier="eventDetailsSegue" id="d9T-RH-QQm"/>
                         <segue destination="eHQ-Si-fcr" kind="presentation" identifier="addEventSegue" id="LIW-WB-8EA"/>
                         <segue destination="v2s-7K-Yl1" kind="show" identifier="itineraryDetailsSegue" id="xi0-ST-P49"/>
@@ -868,7 +875,29 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Wko-au-X6b" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2057" y="1142"/>
+            <point key="canvasLocation" x="2056.8000000000002" y="1141.9790104947526"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="gq9-hE-Uof">
+            <objects>
+                <viewController id="6Ox-bq-pyk" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="ioW-lJ-zIE">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3C2-50-oNp">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.54442024109999998" green="0.05181926957" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="yaV-do-Jsr"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="mzF-gx-OBR" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2077.5999999999999" y="1889.5052473763119"/>
         </scene>
         <!--Event Details View Controller-->
         <scene sceneID="H8t-UC-jw5">
