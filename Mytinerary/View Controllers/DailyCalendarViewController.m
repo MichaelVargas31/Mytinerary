@@ -20,7 +20,7 @@
 #import "Parse/Parse.h"
 
 
-@interface DailyCalendarViewController () <UITableViewDelegate, UITableViewDataSource, CalendarEventViewDelegate, UICollectionViewDelegate, UICollectionViewDataSource>
+@interface DailyCalendarViewController () <UITableViewDelegate, UITableViewDataSource, CalendarEventViewDelegate, UICollectionViewDelegate, UICollectionViewDataSource, InputEventViewControllerDelegate, EventDetailsViewControllerDelegate>
 
 @property (strong, nonatomic) UIActivityIndicatorView *activityIndicator;
 
@@ -226,11 +226,13 @@
     if ([[segue identifier] isEqualToString:@"eventDetailsSegue"]) {
         EventDetailsViewController *eventDetailsViewController = [segue destinationViewController];
         eventDetailsViewController.event = sender;
+        eventDetailsViewController.delegate = self;
     }
     else if ([[segue identifier] isEqualToString:@"addEventSegue"]) {
         // send itinerary to input event VC to add new event to appropriate itinerary
         InputEventViewController *inputEventViewController = [segue destinationViewController];
         inputEventViewController.itinerary = self.itinerary;
+        inputEventViewController.delegate = self;
     }
     else if ([[segue identifier] isEqualToString:@"itineraryDetailsSegue"]) {
         ItineraryDetailsViewController *itineraryDetailsViewController = [segue destinationViewController];
@@ -265,5 +267,16 @@
     [self performSegueWithIdentifier:@"itineraryDetailsSegue" sender:nil];
 }
 
+// refresh calendar after making new event
+// flow: (new) event input --> daily calendar
+- (void)didMakeEvent:(nonnull Event *)updatedEvent {
+    [self loadItinView];
+}
+
+// refresh calendar after editing event
+// flow: edit event --> event details --> daily calendar
+- (void)didUpdateEvent:(nonnull Event *)updatedEvent {
+    [self loadItinView];
+}
 
 @end

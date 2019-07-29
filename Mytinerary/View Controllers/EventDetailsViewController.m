@@ -143,6 +143,9 @@ static int const HOTEL_VIEW_HEIGHT = 110;
     NSLog(@"Updated event: %@", updatedEvent);
     self.event = updatedEvent;
     [self refreshViews];
+    
+    // refresh daily calendar view
+    [self.delegate didUpdateEvent:updatedEvent];
 }
 
 

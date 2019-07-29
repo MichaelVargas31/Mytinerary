@@ -7,6 +7,7 @@
 //
 
 #import "InputItineraryViewController.h"
+#import "DailyCalendarViewController.h"
 #import "InputValidation.h"
 #import "Itinerary.h"
 
@@ -17,6 +18,7 @@
 @property (weak, nonatomic) IBOutlet UIDatePicker *endTimeDatePicker;
 @property (weak, nonatomic) IBOutlet UITextField *budgetTextField;
 
+@property (strong, nonatomic) Itinerary *itinerary;
 @property (strong, nonatomic) UIAlertController *alert;
 
 @end
@@ -56,26 +58,34 @@
     }
     else {
         // create new itinerary
-        [Itinerary initNewItinerary:title startTime:startTime endTime:endTime budget:budget withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
+        self.itinerary = [Itinerary initNewItinerary:title startTime:startTime endTime:endTime budget:budget withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
             if (succeeded) {
                 NSLog(@"Itinerary successfully created!");
-                [self dismissViewControllerAnimated:YES completion:nil];
+                
+                // go straight to new itinerary's calendar
+                [self performSegueWithIdentifier:@"newItinerarySegue" sender:nil];
             }
             else {
                 NSLog(@"Error creating itinerary: %@", error);
+                self.alert.message = error.domain;
+                [self presentViewController:self.alert animated:YES completion:nil];
             }
         }];
     }
 }
 
-/*
+
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+    if ([[segue identifier] isEqualToString:@"newItinerarySegue"]) {
+        // pass newly created itinerary to calendar
+        UINavigationController *navigationController = [segue destinationViewController];
+        DailyCalendarViewController *dailyCalendarViewController = [[navigationController viewControllers] firstObject];
+        dailyCalendarViewController.itinerary = self.itinerary;
+    }
 }
-*/
+
 
 @end

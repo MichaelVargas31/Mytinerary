@@ -14,9 +14,9 @@
 @property (nonatomic, strong) NSNumber *budget;
 @property (nonatomic, strong) NSString *title;
 
-+ (void) initNewItinerary:(NSString *)title startTime:(NSDate *)startTime endTime:(NSDate *)endTime budget:(NSNumber *)budget withCompletion:(PFBooleanResultBlock)completion;
++ (Itinerary *)initNewItinerary:(NSString *)title startTime:(NSDate *)startTime endTime:(NSDate *)endTime budget:(NSNumber *)budget withCompletion:(PFBooleanResultBlock)completion;
 
-- (void) addEventToItinerary:(Event *)event withCompletion:(PFBooleanResultBlock)completion;
+- (void)addEventToItinerary:(Event *)event withCompletion:(PFBooleanResultBlock)completion;
 
 - (BOOL)isEventDateValid:(NSDate *)eventStartTime eventEndTime:(NSDate *)eventEndTime;
 
