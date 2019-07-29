@@ -9,6 +9,8 @@
 #import "ItineraryDetailsViewController.h"
 #import "EventTableViewCell.h"
 #import "DateHeaderTableViewCell.h"
+#import "DeleteItineraryTableViewCell.h"
+#import "Itinerary.h"
 #import "DateFormatter.h"
 #import "Date.h"
 #import "Parse/Parse.h"
@@ -22,6 +24,9 @@ static const int TABLE_VIEW_HEADER_HEIGHT = 44;
 @property (weak, nonatomic) IBOutlet UILabel *startTimeLabel;
 @property (weak, nonatomic) IBOutlet UILabel *endTimeLabel;
 @property (weak, nonatomic) IBOutlet UILabel *budgetLabel;
+
+// actions
+- (IBAction)didTapDeleteItinerary:(id)sender;
 
 // events
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -87,6 +92,33 @@ static const int TABLE_VIEW_HEADER_HEIGHT = 44;
     }];
 }
 
+
+
+- (IBAction)didTapDeleteItinerary:(id)sender {
+    
+    // display an alert asking for confirmation of deletion
+    UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Delete Itinerary?" message:@"Are you sure you want to delete this itinerary. This cannot be undone." preferredStyle:UIAlertControllerStyleAlert];
+
+    UIAlertAction* deleteAction = [UIAlertAction actionWithTitle:@"Delete" style:UIAlertActionStyleDefault
+    handler:^(UIAlertAction * action) {
+        // if the delete button is pressed again
+        if (action) {
+            [self.itinerary deleteInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+                if (succeeded) {
+                    NSLog(@"You deleted %@", self.itinerary.title);
+                } else {
+                    NSLog(@"The error you got was %@", error.localizedDescription);
+                }
+            }];
+        }
+    }];
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"cancel" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {}];
+    [alert addAction:cancelAction];
+    [alert addAction:deleteAction];
+    [self presentViewController:alert animated:YES completion:nil];
+}
+
+
 /*
 #pragma mark - Navigation
 
@@ -148,8 +180,15 @@ static const int TABLE_VIEW_HEADER_HEIGHT = 44;
     return header;
 }
 
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
+    DeleteItineraryTableViewCell *footer = [tableView dequeueReusableCellWithIdentifier:@"DeleteItineraryTablveViewCell"];
+    return footer;
+}
+
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     return TABLE_VIEW_HEADER_HEIGHT;
 }
+
+
 
 @end

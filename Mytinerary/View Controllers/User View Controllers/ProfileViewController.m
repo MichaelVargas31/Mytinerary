@@ -12,12 +12,16 @@
 #import "LoginViewController.h"
 #import "ItineraryCollectionViewCell.h"
 #import "ProfileCollectionReusableView.h"
+#import "AddNewItinCollectionReusableView.h"
 #import "Itinerary.h"
 #import "Parse/Parse.h"
 #import "User.h"
 
 
 @interface ProfileViewController () <UICollectionViewDelegate, UICollectionViewDataSource>
+
+@property (strong, nonatomic) IBOutlet AddNewItinCollectionReusableView *toAddNewItinCollectionReusableView;
+
 
 @end
 
@@ -154,11 +158,13 @@
                 NSLog(@"failed to set '%@' default itinerary", PFUser.currentUser.username);
             }
         }];
-    }
-    else {
-        NSLog(@"If you're getting this message, you need to edit the prepareForSegue() method to add another segue");
+    } else {
+        NSLog(@"If you're getting this message & an error, you need to edit the prepareForSegue() method to add another segue");
     }
 }
+
+
+
 
 
 

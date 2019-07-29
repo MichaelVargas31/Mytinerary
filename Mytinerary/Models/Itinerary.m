@@ -77,4 +77,15 @@
     }];
 }
 
+
+- (void)deleteItinerary:(Itinerary *)itinerary {
+    [itinerary deleteInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+        if (succeeded) {
+            NSLog(@"successfully deleted itinerary with title: %@", itinerary.title);
+        } else {
+            NSLog(@"Error deleting itinerary with title: %@, error = %@", itinerary.title, error.localizedDescription);
+        }
+    }];
+}
+
 @end

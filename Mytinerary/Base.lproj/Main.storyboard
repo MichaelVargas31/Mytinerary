@@ -135,6 +135,14 @@
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <state key="normal" title="Edit"/>
                                         </button>
+                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2Qx-ml-3et">
+                                            <rect key="frame" x="237" y="69" width="98" height="31"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <state key="normal" title="Edit itineraries"/>
+                                            <connections>
+                                                <segue destination="vAc-0f-oMv" kind="presentation" identifier="EditItinerarySegue" id="0lK-vv-Wn3"/>
+                                            </connections>
+                                        </button>
                                     </subviews>
                                     <connections>
                                         <outlet property="profilePicImageView" destination="mHW-ih-tsZ" id="m9G-fY-Z6t"/>
@@ -149,14 +157,6 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2Qx-ml-3et">
-                                <rect key="frame" x="271" y="111" width="88" height="31"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Add itinerary"/>
-                                <connections>
-                                    <segue destination="vAc-0f-oMv" kind="presentation" id="0lK-vv-Wn3"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="g7q-Qx-5sY">
                                 <rect key="frame" x="312" y="227" width="48" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -183,7 +183,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XoH-4c-RPv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2057" y="-735"/>
+            <point key="canvasLocation" x="2056.8000000000002" y="-735.38230884557731"/>
         </scene>
         <!--Input Itinerary View Controller-->
         <scene sceneID="d6m-Ae-efd">
@@ -209,8 +209,8 @@
                                     <action selector="onTapCloseButton:" destination="vAc-0f-oMv" eventType="touchUpInside" id="hcr-jx-vFA"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="New itinerary" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aCq-6Y-r0h">
-                                <rect key="frame" x="32" y="75" width="158" height="36"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Edit Itinerary" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aCq-6Y-r0h">
+                                <rect key="frame" x="32" y="75" width="148" height="36"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" weight="thin" pointSize="30"/>
                                 <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -1314,6 +1314,23 @@
                                 <rect key="frame" x="0.0" y="268" width="375" height="399"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <view key="tableFooterView" contentMode="scaleToFill" id="UkJ-Wi-muS" customClass="DeleteItineraryTableViewCell">
+                                    <rect key="frame" x="0.0" y="190" width="375" height="44"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <subviews>
+                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Cb4-O3-bQq">
+                                            <rect key="frame" x="135" y="6" width="105" height="30"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <state key="normal" title="Delete Itinerary">
+                                                <color key="titleColor" red="1" green="0.21470649433330258" blue="0.25217029824416881" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                            </state>
+                                            <connections>
+                                                <action selector="didTapDeleteItinerary:" destination="v2s-7K-Yl1" eventType="touchUpInside" id="bmO-em-gwZ"/>
+                                            </connections>
+                                        </button>
+                                    </subviews>
+                                    <color key="backgroundColor" red="0.89196015100188664" green="0.89196015100188664" blue="0.89196015100188664" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                </view>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="gray" indentationWidth="10" reuseIdentifier="DateHeaderTableViewCell" rowHeight="44" id="l5g-SD-dV2" customClass="DateHeaderTableViewCell">
                                         <rect key="frame" x="0.0" y="28" width="375" height="44"/>
@@ -1528,7 +1545,7 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="hey-4Z-0eK"/>
-        <segue reference="a8N-p0-ajg"/>
+        <segue reference="QYY-fI-C3q"/>
         <segue reference="jrK-2N-UHa"/>
         <segue reference="LIW-WB-8EA"/>
     </inferredMetricsTieBreakers>
