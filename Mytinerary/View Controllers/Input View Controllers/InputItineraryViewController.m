@@ -12,6 +12,7 @@
 
 @interface InputItineraryViewController ()
 
+@property (weak, nonatomic) IBOutlet UILabel *addOrEditItneraryLabel;
 @property (weak, nonatomic) IBOutlet UITextField *titleTextField;
 @property (weak, nonatomic) IBOutlet UIDatePicker *startTimeDatePicker;
 @property (weak, nonatomic) IBOutlet UIDatePicker *endTimeDatePicker;
@@ -35,6 +36,17 @@
                                                           handler:^(UIAlertAction * action) {}];
     
     [self.alert addAction:defaultAction];
+    
+    // fill the information
+    if (self.itinerary) {
+        self.addOrEditItneraryLabel.text = @"Edit Itinerary";
+        self.titleTextField.text = self.itinerary.title;
+        self.startTimeDatePicker.date = self.itinerary.startTime;
+        self.endTimeDatePicker.date = self.itinerary.endTime;
+        self.budgetTextField.text = [NSString stringWithFormat:@"%@", self.itinerary.budget];
+    } else {
+        self.addOrEditItneraryLabel.text = @"Add Itinerary";
+    }
 }
 
 - (IBAction)onTapCloseButton:(id)sender {

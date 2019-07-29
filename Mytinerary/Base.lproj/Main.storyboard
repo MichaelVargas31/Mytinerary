@@ -140,7 +140,7 @@
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <state key="normal" title="Add itineraries"/>
                                             <connections>
-                                                <segue destination="vAc-0f-oMv" kind="presentation" identifier="EditItinerarySegue" id="0lK-vv-Wn3"/>
+                                                <segue destination="vAc-0f-oMv" kind="presentation" identifier="AddItinerarySegue" id="0lK-vv-Wn3"/>
                                             </connections>
                                         </button>
                                     </subviews>
@@ -210,7 +210,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Edit Itinerary" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aCq-6Y-r0h">
-                                <rect key="frame" x="32" y="75" width="148" height="36"/>
+                                <rect key="frame" x="32" y="75" width="178" height="36"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" weight="thin" pointSize="30"/>
                                 <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -277,6 +277,7 @@
                         <viewLayoutGuide key="safeArea" id="q6J-lY-4N8"/>
                     </view>
                     <connections>
+                        <outlet property="addOrEditItneraryLabel" destination="aCq-6Y-r0h" id="rb8-I8-9Xk"/>
                         <outlet property="budgetTextField" destination="FL8-92-gTk" id="Zv6-8w-1LO"/>
                         <outlet property="endTimeDatePicker" destination="DtM-cj-FMI" id="DkU-R9-6Bc"/>
                         <outlet property="startTimeDatePicker" destination="xI8-xb-MdE" id="ly4-dT-aIf"/>
@@ -285,7 +286,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iEG-eb-U2D" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3282" y="-734"/>
+            <point key="canvasLocation" x="3280.8000000000002" y="-734.48275862068976"/>
         </scene>
         <!--Input Event View Controller-->
         <scene sceneID="7mh-AC-M0N">
@@ -879,10 +880,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="I7A-PG-fR6">
-                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="DlF-gi-F6b">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
                                     </stackView>
                                 </subviews>
                                 <constraints>
@@ -1463,6 +1464,14 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="4GG-ta-Drv"/>
                     </view>
+                    <navigationItem key="navigationItem" id="f4m-eq-jdS">
+                        <barButtonItem key="rightBarButtonItem" title="Edit" id="pPL-WM-jKX">
+                            <connections>
+                                <action selector="didTapEdit:" destination="v2s-7K-Yl1" id="1d2-3y-lhp"/>
+                                <segue destination="vAc-0f-oMv" kind="show" identifier="EditItinerarySegue" id="aaY-Ol-JXb"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="budgetLabel" destination="1S5-LT-6h4" id="FXN-hu-iGE"/>
                         <outlet property="endTimeLabel" destination="M5T-jR-ujS" id="Kui-WB-t0m"/>
@@ -1540,14 +1549,14 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dcJ-QG-9VO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2057" y="376"/>
+            <point key="canvasLocation" x="2057" y="301"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="xej-T6-Pmm"/>
         <segue reference="hey-4Z-0eK"/>
         <segue reference="QYY-fI-C3q"/>
         <segue reference="jrK-2N-UHa"/>
         <segue reference="LIW-WB-8EA"/>
+        <segue reference="aaY-Ol-JXb"/>
     </inferredMetricsTieBreakers>
 </document>

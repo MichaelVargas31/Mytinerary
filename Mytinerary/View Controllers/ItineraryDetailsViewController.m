@@ -7,6 +7,7 @@
 //
 
 #import "ItineraryDetailsViewController.h"
+#import "InputItineraryViewController.h"
 #import "ProfileViewController.h"
 #import "AppDelegate.h"
 #import "EventTableViewCell.h"
@@ -29,6 +30,7 @@ static const int TABLE_VIEW_HEADER_HEIGHT = 44;
 
 // actions
 - (IBAction)didTapDeleteItinerary:(id)sender;
+- (IBAction)didTapEdit:(id)sender;
 
 // events
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -94,7 +96,7 @@ static const int TABLE_VIEW_HEADER_HEIGHT = 44;
     }];
 }
 
-
+#pragma mark - Button Functions
 
 - (IBAction)didTapDeleteItinerary:(id)sender {
     
@@ -128,22 +130,21 @@ static const int TABLE_VIEW_HEADER_HEIGHT = 44;
     [self presentViewController:alert animated:YES completion:nil];
 //    [self dismissViewControllerAnimated:YES completion:nil]; // don't just want to dismiss,
 //    [self.navigationController viewController]
-    
-    
- 
-    
 }
 
 
-/*
+- (IBAction)didTapEdit:(id)sender {
+    [self performSegueWithIdentifier:@"EditItinerarySegue" sender:nil];
+}
+
+
 #pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+    if ([[segue identifier] isEqualToString:@"EditItinerarySegue"]) {
+        InputItineraryViewController *inputItineraryViewController = [segue destinationViewController];
+        inputItineraryViewController.itinerary = self.itinerary;
+    }
 }
-*/
 
 #pragma mark - Table View Configuration
 
