@@ -23,6 +23,7 @@
 @interface DailyCalendarViewController () <UITableViewDelegate, UITableViewDataSource, CalendarEventViewDelegate, UICollectionViewDelegate, UICollectionViewDataSource>
 
 @property (strong, nonatomic) UIActivityIndicatorView *activityIndicator;
+@property (strong, nonatomic) NSString *status;
 
 @end
 
@@ -67,8 +68,10 @@
     //self.expandView.hidden=true;
     // [self.expandView setHidden:TRUE];
     //[self.expandView sizeToFit:()];
+    self.status = @"close";
     CGRect newFrame = CGRectMake( 0.0,self.expandView.frame.origin.y, 2.0, self.expandView.frame.size.height);
     self.expandView.frame = newFrame;
+    
     
 }
 
@@ -276,49 +279,38 @@
 
 - (IBAction)expandPressed:(id)sender {
     
-   /* CATransition *transition = [CATransition animation];
-    transition.duration = 0.9;
-    transition.type = kCATransitionPush;
-    transition.subtype = kCATransitionFromLeft;
-    [transition setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]];
-    transition.fillMode = kCAFillModeForwards;
-    transition.removedOnCompletion = NO;
-    [self.expandView.layer addAnimation:transition forKey:nil];
-   
-*/
-    //[parentView addSubview:myVC.view];
-    
-    
-    
-    [self.expandView addConstraint:[NSLayoutConstraint constraintWithItem:self.expandView attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0 constant:0]];
+    if([self.status isEqualToString:@"close"]){
+        
+    self.status = @"open";
     
     self.expandView.hidden=false;
     
     [UIView animateWithDuration:0.9f delay:0.0f options:UIViewAnimationTransitionFlipFromLeft animations:^{
-        //[self.expandView setHidden:FALSE];
         
         self.expandView.frame =CGRectMake(self.expandView.frame.origin.x, self.expandView.frame.origin.y, self.expandView.frame.size.width+64,  self.expandView.frame.size.height );
-        //CGRectMake(self.expandView.frame.origin.x, self.expandView.frame.origin.x, self.expandView.frame.size.width,  200 );
+      
     } completion:^(BOOL finished)
      {
-         //self.expandView.hidden=false;
+        
      }];
     
     
-   
+    }else {
+        
+        self.status=@"close";
+        [UIView animateWithDuration:0.9f delay:0.0f options:UIViewAnimationTransitionFlipFromLeft animations:^{
+           
+            CGRect newFrame = CGRectMake( 0.0,self.expandView.frame.origin.y, 2.0, self.expandView.frame.size.height);
+            self.expandView.frame = newFrame;
+     
+        } completion:^(BOOL finished)
+         {
+        
+         }];
+        
+        
+    }
 }
 
-/*
-- (void)collapse
-{
-    [UIView beginAnimations:@"collapse" context:NULL];
-    [UIView setAnimationDelegate:self];
-    [UIView setAnimationDidStopSelector:@selector(animationFinished:finished:context:)];
-    //[self collapseView];
-    //CHANGE YOUR EXPAND/COLLAPSE BUTTON HERE
-    [UIView commitAnimations];
-    
-}
-*/
 
 @end
