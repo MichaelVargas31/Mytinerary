@@ -7,6 +7,8 @@
 //
 
 #import "ItineraryDetailsViewController.h"
+#import "ProfileViewController.h"
+#import "AppDelegate.h"
 #import "EventTableViewCell.h"
 #import "DateHeaderTableViewCell.h"
 #import "DeleteItineraryTableViewCell.h"
@@ -106,6 +108,14 @@ static const int TABLE_VIEW_HEADER_HEIGHT = 44;
             [self.itinerary deleteInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
                 if (succeeded) {
                     NSLog(@"You deleted %@", self.itinerary.title);
+                    
+                    // go back to the profileViewController
+                    AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+                    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+                    UINavigationController *profileNavigationVC = [storyboard instantiateViewControllerWithIdentifier:@"Profile"];
+                    appDelegate.window.rootViewController = profileNavigationVC;
+                    NSLog(@"stack = %@", [self.navigationController viewControllers]);
+
                 } else {
                     NSLog(@"The error you got was %@", error.localizedDescription);
                 }
@@ -116,6 +126,12 @@ static const int TABLE_VIEW_HEADER_HEIGHT = 44;
     [alert addAction:cancelAction];
     [alert addAction:deleteAction];
     [self presentViewController:alert animated:YES completion:nil];
+//    [self dismissViewControllerAnimated:YES completion:nil]; // don't just want to dismiss,
+//    [self.navigationController viewController]
+    
+    
+ 
+    
 }
 
 
