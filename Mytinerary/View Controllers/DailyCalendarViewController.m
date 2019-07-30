@@ -16,7 +16,6 @@
 #import "MapViewController.h"
 #import "Event.h"
 #import "DateFormatter.h"
-#import "FSCalendar.h"
 #import "Parse/Parse.h"
 
 

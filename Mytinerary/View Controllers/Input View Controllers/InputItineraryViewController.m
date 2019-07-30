@@ -7,16 +7,20 @@
 //
 
 #import "InputItineraryViewController.h"
+#import "AppDelegate.h"
 #import "DailyCalendarViewController.h"
 #import "InputValidation.h"
 #import "Itinerary.h"
 
 @interface InputItineraryViewController ()
 
+@property (weak, nonatomic) IBOutlet UILabel *addOrEditItneraryLabel;
+@property (weak, nonatomic) IBOutlet UIButton *createOrSaveButton;
 @property (weak, nonatomic) IBOutlet UITextField *titleTextField;
 @property (weak, nonatomic) IBOutlet UIDatePicker *startTimeDatePicker;
 @property (weak, nonatomic) IBOutlet UIDatePicker *endTimeDatePicker;
 @property (weak, nonatomic) IBOutlet UITextField *budgetTextField;
+@property BOOL itineraryIsNew;  // True if you are CREATING itinerary
 
 @property (strong, nonatomic) Itinerary *itinerary;
 @property (strong, nonatomic) UIAlertController *alert;
@@ -37,6 +41,25 @@
                                                           handler:^(UIAlertAction * action) {}];
     
     [self.alert addAction:defaultAction];
+    [self adjustViewControllerAccordingToNew];
+}
+
+
+// Changes the labels of the VC (ADD or EDIT itinerary, and CREATE or EDIT itinerary) and its properties
+- (void)adjustViewControllerAccordingToNew {
+    self.itineraryIsNew = (self.itinerary) ? NO:YES;
+    
+    if (self.itineraryIsNew) {
+        self.addOrEditItneraryLabel.text = @"Add Itinerary";
+        [self.createOrSaveButton setTitle:@"Create" forState:UIControlStateNormal];
+    } else {
+        self.addOrEditItneraryLabel.text = @"Edit Itinerary";
+        self.titleTextField.text = self.itinerary.title;
+        self.startTimeDatePicker.date = self.itinerary.startTime;
+        self.endTimeDatePicker.date = self.itinerary.endTime;
+        self.budgetTextField.text = [NSString stringWithFormat:@"%@", self.itinerary.budget];
+        [self.createOrSaveButton setTitle:@"Save" forState:UIControlStateNormal];
+    }
 }
 
 - (IBAction)onTapCloseButton:(id)sender {
@@ -55,22 +78,29 @@
     if (![itinValidity isEqualToString:@""]) {
         self.alert.message = itinValidity;
         [self presentViewController:self.alert animated:YES completion:nil];
-    }
-    else {
-        // create new itinerary
-        self.itinerary = [Itinerary initNewItinerary:title startTime:startTime endTime:endTime budget:budget withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
-            if (succeeded) {
-                NSLog(@"Itinerary successfully created!");
-                
-                // go straight to new itinerary's calendar
-                [self performSegueWithIdentifier:@"newItinerarySegue" sender:nil];
-            }
-            else {
-                NSLog(@"Error creating itinerary: %@", error);
-                self.alert.message = error.domain;
-                [self presentViewController:self.alert animated:YES completion:nil];
-            }
-        }];
+    } else {
+        // Edit existing itinerary
+        self.itinerary.title = title;
+        self.itinerary.startTime = startTime;
+        self.itinerary.endTime = endTime;
+        self.itinerary.budget = budget;
+        
+        if (!self.itineraryIsNew) {
+            [self.itinerary updateItinerary:self.itinerary];
+            [self dismissViewControllerAnimated:YES completion:nil];
+            
+        } else {
+            self.itinerary = [Itinerary initNewItinerary:title startTime:startTime endTime:endTime budget:budget withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
+                if (succeeded) {
+                    [self performSegueWithIdentifier:@"AddNewItineraryToDailyCalendarSegue" sender:nil];
+                }
+                else {
+                    NSLog(@"Error creating itinerary: %@", error);
+                    self.alert.message = error.domain;
+                    [self presentViewController:self.alert animated:YES completion:nil];
+                }
+            }];
+        }
     }
 }
 
@@ -79,11 +109,13 @@
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if ([[segue identifier] isEqualToString:@"newItinerarySegue"]) {
-        // pass newly created itinerary to calendar
-        UINavigationController *navigationController = [segue destinationViewController];
+    if ([segue.identifier isEqualToString:@"AddNewItineraryToDailyCalendarSegue"]) {
+        UINavigationController *dailyCalNavigationController = [segue destinationViewController];
         DailyCalendarViewController *dailyCalendarViewController = [[navigationController viewControllers] firstObject];
         dailyCalendarViewController.itinerary = self.itinerary;
+        
+    } else {
+        NSLog(@"not here man");
     }
 }
 

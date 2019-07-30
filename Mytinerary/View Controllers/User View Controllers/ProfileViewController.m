@@ -19,6 +19,7 @@
 
 @interface ProfileViewController () <UICollectionViewDelegate, UICollectionViewDataSource>
 
+
 @end
 
 @implementation ProfileViewController
@@ -154,11 +155,13 @@
                 NSLog(@"failed to set '%@' default itinerary", PFUser.currentUser.username);
             }
         }];
-    }
-    else {
-        NSLog(@"If you're getting this message, you need to edit the prepareForSegue() method to add another segue");
+    } else {
+        NSLog(@"If you're getting this message & an error, you need to edit the prepareForSegue() method to add another segue");
     }
 }
+
+
+
 
 
 

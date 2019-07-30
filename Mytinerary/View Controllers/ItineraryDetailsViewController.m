@@ -7,8 +7,13 @@
 //
 
 #import "ItineraryDetailsViewController.h"
+#import "InputItineraryViewController.h"
+#import "ProfileViewController.h"
+#import "AppDelegate.h"
 #import "EventTableViewCell.h"
 #import "DateHeaderTableViewCell.h"
+#import "DeleteItineraryTableViewCell.h"
+#import "Itinerary.h"
 #import "DateFormatter.h"
 #import "Date.h"
 #import "Parse/Parse.h"
@@ -22,6 +27,10 @@ static const int TABLE_VIEW_HEADER_HEIGHT = 44;
 @property (weak, nonatomic) IBOutlet UILabel *startTimeLabel;
 @property (weak, nonatomic) IBOutlet UILabel *endTimeLabel;
 @property (weak, nonatomic) IBOutlet UILabel *budgetLabel;
+
+// actions
+- (IBAction)didTapDeleteItinerary:(id)sender;
+- (IBAction)didTapEdit:(id)sender;
 
 // events
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -87,15 +96,55 @@ static const int TABLE_VIEW_HEADER_HEIGHT = 44;
     }];
 }
 
-/*
+
+#pragma mark - Button Functions
+
+- (IBAction)didTapDeleteItinerary:(id)sender {
+    
+    // display an alert asking for confirmation of deletion
+    UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Delete Itinerary?" message:@"Are you sure you want to delete this itinerary. This cannot be undone." preferredStyle:UIAlertControllerStyleAlert];
+    // create Delete and Cancel buttons to alert
+    UIAlertAction* deleteAction = [UIAlertAction actionWithTitle:@"Delete" style:UIAlertActionStyleDefault
+    handler:^(UIAlertAction * action) {
+        // if the delete button is pressed again
+        if (action) {
+            [self.itinerary deleteInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+                if (succeeded) {
+                    NSLog(@"You deleted %@", self.itinerary.title);
+                    
+                    // go back to the profileViewController
+                    AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+                    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+                    UINavigationController *profileNavigationVC = [storyboard instantiateViewControllerWithIdentifier:@"Profile"];
+                    appDelegate.window.rootViewController = profileNavigationVC;
+                    NSLog(@"stack = %@", [self.navigationController viewControllers]);
+
+                } else {
+                    NSLog(@"The error you got was %@", error.localizedDescription);
+                }
+            }];
+        }
+    }];
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"cancel" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {}];
+    [alert addAction:cancelAction];
+    [alert addAction:deleteAction];
+    [self presentViewController:alert animated:YES completion:nil];
+}
+
+
+- (IBAction)didTapEdit:(id)sender {
+    [self performSegueWithIdentifier:@"EditItinerarySegue" sender:nil];
+}
+
+
 #pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+    if ([[segue identifier] isEqualToString:@"EditItinerarySegue"]) {
+        InputItineraryViewController *inputItineraryViewController = [segue destinationViewController];
+        inputItineraryViewController.itinerary = self.itinerary;
+    }
 }
-*/
 
 #pragma mark - Table View Configuration
 
@@ -148,8 +197,15 @@ static const int TABLE_VIEW_HEADER_HEIGHT = 44;
     return header;
 }
 
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
+    DeleteItineraryTableViewCell *footer = [tableView dequeueReusableCellWithIdentifier:@"DeleteItineraryTablveViewCell"];
+    return footer;
+}
+
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     return TABLE_VIEW_HEADER_HEIGHT;
 }
+
+
 
 @end

@@ -33,8 +33,8 @@
             UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
             
             self.window.rootViewController = [storyboard instantiateViewControllerWithIdentifier:@"Profile"]; //@"Profile" is the ID for the navigation view controller in which profile page is embedded in 
-                  }
-        return YES;
+    }
+    return YES;
 }
 
 
