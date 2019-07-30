@@ -108,7 +108,7 @@
     event.endLongitude = endLongitude;
     event.transpoType = transpoType;
     
-    Event *initializedEvent = [event initNewEvent:title eventDescription:eventDescription address:startAddress latitude:startLatitude longitude:startLongitude locationType:nil category:@"activity" startTime:startTime endTime:endTime notes:notes withCompletion:completion];
+    Event *initializedEvent = [event initNewEvent:title eventDescription:eventDescription address:startAddress latitude:startLatitude longitude:startLongitude locationType:nil category:@"transportation" startTime:startTime endTime:endTime notes:notes withCompletion:completion];
     
     return initializedEvent;
 }
@@ -130,7 +130,13 @@
     self.endLongitude = endLongitude;
     self.transpoType = transpoType;
     
-    Event *updatedEvent = [self initNewEvent:title eventDescription:eventDescription address:startAddress latitude:startLatitude longitude:startLongitude locationType:nil category:@"activity" startTime:startTime endTime:endTime notes:notes withCompletion:completion];
+    Event *updatedEvent = [self initNewEvent:title eventDescription:eventDescription address:startAddress latitude:startLatitude longitude:startLongitude locationType:nil category:@"transportation" startTime:startTime endTime:endTime notes:notes withCompletion:completion];
+    
+    return updatedEvent;
+}
+
+- (Event *) updateTransportationEventTypeAndTimes:(NSString *)transpoType startTime:(NSDate *)startTime endTime:(NSDate *)endTime withCompletion:(PFBooleanResultBlock)completion {
+    Event *updatedEvent = [self updateTransportationEvent:self.title eventDescription:self.eventDescription startAddress:self.address startLatitude:self.latitude startLongitude:self.longitude endAddress:self.endAddress endLatitude:self.endLatitude endLongitude:self.endLongitude startTime:startTime endTime:endTime transpoType:transpoType cost:self.cost.floatValue notes:self.notes withCompletion:completion];
     
     return updatedEvent;
 }

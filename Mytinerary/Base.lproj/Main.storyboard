@@ -72,6 +72,30 @@
             </objects>
             <point key="canvasLocation" x="54" y="-735"/>
         </scene>
+        <!--Directions Test View Controller-->
+        <scene sceneID="NBz-gt-Iv5">
+            <objects>
+                <viewController id="gE5-5z-7mv" customClass="DirectionsTestViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Fq9-PF-ej3">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="4tU-F7-IY4">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </mapView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="Spd-a8-yqy"/>
+                    </view>
+                    <connections>
+                        <outlet property="mapView" destination="4tU-F7-IY4" id="DcU-1j-pDL"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="VGP-5x-gex" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2056.8000000000002" y="-1492.8035982008996"/>
+        </scene>
         <!--Profile Page-->
         <scene sceneID="2Cs-cf-7Nj">
             <objects>
@@ -135,6 +159,14 @@
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <state key="normal" title="Edit"/>
                                         </button>
+                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="I2q-Nv-Qre">
+                                            <rect key="frame" x="290" y="69" width="60" height="30"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <state key="normal" title="map test"/>
+                                            <connections>
+                                                <segue destination="gE5-5z-7mv" kind="show" id="VEC-oX-36u"/>
+                                            </connections>
+                                        </button>
                                     </subviews>
                                     <connections>
                                         <outlet property="profilePicImageView" destination="mHW-ih-tsZ" id="m9G-fY-Z6t"/>
@@ -142,8 +174,8 @@
                                     </connections>
                                 </collectionReusableView>
                             </collectionView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Current Year" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JLt-qb-W21">
-                                <rect key="frame" x="16" y="243" width="86" height="18"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Itineraries" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JLt-qb-W21">
+                                <rect key="frame" x="16" y="243" width="67" height="18"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" weight="thin" pointSize="15"/>
                                 <nil key="textColor"/>
@@ -1528,7 +1560,7 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="hey-4Z-0eK"/>
-        <segue reference="a8N-p0-ajg"/>
+        <segue reference="QYY-fI-C3q"/>
         <segue reference="jrK-2N-UHa"/>
         <segue reference="LIW-WB-8EA"/>
     </inferredMetricsTieBreakers>
