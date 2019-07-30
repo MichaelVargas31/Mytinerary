@@ -167,6 +167,7 @@ static int const EVENT_INPUT_SUBMIT_VIEW_HEIGHT = 50;
         [self.eventInputSharedView.categoryPickerView selectRow:3 inComponent:0 animated:YES];
         [self prefillHotelEventFields:event];
     }
+    [self showCategorySubview:event.category];
 }
 
 - (void)prefillActivityEventFields:(Event *)event {
@@ -577,30 +578,34 @@ static int const EVENT_INPUT_SUBMIT_VIEW_HEIGHT = 50;
     
     // if from event category picker
     if (pickerView.tag == 0) {
-        // clear previously added category subview before adding new category subview
-        NSArray *subviews = [self.stackView arrangedSubviews];
-        if (subviews.count > 1) {
-            [self.stackView removeArrangedSubview:subviews[1]];
-            [subviews[1] removeFromSuperview];
-        }
-        
-        // add corresponding category subview
-        if ([selectedCategory isEqualToString:@"activity"]) {
-            [self.stackView insertArrangedSubview:self.eventInputActivityView atIndex:1];
-            [self.eventInputActivityView.heightAnchor constraintEqualToConstant:EVENT_INPUT_ACTIVITY_VIEW_HEIGHT].active = YES;
-        }
-        else if ([selectedCategory isEqualToString:@"transportation"]) {
-            [self.stackView insertArrangedSubview:self.eventInputTransportationView atIndex:1];
-            [self.eventInputTransportationView.heightAnchor constraintEqualToConstant:EVENT_INPUT_TRANSPORTATION_VIEW_HEIGHT].active = YES;
-        }
-        else if ([selectedCategory isEqualToString:@"food"]) {
-            [self.stackView insertArrangedSubview:self.eventInputFoodView atIndex:1];
-            [self.eventInputFoodView.heightAnchor constraintEqualToConstant:EVENT_INPUT_FOOD_VIEW_HEIGHT].active = YES;
-        }
-        else if ([selectedCategory isEqualToString:@"hotel"]) {
-            [self.stackView insertArrangedSubview:self.eventInputHotelView atIndex:1];
-            [self.eventInputHotelView.heightAnchor constraintEqualToConstant:EVENT_INPUT_HOTEL_VIEW_HEIGHT].active = YES;
-        }
+        [self showCategorySubview:selectedCategory];
+    }
+}
+
+- (void)showCategorySubview:(NSString *)selectedCategory {
+    // clear previously added category subview before adding new category subview
+    NSArray *subviews = [self.stackView arrangedSubviews];
+    if (subviews.count > 1) {
+        [self.stackView removeArrangedSubview:subviews[1]];
+        [subviews[1] removeFromSuperview];
+    }
+    
+    // add corresponding category subview
+    if ([selectedCategory isEqualToString:@"activity"]) {
+        [self.stackView insertArrangedSubview:self.eventInputActivityView atIndex:1];
+        [self.eventInputActivityView.heightAnchor constraintEqualToConstant:EVENT_INPUT_ACTIVITY_VIEW_HEIGHT].active = YES;
+    }
+    else if ([selectedCategory isEqualToString:@"transportation"]) {
+        [self.stackView insertArrangedSubview:self.eventInputTransportationView atIndex:1];
+        [self.eventInputTransportationView.heightAnchor constraintEqualToConstant:EVENT_INPUT_TRANSPORTATION_VIEW_HEIGHT].active = YES;
+    }
+    else if ([selectedCategory isEqualToString:@"food"]) {
+        [self.stackView insertArrangedSubview:self.eventInputFoodView atIndex:1];
+        [self.eventInputFoodView.heightAnchor constraintEqualToConstant:EVENT_INPUT_FOOD_VIEW_HEIGHT].active = YES;
+    }
+    else if ([selectedCategory isEqualToString:@"hotel"]) {
+        [self.stackView insertArrangedSubview:self.eventInputHotelView atIndex:1];
+        [self.eventInputHotelView.heightAnchor constraintEqualToConstant:EVENT_INPUT_HOTEL_VIEW_HEIGHT].active = YES;
     }
 }
 
