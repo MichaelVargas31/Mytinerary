@@ -29,6 +29,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (weak, nonatomic) IBOutlet UIView *expandView;
 
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *menuButton;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *alerrtButton;
+
 // config default itin functionality
 @property BOOL fromLogin;
 
