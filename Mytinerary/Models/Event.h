@@ -1,6 +1,7 @@
 //  Event.h
 
 #import <Foundation/Foundation.h>
+#import <MapKit/MapKit.h>
 #import "Parse/Parse.h"
 
 @interface Event : PFObject<PFSubclassing>
@@ -22,6 +23,7 @@
 @property (nonatomic, strong) NSString *endAddress;
 @property (nonatomic, strong) NSNumber *endLatitude;
 @property (nonatomic, strong) NSNumber *endLongitude;
+@property (nonatomic, strong) MKRoute *route;
 
 // food event
 @property (nonatomic, strong) NSString *foodCost;

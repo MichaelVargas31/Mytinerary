@@ -4,6 +4,7 @@
 #import "Parse/Parse.h"
 #import "SearchLocationViewController.h"
 #import "InputValidation.h"
+#import "Directions.h"
 
 @implementation Event
 
@@ -25,6 +26,7 @@
 @dynamic locationType;
 @dynamic endLatitude;
 @dynamic endLongitude;
+@dynamic route;
 
 + (nonnull NSString *)parseClassName {
     return @"Event";
@@ -195,6 +197,11 @@
     
     return updatedEvent;
 }
+
+#pragma Transportation directions functions
+
+// https://developer.apple.com/documentation/mapkit/mkmapitem/1452207-openmapswithitems?language=objc
+// make function that creates 2 placemarks from a transpo event
 
 
 @end

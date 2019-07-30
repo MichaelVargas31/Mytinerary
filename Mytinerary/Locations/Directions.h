@@ -10,12 +10,15 @@
 #import <MapKit/MapKit.h>
 #import <CoreLocation/CoreLocation.h>
 #import <Foundation/Foundation.h>
+#import "Event.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface Directions : NSObject
 
 + (void)getDirectionsLatLng:(NSNumber *)startLat startLng:(NSNumber *)startLng endLat:(NSNumber *)endLat endLng:(NSNumber *)endLng withCompletion:(MKDirectionsHandler _Nonnull)completion;
+
++ (NSArray <MKPlacemark *> *)getTransportationEventPlacemarks:(Event *)event;
 
 @end
 
