@@ -90,19 +90,23 @@
             
         } else {
             // itinerary isn't set yet => call initNewItinerary
-            [Itinerary initNewItinerary:title startTime:startTime endTime:endTime budget:budget withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
+            self.itinerary = [Itinerary initNewItinerary:title startTime:startTime endTime:endTime budget:budget withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
+//            self.itinerary = [Itinerary initNewItinerary:title startTime:startTime endTime:endTime budget:budget withCompletion:^(NSData * _Nullable data, NSError * _Nullable error) {
                 if (succeeded) {
                     NSLog(@"Itinerary successfully created!");
+//                    NSLog(@"data = %@", data);
                     
                     // Load staight into the calendarView
 //                    [self dismissViewControllerAnimated:YES completion:nil];
-                    AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
-                    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-                    UINavigationController *calNavigationController = [storyboard instantiateViewControllerWithIdentifier:@"ItineraryNavigationController"];
-                    NSArray *viewControllers = [calNavigationController viewControllers];
-                    DailyCalendarViewController *dailyCalVC = viewControllers[0];
-                    dailyCalVC.itinerary = self.itinerary;
-                    appDelegate.window.rootViewController = calNavigationController;
+//                    AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+//                    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+//                    UINavigationController *calNavigationController = [storyboard instantiateViewControllerWithIdentifier:@"ItineraryNavigationController"];
+//                    NSArray *viewControllers = [calNavigationController viewControllers];
+//                    DailyCalendarViewController *dailyCalVC = viewControllers[0];
+//                    dailyCalVC.itinerary = self.itinerary;
+//                    appDelegate.window.rootViewController = calNavigationController;
+                    
+                    [self performSegueWithIdentifier:@"AddNewItineraryToDailyCalendarSegue" sender:nil];
                 }
                 else {
                     NSLog(@"Error creating itinerary: %@", error);
@@ -112,14 +116,21 @@
     }
 }
 
-/*
+
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+    if ([segue.identifier isEqualToString:@"AddNewItineraryToDailyCalendarSegue"]) {
+        UINavigationController *dailyCalNavigationController = [segue destinationViewController];
+        NSArray *viewControllers = [dailyCalNavigationController viewControllers];
+        DailyCalendarViewController *dailyCalVC = viewControllers[0];
+        dailyCalVC.itinerary = self.itinerary;
+        
+    } else {
+        NSLog(@"not here man");
+    }
 }
-*/
+
 
 @end

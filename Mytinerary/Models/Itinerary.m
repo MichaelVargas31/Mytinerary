@@ -20,7 +20,7 @@
 }
 
 // initialize a new itinerary with current user and given start/end times
-+ (void)initNewItinerary:(NSString *)title startTime:(NSDate *)startTime endTime:(NSDate *)endTime budget:(NSNumber *)budget withCompletion:(PFBooleanResultBlock)completion {
++ (Itinerary *)initNewItinerary:(NSString *)title startTime:(NSDate *)startTime endTime:(NSDate *)endTime budget:(NSNumber *)budget withCompletion:(PFBooleanResultBlock)completion {
 
     Itinerary *itinerary = [Itinerary new];
     
@@ -41,6 +41,8 @@
     itinerary.events = eventsArray;
     
     [itinerary saveInBackgroundWithBlock:completion];
+    
+    return itinerary;
 }
 
 - (BOOL)isEventDateValid:(NSDate *)eventStartTime eventEndTime:(NSDate *)eventEndTime {
