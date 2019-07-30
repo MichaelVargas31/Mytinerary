@@ -45,8 +45,8 @@
     
     //item size
     //Fix size later to make it look better
-    CGFloat itemWidth=100;
-    CGFloat itemHeight=100;
+    CGFloat itemWidth = 100;
+    CGFloat itemHeight = 100;
     layout.itemSize= CGSizeMake(itemWidth, itemHeight);
     
 }
@@ -60,7 +60,7 @@
         if (!error) {
             [iQuery orderByDescending: @"createdAt"];
             [iQuery includeKey: @"author"];
-            iQuery.limit =10;
+            iQuery.limit = 100;
             
             //fetch data
             [iQuery findObjectsInBackgroundWithBlock:^(NSArray<Itinerary *> * itinerary, NSError *  error) {

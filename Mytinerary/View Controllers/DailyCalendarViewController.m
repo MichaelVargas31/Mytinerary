@@ -71,6 +71,7 @@
     self.activityIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyleWhiteLarge;
     self.activityIndicator.center = self.view.center;
     [self.view addSubview:self.activityIndicator];
+    [self.activityIndicator hidesWhenStopped];
     [self.activityIndicator startAnimating];
     
     [Itinerary fetchAllInBackground:[NSArray arrayWithObject:self.itinerary] block:^(NSArray * _Nullable objects, NSError * _Nullable error) {
@@ -78,6 +79,7 @@
             NSLog(@"itinerary successfully fetched!");
             self.itinerary = [objects firstObject];
             [self loadItinView];
+            [self.activityIndicator stopAnimating];
         }
         else {
             NSLog(@"error fetching itinerary object: %@", error);

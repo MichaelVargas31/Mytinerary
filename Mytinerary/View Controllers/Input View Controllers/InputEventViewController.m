@@ -59,6 +59,10 @@ static int const EVENT_INPUT_SUBMIT_VIEW_HEIGHT = 50;
                                                           handler:^(UIAlertAction * action) {}];
     [self.alert addAction:defaultAction];
     
+    // dismiss keyboard on tap
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissKeyboard)];
+    [self.view addGestureRecognizer:tap];
+    
     // make and configure scroll view
     UIScrollView *scrollView = [[UIScrollView alloc] init];
     [self.view addSubview:scrollView];
@@ -380,10 +384,10 @@ static int const EVENT_INPUT_SUBMIT_VIEW_HEIGHT = 50;
 
 - (Event *)updateTransportationEvent:(Event *)event {
     // testing purposes for now
-    NSNumber *startLatitude = @(0);
-    NSNumber *startLongitude = @(0);
-    NSNumber *endLatitude = @(0);
-    NSNumber *endLongitude = @(0);
+    NSNumber *startLatitude = self.location.latitude;
+    NSNumber *startLongitude = self.location.longitude;
+    NSNumber *endLatitude = self.endLocation.latitude;
+    NSNumber *endLongitude = self.endLocation.longitude;
     
     float cost = (float)0.0;
     if (![self.eventInputTransportationView.costTextField.text isEqualToString:@""]) {
@@ -641,6 +645,10 @@ static int const EVENT_INPUT_SUBMIT_VIEW_HEIGHT = 50;
         self.eventInputHotelView.locationTextField.text = location.address;
         self.location = location;
     }
+}
+
+- (void)dismissKeyboard {
+    [self.view endEditing:YES];
 }
 
 @end

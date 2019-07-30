@@ -37,7 +37,8 @@
     [directions calculateDirectionsWithCompletionHandler:completion];
 }
 
--(MKDirections *)getDirectionsToFromEvents:(Event *)startEvent endEvent:(Event *)endEvent {
+// TODO: create transportation event between two events
+- (MKDirections *)getDirectionsToFromEvents:(Event *)startEvent endEvent:(Event *)endEvent {
     return nil;
 }
 

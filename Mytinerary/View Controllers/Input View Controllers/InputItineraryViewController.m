@@ -26,6 +26,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissKeyboard)];
+    [self.view addGestureRecognizer:tap];
+    
     // set up alert controller
     self.alert = [UIAlertController alertControllerWithTitle:@"Error"
                                                      message:@"This is an alert."
@@ -66,6 +69,10 @@
             }
         }];
     }
+}
+
+- (void)dismissKeyboard {
+    [self.view endEditing:YES];
 }
 
 /*
