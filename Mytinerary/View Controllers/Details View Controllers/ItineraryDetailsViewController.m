@@ -11,6 +11,7 @@
 #import "ProfileViewController.h"
 #import "AppDelegate.h"
 #import "EventTableViewCell.h"
+#import "EventDetailsViewController.h"
 #import "DateHeaderTableViewCell.h"
 #import "DeleteItineraryTableViewCell.h"
 #import "Itinerary.h"
@@ -96,13 +97,13 @@ static const int TABLE_VIEW_HEADER_HEIGHT = 44;
     }];
 }
 
-
 #pragma mark - Button Functions
 
 - (IBAction)didTapDeleteItinerary:(id)sender {
     
     // display an alert asking for confirmation of deletion
     UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Delete Itinerary?" message:@"Are you sure you want to delete this itinerary. This cannot be undone." preferredStyle:UIAlertControllerStyleAlert];
+
     // create Delete and Cancel buttons to alert
     UIAlertAction* deleteAction = [UIAlertAction actionWithTitle:@"Delete" style:UIAlertActionStyleDefault
     handler:^(UIAlertAction * action) {
@@ -136,15 +137,6 @@ static const int TABLE_VIEW_HEADER_HEIGHT = 44;
     [self performSegueWithIdentifier:@"EditItinerarySegue" sender:nil];
 }
 
-
-#pragma mark - Navigation
-
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if ([[segue identifier] isEqualToString:@"EditItinerarySegue"]) {
-        InputItineraryViewController *inputItineraryViewController = [segue destinationViewController];
-        inputItineraryViewController.itinerary = self.itinerary;
-    }
-}
 
 #pragma mark - Table View Configuration
 
@@ -206,6 +198,21 @@ static const int TABLE_VIEW_HEADER_HEIGHT = 44;
     return TABLE_VIEW_HEADER_HEIGHT;
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [self performSegueWithIdentifier:@"ItinDetailsToEventDetailsSegue" sender:self.eventsByDay[indexPath.section][indexPath.row]];
+}
 
+
+#pragma mark - Navigation
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([[segue identifier] isEqualToString:@"EditItinerarySegue"]) {
+        InputItineraryViewController *inputItineraryViewController = [segue destinationViewController];
+        inputItineraryViewController.itinerary = self.itinerary;
+    } else if ([segue.identifier isEqualToString:@"ItinDetailsToEventDetailsSegue"]) {
+        EventDetailsViewController *detailsVC = [segue destinationViewController];
+        detailsVC.event = sender;
+    }
+}
 
 @end
