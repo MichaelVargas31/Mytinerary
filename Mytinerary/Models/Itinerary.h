@@ -14,11 +14,11 @@
 @property (nonatomic, strong) NSNumber *budget;
 @property (nonatomic, strong) NSString *title;
 
-+ (Itinerary *) initNewItinerary:(NSString *)title startTime:(NSDate *)startTime endTime:(NSDate *)endTime budget:(NSNumber *)budget withCompletion:(PFBooleanResultBlock)dataCompletion;
++ (Itinerary *)initNewItinerary:(NSString *)title startTime:(NSDate *)startTime endTime:(NSDate *)endTime budget:(NSNumber *)budget withCompletion:(PFBooleanResultBlock)completion;
 
 - (void)updateItinerary:(Itinerary *)updatedItinerary;
 
-- (void) addEventToItinerary:(Event *)event withCompletion:(PFBooleanResultBlock)completion;
+- (void)addEventToItinerary:(Event *)event withCompletion:(PFBooleanResultBlock)completion;
 
 - (BOOL)isEventDateValid:(NSDate *)eventStartTime eventEndTime:(NSDate *)eventEndTime;
 

@@ -19,7 +19,7 @@
 #import "Parse/Parse.h"
 
 
-@interface DailyCalendarViewController () <UITableViewDelegate, UITableViewDataSource, CalendarEventViewDelegate, UICollectionViewDelegate, UICollectionViewDataSource>
+@interface DailyCalendarViewController () <UITableViewDelegate, UITableViewDataSource, CalendarEventViewDelegate, UICollectionViewDelegate, UICollectionViewDataSource, InputEventViewControllerDelegate, EventDetailsViewControllerDelegate>
 
 @property (strong, nonatomic) UIActivityIndicatorView *activityIndicator;
 
@@ -159,6 +159,43 @@
     self.eventsDictionary = [NSDictionary dictionaryWithDictionary:tempEventsDict];
 }
 
+// returns date index of added event
+- (NSDate *)addEventToDayDictionary:(Event *)event {
+    // get the date of the updated event, change time to midnight
+    NSDate *eventDate = [self getDayDictionaryKey:event];
+    // add to day dictionary
+    [self.eventsDictionary[eventDate] addObject:event];
+    return eventDate;
+}
+
+- (NSDate *)updateEventInDayDictionary:(Event *)event {
+    NSDate *dayDictIdx = [self getDayDictionaryKey:event];
+    NSMutableArray *dayEvents = self.eventsDictionary[dayDictIdx];
+    BOOL noMatchingEvent = true;
+    
+    for (int i = 0; i < dayEvents.count; i++) {
+        if ([event isSameEventObj:dayEvents[i]]) {
+            [dayEvents removeObject:dayEvents[i]];
+            noMatchingEvent = false;
+            break;
+        }
+    }
+    
+    // if no matching event, do not modify dictionary and return nil
+    if (noMatchingEvent) {
+        return nil;
+    }
+    
+    // if matching event found, modify dictionary and return dict idx
+    [dayEvents addObject:event];
+    return dayDictIdx;
+}
+
+// returns inputted date @ midnight (for day dictionary indexing)
+- (NSDate *)getDayDictionaryKey:(Event *)event {
+    return [self.calendar dateBySettingHour:0 minute:0 second:00 ofDate:event.startTime options:0];
+}
+
 
 #pragma mark - Table & Collection Views
 
@@ -194,8 +231,7 @@
     
     NSArray *individualDayEvents = [NSArray arrayWithArray:self.eventsDictionary[date]];
     cell.eventArray = individualDayEvents;
-//    NSLog(@"self.eventsDictionary = %@", self.eventsDictionary);
-//    NSLog(@"\n\nFor date:%@, individualDayEvents = %@", date, individualDayEvents);
+    
     return cell;
 }
 
@@ -225,11 +261,13 @@
     if ([[segue identifier] isEqualToString:@"eventDetailsSegue"]) {
         EventDetailsViewController *eventDetailsViewController = [segue destinationViewController];
         eventDetailsViewController.event = sender;
+        eventDetailsViewController.delegate = self;
     }
     else if ([[segue identifier] isEqualToString:@"addEventSegue"]) {
         // send itinerary to input event VC to add new event to appropriate itinerary
         InputEventViewController *inputEventViewController = [segue destinationViewController];
         inputEventViewController.itinerary = self.itinerary;
+        inputEventViewController.delegate = self;
     }
     else if ([[segue identifier] isEqualToString:@"itineraryDetailsSegue"]) {
         ItineraryDetailsViewController *itineraryDetailsViewController = [segue destinationViewController];
@@ -264,5 +302,20 @@
     [self performSegueWithIdentifier:@"itineraryDetailsSegue" sender:nil];
 }
 
+// refresh calendar after making new event
+// flow: (new) event input --> daily calendar
+- (void)didMakeEvent:(nonnull Event *)updatedEvent {
+    NSDate *dayDictIdx = [self addEventToDayDictionary:updatedEvent];
+    [self refreshViewUsingDate:dayDictIdx];
+}
+
+// refresh calendar after editing event
+// flow: edit event --> event details --> daily calendar
+- (void)didUpdateEvent:(nonnull Event *)updatedEvent {
+    NSDate *dayDictIdx = [self updateEventInDayDictionary:updatedEvent];
+    if (dayDictIdx) {
+        [self refreshViewUsingDate:dayDictIdx];
+    }
+}
 
 @end

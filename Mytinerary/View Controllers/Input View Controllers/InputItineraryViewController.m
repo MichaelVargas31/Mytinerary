@@ -22,6 +22,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *budgetTextField;
 @property BOOL itineraryIsNew;  // True if you are CREATING itinerary
 
+@property (strong, nonatomic) Itinerary *itinerary;
 @property (strong, nonatomic) UIAlertController *alert;
 
 @end
@@ -95,6 +96,8 @@
                 }
                 else {
                     NSLog(@"Error creating itinerary: %@", error);
+                    self.alert.message = error.domain;
+                    [self presentViewController:self.alert animated:YES completion:nil];
                 }
             }];
         }
@@ -108,9 +111,8 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"AddNewItineraryToDailyCalendarSegue"]) {
         UINavigationController *dailyCalNavigationController = [segue destinationViewController];
-        NSArray *viewControllers = [dailyCalNavigationController viewControllers];
-        DailyCalendarViewController *dailyCalVC = viewControllers[0];
-        dailyCalVC.itinerary = self.itinerary;
+        DailyCalendarViewController *dailyCalendarViewController = [[navigationController viewControllers] firstObject];
+        dailyCalendarViewController.itinerary = self.itinerary;
         
     } else {
         NSLog(@"not here man");

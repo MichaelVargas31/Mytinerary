@@ -14,7 +14,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @protocol InputEventViewControllerDelegate
 
+@optional
 - (void)didUpdateEvent:(Event *)updatedEvent;
+- (void)didMakeEvent:(Event *)updatedEvent;
 
 @end
 
