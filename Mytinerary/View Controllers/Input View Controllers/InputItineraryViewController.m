@@ -22,7 +22,6 @@
 @property (weak, nonatomic) IBOutlet UITextField *budgetTextField;
 @property BOOL itineraryIsNew;  // True if you are CREATING itinerary
 
-@property (strong, nonatomic) Itinerary *itinerary;
 @property (strong, nonatomic) UIAlertController *alert;
 
 @end
@@ -87,8 +86,9 @@
         
         if (!self.itineraryIsNew) {
             [self.itinerary updateItinerary:self.itinerary];
-            [self dismissViewControllerAnimated:YES completion:nil];
-            
+//            [self dismissViewControllerAnimated:YES completion:nil];
+            [self performSegueWithIdentifier:@"AddNewItineraryToDailyCalendarSegue" sender:nil];
+
         } else {
             self.itinerary = [Itinerary initNewItinerary:title startTime:startTime endTime:endTime budget:budget withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
                 if (succeeded) {
@@ -111,7 +111,7 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"AddNewItineraryToDailyCalendarSegue"]) {
         UINavigationController *dailyCalNavigationController = [segue destinationViewController];
-        DailyCalendarViewController *dailyCalendarViewController = [[navigationController viewControllers] firstObject];
+        DailyCalendarViewController *dailyCalendarViewController = [[dailyCalNavigationController viewControllers] firstObject];
         dailyCalendarViewController.itinerary = self.itinerary;
         
     } else {
