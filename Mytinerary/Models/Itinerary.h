@@ -16,6 +16,8 @@
 
 + (void) initNewItinerary:(NSString *)title startTime:(NSDate *)startTime endTime:(NSDate *)endTime budget:(NSNumber *)budget withCompletion:(PFBooleanResultBlock)completion;
 
+- (void)updateItinerary:(Itinerary *)updatedItinerary;
+
 - (void) addEventToItinerary:(Event *)event withCompletion:(PFBooleanResultBlock)completion;
 
 - (BOOL)isEventDateValid:(NSDate *)eventStartTime eventEndTime:(NSDate *)eventEndTime;

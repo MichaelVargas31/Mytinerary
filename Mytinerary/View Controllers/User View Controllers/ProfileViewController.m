@@ -12,15 +12,12 @@
 #import "LoginViewController.h"
 #import "ItineraryCollectionViewCell.h"
 #import "ProfileCollectionReusableView.h"
-#import "AddNewItinCollectionReusableView.h"
 #import "Itinerary.h"
 #import "Parse/Parse.h"
 #import "User.h"
 
 
 @interface ProfileViewController () <UICollectionViewDelegate, UICollectionViewDataSource>
-
-@property (strong, nonatomic) IBOutlet AddNewItinCollectionReusableView *toAddNewItinCollectionReusableView;
 
 
 @end

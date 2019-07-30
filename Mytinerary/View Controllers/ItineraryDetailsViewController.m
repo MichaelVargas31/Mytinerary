@@ -96,13 +96,14 @@ static const int TABLE_VIEW_HEADER_HEIGHT = 44;
     }];
 }
 
+
 #pragma mark - Button Functions
 
 - (IBAction)didTapDeleteItinerary:(id)sender {
     
     // display an alert asking for confirmation of deletion
     UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Delete Itinerary?" message:@"Are you sure you want to delete this itinerary. This cannot be undone." preferredStyle:UIAlertControllerStyleAlert];
-
+    // create Delete and Cancel buttons to alert
     UIAlertAction* deleteAction = [UIAlertAction actionWithTitle:@"Delete" style:UIAlertActionStyleDefault
     handler:^(UIAlertAction * action) {
         // if the delete button is pressed again
@@ -128,8 +129,6 @@ static const int TABLE_VIEW_HEADER_HEIGHT = 44;
     [alert addAction:cancelAction];
     [alert addAction:deleteAction];
     [self presentViewController:alert animated:YES completion:nil];
-//    [self dismissViewControllerAnimated:YES completion:nil]; // don't just want to dismiss,
-//    [self.navigationController viewController]
 }
 
 
@@ -139,6 +138,7 @@ static const int TABLE_VIEW_HEADER_HEIGHT = 44;
 
 
 #pragma mark - Navigation
+
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([[segue identifier] isEqualToString:@"EditItinerarySegue"]) {
         InputItineraryViewController *inputItineraryViewController = [segue destinationViewController];

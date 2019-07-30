@@ -55,6 +55,17 @@
     return true;
 }
 
+
+- (void)updateItinerary:(Itinerary *)updatedItinerary {
+    [updatedItinerary saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+        if (succeeded) {
+            NSLog(@"successfully saved itinerary '%@'", updatedItinerary.title);
+        } else {
+            NSLog(@"Error updating itinerary: %@", error.localizedDescription);
+        }
+    }];
+}
+
 // add event to an itinerary's list of events
 - (void)addEventToItinerary:(Event *)event withCompletion:(PFBooleanResultBlock)completion {
     

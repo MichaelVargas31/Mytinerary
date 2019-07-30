@@ -7,16 +7,20 @@
 //
 
 #import "InputItineraryViewController.h"
+#import "AppDelegate.h"
+#import "DailyCalendarViewController.h"
 #import "InputValidation.h"
 #import "Itinerary.h"
 
 @interface InputItineraryViewController ()
 
 @property (weak, nonatomic) IBOutlet UILabel *addOrEditItneraryLabel;
+@property (weak, nonatomic) IBOutlet UIButton *createOrSaveButton;
 @property (weak, nonatomic) IBOutlet UITextField *titleTextField;
 @property (weak, nonatomic) IBOutlet UIDatePicker *startTimeDatePicker;
 @property (weak, nonatomic) IBOutlet UIDatePicker *endTimeDatePicker;
 @property (weak, nonatomic) IBOutlet UITextField *budgetTextField;
+@property BOOL itineraryIsNew;  // True if you are CREATING itinerary
 
 @property (strong, nonatomic) UIAlertController *alert;
 
@@ -36,16 +40,24 @@
                                                           handler:^(UIAlertAction * action) {}];
     
     [self.alert addAction:defaultAction];
+    [self adjustViewControllerAccordingToNew];
+}
+
+
+// Changes the labels of the VC (ADD or EDIT itinerary, and CREATE or EDIT itinerary) and its properties
+- (void)adjustViewControllerAccordingToNew {
+    self.itineraryIsNew = (self.itinerary) ? NO:YES;
     
-    // fill the information
-    if (self.itinerary) {
+    if (self.itineraryIsNew) {
+        self.addOrEditItneraryLabel.text = @"Add Itinerary";
+        [self.createOrSaveButton setTitle:@"Create" forState:UIControlStateNormal];
+    } else {
         self.addOrEditItneraryLabel.text = @"Edit Itinerary";
         self.titleTextField.text = self.itinerary.title;
         self.startTimeDatePicker.date = self.itinerary.startTime;
         self.endTimeDatePicker.date = self.itinerary.endTime;
         self.budgetTextField.text = [NSString stringWithFormat:@"%@", self.itinerary.budget];
-    } else {
-        self.addOrEditItneraryLabel.text = @"Add Itinerary";
+        [self.createOrSaveButton setTitle:@"Save" forState:UIControlStateNormal];
     }
 }
 
@@ -65,18 +77,38 @@
     if (![itinValidity isEqualToString:@""]) {
         self.alert.message = itinValidity;
         [self presentViewController:self.alert animated:YES completion:nil];
-    }
-    else {
-        // create new itinerary
-        [Itinerary initNewItinerary:title startTime:startTime endTime:endTime budget:budget withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
-            if (succeeded) {
-                NSLog(@"Itinerary successfully created!");
-                [self dismissViewControllerAnimated:YES completion:nil];
-            }
-            else {
-                NSLog(@"Error creating itinerary: %@", error);
-            }
-        }];
+    } else {
+        // Edit existing itinerary
+        self.itinerary.title = title;
+        self.itinerary.startTime = startTime;
+        self.itinerary.endTime = endTime;
+        self.itinerary.budget = budget;
+        
+        if (!self.itineraryIsNew) {
+            [self.itinerary updateItinerary:self.itinerary];
+            [self dismissViewControllerAnimated:YES completion:nil];
+            
+        } else {
+            // itinerary isn't set yet => call initNewItinerary
+            [Itinerary initNewItinerary:title startTime:startTime endTime:endTime budget:budget withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
+                if (succeeded) {
+                    NSLog(@"Itinerary successfully created!");
+                    
+                    // Load staight into the calendarView
+//                    [self dismissViewControllerAnimated:YES completion:nil];
+                    AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+                    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+                    UINavigationController *calNavigationController = [storyboard instantiateViewControllerWithIdentifier:@"ItineraryNavigationController"];
+                    NSArray *viewControllers = [calNavigationController viewControllers];
+                    DailyCalendarViewController *dailyCalVC = viewControllers[0];
+                    dailyCalVC.itinerary = self.itinerary;
+                    appDelegate.window.rootViewController = calNavigationController;
+                }
+                else {
+                    NSLog(@"Error creating itinerary: %@", error);
+                }
+            }];
+        }
     }
 }
 
