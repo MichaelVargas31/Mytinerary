@@ -7,6 +7,7 @@
 //
 
 #import "DailyCalendarViewController.h"
+#import "AppDelegate.h"
 #import "DailyTableViewCell.h"
 #import "WeekdayCollectionViewCell.h"
 #import "DailyCalendarEventUIView.h"
@@ -318,4 +319,10 @@
     }
 }
 
+- (IBAction)didTapBackToProfile:(id)sender {
+    AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    UINavigationController *profileNavigationVC = [storyboard instantiateViewControllerWithIdentifier:@"Profile"];
+    appDelegate.window.rootViewController = profileNavigationVC;
+}
 @end

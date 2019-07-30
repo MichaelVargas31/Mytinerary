@@ -848,18 +848,16 @@
                         <viewLayoutGuide key="safeArea" id="BQN-GC-MwF"/>
                     </view>
                     <navigationItem key="navigationItem" id="jVa-tE-iwp">
-                        <rightBarButtonItems>
-                            <barButtonItem title="map" id="1l9-sf-R1H">
-                                <connections>
-                                    <action selector="onTapMapButton:" destination="rWW-ig-3vo" id="j4r-bi-PAw"/>
-                                </connections>
-                            </barButtonItem>
-                            <barButtonItem title="profile" id="8Dq-it-gXc">
-                                <connections>
-                                    <segue destination="zcb-mO-9dQ" kind="show" id="jrK-2N-UHa"/>
-                                </connections>
-                            </barButtonItem>
-                        </rightBarButtonItems>
+                        <barButtonItem key="leftBarButtonItem" title="profile" id="8Dq-it-gXc">
+                            <connections>
+                                <action selector="didTapBackToProfile:" destination="rWW-ig-3vo" id="AsN-Xe-Hnq"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="map" id="1l9-sf-R1H">
+                            <connections>
+                                <action selector="onTapMapButton:" destination="rWW-ig-3vo" id="j4r-bi-PAw"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="WeeklyCalendarCollectionView" destination="jpi-hd-an0" id="bKP-UX-dKe"/>
@@ -882,10 +880,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="I7A-PG-fR6">
-                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="DlF-gi-F6b">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
                                     </stackView>
                                 </subviews>
                                 <constraints>
@@ -1485,7 +1483,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4vL-kr-Pll" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2057" y="1933"/>
+            <point key="canvasLocation" x="2057" y="1833"/>
         </scene>
         <!--Map View Controller-->
         <scene sceneID="kgU-Bg-WbE">
@@ -1556,10 +1554,10 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
+        <segue reference="xi0-ST-P49"/>
         <segue reference="bvk-7v-1z5"/>
         <segue reference="QYY-fI-C3q"/>
-        <segue reference="jrK-2N-UHa"/>
-        <segue reference="Z6n-EQ-oVh"/>
+        <segue reference="d9T-RH-QQm"/>
         <segue reference="LIW-WB-8EA"/>
         <segue reference="aaY-Ol-JXb"/>
     </inferredMetricsTieBreakers>

@@ -379,12 +379,10 @@
 		FF6C5EF622DE640200D0EB83 /* Mytinerary */ = {
 			isa = PBXGroup;
 			children = (
-				23F5AA6322E919640084086B /* Utils */,
 				FF6C5EF722DE640200D0EB83 /* AppDelegate.h */,
 				FF6C5EF822DE640200D0EB83 /* AppDelegate.m */,
+				23F5AA6322E919640084086B /* Utils */,
 				FF6C5F2F22DE8B1900D0EB83 /* Views */,
-				8468099622E93EAF001F9F0C /* MyAnnotation.h */,
-				8468099722E93EAF001F9F0C /* MyAnnotation.m */,
 				FF6C5F2B22DE865400D0EB83 /* View Controllers */,
 				8448C0EE22DFA2C800427FB2 /* Models */,
 				FF6C5EFD22DE640200D0EB83 /* Main.storyboard */,
@@ -430,6 +428,8 @@
 		FF6C5F2F22DE8B1900D0EB83 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				8468099622E93EAF001F9F0C /* MyAnnotation.h */,
+				8468099722E93EAF001F9F0C /* MyAnnotation.m */,
 				FF0E77EF22EA532F00CFEF9A /* Calendar Views */,
 				23F5AA4422E61D6E0084086B /* Event Input Views */,
 				23F5AA5A22E62B600084086B /* Event Details Views */,

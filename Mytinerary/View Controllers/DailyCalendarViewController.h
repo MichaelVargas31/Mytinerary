@@ -23,6 +23,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UICollectionView *WeeklyCalendarCollectionView;
 
+- (IBAction)didTapBackToProfile:(id)sender;
+
 // config default itin functionality
 @property BOOL fromLogin;
 
