@@ -11,7 +11,6 @@
 		06B8D04C40E1C9F29C166801 /* Pods_Mytinerary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9FBBF0DECFB9E3F7EDAD49EC /* Pods_Mytinerary.framework */; };
 		2393754A22EFA599002CBAA7 /* Directions.m in Sources */ = {isa = PBXBuildFile; fileRef = 2393754922EFA599002CBAA7 /* Directions.m */; };
 		2393754C22EFA913002CBAA7 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2393754B22EFA913002CBAA7 /* MapKit.framework */; };
-		2393754F22F0A0D0002CBAA7 /* DirectionsTestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2393754E22F0A0D0002CBAA7 /* DirectionsTestViewController.m */; };
 		23F5A9E922DFE59A0084086B /* InputItineraryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 23F5A9E822DFE59A0084086B /* InputItineraryViewController.m */; };
 		23F5A9EC22E0D3890084086B /* EventInputSharedView.m in Sources */ = {isa = PBXBuildFile; fileRef = 23F5A9EB22E0D3890084086B /* EventInputSharedView.m */; };
 		23F5A9EF22E0D9B50084086B /* InputEventViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 23F5A9EE22E0D9B50084086B /* InputEventViewController.m */; };
@@ -80,8 +79,6 @@
 		2393754822EFA599002CBAA7 /* Directions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Directions.h; sourceTree = "<group>"; };
 		2393754922EFA599002CBAA7 /* Directions.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Directions.m; sourceTree = "<group>"; };
 		2393754B22EFA913002CBAA7 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
-		2393754D22F0A0D0002CBAA7 /* DirectionsTestViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DirectionsTestViewController.h; sourceTree = "<group>"; };
-		2393754E22F0A0D0002CBAA7 /* DirectionsTestViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DirectionsTestViewController.m; sourceTree = "<group>"; };
 		23F5A9E722DFE59A0084086B /* InputItineraryViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InputItineraryViewController.h; sourceTree = "<group>"; };
 		23F5A9E822DFE59A0084086B /* InputItineraryViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InputItineraryViewController.m; sourceTree = "<group>"; };
 		23F5A9EA22E0D3890084086B /* EventInputSharedView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EventInputSharedView.h; sourceTree = "<group>"; };
@@ -210,6 +207,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2393755122F0FA1B002CBAA7 /* Locations */ = {
+			isa = PBXGroup;
+			children = (
+				2393754822EFA599002CBAA7 /* Directions.h */,
+				2393754922EFA599002CBAA7 /* Directions.m */,
+			);
+			path = Locations;
+			sourceTree = "<group>";
+		};
 		23F5AA4422E61D6E0084086B /* Event Input Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -371,6 +377,7 @@
 		FF6C5EF622DE640200D0EB83 /* Mytinerary */ = {
 			isa = PBXGroup;
 			children = (
+				2393755122F0FA1B002CBAA7 /* Locations */,
 				23F5AA6322E919640084086B /* Utils */,
 				FF6C5EF722DE640200D0EB83 /* AppDelegate.h */,
 				FF6C5EF822DE640200D0EB83 /* AppDelegate.m */,
@@ -384,10 +391,6 @@
 				FF6C5F0222DE640200D0EB83 /* LaunchScreen.storyboard */,
 				FF6C5F0522DE640200D0EB83 /* Info.plist */,
 				FF6C5F0622DE640200D0EB83 /* main.m */,
-				2393754D22F0A0D0002CBAA7 /* DirectionsTestViewController.h */,
-				2393754E22F0A0D0002CBAA7 /* DirectionsTestViewController.m */,
-				2393754822EFA599002CBAA7 /* Directions.h */,
-				2393754922EFA599002CBAA7 /* Directions.m */,
 			);
 			path = Mytinerary;
 			sourceTree = "<group>";
@@ -703,7 +706,6 @@
 				FF6C5F3522DE8B8900D0EB83 /* DailyTableViewCell.m in Sources */,
 				23F5A9EC22E0D3890084086B /* EventInputSharedView.m in Sources */,
 				FF6C5F0722DE640200D0EB83 /* main.m in Sources */,
-				2393754F22F0A0D0002CBAA7 /* DirectionsTestViewController.m in Sources */,
 				8448C0F622DFA2C800427FB2 /* Itinerary.m in Sources */,
 				FF6C5EF922DE640200D0EB83 /* AppDelegate.m in Sources */,
 				23F5AA7B22EA7DA10084086B /* InputValidation.m in Sources */,

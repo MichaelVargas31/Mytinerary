@@ -20,7 +20,6 @@
 @interface MapViewController () <CLLocationManagerDelegate, MKMapViewDelegate, MKAnnotation>
 
 @property (strong, nonatomic) Event *event;
-@property (strong, nonatomic) CLLocation *lolo;
 @property (nonatomic, strong) NSArray *events;
 
 @end
@@ -31,6 +30,7 @@
     [super viewDidLoad];
     
     self.mapView.delegate = self;
+    [self.mapView setShowsUserLocation:false];
     
     // set up itinerary
     UIButton *button = [[UIButton alloc] init];
@@ -40,6 +40,7 @@
     [button addTarget:self action:@selector(onTapItineraryTitle) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.titleView = button;
     
+    // get itinerary events
     self.events = self.itinerary.events;
     [Event fetchAllIfNeededInBackground:self.events block:^(NSArray * _Nullable objects, NSError * _Nullable error) {
         if (objects) {
@@ -51,7 +52,7 @@
             NSLog(@"error loading events from '%@': %@", self.itinerary.title, error);
         }
     }];
-  }
+}
 
 - (void)makeEventAnnotations {
     // make annotations for events
@@ -103,8 +104,7 @@
     [self.mapView addAnnotation:annotation];
 }
 
-- (MKAnnotationView *)mapView:(MKMapView *)mV viewForAnnotation:(id )annotation
-{
+- (MKAnnotationView *)mapView:(MKMapView *)mV viewForAnnotation:(id )annotation {
     MKPinAnnotationView *pinView = (MKPinAnnotationView*)[self.mapView dequeueReusableAnnotationViewWithIdentifier:@"Pin"];
     
     if (pinView == nil) {
