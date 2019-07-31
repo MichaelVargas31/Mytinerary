@@ -35,13 +35,13 @@
 		8448C0F522DFA2C800427FB2 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 8448C0EF22DFA2C800427FB2 /* User.m */; };
 		8448C0F622DFA2C800427FB2 /* Itinerary.m in Sources */ = {isa = PBXBuildFile; fileRef = 8448C0F122DFA2C800427FB2 /* Itinerary.m */; };
 		8448C0F722DFA2C800427FB2 /* Event.m in Sources */ = {isa = PBXBuildFile; fileRef = 8448C0F222DFA2C800427FB2 /* Event.m */; };
-		8464D7C422EFC975009BB52C /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8464D7C322EFC975009BB52C /* SWRevealViewController.m */; };
 		8464D7C722F0ABE4009BB52C /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8464D7C622F0ABE4009BB52C /* ViewController.m */; };
 		8468099522E7DD1F001F9F0C /* LocationCellTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8468099422E7DD1F001F9F0C /* LocationCellTableViewCell.m */; };
 		8468099822E93EAF001F9F0C /* MyAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 8468099722E93EAF001F9F0C /* MyAnnotation.m */; };
 		8495D7A922DE8BDD00CFED2D /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8495D7A822DE8BDD00CFED2D /* LoginViewController.m */; };
 		8495D7AE22DE991B00CFED2D /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8495D7AD22DE991B00CFED2D /* ProfileViewController.m */; };
 		8495D7B122DF879600CFED2D /* ItineraryCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8495D7B022DF879600CFED2D /* ItineraryCollectionViewCell.m */; };
+		84B581CB22F11157004BA82B /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84B581CA22F11157004BA82B /* SWRevealViewController.m */; };
 		84B5E51722E10637006F4815 /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84B5E51622E10637006F4815 /* MapViewController.m */; };
 		84B5E51922E114E4006F4815 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84B5E51822E114E4006F4815 /* MapKit.framework */; };
 		C628AEE5E20C9C7409D9B734 /* Pods_MytineraryTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 58B8F33A939BCC86C8C98935 /* Pods_MytineraryTests.framework */; };
@@ -130,8 +130,6 @@
 		8448C0F222DFA2C800427FB2 /* Event.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Event.m; sourceTree = "<group>"; };
 		8448C0F322DFA2C800427FB2 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
 		8448C0F422DFA2C800427FB2 /* Itinerary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Itinerary.h; sourceTree = "<group>"; };
-		8464D7C222EFC975009BB52C /* SWRevealViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SWRevealViewController.h; path = "../../../Downloads/SWRevealViewController-master 2/SWRevealViewController/SWRevealViewController.h"; sourceTree = "<group>"; };
-		8464D7C322EFC975009BB52C /* SWRevealViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SWRevealViewController.m; path = "../../../Downloads/SWRevealViewController-master 2/SWRevealViewController/SWRevealViewController.m"; sourceTree = "<group>"; };
 		8464D7C522F0ABE4009BB52C /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		8464D7C622F0ABE4009BB52C /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		8468099322E7DD1F001F9F0C /* LocationCellTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LocationCellTableViewCell.h; sourceTree = "<group>"; };
@@ -144,6 +142,8 @@
 		8495D7AD22DE991B00CFED2D /* ProfileViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProfileViewController.m; sourceTree = "<group>"; };
 		8495D7AF22DF879600CFED2D /* ItineraryCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ItineraryCollectionViewCell.h; sourceTree = "<group>"; };
 		8495D7B022DF879600CFED2D /* ItineraryCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ItineraryCollectionViewCell.m; sourceTree = "<group>"; };
+		84B581C922F11157004BA82B /* SWRevealViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWRevealViewController.h; sourceTree = "<group>"; };
+		84B581CA22F11157004BA82B /* SWRevealViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWRevealViewController.m; sourceTree = "<group>"; };
 		84B5E51522E10637006F4815 /* MapViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MapViewController.h; sourceTree = "<group>"; };
 		84B5E51622E10637006F4815 /* MapViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MapViewController.m; sourceTree = "<group>"; };
 		84B5E51822E114E4006F4815 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
@@ -287,6 +287,16 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
+		84B581C822F11157004BA82B /* SWRevealViewController */ = {
+			isa = PBXGroup;
+			children = (
+				84B581C922F11157004BA82B /* SWRevealViewController.h */,
+				84B581CA22F11157004BA82B /* SWRevealViewController.m */,
+			);
+			name = SWRevealViewController;
+			path = "../../../Desktop/Mytinerary-shandler/Mytinerary/SWRevealViewController";
+			sourceTree = "<group>";
+		};
 		D7610695D09E61754239C1A7 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -371,10 +381,9 @@
 		FF6C5EF622DE640200D0EB83 /* Mytinerary */ = {
 			isa = PBXGroup;
 			children = (
+				84B581C822F11157004BA82B /* SWRevealViewController */,
 				8464D7C522F0ABE4009BB52C /* ViewController.h */,
 				8464D7C622F0ABE4009BB52C /* ViewController.m */,
-				8464D7C222EFC975009BB52C /* SWRevealViewController.h */,
-				8464D7C322EFC975009BB52C /* SWRevealViewController.m */,
 				23F5AA6322E919640084086B /* Utils */,
 				FF6C5EF722DE640200D0EB83 /* AppDelegate.h */,
 				FF6C5EF822DE640200D0EB83 /* AppDelegate.m */,
@@ -668,6 +677,7 @@
 			files = (
 				8464D7C722F0ABE4009BB52C /* ViewController.m in Sources */,
 				23F5AA5322E61DF40084086B /* EventDetailsFoodView.m in Sources */,
+				84B581CB22F11157004BA82B /* SWRevealViewController.m in Sources */,
 				23F5A9F222E0DEAD0084086B /* EventInputActivityView.m in Sources */,
 				23F5AA3922E124380084086B /* EventInputHotelView.m in Sources */,
 				23F5AA4D22E61DCF0084086B /* EventDetailsActivityView.m in Sources */,
@@ -694,7 +704,6 @@
 				8468099522E7DD1F001F9F0C /* LocationCellTableViewCell.m in Sources */,
 				23F5AA5622E61E090084086B /* EventDetailsHotelView.m in Sources */,
 				23F5AA4722E61DA40084086B /* EventDetailsTitleView.m in Sources */,
-				8464D7C422EFC975009BB52C /* SWRevealViewController.m in Sources */,
 				FF47EC5F22E67B64001C0DA7 /* ProfileCollectionReusableView.m in Sources */,
 				FF6C5F3522DE8B8900D0EB83 /* DailyTableViewCell.m in Sources */,
 				23F5A9EC22E0D3890084086B /* EventInputSharedView.m in Sources */,

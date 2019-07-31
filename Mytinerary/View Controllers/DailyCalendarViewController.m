@@ -32,7 +32,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self sideMenus];
+  
     
     // initializing formatter for calculating cell's times
     self.timeOfDayFormatter = [[NSDateFormatter alloc] init];
@@ -75,22 +75,7 @@
     
     
 }
--(void) sideMenus{
-    
-    if(self.revealViewController != nil){
-        self.menuButton.target = self.revealViewController;
-        self.menuButton.action = @selector(revealToggle:);
-        self.revealViewController.rearViewRevealWidth = 275;
-        self.revealViewController.rightViewRevealWidth = 160;
-        
-        self.alertButton.target= self.revealViewController;
-        self.alertButton.action = @selector(rightRevealToggle:);
-        
-        [self.view addGestureRecognizer:self.revealViewController.panGestureRecognizer];
-        
-    }
-    
-}
+
 
 - (void)fetchItineraryAndLoadView {
     // set up activity indicator -- TODO: not sure if this actually works
