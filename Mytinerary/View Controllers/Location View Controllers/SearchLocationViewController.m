@@ -58,9 +58,15 @@
     return true;
 }
 
-- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
+
+
+- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
     [self GoogleAPIImplementation:searchBar.text];
 }
+
+//- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
+//    [self GoogleAPIImplementation:searchBar.text];
+//}
 
 -(void)GoogleAPIImplementation:(NSString *)query {
     
