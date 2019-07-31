@@ -150,18 +150,22 @@ static int const HOTEL_VIEW_HEIGHT = 110;
     [endMapItem setName:endLocationName];
     
     // launch maps
-    
-//    TODO configure transport preferences
+    //  take transportation mode preference from event
     NSString *transportationMode = [[NSString alloc] init];
-//    MKLaunchOptionsDirections
-    // walk, bike, car, public transportation -- >TRANSLATE TO APPLE TYPES??
-    if ([self.event.transpoType isEqualToString:@"walk"]) {
-        
+    if ([self.event.transpoType isEqualToString:@"drive"]) {
+        transportationMode = MKLaunchOptionsDirectionsModeDriving;
     }
-    else if (self.event)
-    
-    
-    NSDictionary<NSString *, id> *options = @{MKLaunchOptionsDirectionsModeKey: MKLaunchOptionsDirectionsModeDefault};
+    else if ([self.event.transpoType isEqualToString:@"walk"]) {
+        transportationMode = MKLaunchOptionsDirectionsModeWalking;
+    }
+    else if ([self.event.transpoType isEqualToString:@"transit"]) {
+        transportationMode = MKLaunchOptionsDirectionsModeTransit;
+    }
+    else {
+        transportationMode = MKLaunchOptionsDirectionsModeDefault;
+    }
+    NSLog(@"transpo Mode: %@", transportationMode);
+    NSDictionary<NSString *, id> *options = @{MKLaunchOptionsDirectionsModeKey: transportationMode};
     NSArray<MKMapItem *> *mapItems = [NSArray arrayWithObjects:startMapItem, endMapItem, nil];
     [MKMapItem openMapsWithItems:mapItems launchOptions:options];
 }

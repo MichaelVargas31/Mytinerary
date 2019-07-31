@@ -127,12 +127,21 @@
     
     // transportation specific fields
     self.cost = @(cost);
-    self.endAddress = endAddress;
-    self.endLatitude = endLatitude;
-    self.endLongitude = endLongitude;
     self.transpoType = transpoType;
     
-    Event *updatedEvent = [self initNewEvent:title eventDescription:eventDescription address:startAddress latitude:startLatitude longitude:startLongitude locationType:nil category:@"transportation" startTime:startTime endTime:endTime notes:notes withCompletion:completion];
+    // only update location if it's been changed
+    if (![self.address isEqualToString:startAddress]) {
+        self.address = startAddress;
+        self.latitude = startLatitude;
+        self.longitude = startLongitude;
+    }
+    if (![self.endAddress isEqualToString:endAddress]) {
+        self.endAddress = endAddress;
+        self.endLatitude = endLatitude;
+        self.endLongitude = endLongitude;
+    }
+    
+    Event *updatedEvent = [self initNewEvent:title eventDescription:eventDescription address:self.address latitude:self.latitude longitude:self.longitude locationType:nil category:@"transportation" startTime:startTime endTime:endTime notes:notes withCompletion:completion];
     
     return updatedEvent;
 }
