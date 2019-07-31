@@ -64,6 +64,18 @@
     return self;
 }
 
+- (Event *) updateEvent:(NSString *)title eventDescription:(NSString * _Nullable)eventDescription address:(NSString * _Nullable)address latitude:(NSNumber *)latitude longitude:(NSNumber *)longitude locationType:(NSString *)locationType category:(NSString *)category startTime:(NSDate *)startTime endTime:(NSDate *)endTime notes:(NSString * _Nullable)notes withCompletion:(PFBooleanResultBlock)completion {
+    // only reassign address if the address has been changed
+    if (![self.address isEqualToString:address]) {
+        self.address = address;
+        self.latitude = latitude;
+        self.longitude = longitude;
+    }
+    
+    Event *updatedEvent = [self initNewEvent:title eventDescription:eventDescription address:self.address latitude:self.latitude longitude:self.longitude locationType:locationType category:category startTime:startTime endTime:endTime notes:notes withCompletion:completion];
+    return updatedEvent;
+}
+
 /* initialize an activity event
  (required: title, category, start/end times, address, completion;
  optional: event description, cost, notes) */
@@ -84,7 +96,7 @@
     // activity specific field
     self.cost = @(cost);
     
-    Event *updatedEvent = [self initNewEvent:title eventDescription:eventDescription address:address latitude:latitude longitude:longitude locationType:locationType category:@"activity" startTime:startTime endTime:endTime notes:notes withCompletion:completion];
+    Event *updatedEvent = [self updateEvent:title eventDescription:eventDescription address:address latitude:latitude longitude:longitude locationType:locationType category:@"activity" startTime:startTime endTime:endTime notes:notes withCompletion:completion];
     
     return updatedEvent;
 }
@@ -130,18 +142,13 @@
     self.transpoType = transpoType;
     
     // only update location if it's been changed
-    if (![self.address isEqualToString:startAddress]) {
-        self.address = startAddress;
-        self.latitude = startLatitude;
-        self.longitude = startLongitude;
-    }
     if (![self.endAddress isEqualToString:endAddress]) {
         self.endAddress = endAddress;
         self.endLatitude = endLatitude;
         self.endLongitude = endLongitude;
     }
     
-    Event *updatedEvent = [self initNewEvent:title eventDescription:eventDescription address:self.address latitude:self.latitude longitude:self.longitude locationType:nil category:@"transportation" startTime:startTime endTime:endTime notes:notes withCompletion:completion];
+    Event *updatedEvent = [self updateEvent:title eventDescription:eventDescription address:startAddress latitude:startLatitude longitude:startLongitude locationType:nil category:@"transportation" startTime:startTime endTime:endTime notes:notes withCompletion:completion];
     
     return updatedEvent;
 }
@@ -175,7 +182,7 @@
     self.foodType = foodType;
     self.foodCost = foodCost;
     
-    Event *updatedEvent = [self initNewEvent:title eventDescription:eventDescription address:address latitude:latitude longitude:longitude locationType:locationType category:@"food" startTime:startTime endTime:endTime notes:notes withCompletion:completion];
+    Event *updatedEvent = [self updateEvent:title eventDescription:eventDescription address:address latitude:latitude longitude:longitude locationType:locationType category:@"food" startTime:startTime endTime:endTime notes:notes withCompletion:completion];
     
     return updatedEvent;
 }
@@ -202,7 +209,7 @@
     self.hotelType = hotelType;
     self.cost = @(cost);
     
-    Event *updatedEvent = [self initNewEvent:title eventDescription:eventDescription address:address latitude:latitude longitude:longitude locationType:locationType category:@"hotel" startTime:startTime endTime:endTime notes:notes withCompletion:completion];
+    Event *updatedEvent = [self updateEvent:title eventDescription:eventDescription address:address latitude:latitude longitude:longitude locationType:locationType category:@"hotel" startTime:startTime endTime:endTime notes:notes withCompletion:completion];
     
     return updatedEvent;
 }
