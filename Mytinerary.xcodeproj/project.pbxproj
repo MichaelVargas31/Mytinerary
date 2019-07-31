@@ -42,6 +42,7 @@
 		8495D7AE22DE991B00CFED2D /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8495D7AD22DE991B00CFED2D /* ProfileViewController.m */; };
 		8495D7B122DF879600CFED2D /* ItineraryCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8495D7B022DF879600CFED2D /* ItineraryCollectionViewCell.m */; };
 		84B581CB22F11157004BA82B /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84B581CA22F11157004BA82B /* SWRevealViewController.m */; };
+		84B581CE22F25316004BA82B /* PhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84B581CD22F25316004BA82B /* PhotoViewController.m */; };
 		84B5E51722E10637006F4815 /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84B5E51622E10637006F4815 /* MapViewController.m */; };
 		84B5E51922E114E4006F4815 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84B5E51822E114E4006F4815 /* MapKit.framework */; };
 		C628AEE5E20C9C7409D9B734 /* Pods_MytineraryTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 58B8F33A939BCC86C8C98935 /* Pods_MytineraryTests.framework */; };
@@ -144,6 +145,8 @@
 		8495D7B022DF879600CFED2D /* ItineraryCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ItineraryCollectionViewCell.m; sourceTree = "<group>"; };
 		84B581C922F11157004BA82B /* SWRevealViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWRevealViewController.h; sourceTree = "<group>"; };
 		84B581CA22F11157004BA82B /* SWRevealViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWRevealViewController.m; sourceTree = "<group>"; };
+		84B581CC22F25316004BA82B /* PhotoViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PhotoViewController.h; sourceTree = "<group>"; };
+		84B581CD22F25316004BA82B /* PhotoViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PhotoViewController.m; sourceTree = "<group>"; };
 		84B5E51522E10637006F4815 /* MapViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MapViewController.h; sourceTree = "<group>"; };
 		84B5E51622E10637006F4815 /* MapViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MapViewController.m; sourceTree = "<group>"; };
 		84B5E51822E114E4006F4815 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
@@ -422,6 +425,8 @@
 		FF6C5F2B22DE865400D0EB83 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				84B581CC22F25316004BA82B /* PhotoViewController.h */,
+				84B581CD22F25316004BA82B /* PhotoViewController.m */,
 				FF47EC6122E7C68E001C0DA7 /* Location View Controllers */,
 				FF47EC6422E7C6AA001C0DA7 /* User View Controllers */,
 				FF47EC6022E7C67E001C0DA7 /* Input View Controllers */,
@@ -702,6 +707,7 @@
 				8468099822E93EAF001F9F0C /* MyAnnotation.m in Sources */,
 				84B5E51722E10637006F4815 /* MapViewController.m in Sources */,
 				8468099522E7DD1F001F9F0C /* LocationCellTableViewCell.m in Sources */,
+				84B581CE22F25316004BA82B /* PhotoViewController.m in Sources */,
 				23F5AA5622E61E090084086B /* EventDetailsHotelView.m in Sources */,
 				23F5AA4722E61DA40084086B /* EventDetailsTitleView.m in Sources */,
 				FF47EC5F22E67B64001C0DA7 /* ProfileCollectionReusableView.m in Sources */,
