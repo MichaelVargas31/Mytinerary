@@ -71,8 +71,7 @@
     // [self.expandView setHidden:TRUE];
     //[self.expandView sizeToFit:()];
     self.status = @"close";
-    CGRect newFrame = CGRectMake( 0.0,self.expandView.frame.origin.y, 2.0, self.expandView.frame.size.height);
-    self.expandView.frame = newFrame;
+   
     
     [self sideMenus];
 }
@@ -286,8 +285,9 @@
     [self presentViewController:navigationController animated:YES completion:nil];
 }
 
-- (IBAction)onTapAddEventButton:(id)sender {
-    [self performSegueWithIdentifier:@"addEventSegue" sender:self];
+- (IBAction)onTapAddEventBtn:(id)sender {
+ [self performSegueWithIdentifier:@"addEventSegue" sender:self];
+    
 }
 
 - (void)onTapItineraryTitle {
@@ -295,41 +295,6 @@
 }
 
 
-
-- (IBAction)expandPressed:(id)sender {
-    
-    if([self.status isEqualToString:@"close"]){
-        
-    self.status = @"open";
-    
-    self.expandView.hidden=false;
-    
-    [UIView animateWithDuration:0.9f delay:0.0f options:UIViewAnimationTransitionFlipFromLeft animations:^{
-        
-        self.expandView.frame =CGRectMake(self.expandView.frame.origin.x, self.expandView.frame.origin.y, self.expandView.frame.size.width+64,  self.expandView.frame.size.height );
-      
-    } completion:^(BOOL finished)
-     {
-        
-     }];
-    
-    
-    }else {
-        
-        self.status=@"close";
-        [UIView animateWithDuration:0.9f delay:0.0f options:UIViewAnimationTransitionFlipFromLeft animations:^{
-           
-            CGRect newFrame = CGRectMake( 0.0,self.expandView.frame.origin.y, 2.0, self.expandView.frame.size.height);
-            self.expandView.frame = newFrame;
-     
-        } completion:^(BOOL finished)
-         {
-        
-         }];
-        
-        
-    }
-}
 
 
 @end

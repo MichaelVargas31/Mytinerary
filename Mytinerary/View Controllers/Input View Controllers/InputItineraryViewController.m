@@ -9,6 +9,8 @@
 #import "InputItineraryViewController.h"
 #import "InputValidation.h"
 #import "Itinerary.h"
+#import "SWRevealViewController.h"
+
 
 @interface InputItineraryViewController ()
 
@@ -35,6 +37,8 @@
                                                           handler:^(UIAlertAction * action) {}];
     
     [self.alert addAction:defaultAction];
+    
+    [self sideMenus];
 }
 
 - (IBAction)onTapCloseButton:(id)sender {
@@ -66,6 +70,23 @@
             }
         }];
     }
+}
+
+-(void) sideMenus{
+    
+    if(self.revealViewController != nil){
+        self.m.target = self.revealViewController;
+        self.m.action = @selector(revealToggle:);
+        self.revealViewController.rearViewRevealWidth = 275;
+        self.revealViewController.rightViewRevealWidth = 160;
+        
+        self.a.target= self.revealViewController;
+        self.a.action = @selector(rightRevealToggle:);
+        
+        [self.view addGestureRecognizer:self.revealViewController.panGestureRecognizer];
+        
+    }
+    
 }
 
 /*
