@@ -123,7 +123,6 @@ static int const HOTEL_VIEW_HEIGHT = 110;
     }
 }
 
-
 - (IBAction)onTapEditButton:(id)sender {
     [self performSegueWithIdentifier:@"editEventSegue" sender:self];
 }

@@ -15,32 +15,44 @@
 @implementation Directions
 
 // NEEDS TO BE TESTED
-+ (void)getDirectionsLatLng:(NSNumber *)startLat startLng:(NSNumber *)startLng endLat:(NSNumber *)endLat endLng:(NSNumber *)endLng withCompletion:(MKDirectionsHandler _Nonnull)completion {
-    
-    // initialize placemarks from lat/lng
-    NSArray *placemarks = [self getPlacemarksLatLng:startLat startLng:startLng endLat:endLat endLng:endLng];
-    MKPlacemark *startPlacemark = [placemarks firstObject];
-    MKPlacemark *endPlacemark = [placemarks lastObject];
-    
-    MKMapItem *startMapItem = [[MKMapItem alloc] initWithPlacemark:startPlacemark];
-    MKMapItem *endMapItem = [[MKMapItem alloc] initWithPlacemark:endPlacemark];
-    
+
++ (MKDirections *)getMKDirectionsFromMapItems:(MKMapItem *)startMapItem endMapItem:(MKMapItem *)endMapItem {
     // create the directions request
     MKDirectionsRequest *request = [[MKDirectionsRequest alloc] init];
     [request setSource:startMapItem];
     [request setDestination:endMapItem];
     
     // CHANGE DEFAULT IF NECESSARY
-    [request setTransportType:MKDirectionsTransportTypeAutomobile];
-    
+    [request setTransportType:MKDirectionsTransportTypeAny];
     [request setRequestsAlternateRoutes:YES];
     
     MKDirections *directions = [[MKDirections alloc] initWithRequest:request];
+    return directions;
+}
+
++ (void)getDirectionsLatLng:(NSNumber *)startLat startLng:(NSNumber *)startLng endLat:(NSNumber *)endLat endLng:(NSNumber *)endLng withCompletion:(MKDirectionsHandler _Nonnull)completion {
+    // initialize placemarks from lat/lng
+    NSArray *mapItems = [self getMapItemsWithLatLng:startLat startLng:startLng endLat:endLat endLng:endLng];
+    MKMapItem *startMapItem = [mapItems firstObject];
+    MKMapItem *endMapItem = [mapItems lastObject];
+    
+    MKDirections *directions = [Directions getMKDirectionsFromMapItems:startMapItem endMapItem:endMapItem];
     
     [directions calculateDirectionsWithCompletionHandler:completion];
 }
 
-+ (NSArray <MKPlacemark *> *)getPlacemarksLatLng:(NSNumber *)startLat startLng:(NSNumber *)startLng endLat:(NSNumber *)endLat endLng:(NSNumber *)endLng {
++ (void)getETALatLng:(NSNumber *)startLat startLng:(NSNumber *)startLng endLat:(NSNumber *)endLat endLng:(NSNumber *)endLng withCompletion:(MKETAHandler _Nonnull)completion {
+    // initialize placemarks from lat/lng
+    NSArray *mapItems = [self getMapItemsWithLatLng:startLat startLng:startLng endLat:endLat endLng:endLng];
+    MKMapItem *startMapItem = [mapItems firstObject];
+    MKMapItem *endMapItem = [mapItems lastObject];
+    
+    MKDirections *directions = [Directions getMKDirectionsFromMapItems:startMapItem endMapItem:endMapItem];
+    
+    [directions calculateETAWithCompletionHandler:completion];
+}
+
++ (NSArray <MKMapItem *> *)getMapItemsWithLatLng:(NSNumber *)startLat startLng:(NSNumber *)startLng endLat:(NSNumber *)endLat endLng:(NSNumber *)endLng {
     // initialize placemarks from lat/lng
     CLLocationCoordinate2D startCoordinate = CLLocationCoordinate2DMake(startLat.doubleValue, startLng.doubleValue);
     MKPlacemark *startPlacemark = [[MKPlacemark alloc] initWithCoordinate:startCoordinate];
@@ -48,28 +60,73 @@
     CLLocationCoordinate2D endCoordinate = CLLocationCoordinate2DMake(endLat.doubleValue, endLng.doubleValue);
     MKPlacemark *endPlacemark = [[MKPlacemark alloc] initWithCoordinate:endCoordinate];
     
-    return [NSArray arrayWithObjects:startPlacemark, endPlacemark, nil];
+    MKMapItem *startMapItem = [[MKMapItem alloc] initWithPlacemark:startPlacemark];
+    MKMapItem *endMapItem = [[MKMapItem alloc] initWithPlacemark:endPlacemark];
+    
+    return [NSArray arrayWithObjects:startMapItem, endMapItem, nil];
 }
 
-+ (NSArray <MKPlacemark *> *)getTransportationEventPlacemarks:(Event *)event {
++ (NSArray <MKMapItem *> *)getTransportationEventMapItems:(Event *)event {
     // if not a transpo event
     if (![event.category isEqualToString:@"transportation"]) {
         return nil;
     }
     
-    return [self getPlacemarksLatLng:event.latitude startLng:event.longitude endLat:event.endLatitude endLng:event.endLongitude];
+    return [self getMapItemsWithLatLng:event.latitude startLng:event.longitude endLat:event.endLatitude endLng:event.endLongitude];
 }
 
 // TODO: create transportation event between two events
-- (MKDirections *)getDirectionsToFromEvents:(Event *)startEvent endEvent:(Event *)endEvent {
-    return nil;
+- (Event *)makeTransportationEventFromEvents:(Event *)startEvent endEvent:(Event *)endEvent {
+    // set up title
+    NSString *title = [NSString stringWithFormat:@"%@ to %@", startEvent.title, endEvent.title];
+    
+    // set up description
+    NSString *eventDescription = [NSString stringWithFormat:@"The allotted time to travel from %@ (%@) to %@ (%@)", startEvent.title, startEvent.address, endEvent.title, endEvent.address];
+    
+    // assign locations
+    NSString *startAddress = startEvent.address;
+    NSNumber *startLatitude = startEvent.latitude;
+    NSNumber *startLongitude = startEvent.longitude;
+    NSString *endAddress = endEvent.address;
+    NSNumber *endLatitude = endEvent.latitude;
+    NSNumber *endLongitude = endEvent.longitude;
+    
+    // set up time
+    NSDate *startTime = startEvent.endTime;
+    NSDate *endTime = endEvent.startTime;
+    
+    Event *transportationEvent = [Event initTransportationEvent:title eventDescription:eventDescription startAddress:startAddress startLatitude:startLatitude startLongitude:startLongitude endAddress:endAddress endLatitude:endLatitude endLongitude:endLongitude startTime:startTime endTime:endTime transpoType:@"drive" cost:0 notes:@"" withCompletion:nil];
+    
+    [Directions getETALatLng:startLatitude startLng:startLongitude endLat:endLatitude endLng:endLongitude withCompletion:^(MKETAResponse * _Nullable response, NSError * _Nullable error) {
+        if (response) {
+            NSLog(@"successfully got ETA");
+            
+            NSDate *endTime = [NSDate dateWithTimeInterval:response.expectedTravelTime sinceDate:startTime];
+            // UPDATE THIS EVENTUALLY
+            NSLog(@"transpo type: %lu", response.transportType);
+            
+            [transportationEvent updateTransportationEventTypeAndTimes:transportationEvent.transpoType startTime:startTime endTime:endTime withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
+                if (succeeded) {
+                    NSLog(@"successfully updated transpo ETA");
+                }
+                else {
+                    NSLog(@"error updating transpo ETA: %@", error.domain);
+                }
+            }];
+        }
+        else {
+            NSLog(@"error getting ETA: %@", error.domain);
+        }
+    }];
+    
+    return transportationEvent;
 }
 
 + (void)openTransportationEventInMaps:(Event *)event {
     // get placemarks for start/end locations, turn into map items
-    NSArray <MKPlacemark *> *placemarks = [Directions getTransportationEventPlacemarks:event];
-    MKMapItem *startMapItem = [[MKMapItem alloc] initWithPlacemark:[placemarks firstObject]];
-    MKMapItem *endMapItem = [[MKMapItem alloc] initWithPlacemark:[placemarks lastObject]];
+    NSArray <MKMapItem *> *mapItems = [Directions getTransportationEventMapItems:event];
+    MKMapItem *startMapItem = [mapItems firstObject];
+    MKMapItem *endMapItem = [mapItems lastObject];
     
     // get names for map items from event title: "______ to _______", use address o/w
     NSString *startLocationName = [[NSString alloc] init];
@@ -102,7 +159,6 @@
         transportationMode = MKLaunchOptionsDirectionsModeDefault;
     }
     NSDictionary<NSString *, id> *options = @{MKLaunchOptionsDirectionsModeKey: transportationMode};
-    NSArray<MKMapItem *> *mapItems = [NSArray arrayWithObjects:startMapItem, endMapItem, nil];
     [MKMapItem openMapsWithItems:mapItems launchOptions:options];
 }
 
