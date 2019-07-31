@@ -21,6 +21,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
 }
 
 - (IBAction)loginButton:(id)sender {
@@ -71,8 +72,11 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([[segue identifier] isEqualToString:@"defaultItinerarySegue"]) {
-        UINavigationController *navigationController = [segue destinationViewController];
-        DailyCalendarViewController *dailyCalendarViewController = [[navigationController viewControllers] firstObject];
+        //UINavigationController *navigationController = [segue destinationViewController];
+        //DailyCalendarViewController *dailyCalendarViewController = [[navigationController viewControllers] firstObject];
+        
+        
+        DailyCalendarViewController *dailyCalendarViewController = [segue destinationViewController];
         User *user = sender;
         dailyCalendarViewController.itinerary = user.defaultItinerary;
         dailyCalendarViewController.fromLogin = true;

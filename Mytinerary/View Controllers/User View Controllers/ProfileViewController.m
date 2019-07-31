@@ -15,6 +15,7 @@
 #import "Itinerary.h"
 #import "Parse/Parse.h"
 #import "User.h"
+#import "SWRevealViewController.h"
 
 
 @interface ProfileViewController () <UICollectionViewDelegate, UICollectionViewDataSource>
@@ -49,7 +50,26 @@
     CGFloat itemHeight=100;
     layout.itemSize= CGSizeMake(itemWidth, itemHeight);
     
+    [self sideMenus];
 }
+
+-(void) sideMenus{
+    
+    if(self.revealViewController != nil){
+        self.mB.target = self.revealViewController;
+        self.mB.action = @selector(revealToggle:);
+        self.revealViewController.rearViewRevealWidth = 275;
+        self.revealViewController.rightViewRevealWidth = 160;
+        
+        self.aB.target= self.revealViewController;
+        self.aB.action = @selector(rightRevealToggle:);
+        
+        [self.view addGestureRecognizer:self.revealViewController.panGestureRecognizer];
+        
+    }
+    
+}
+
 -(void)fetchitineraries {
     //Itinerary Query
     PFQuery *iQuery = [Itinerary query];
@@ -130,6 +150,8 @@
 }
 
 #pragma mark - Navigation
+
+
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
