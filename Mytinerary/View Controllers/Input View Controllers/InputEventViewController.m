@@ -152,19 +152,19 @@ static int const EVENT_INPUT_SUBMIT_VIEW_HEIGHT = 50;
     
     // set category picker to current event category, prefill category specific fields
     if ([event.category isEqualToString:@"activity"]) {
-        [self.eventInputSharedView.categoryPickerView selectRow:0 inComponent:0 animated:YES];
+        [self.eventInputSharedView.categoryPickerView selectRow:0 inComponent:0 animated:NO];
         [self prefillActivityEventFields:event];
     }
     else if ([event.category isEqualToString:@"transportation"]) {
-        [self.eventInputSharedView.categoryPickerView selectRow:1 inComponent:0 animated:YES];
+        [self.eventInputSharedView.categoryPickerView selectRow:1 inComponent:0 animated:NO];
         [self prefillTransportationEventFields:event];
     }
     else if ([event.category isEqualToString:@"food"]) {
-        [self.eventInputSharedView.categoryPickerView selectRow:2 inComponent:0 animated:YES];
+        [self.eventInputSharedView.categoryPickerView selectRow:2 inComponent:0 animated:NO];
         [self prefillFoodEventFields:event];
     }
     else if ([event.category isEqualToString:@"hotel"]) {
-        [self.eventInputSharedView.categoryPickerView selectRow:3 inComponent:0 animated:YES];
+        [self.eventInputSharedView.categoryPickerView selectRow:3 inComponent:0 animated:NO];
         [self prefillHotelEventFields:event];
     }
     [self showCategorySubview:event.category];
@@ -183,16 +183,16 @@ static int const EVENT_INPUT_SUBMIT_VIEW_HEIGHT = 50;
     self.eventInputTransportationView.notesTextView.text = event.notes;
     
     if ([event.transpoType isEqualToString:@"walk"]) {
-        [self.eventInputSharedView.categoryPickerView selectRow:0 inComponent:0 animated:YES];
+        [self.eventInputTransportationView.typePickerView selectRow:0 inComponent:0 animated:YES];
     }
     else if ([event.transpoType isEqualToString:@"bike"]) {
-        [self.eventInputSharedView.categoryPickerView selectRow:1 inComponent:0 animated:YES];
+        [self.eventInputTransportationView.typePickerView selectRow:1 inComponent:0 animated:YES];
     }
     else if ([event.transpoType isEqualToString:@"car"]) {
-        [self.eventInputSharedView.categoryPickerView selectRow:2 inComponent:0 animated:YES];
+        [self.eventInputTransportationView.typePickerView selectRow:2 inComponent:0 animated:YES];
     }
     else if ([event.transpoType isEqualToString:@"public transportation"]) {
-        [self.eventInputSharedView.categoryPickerView selectRow:3 inComponent:0 animated:YES];
+        [self.eventInputTransportationView.typePickerView selectRow:3 inComponent:0 animated:YES];
     }
 }
 
@@ -202,16 +202,16 @@ static int const EVENT_INPUT_SUBMIT_VIEW_HEIGHT = 50;
     self.eventInputFoodView.notesTextView.text = event.notes;
     
     if ([event.foodCost isEqualToString:@"$"]) {
-        [self.eventInputSharedView.categoryPickerView selectRow:0 inComponent:0 animated:YES];
+        [self.eventInputFoodView.costPickerView selectRow:0 inComponent:0 animated:YES];
     }
     else if ([event.foodCost isEqualToString:@"$$"]) {
-        [self.eventInputSharedView.categoryPickerView selectRow:1 inComponent:0 animated:YES];
+        [self.eventInputFoodView.costPickerView selectRow:1 inComponent:0 animated:YES];
     }
     else if ([event.foodCost isEqualToString:@"$$$"]) {
-        [self.eventInputSharedView.categoryPickerView selectRow:2 inComponent:0 animated:YES];
+        [self.eventInputFoodView.costPickerView selectRow:2 inComponent:0 animated:YES];
     }
     else if ([event.foodCost isEqualToString:@"$$$$"]) {
-        [self.eventInputSharedView.categoryPickerView selectRow:3 inComponent:0 animated:YES];
+        [self.eventInputFoodView.costPickerView selectRow:3 inComponent:0 animated:YES];
     }
 }
 
@@ -221,16 +221,16 @@ static int const EVENT_INPUT_SUBMIT_VIEW_HEIGHT = 50;
     self.eventInputHotelView.notesTextView.text = event.notes;
     
     if ([event.hotelType isEqualToString:@"hotel"]) {
-        [self.eventInputSharedView.categoryPickerView selectRow:0 inComponent:0 animated:YES];
+        [self.eventInputHotelView.typePickerView selectRow:0 inComponent:0 animated:YES];
     }
     else if ([event.hotelType isEqualToString:@"campground"]) {
-        [self.eventInputSharedView.categoryPickerView selectRow:1 inComponent:0 animated:YES];
+        [self.eventInputHotelView.typePickerView selectRow:1 inComponent:0 animated:YES];
     }
     else if ([event.hotelType isEqualToString:@"hostel"]) {
-        [self.eventInputSharedView.categoryPickerView selectRow:2 inComponent:0 animated:YES];
+        [self.eventInputHotelView.typePickerView selectRow:2 inComponent:0 animated:YES];
     }
     else if ([event.hotelType isEqualToString:@"airbnb"]) {
-        [self.eventInputSharedView.categoryPickerView selectRow:3 inComponent:0 animated:YES];
+        [self.eventInputHotelView.typePickerView selectRow:3 inComponent:0 animated:YES];
     }
 }
 
