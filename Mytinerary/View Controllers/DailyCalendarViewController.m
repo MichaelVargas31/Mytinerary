@@ -18,6 +18,7 @@
 #import "DateFormatter.h"
 #import "FSCalendar.h"
 #import "Parse/Parse.h"
+#import "SWRevealViewController.h"
 
 
 @interface DailyCalendarViewController () <UITableViewDelegate, UITableViewDataSource, CalendarEventViewDelegate, UICollectionViewDelegate, UICollectionViewDataSource>
@@ -73,9 +74,25 @@
     CGRect newFrame = CGRectMake( 0.0,self.expandView.frame.origin.y, 2.0, self.expandView.frame.size.height);
     self.expandView.frame = newFrame;
     
-    
+    [self sideMenus];
 }
 
+-(void) sideMenus{
+    
+    if(self.revealViewController != nil){
+        self.menuButton.target = self.revealViewController;
+        self.menuButton.action = @selector(revealToggle:);
+        self.revealViewController.rearViewRevealWidth = 275;
+        self.revealViewController.rightViewRevealWidth = 160;
+        
+        self.alertButton.target= self.revealViewController;
+        self.alertButton.action = @selector(rightRevealToggle:);
+        
+        [self.view addGestureRecognizer:self.revealViewController.panGestureRecognizer];
+        
+    }
+    
+}
 
 - (void)fetchItineraryAndLoadView {
     // set up activity indicator -- TODO: not sure if this actually works
