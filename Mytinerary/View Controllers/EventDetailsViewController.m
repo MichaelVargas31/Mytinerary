@@ -15,6 +15,7 @@
 #import "EventDetailsHotelView.h"
 #import "InputEventViewController.h"
 #import "DateFormatter.h"
+#import "Directions.h"
 
 static int const TITLE_VIEW_HEIGHT = 100;
 static int const DESCRIPTION_VIEW_HEIGHT = 300;
@@ -128,7 +129,30 @@ static int const HOTEL_VIEW_HEIGHT = 110;
 }
 
 - (IBAction)onTapOpenMapsButton:(id)sender {
-    NSLog(@"open maps button tapped!");
+    // get placemarks for start/end locations, turn into map items
+    NSArray <MKPlacemark *> *placemarks = [Directions getTransportationEventPlacemarks:self.event];
+    MKMapItem *startMapItem = [[MKMapItem alloc] initWithPlacemark:[placemarks firstObject]];
+    MKMapItem *endMapItem = [[MKMapItem alloc] initWithPlacemark:[placemarks lastObject]];
+    
+    // get names for map items from event title: "______ to _______", use address o/w
+    NSString *startLocationName = [[NSString alloc] init];
+    NSString *endLocationName = [[NSString alloc] init];
+    if ([self.event.title containsString:@" to "]) {
+        NSRange range = [self.event.title rangeOfString:@" to "];
+        startLocationName = [self.event.title substringToIndex:range.location];
+        endLocationName = [self.event.title substringFromIndex:(range.location + range.length)];
+    }
+    else {
+        startLocationName = self.event.address;
+        endLocationName = self.event.endAddress;
+    }
+    [startMapItem setName:startLocationName];
+    [endMapItem setName:endLocationName];
+    
+    // launch maps
+    NSDictionary<NSString *, id> *options = @{MKLaunchOptionsDirectionsModeKey: MKLaunchOptionsDirectionsModeDefault};
+    NSArray<MKMapItem *> *mapItems = [NSArray arrayWithObjects:startMapItem, endMapItem, nil];
+    [MKMapItem openMapsWithItems:mapItems launchOptions:options];
 }
 
 #pragma mark - Navigation
