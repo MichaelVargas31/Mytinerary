@@ -129,45 +129,7 @@ static int const HOTEL_VIEW_HEIGHT = 110;
 }
 
 - (IBAction)onTapOpenMapsButton:(id)sender {
-    // get placemarks for start/end locations, turn into map items
-    NSArray <MKPlacemark *> *placemarks = [Directions getTransportationEventPlacemarks:self.event];
-    MKMapItem *startMapItem = [[MKMapItem alloc] initWithPlacemark:[placemarks firstObject]];
-    MKMapItem *endMapItem = [[MKMapItem alloc] initWithPlacemark:[placemarks lastObject]];
-    
-    // get names for map items from event title: "______ to _______", use address o/w
-    NSString *startLocationName = [[NSString alloc] init];
-    NSString *endLocationName = [[NSString alloc] init];
-    if ([self.event.title containsString:@" to "]) {
-        NSRange range = [self.event.title rangeOfString:@" to "];
-        startLocationName = [self.event.title substringToIndex:range.location];
-        endLocationName = [self.event.title substringFromIndex:(range.location + range.length)];
-    }
-    else {
-        startLocationName = self.event.address;
-        endLocationName = self.event.endAddress;
-    }
-    [startMapItem setName:startLocationName];
-    [endMapItem setName:endLocationName];
-    
-    // launch maps
-    //  take transportation mode preference from event
-    NSString *transportationMode = [[NSString alloc] init];
-    if ([self.event.transpoType isEqualToString:@"drive"]) {
-        transportationMode = MKLaunchOptionsDirectionsModeDriving;
-    }
-    else if ([self.event.transpoType isEqualToString:@"walk"]) {
-        transportationMode = MKLaunchOptionsDirectionsModeWalking;
-    }
-    else if ([self.event.transpoType isEqualToString:@"transit"]) {
-        transportationMode = MKLaunchOptionsDirectionsModeTransit;
-    }
-    else {
-        transportationMode = MKLaunchOptionsDirectionsModeDefault;
-    }
-    NSLog(@"transpo Mode: %@", transportationMode);
-    NSDictionary<NSString *, id> *options = @{MKLaunchOptionsDirectionsModeKey: transportationMode};
-    NSArray<MKMapItem *> *mapItems = [NSArray arrayWithObjects:startMapItem, endMapItem, nil];
-    [MKMapItem openMapsWithItems:mapItems launchOptions:options];
+    [Directions openTransportationEventInMaps:self.event];
 }
 
 #pragma mark - Navigation

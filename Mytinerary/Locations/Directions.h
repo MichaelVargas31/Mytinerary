@@ -18,7 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (void)getDirectionsLatLng:(NSNumber *)startLat startLng:(NSNumber *)startLng endLat:(NSNumber *)endLat endLng:(NSNumber *)endLng withCompletion:(MKDirectionsHandler _Nonnull)completion;
 
-+ (NSArray <MKPlacemark *> *)getTransportationEventPlacemarks:(Event *)event;
++ (void)openTransportationEventInMaps:(Event *)event;
 
 @end
 

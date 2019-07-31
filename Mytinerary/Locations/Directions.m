@@ -65,4 +65,45 @@
     return nil;
 }
 
++ (void)openTransportationEventInMaps:(Event *)event {
+    // get placemarks for start/end locations, turn into map items
+    NSArray <MKPlacemark *> *placemarks = [Directions getTransportationEventPlacemarks:event];
+    MKMapItem *startMapItem = [[MKMapItem alloc] initWithPlacemark:[placemarks firstObject]];
+    MKMapItem *endMapItem = [[MKMapItem alloc] initWithPlacemark:[placemarks lastObject]];
+    
+    // get names for map items from event title: "______ to _______", use address o/w
+    NSString *startLocationName = [[NSString alloc] init];
+    NSString *endLocationName = [[NSString alloc] init];
+    if ([event.title containsString:@" to "]) {
+        NSRange range = [event.title rangeOfString:@" to "];
+        startLocationName = [event.title substringToIndex:range.location];
+        endLocationName = [event.title substringFromIndex:(range.location + range.length)];
+    }
+    else {
+        startLocationName = event.address;
+        endLocationName = event.endAddress;
+    }
+    [startMapItem setName:startLocationName];
+    [endMapItem setName:endLocationName];
+    
+    // launch maps
+    //  take transportation mode preference from event
+    NSString *transportationMode = [[NSString alloc] init];
+    if ([event.transpoType isEqualToString:@"drive"]) {
+        transportationMode = MKLaunchOptionsDirectionsModeDriving;
+    }
+    else if ([event.transpoType isEqualToString:@"walk"]) {
+        transportationMode = MKLaunchOptionsDirectionsModeWalking;
+    }
+    else if ([event.transpoType isEqualToString:@"transit"]) {
+        transportationMode = MKLaunchOptionsDirectionsModeTransit;
+    }
+    else {
+        transportationMode = MKLaunchOptionsDirectionsModeDefault;
+    }
+    NSDictionary<NSString *, id> *options = @{MKLaunchOptionsDirectionsModeKey: transportationMode};
+    NSArray<MKMapItem *> *mapItems = [NSArray arrayWithObjects:startMapItem, endMapItem, nil];
+    [MKMapItem openMapsWithItems:mapItems launchOptions:options];
+}
+
 @end
