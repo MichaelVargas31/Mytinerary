@@ -150,6 +150,17 @@ static int const HOTEL_VIEW_HEIGHT = 110;
     [endMapItem setName:endLocationName];
     
     // launch maps
+    
+//    TODO configure transport preferences
+    NSString *transportationMode = [[NSString alloc] init];
+//    MKLaunchOptionsDirections
+    // walk, bike, car, public transportation -- >TRANSLATE TO APPLE TYPES??
+    if ([self.event.transpoType isEqualToString:@"walk"]) {
+        
+    }
+    else if (self.event)
+    
+    
     NSDictionary<NSString *, id> *options = @{MKLaunchOptionsDirectionsModeKey: MKLaunchOptionsDirectionsModeDefault};
     NSArray<MKMapItem *> *mapItems = [NSArray arrayWithObjects:startMapItem, endMapItem, nil];
     [MKMapItem openMapsWithItems:mapItems launchOptions:options];

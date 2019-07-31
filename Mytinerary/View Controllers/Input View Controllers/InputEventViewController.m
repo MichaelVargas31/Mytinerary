@@ -122,7 +122,7 @@ static int const EVENT_INPUT_SUBMIT_VIEW_HEIGHT = 50;
     // setup transportation category picker view
     self.eventInputTransportationView.typePickerView.delegate = self;
     self.eventInputTransportationView.typePickerView.dataSource = self;
-    self.transportationTypePickerData = [NSArray arrayWithObjects:@"walk", @"bike", @"car", @"public transportation", nil];
+    self.transportationTypePickerData = [NSArray arrayWithObjects:@"drive", @"walk", @"transit", @"ride", nil];
     // setup transportation location text view tags
     self.eventInputTransportationView.startLocationTextField.tag = 1;
     self.eventInputTransportationView.endLocationTextField.tag = 2;
@@ -182,16 +182,16 @@ static int const EVENT_INPUT_SUBMIT_VIEW_HEIGHT = 50;
     self.eventInputTransportationView.costTextField.text = [NSString stringWithFormat:@"%@", event.cost];
     self.eventInputTransportationView.notesTextView.text = event.notes;
     
-    if ([event.transpoType isEqualToString:@"walk"]) {
+    if ([event.transpoType isEqualToString:@"drive"]) {
         [self.eventInputTransportationView.typePickerView selectRow:0 inComponent:0 animated:YES];
     }
-    else if ([event.transpoType isEqualToString:@"bike"]) {
+    else if ([event.transpoType isEqualToString:@"walk"]) {
         [self.eventInputTransportationView.typePickerView selectRow:1 inComponent:0 animated:YES];
     }
-    else if ([event.transpoType isEqualToString:@"car"]) {
+    else if ([event.transpoType isEqualToString:@"transit"]) {
         [self.eventInputTransportationView.typePickerView selectRow:2 inComponent:0 animated:YES];
     }
-    else if ([event.transpoType isEqualToString:@"public transportation"]) {
+    else if ([event.transpoType isEqualToString:@"ride"]) {
         [self.eventInputTransportationView.typePickerView selectRow:3 inComponent:0 animated:YES];
     }
 }
