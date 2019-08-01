@@ -27,15 +27,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    self.locationManager.requestAlwaysAuthorization;
-    self.locationManager.requestWhenInUseAuthorization;
    
-    if(CLLocationManager.locationServicesEnabled){
+    /*if(CLLocationManager.locationServicesEnabled){
         self.locationManager.delegate=self;
         self.locationManager.desiredAccuracy=kCLLocationAccuracyBest;
-        self.locationManager.startUpdatingLocation;
-    }
+      
+    }*/
     
     self.mapView.delegate=self;
     
