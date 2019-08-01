@@ -14,9 +14,7 @@
 
 @implementation Directions
 
-// NEEDS TO BE TESTED
-
-+ (MKDirections *)getMKDirectionsFromMapItems:(MKMapItem *)startMapItem endMapItem:(MKMapItem *)endMapItem {
++ (MKDirections *)getMKDirectionsFromMapItems:(MKMapItem *)startMapItem endMapItem:(MKMapItem *)endMapItem departureDate:(NSDate *)departureDate {
     // create the directions request
     MKDirectionsRequest *request = [[MKDirectionsRequest alloc] init];
     [request setSource:startMapItem];
@@ -25,29 +23,30 @@
     // CHANGE DEFAULT IF NECESSARY
     [request setTransportType:MKDirectionsTransportTypeAny];
     [request setRequestsAlternateRoutes:YES];
+    [request setDepartureDate:departureDate];
     
     MKDirections *directions = [[MKDirections alloc] initWithRequest:request];
     return directions;
 }
 
-+ (void)getDirectionsLatLng:(NSNumber *)startLat startLng:(NSNumber *)startLng endLat:(NSNumber *)endLat endLng:(NSNumber *)endLng withCompletion:(MKDirectionsHandler _Nonnull)completion {
++ (void)getDirectionsLatLng:(NSNumber *)startLat startLng:(NSNumber *)startLng endLat:(NSNumber *)endLat endLng:(NSNumber *)endLng departureDate:(NSDate *)departureDate withCompletion:(MKDirectionsHandler _Nonnull)completion {
     // initialize placemarks from lat/lng
     NSArray *mapItems = [self getMapItemsWithLatLng:startLat startLng:startLng endLat:endLat endLng:endLng];
     MKMapItem *startMapItem = [mapItems firstObject];
     MKMapItem *endMapItem = [mapItems lastObject];
     
-    MKDirections *directions = [Directions getMKDirectionsFromMapItems:startMapItem endMapItem:endMapItem];
+    MKDirections *directions = [Directions getMKDirectionsFromMapItems:startMapItem endMapItem:endMapItem departureDate:departureDate];
     
     [directions calculateDirectionsWithCompletionHandler:completion];
 }
 
-+ (void)getETALatLng:(NSNumber *)startLat startLng:(NSNumber *)startLng endLat:(NSNumber *)endLat endLng:(NSNumber *)endLng withCompletion:(MKETAHandler _Nonnull)completion {
++ (void)getETALatLng:(NSNumber *)startLat startLng:(NSNumber *)startLng endLat:(NSNumber *)endLat endLng:(NSNumber *)endLng departureDate:(NSDate *)departureDate withCompletion:(MKETAHandler _Nonnull)completion {
     // initialize placemarks from lat/lng
     NSArray *mapItems = [self getMapItemsWithLatLng:startLat startLng:startLng endLat:endLat endLng:endLng];
     MKMapItem *startMapItem = [mapItems firstObject];
     MKMapItem *endMapItem = [mapItems lastObject];
     
-    MKDirections *directions = [Directions getMKDirectionsFromMapItems:startMapItem endMapItem:endMapItem];
+    MKDirections *directions = [Directions getMKDirectionsFromMapItems:startMapItem endMapItem:endMapItem departureDate:departureDate];
     
     [directions calculateETAWithCompletionHandler:completion];
 }
@@ -97,14 +96,32 @@
     
     Event *transportationEvent = [Event initTransportationEvent:title eventDescription:eventDescription startAddress:startAddress startLatitude:startLatitude startLongitude:startLongitude endAddress:endAddress endLatitude:endLatitude endLongitude:endLongitude startTime:startTime endTime:endTime transpoType:@"drive" cost:0 notes:@"" withCompletion:nil];
     
-    [Directions getETALatLng:startLatitude startLng:startLongitude endLat:endLatitude endLng:endLongitude withCompletion:^(MKETAResponse * _Nullable response, NSError * _Nullable error) {
+    [Directions getETALatLng:startLatitude startLng:startLongitude endLat:endLatitude endLng:endLongitude departureDate:startTime withCompletion:^(MKETAResponse * _Nullable response, NSError * _Nullable error) {
         if (response) {
             NSLog(@"successfully got ETA");
             
             NSDate *endTime = [NSDate dateWithTimeInterval:response.expectedTravelTime sinceDate:startTime];
-            // UPDATE THIS EVENTUALLY
-            NSLog(@"transpo type: %lu", response.transportType);
             
+            // update transportation event by recommended transport type (from maps)
+            switch (response.transportType) {
+                case MKDirectionsTransportTypeAutomobile:
+                    transportationEvent.transpoType = @"drive";
+                    break;
+                case MKDirectionsTransportTypeWalking:
+                    transportationEvent.transpoType = @"walk";
+                    break;
+                case MKDirectionsTransportTypeTransit:
+                    transportationEvent.transpoType = @"transit";
+                    break;
+                case MKDirectionsTransportTypeAny:
+                    transportationEvent.transpoType = @"ride";
+                    break;
+                default:
+                    transportationEvent.transpoType = @"drive";
+                    break;
+            }
+            
+            // update transportation type + end time (from ETA response)
             [transportationEvent updateTransportationEventTypeAndTimes:transportationEvent.transpoType startTime:startTime endTime:endTime withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
                 if (succeeded) {
                     NSLog(@"successfully updated transpo ETA");
@@ -158,7 +175,7 @@
     else {
         transportationMode = MKLaunchOptionsDirectionsModeDefault;
     }
-    NSDictionary<NSString *, id> *options = @{MKLaunchOptionsDirectionsModeKey: transportationMode};
+    NSDictionary<NSString *, id> *options = @{MKLaunchOptionsDirectionsModeKey: transportationMode, MKLaunchOptionsShowsTrafficKey:@true};
     [MKMapItem openMapsWithItems:mapItems launchOptions:options];
 }
 

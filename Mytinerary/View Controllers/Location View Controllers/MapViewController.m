@@ -162,7 +162,7 @@
 
 // get the route from a given transportation event
 - (void)getTransportationEventRoute:(Event *)event {
-    [Directions getDirectionsLatLng:event.latitude startLng:event.longitude endLat:event.endLatitude endLng:event.endLongitude withCompletion:^(MKDirectionsResponse * _Nullable response, NSError * _Nullable error) {
+    [Directions getDirectionsLatLng:event.latitude startLng:event.longitude endLat:event.endLatitude endLng:event.endLongitude departureDate:event.startTime withCompletion:^(MKDirectionsResponse * _Nullable response, NSError * _Nullable error) {
         if (response) {
             NSLog(@"successfully got directions for '%@'", event.title);
             MKRoute *route = response.routes[0];
@@ -189,10 +189,13 @@
             transpoType = @"walk";
             break;
         case MKDirectionsTransportTypeTransit:
-            transpoType = @"public transportation";
+            transpoType = @"transit";
             break;
         case MKDirectionsTransportTypeAutomobile:
-            transpoType = @"car";
+            transpoType = @"drive";
+            break;
+        case MKDirectionsTransportTypeAny:
+            transpoType = @"ride";
             break;
         default:
             transpoType = @"other";
