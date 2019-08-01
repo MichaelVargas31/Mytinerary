@@ -28,6 +28,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissKeyboard)];
+    [self.view addGestureRecognizer:tap];
+    
     // set up alert controller
     self.alert = [UIAlertController alertControllerWithTitle:@"Error"
                                                      message:@"This is an alert."
@@ -72,9 +75,11 @@
     }
 }
 
--(void) sideMenus{
-    
-    if(self.revealViewController != nil){
+- (void)dismissKeyboard {
+    [self.view endEditing:YES];
+  
+-(void)sideMenus {
+    if (self.revealViewController != nil) {
         self.m.target = self.revealViewController;
         self.m.action = @selector(revealToggle:);
         self.revealViewController.rearViewRevealWidth = 275;
@@ -84,9 +89,7 @@
         self.a.action = @selector(rightRevealToggle:);
         
         [self.view addGestureRecognizer:self.revealViewController.panGestureRecognizer];
-        
     }
-    
 }
 
 /*

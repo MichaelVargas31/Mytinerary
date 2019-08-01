@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		04643C351E847C23F6577931 /* Pods_MytineraryUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E49E5CF74D83A7C35B144F7A /* Pods_MytineraryUITests.framework */; };
 		06B8D04C40E1C9F29C166801 /* Pods_Mytinerary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9FBBF0DECFB9E3F7EDAD49EC /* Pods_Mytinerary.framework */; };
+		2393754A22EFA599002CBAA7 /* Directions.m in Sources */ = {isa = PBXBuildFile; fileRef = 2393754922EFA599002CBAA7 /* Directions.m */; };
+		2393754C22EFA913002CBAA7 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2393754B22EFA913002CBAA7 /* MapKit.framework */; };
 		23F5A9E922DFE59A0084086B /* InputItineraryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 23F5A9E822DFE59A0084086B /* InputItineraryViewController.m */; };
 		23F5A9EC22E0D3890084086B /* EventInputSharedView.m in Sources */ = {isa = PBXBuildFile; fileRef = 23F5A9EB22E0D3890084086B /* EventInputSharedView.m */; };
 		23F5A9EF22E0D9B50084086B /* InputEventViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 23F5A9EE22E0D9B50084086B /* InputEventViewController.m */; };
@@ -78,6 +80,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2393754822EFA599002CBAA7 /* Directions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Directions.h; sourceTree = "<group>"; };
+		2393754922EFA599002CBAA7 /* Directions.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Directions.m; sourceTree = "<group>"; };
+		2393754B22EFA913002CBAA7 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		23F5A9E722DFE59A0084086B /* InputItineraryViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InputItineraryViewController.h; sourceTree = "<group>"; };
 		23F5A9E822DFE59A0084086B /* InputItineraryViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InputItineraryViewController.m; sourceTree = "<group>"; };
 		23F5A9EA22E0D3890084086B /* EventInputSharedView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EventInputSharedView.h; sourceTree = "<group>"; };
@@ -189,7 +194,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				84B5E51922E114E4006F4815 /* MapKit.framework in Frameworks */,
+				2393754C22EFA913002CBAA7 /* MapKit.framework in Frameworks */,
 				06B8D04C40E1C9F29C166801 /* Pods_Mytinerary.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -213,6 +218,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2393755122F0FA1B002CBAA7 /* Locations */ = {
+			isa = PBXGroup;
+			children = (
+				2393754822EFA599002CBAA7 /* Directions.h */,
+				2393754922EFA599002CBAA7 /* Directions.m */,
+			);
+			path = Locations;
+			sourceTree = "<group>";
+		};
 		23F5AA4422E61D6E0084086B /* Event Input Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -267,7 +281,7 @@
 		6E41998CE8EA405ABF1B9988 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				84B5E51822E114E4006F4815 /* MapKit.framework */,
+				2393754B22EFA913002CBAA7 /* MapKit.framework */,
 				9FBBF0DECFB9E3F7EDAD49EC /* Pods_Mytinerary.framework */,
 				58B8F33A939BCC86C8C98935 /* Pods_MytineraryTests.framework */,
 				E49E5CF74D83A7C35B144F7A /* Pods_MytineraryUITests.framework */,
@@ -384,6 +398,7 @@
 		FF6C5EF622DE640200D0EB83 /* Mytinerary */ = {
 			isa = PBXGroup;
 			children = (
+				2393755122F0FA1B002CBAA7 /* Locations */,
 				84F97AB822F3986D0072DCFE /* SWRevealViewController */,
 				8464D7C522F0ABE4009BB52C /* ViewController.h */,
 				8464D7C622F0ABE4009BB52C /* ViewController.m */,
@@ -531,6 +546,11 @@
 				TargetAttributes = {
 					FF6C5EF322DE640200D0EB83 = {
 						CreatedOnToolsVersion = 10.2.1;
+						SystemCapabilities = {
+							com.apple.Maps.iOS = {
+								enabled = 1;
+							};
+						};
 					};
 					FF6C5F0B22DE640300D0EB83 = {
 						CreatedOnToolsVersion = 10.2.1;
@@ -709,6 +729,7 @@
 				84B581CE22F25316004BA82B /* PhotoViewController.m in Sources */,
 				23F5AA5622E61E090084086B /* EventDetailsHotelView.m in Sources */,
 				23F5AA4722E61DA40084086B /* EventDetailsTitleView.m in Sources */,
+				2393754A22EFA599002CBAA7 /* Directions.m in Sources */,
 				FF47EC5F22E67B64001C0DA7 /* ProfileCollectionReusableView.m in Sources */,
 				FF6C5F3522DE8B8900D0EB83 /* DailyTableViewCell.m in Sources */,
 				23F5A9EC22E0D3890084086B /* EventInputSharedView.m in Sources */,
@@ -894,13 +915,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = CC3NSMV262;
+				DEVELOPMENT_TEAM = JW339Z77B6;
 				INFOPLIST_FILE = Mytinerary/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.samason1.Itinerary;
+				PRODUCT_BUNDLE_IDENTIFIER = com.Mytinerary;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -912,13 +933,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = CC3NSMV262;
+				DEVELOPMENT_TEAM = JW339Z77B6;
 				INFOPLIST_FILE = Mytinerary/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.samason1.Itinerary;
+				PRODUCT_BUNDLE_IDENTIFIER = com.Mytinerary;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

@@ -21,8 +21,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
     
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissKeyboard)];
+    [self.view addGestureRecognizer:tap];
 }
 
 - (IBAction)loginButton:(id)sender {
@@ -58,14 +59,18 @@
     NSString *password = self.passwordField.text;
     
     [User registerUser:username password:password withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
-        if(error !=nil){
-            NSLog(@"Error: %@",error.localizedDescription );
+        if(error != nil){
+            NSLog(@"Error: %@", error);
         }
         else {
             NSLog(@"User sign up successful");
             [self performSegueWithIdentifier:@"login" sender:nil];
         }
     }];
+}
+
+- (void)dismissKeyboard {
+    [self.view endEditing:YES];
 }
 
 

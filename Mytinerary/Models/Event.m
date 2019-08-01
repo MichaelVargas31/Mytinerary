@@ -4,6 +4,7 @@
 #import "Parse/Parse.h"
 #import "SearchLocationViewController.h"
 #import "InputValidation.h"
+#import "Directions.h"
 
 @implementation Event
 
@@ -25,6 +26,7 @@
 @dynamic locationType;
 @dynamic endLatitude;
 @dynamic endLongitude;
+@dynamic route;
 
 + (nonnull NSString *)parseClassName {
     return @"Event";
@@ -62,6 +64,18 @@
     return self;
 }
 
+- (Event *) updateEvent:(NSString *)title eventDescription:(NSString * _Nullable)eventDescription address:(NSString * _Nullable)address latitude:(NSNumber *)latitude longitude:(NSNumber *)longitude locationType:(NSString *)locationType category:(NSString *)category startTime:(NSDate *)startTime endTime:(NSDate *)endTime notes:(NSString * _Nullable)notes withCompletion:(PFBooleanResultBlock)completion {
+    // only reassign address if the address has been changed
+    if (![self.address isEqualToString:address]) {
+        self.address = address;
+        self.latitude = latitude;
+        self.longitude = longitude;
+    }
+    
+    Event *updatedEvent = [self initNewEvent:title eventDescription:eventDescription address:self.address latitude:self.latitude longitude:self.longitude locationType:locationType category:category startTime:startTime endTime:endTime notes:notes withCompletion:completion];
+    return updatedEvent;
+}
+
 /* initialize an activity event
  (required: title, category, start/end times, address, completion;
  optional: event description, cost, notes) */
@@ -82,7 +96,7 @@
     // activity specific field
     self.cost = @(cost);
     
-    Event *updatedEvent = [self initNewEvent:title eventDescription:eventDescription address:address latitude:latitude longitude:longitude locationType:locationType category:@"activity" startTime:startTime endTime:endTime notes:notes withCompletion:completion];
+    Event *updatedEvent = [self updateEvent:title eventDescription:eventDescription address:address latitude:latitude longitude:longitude locationType:locationType category:@"activity" startTime:startTime endTime:endTime notes:notes withCompletion:completion];
     
     return updatedEvent;
 }
@@ -108,7 +122,7 @@
     event.endLongitude = endLongitude;
     event.transpoType = transpoType;
     
-    Event *initializedEvent = [event initNewEvent:title eventDescription:eventDescription address:startAddress latitude:startLatitude longitude:startLongitude locationType:nil category:@"activity" startTime:startTime endTime:endTime notes:notes withCompletion:completion];
+    Event *initializedEvent = [event initNewEvent:title eventDescription:eventDescription address:startAddress latitude:startLatitude longitude:startLongitude locationType:nil category:@"transportation" startTime:startTime endTime:endTime notes:notes withCompletion:completion];
     
     return initializedEvent;
 }
@@ -125,12 +139,22 @@
     
     // transportation specific fields
     self.cost = @(cost);
-    self.endAddress = endAddress;
-    self.endLatitude = endLatitude;
-    self.endLongitude = endLongitude;
     self.transpoType = transpoType;
     
-    Event *updatedEvent = [self initNewEvent:title eventDescription:eventDescription address:startAddress latitude:startLatitude longitude:startLongitude locationType:nil category:@"activity" startTime:startTime endTime:endTime notes:notes withCompletion:completion];
+    // only update location if it's been changed
+    if (![self.endAddress isEqualToString:endAddress]) {
+        self.endAddress = endAddress;
+        self.endLatitude = endLatitude;
+        self.endLongitude = endLongitude;
+    }
+    
+    Event *updatedEvent = [self updateEvent:title eventDescription:eventDescription address:startAddress latitude:startLatitude longitude:startLongitude locationType:nil category:@"transportation" startTime:startTime endTime:endTime notes:notes withCompletion:completion];
+    
+    return updatedEvent;
+}
+
+- (Event *) updateTransportationEventTypeAndTimes:(NSString *)transpoType startTime:(NSDate *)startTime endTime:(NSDate *)endTime withCompletion:(PFBooleanResultBlock)completion {
+    Event *updatedEvent = [self updateTransportationEvent:self.title eventDescription:self.eventDescription startAddress:self.address startLatitude:self.latitude startLongitude:self.longitude endAddress:self.endAddress endLatitude:self.endLatitude endLongitude:self.endLongitude startTime:startTime endTime:endTime transpoType:transpoType cost:self.cost.floatValue notes:self.notes withCompletion:completion];
     
     return updatedEvent;
 }
@@ -158,7 +182,7 @@
     self.foodType = foodType;
     self.foodCost = foodCost;
     
-    Event *updatedEvent = [self initNewEvent:title eventDescription:eventDescription address:address latitude:latitude longitude:longitude locationType:locationType category:@"food" startTime:startTime endTime:endTime notes:notes withCompletion:completion];
+    Event *updatedEvent = [self updateEvent:title eventDescription:eventDescription address:address latitude:latitude longitude:longitude locationType:locationType category:@"food" startTime:startTime endTime:endTime notes:notes withCompletion:completion];
     
     return updatedEvent;
 }
@@ -185,10 +209,15 @@
     self.hotelType = hotelType;
     self.cost = @(cost);
     
-    Event *updatedEvent = [self initNewEvent:title eventDescription:eventDescription address:address latitude:latitude longitude:longitude locationType:locationType category:@"hotel" startTime:startTime endTime:endTime notes:notes withCompletion:completion];
+    Event *updatedEvent = [self updateEvent:title eventDescription:eventDescription address:address latitude:latitude longitude:longitude locationType:locationType category:@"hotel" startTime:startTime endTime:endTime notes:notes withCompletion:completion];
     
     return updatedEvent;
 }
+
+#pragma Transportation directions functions
+
+// https://developer.apple.com/documentation/mapkit/mkmapitem/1452207-openmapswithitems?language=objc
+// make function that creates 2 placemarks from a transpo event
 
 
 @end
