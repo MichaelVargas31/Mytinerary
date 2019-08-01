@@ -206,11 +206,12 @@
                         <outlet property="aB" destination="vVs-kf-qtr" id="CLu-mC-84o"/>
                         <outlet property="collectionView" destination="PWN-zR-u73" id="85v-RW-p1V"/>
                         <outlet property="mB" destination="cAq-5g-GJT" id="dhD-M2-bRr"/>
+                        <segue destination="WKR-Y8-Lbk" kind="showDetail" identifier="calendarSegue" id="2bT-ed-LLI"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XoH-4c-RPv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="8476" y="4752"/>
+            <point key="canvasLocation" x="8585" y="4752"/>
         </scene>
         <!--Input Itinerary View Controller-->
         <scene sceneID="d6m-Ae-efd">
@@ -2042,7 +2043,7 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="7oQ-FC-k1K"/>
-        <segue reference="pBz-gN-MKP"/>
+        <segue reference="2bT-ed-LLI"/>
         <segue reference="GkC-3I-Ydq"/>
     </inferredMetricsTieBreakers>
 </document>

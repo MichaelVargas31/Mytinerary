@@ -158,16 +158,17 @@
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
     if ([segue.identifier isEqualToString:@"calendarSegue"]) {
-        UINavigationController *navigationController = [segue destinationViewController];
-        DailyCalendarViewController *dailyCalendarVC = [navigationController.viewControllers firstObject];
-        ItineraryCollectionViewCell *tappedCell = sender;
         
-        // create indexPath, which specifies exactly which cell we're referencing
-        NSIndexPath *indexPath = [self.collectionView indexPathForCell:tappedCell];
-        dailyCalendarVC.itinerary = [self.iArray objectAtIndex:indexPath.item];
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        DailyCalendarViewController *dailyCalendarViewController = [storyboard instantiateViewControllerWithIdentifier:@"DailyCalendarViewController"];
+        
+        ItineraryCollectionViewCell *tappedCell = sender;
+
+        Itinerary *itinerary = tappedCell.itinerary;
+        // set daily calendar view controller's itinerary
+        dailyCalendarViewController.itinerary = itinerary;
         
         // reset current user's default itinerary
-        Itinerary *itinerary = tappedCell.itinerary;
         [User resetDefaultItinerary:PFUser.currentUser itinerary:itinerary withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
             if (succeeded) {
                 NSLog(@"'%@' default itinerary successfully set to: %@", PFUser.currentUser.username, itinerary.title);
@@ -176,6 +177,9 @@
                 NSLog(@"failed to set '%@' default itinerary", PFUser.currentUser.username);
             }
         }];
+        
+        UINavigationController *navigationController = [segue destinationViewController];
+        [navigationController setViewControllers:[NSArray arrayWithObject:dailyCalendarViewController]];
     }
     else {
         NSLog(@"If you're getting this message, you need to edit the prepareForSegue() method to add another segue");
