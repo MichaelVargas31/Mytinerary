@@ -14,6 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 @protocol EventDetailsViewControllerDelegate
 
 - (void)didUpdateEvent:(Event *)updatedEvent;
+- (void)didDeleteEvent:(Event *)deletedEvent;
 
 @end
 

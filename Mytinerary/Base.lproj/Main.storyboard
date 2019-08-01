@@ -907,6 +907,7 @@
                     </view>
                     <connections>
                         <outlet property="activityView" destination="jae-la-gtP" id="zpB-aG-Kui"/>
+                        <outlet property="deleteView" destination="2YT-en-kCE" id="uA1-s1-OzO"/>
                         <outlet property="descriptionView" destination="amQ-3f-oIw" id="rkh-n4-Jna"/>
                         <outlet property="foodView" destination="5Tv-H4-KVj" id="ltv-aB-2M3"/>
                         <outlet property="hotelView" destination="5Xa-qA-xpn" id="1um-VO-XFn"/>
@@ -1084,6 +1085,27 @@
                         <outlet property="startAddressLabel" destination="i1v-4b-Ipd" id="qma-Yd-ZDZ"/>
                         <outlet property="startTimeLabel" destination="A9t-gW-HcA" id="leF-Nc-J8X"/>
                         <outlet property="transpoTypeLabel" destination="VbW-MB-VmT" id="l4P-N7-QWX"/>
+                    </connections>
+                </view>
+                <view contentMode="scaleToFill" id="2YT-en-kCE" customClass="EventDetailsDeleteView">
+                    <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aw9-Pu-t1W">
+                            <rect key="frame" x="68" y="49" width="105" height="30"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <state key="normal" title="Delete Itinerary">
+                                <color key="titleColor" red="1" green="0.21470649429999999" blue="0.25217029819999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                            </state>
+                            <connections>
+                                <action selector="didTapDeleteButton:" destination="vfi-ve-A7n" eventType="touchUpInside" id="gxc-7n-pN2"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <viewLayoutGuide key="safeArea" id="x3M-cN-gbF"/>
+                    <connections>
+                        <outlet property="deleteButton" destination="aw9-Pu-t1W" id="0as-nc-ULP"/>
                     </connections>
                 </view>
                 <view contentMode="scaleToFill" id="5Tv-H4-KVj" customClass="EventDetailsFoodView">
@@ -1557,7 +1579,7 @@
         <segue reference="bvk-7v-1z5"/>
         <segue reference="QYY-fI-C3q"/>
         <segue reference="d9T-RH-QQm"/>
-        <segue reference="LIW-WB-8EA"/>
+        <segue reference="gy0-c7-1ub"/>
         <segue reference="aaY-Ol-JXb"/>
     </inferredMetricsTieBreakers>
 </document>

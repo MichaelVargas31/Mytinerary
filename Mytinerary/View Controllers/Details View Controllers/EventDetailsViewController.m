@@ -13,6 +13,7 @@
 #import "EventDetailsTransportationView.h"
 #import "EventDetailsFoodView.h"
 #import "EventDetailsHotelView.h"
+#import "EventDetailsDeleteView.h"
 #import "InputEventViewController.h"
 #import "DateFormatter.h"
 
@@ -33,6 +34,9 @@ static int const HOTEL_VIEW_HEIGHT = 110;
 @property (nonatomic, strong) IBOutlet EventDetailsTransportationView *transportationView;
 @property (nonatomic, strong) IBOutlet EventDetailsFoodView *foodView;
 @property (nonatomic, strong) IBOutlet EventDetailsHotelView *hotelView;
+@property (nonatomic, strong) IBOutlet EventDetailsDeleteView *deleteView;
+
+- (IBAction)didTapDeleteButton:(id)sender;
 
 @end
 
@@ -120,11 +124,37 @@ static int const HOTEL_VIEW_HEIGHT = 110;
         self.hotelView.hotelTypeLabel.text = self.event.hotelType;
         self.hotelView.addressLabel.text = self.event.address;
     }
+    
+    // add delete event view
+    [self.stackView insertArrangedSubview:self.deleteView atIndex:3];
 }
 
 
 - (IBAction)onTapEditButton:(id)sender {
     [self performSegueWithIdentifier:@"editEventSegue" sender:self];
+}
+
+
+- (void)didUpdateEvent:(nonnull Event *)updatedEvent {
+    NSLog(@"Updated event: %@", updatedEvent);
+    self.event = updatedEvent;
+    [self refreshViews];
+    
+    // refresh daily calendar view
+    [self.delegate didUpdateEvent:updatedEvent];
+}
+
+
+
+- (IBAction)didTapDeleteButton:(id)sender {
+    [self.event deleteInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+        if (succeeded) {
+            [self.delegate didDeleteEvent:self.event];
+            [self dismissViewControllerAnimated:YES completion:^{}];
+        } else {
+            NSLog(@"Error deleting event: %@", error.localizedDescription);
+        }
+    }];
 }
 
 
@@ -136,16 +166,6 @@ static int const HOTEL_VIEW_HEIGHT = 110;
         inputEventViewController.event = self.event;
         inputEventViewController.delegate = self;
     }
-}
-
-
-- (void)didUpdateEvent:(nonnull Event *)updatedEvent {
-    NSLog(@"Updated event: %@", updatedEvent);
-    self.event = updatedEvent;
-    [self refreshViews];
-    
-    // refresh daily calendar view
-    [self.delegate didUpdateEvent:updatedEvent];
 }
 
 

@@ -109,6 +109,8 @@
 #pragma mark - Data Handling
 
 -(void)refreshViewUsingDate:(NSDate *)newDate {
+    // make sure its the midnight version of the date
+    newDate = [self.calendar startOfDayForDate:newDate];
     // remove old events from screen
     for(UIView *view in [self.tableView subviews]) {
         if ([view isKindOfClass:[DailyCalendarEventUIView class]] == YES) {
@@ -163,14 +165,15 @@
 // returns date index of added event
 - (NSDate *)addEventToDayDictionary:(Event *)event {
     // get the date of the updated event, change time to midnight
-    NSDate *eventDate = [self getDayDictionaryKey:event];
+//    NSDate *eventDate = [self getDayDictionaryKey:event];
+    NSDate *eventDate = [self.calendar startOfDayForDate:event.startTime];
     // add to day dictionary
     [self.eventsDictionary[eventDate] addObject:event];
     return eventDate;
 }
 
 - (NSDate *)updateEventInDayDictionary:(Event *)event {
-    NSDate *dayDictIdx = [self getDayDictionaryKey:event];
+    NSDate *dayDictIdx = [self.calendar startOfDayForDate:event.startTime];
     NSMutableArray *dayEvents = self.eventsDictionary[dayDictIdx];
     BOOL noMatchingEvent = true;
     
@@ -190,11 +193,6 @@
     // if matching event found, modify dictionary and return dict idx
     [dayEvents addObject:event];
     return dayDictIdx;
-}
-
-// returns inputted date @ midnight (for day dictionary indexing)
-- (NSDate *)getDayDictionaryKey:(Event *)event {
-    return [self.calendar dateBySettingHour:0 minute:0 second:00 ofDate:event.startTime options:0];
 }
 
 
@@ -319,10 +317,27 @@
     }
 }
 
+- (void)didDeleteEvent:(nonnull Event *)deletedEvent {
+    // get rid of the deleted event locally
+    NSMutableArray *newEventArray = [NSMutableArray arrayWithArray:self.itinerary.events];
+    [newEventArray removeObject:deletedEvent];
+    self.itinerary.events = newEventArray;
+    // get rid of it in parse (update the itinerary object)
+    [self.itinerary saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+        if (error) {
+            NSLog(@"failed to update itinerary %@", self.itinerary.title);
+        }
+    }];
+    [self refreshViewUsingDate:deletedEvent.startTime];
+}
+
+
 - (IBAction)didTapBackToProfile:(id)sender {
     AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     UINavigationController *profileNavigationVC = [storyboard instantiateViewControllerWithIdentifier:@"Profile"];
     appDelegate.window.rootViewController = profileNavigationVC;
 }
+
+
 @end
