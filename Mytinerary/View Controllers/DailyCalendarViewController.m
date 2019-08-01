@@ -6,17 +6,21 @@
 //  Copyright © 2019 michaelvargas. All rights reserved.
 //
 
+// View Controllers
 #import "DailyCalendarViewController.h"
-#import "AppDelegate.h"
-#import "DailyTableViewCell.h"
-#import "WeekdayCollectionViewCell.h"
-#import "DailyCalendarEventUIView.h"
 #import "EventDetailsViewController.h"
 #import "ItineraryDetailsViewController.h"
 #import "InputEventViewController.h"
 #import "MapViewController.h"
+// Views
+#import "DailyTableViewCell.h"
+#import "WeekdayCollectionViewCell.h"
+#import "DailyCalendarEventUIView.h"
+// Models Singletons & Other
+#import "AppDelegate.h"
 #import "Event.h"
 #import "DateFormatter.h"
+#import "Calendar.h"
 #import "Parse/Parse.h"
 
 
@@ -40,8 +44,7 @@
     [self.dateFormatter setDateFormat:@"yyyy-MM-dd"];
     
     
-    self.calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
-    [self.calendar setTimeZone:[NSTimeZone timeZoneWithName:@"UTC"]];
+    self.calendar = [Calendar gregorianCalendarWithUTCTimeZone];
     
     // Do any additional setup after loading the view.
     

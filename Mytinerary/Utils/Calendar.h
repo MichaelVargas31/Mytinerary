@@ -12,6 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface Calendar : NSObject
 
+// Reduces redundant code, ensures time zone is always set
 + (NSCalendar *)gregorianCalendarWithUTCTimeZone;
 
 @end

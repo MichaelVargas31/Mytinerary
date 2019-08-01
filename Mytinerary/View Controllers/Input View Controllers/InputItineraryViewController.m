@@ -73,7 +73,6 @@
 - (IBAction)onTapCreateItinerary:(id)sender {
     NSString *title = self.titleTextField.text;
     // adjusting start and end TIMES according to date
-//    NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
     NSCalendar *calendar = [Calendar gregorianCalendarWithUTCTimeZone];
     NSDate *startTime = [calendar startOfDayForDate:self.startTimeDatePicker.date];
     NSDateComponents *endOfDay = [NSDateComponents new];
