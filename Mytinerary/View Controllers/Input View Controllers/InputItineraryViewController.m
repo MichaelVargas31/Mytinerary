@@ -11,6 +11,7 @@
 #import "DailyCalendarViewController.h"
 #import "InputValidation.h"
 #import "Itinerary.h"
+#import "Calendar.h"
 
 @interface InputItineraryViewController ()
 
@@ -30,6 +31,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    // adjust date pickers
+    [self.startTimeDatePicker setDatePickerMode:UIDatePickerModeDate];
+    [self.endTimeDatePicker setDatePickerMode:UIDatePickerModeDate];
     
     // set up alert controller
     self.alert = [UIAlertController alertControllerWithTitle:@"Error"
@@ -67,8 +72,15 @@
 
 - (IBAction)onTapCreateItinerary:(id)sender {
     NSString *title = self.titleTextField.text;
-    NSDate *startTime = self.startTimeDatePicker.date;
-    NSDate *endTime = self.endTimeDatePicker.date;
+    // adjusting start and end TIMES according to date
+//    NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+    NSCalendar *calendar = [Calendar gregorianCalendarWithUTCTimeZone];
+    NSDate *startTime = [calendar startOfDayForDate:self.startTimeDatePicker.date];
+    NSDateComponents *endOfDay = [NSDateComponents new];
+    endOfDay.hour = 23;
+    endOfDay.minute = 59;
+    endOfDay.second = 59;
+    NSDate *endTime = [calendar dateByAddingComponents:endOfDay toDate:[calendar startOfDayForDate:self.endTimeDatePicker.date] options:0];
     NSNumber *budget = @([self.budgetTextField.text floatValue]);
     
     NSString *itinValidity = [InputValidation itineraryValidation:title startTime:startTime endTime:endTime budget:budget];

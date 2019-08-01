@@ -23,7 +23,6 @@
 + (Itinerary *)initNewItinerary:(NSString *)title startTime:(NSDate *)startTime endTime:(NSDate *)endTime budget:(NSNumber *)budget withCompletion:(PFBooleanResultBlock)completion {
 
     Itinerary *itinerary = [Itinerary new];
-    
     itinerary.author = [PFUser currentUser];
     itinerary.startTime = startTime;
     itinerary.endTime = endTime;

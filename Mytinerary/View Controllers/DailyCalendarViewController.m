@@ -77,6 +77,7 @@
         if (objects) {
             NSLog(@"itinerary successfully fetched!");
             self.itinerary = [objects firstObject];
+            [self.activityIndicator stopAnimating];
             [self loadItinView];
         }
         else {
