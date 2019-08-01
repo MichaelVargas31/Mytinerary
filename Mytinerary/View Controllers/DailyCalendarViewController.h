@@ -18,6 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, nonatomic) NSDateFormatter *dateFormatter;
 
 @property (strong, nonatomic) NSDictionary *eventsDictionary;
+@property (strong, nonatomic) NSArray *dateArray;
 @property (strong, nonatomic) NSCalendar *calendar;
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;

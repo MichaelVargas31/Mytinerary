@@ -68,6 +68,14 @@
     }
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+    if ([self.WeeklyCalendarCollectionView indexPathsForSelectedItems].count == 0) {
+        NSIndexPath *indexPath = [NSIndexPath indexPathForItem:0 inSection:0];
+        [self.WeeklyCalendarCollectionView selectItemAtIndexPath:indexPath animated:YES scrollPosition:UICollectionViewScrollPositionNone];
+        [self collectionView:self.WeeklyCalendarCollectionView didSelectItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]];
+    }
+}
+
 - (void)fetchItineraryAndLoadView {
     // set up activity indicator -- TODO: not sure if this actually works
     self.activityIndicator = [[UIActivityIndicatorView alloc] init];
@@ -169,7 +177,6 @@
 // returns date index of added event
 - (NSDate *)addEventToDayDictionary:(Event *)event {
     // get the date of the updated event, change time to midnight
-//    NSDate *eventDate = [self getDayDictionaryKey:event];
     NSDate *eventDate = [self.calendar startOfDayForDate:event.startTime];
     // add to day dictionary
     [self.eventsDictionary[eventDate] addObject:event];
@@ -247,9 +254,7 @@
     // reset the tableview and all the sheiza on it
     WeekdayCollectionViewCell *cell = (WeekdayCollectionViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
     cell.dateLabel.backgroundColor = [UIColor colorWithRed:.5 green:.5 blue:.5 alpha:1];
-    // NSLog(@"tapped cell's Date [7 hours behind] = %@", cell.date);
     [self refreshViewUsingDate:cell.date];
-    
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath {
@@ -285,11 +290,8 @@
 
 - (IBAction)onTapMapButton:(id)sender {
     // navigate to map by resetting nav controller view controller stack
-    
     UINavigationController *navigationController = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"ItineraryNavigationController"];
-    
     MapViewController *mapViewController = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"MapViewController"];
-    
     // pass itinerary from daily calendar to map
     mapViewController.itinerary = self.itinerary;
     
