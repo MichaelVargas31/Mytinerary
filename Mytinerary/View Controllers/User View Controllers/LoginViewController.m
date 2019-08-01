@@ -8,6 +8,7 @@
 
 #import "LoginViewController.h"
 #import "DailyCalendarViewController.h"
+#import "SWRevealViewController.h"
 #import "User.h"
 #import "Itinerary.h"
 #import "Parse/Parse.h"
@@ -29,11 +30,11 @@
     [self loginUser];
 }
 
-//logs in user 
+//logs in user
 - (void)loginUser {
     NSString *userName = self.usernameField.text;
     NSString *passWord = self.passwordField.text;
-
+    
     [User loginUser:userName password:passWord withCompletion:^(PFUser * _Nullable pfuser, NSError * _Nullable error) {
         if (error != nil) {
             NSLog(@"Login failed");
@@ -77,11 +78,14 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([[segue identifier] isEqualToString:@"defaultItinerarySegue"]) {
-        UINavigationController *navigationController = [segue destinationViewController];
-        DailyCalendarViewController *dailyCalendarViewController = [[navigationController viewControllers] firstObject];
+        //UINavigationController *navigationController = [segue destinationViewController];
+        //DailyCalendarViewController *dailyCalendarViewController = [[navigationController viewControllers] firstObject];
+        
+        
+        SWRevealViewController *revealViewController = [segue destinationViewController];
         User *user = sender;
-        dailyCalendarViewController.itinerary = user.defaultItinerary;
-        dailyCalendarViewController.fromLogin = true;
+        revealViewController.itinerary = user.defaultItinerary;
+        revealViewController.fromLogin = true;
     }
 }
 

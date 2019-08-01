@@ -11,6 +11,8 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface InputItineraryViewController : UIViewController
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *m;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *a;
 
 @end
 

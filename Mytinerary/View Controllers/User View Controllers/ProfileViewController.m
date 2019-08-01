@@ -15,6 +15,7 @@
 #import "Itinerary.h"
 #import "Parse/Parse.h"
 #import "User.h"
+#import "SWRevealViewController.h"
 
 
 @interface ProfileViewController () <UICollectionViewDelegate, UICollectionViewDataSource>
@@ -23,16 +24,16 @@
 
 @implementation ProfileViewController
 
- // Do any additional setup after loading the view.
+// Do any additional setup after loading the view.
 - (void)viewDidLoad {
     [super viewDidLoad];
-   
+    
     self.collectionView.dataSource=self;
     self.collectionView.delegate=self;
     
     //sets the username on the profile view
     self.usernameLabel.text=User.currentUser.username;
-
+    
     //fetch itineraries
     [self fetchitineraries];
     
@@ -49,7 +50,26 @@
     CGFloat itemHeight = 100;
     layout.itemSize= CGSizeMake(itemWidth, itemHeight);
     
+    [self sideMenus];
 }
+
+-(void) sideMenus{
+    
+    if(self.revealViewController != nil){
+        self.mB.target = self.revealViewController;
+        self.mB.action = @selector(revealToggle:);
+        self.revealViewController.rearViewRevealWidth = 275;
+        self.revealViewController.rightViewRevealWidth = 160;
+        
+        self.aB.target= self.revealViewController;
+        self.aB.action = @selector(rightRevealToggle:);
+        
+        [self.view addGestureRecognizer:self.revealViewController.panGestureRecognizer];
+        
+    }
+    
+}
+
 -(void)fetchitineraries {
     //Itinerary Query
     PFQuery *iQuery = [Itinerary query];
@@ -75,7 +95,6 @@
         }
         
     }];
-  
 }
 
 - (nonnull __kindof UICollectionViewCell *)collectionView:(nonnull UICollectionView *)collectionView cellForItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
@@ -89,7 +108,7 @@
 }
 
 - (NSInteger)collectionView:(nonnull UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-   return self.iArray.count;
+    return self.iArray.count;
 }
 
 // Method to add profile header to collection View
@@ -114,7 +133,7 @@
 //}
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-//    NSLog(@"%@", self);
+    //    NSLog(@"%@", self);
     UICollectionViewCell *tappedCell = [self.collectionView cellForItemAtIndexPath:indexPath];
     [self performSegueWithIdentifier:@"calendarSegue" sender:tappedCell];
 }
@@ -131,21 +150,24 @@
 
 #pragma mark - Navigation
 
+
+
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
     if ([segue.identifier isEqualToString:@"calendarSegue"]) {
-        UINavigationController *navigationController = [segue destinationViewController];
-        DailyCalendarViewController *dailyCalendarVC = [navigationController.viewControllers firstObject];
+        
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        DailyCalendarViewController *dailyCalendarViewController = [storyboard instantiateViewControllerWithIdentifier:@"DailyCalendarViewController"];
+        
         ItineraryCollectionViewCell *tappedCell = sender;
         
-        // create indexPath, which specifies exactly which cell we're referencing
-        NSIndexPath *indexPath = [self.collectionView indexPathForCell:tappedCell];
-        dailyCalendarVC.itinerary = [self.iArray objectAtIndex:indexPath.item];
+        Itinerary *itinerary = tappedCell.itinerary;
+        // set daily calendar view controller's itinerary
+        dailyCalendarViewController.itinerary = itinerary;
         
         // reset current user's default itinerary
-        Itinerary *itinerary = tappedCell.itinerary;
         [User resetDefaultItinerary:PFUser.currentUser itinerary:itinerary withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
             if (succeeded) {
                 NSLog(@"'%@' default itinerary successfully set to: %@", PFUser.currentUser.username, itinerary.title);
@@ -154,6 +176,9 @@
                 NSLog(@"failed to set '%@' default itinerary", PFUser.currentUser.username);
             }
         }];
+        
+        SWRevealViewController *revealViewController = [segue destinationViewController];
+        revealViewController.itinerary = itinerary;
     }
     else {
         NSLog(@"If you're getting this message, you need to edit the prepareForSegue() method to add another segue");
