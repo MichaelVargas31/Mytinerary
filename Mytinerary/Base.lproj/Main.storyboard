@@ -780,6 +780,11 @@
                                     <constraint firstAttribute="height" constant="44" id="6nU-fK-XSV"/>
                                 </constraints>
                                 <items>
+                                    <barButtonItem title="Auto Transport" id="I1t-th-YTx">
+                                        <connections>
+                                            <action selector="onTapAutoTransportButton:" destination="rWW-ig-3vo" id="ebn-UB-Imn"/>
+                                        </connections>
+                                    </barButtonItem>
                                     <barButtonItem width="308" style="plain" systemItem="fixedSpace" id="cRv-Ex-iXl"/>
                                     <barButtonItem title="Add event" id="uko-z9-HP0">
                                         <connections>
@@ -879,10 +884,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="I7A-PG-fR6">
-                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="DlF-gi-F6b">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
                                     </stackView>
                                 </subviews>
                                 <constraints>
@@ -1540,6 +1545,6 @@
         <segue reference="hey-4Z-0eK"/>
         <segue reference="QYY-fI-C3q"/>
         <segue reference="jrK-2N-UHa"/>
-        <segue reference="gy0-c7-1ub"/>
+        <segue reference="LIW-WB-8EA"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -76,7 +76,7 @@
 }
 
 // TODO: create transportation event between two events
-- (Event *)makeTransportationEventFromEvents:(Event *)startEvent endEvent:(Event *)endEvent {
++ (Event *)makeTransportationEventFromEvents:(Event *)startEvent endEvent:(Event *)endEvent {
     // set up title
     NSString *title = [NSString stringWithFormat:@"%@ to %@", startEvent.title, endEvent.title];
     

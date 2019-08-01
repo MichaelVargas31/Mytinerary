@@ -20,6 +20,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (void)openTransportationEventInMaps:(Event *)event;
 
++ (Event *)makeTransportationEventFromEvents:(Event *)startEvent endEvent:(Event *)endEvent;
+
 @end
 
 NS_ASSUME_NONNULL_END
