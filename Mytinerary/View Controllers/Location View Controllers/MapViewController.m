@@ -21,16 +21,22 @@
 
 @property (strong, nonatomic) Event *event;
 @property (nonatomic, strong) NSArray *events;
+@property (strong, nonatomic) NSMutableArray <Event *> *routePolylineEvents; // parallel with mapkit's polyline overlays (representing transportation events)
 
 @end
 
 @implementation MapViewController
+
+@synthesize coordinate;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     self.mapView.delegate = self;
     [self.mapView setShowsUserLocation:false];
+    
+    // initialize empty mutable array
+    self.routePolylineEvents = [[NSMutableArray alloc] init];
     
     // set up itinerary
     UIButton *button = [[UIButton alloc] init];
@@ -80,28 +86,21 @@
     
     if ([category isEqualToString:@"food"]) {
         annotation.group = 1;
+        [self.mapView addAnnotation:annotation];
     }
     else if ([category isEqualToString:@"activity"]) {
         annotation.group = 2;
+        [self.mapView addAnnotation:annotation];
     }
     else if ([category isEqualToString:@"hotel"]) {
         annotation.group = 3;
+        [self.mapView addAnnotation:annotation];
     }
     else if ([category isEqualToString:@"transportation"]) {
         annotation.group = 4;
-        
-        // make annotation from end location
-        MyAnnotation *endAnnotation = [[MyAnnotation alloc] init];
-        CLLocationCoordinate2D endCoord = CLLocationCoordinate2DMake(event.endLatitude.floatValue, event.endLongitude.floatValue);
-        [endAnnotation setCoordinate:endCoord];
-        [endAnnotation setTitle:event.title];
-        [self.mapView addAnnotation:endAnnotation];
-        
         // get route polyline
         [self getTransportationEventRoute:event];
     }
-    
-    [self.mapView addAnnotation:annotation];
 }
 
 - (MKAnnotationView *)mapView:(MKMapView *)mV viewForAnnotation:(id )annotation {
@@ -125,12 +124,8 @@
             case 3: // hotel
                 pinView.pinTintColor = UIColor.redColor;
                 break;
-            case 4: // transportation
-                pinView.pinTintColor = UIColor.greenColor;
-                break;
-            default:
-                pinView.pinTintColor = UIColor.cyanColor;
-                break;
+            default: // no annotation for transportation object
+                return nil;
         }
     }
 
@@ -166,7 +161,11 @@
         if (response) {
             NSLog(@"successfully got directions for '%@'", event.title);
             MKRoute *route = response.routes[0];
-            [self showDirection:route];
+            
+            // keep corresponding transpo events parallel with overlays
+            [self showDirection:route transpoEvent:event];
+            [self.routePolylineEvents addObject:event];
+            
             [self updateTransportationEvent:event route:route];
         }
         else {
@@ -175,8 +174,22 @@
     }];
 }
 
-- (void)showDirection:(MKRoute *)route {
+- (void)showDirection:(MKRoute *)route transpoEvent:(Event *)transpoEvent {
     [self.mapView addOverlay:route.polyline level:MKOverlayLevelAboveRoads];
+    
+    // add annotation to middle of route
+    MKMapPoint middlePoint = route.polyline.points[route.polyline.pointCount/2];
+    [self createAndAddAnnotationForCoordinate:MKCoordinateForMapPoint(middlePoint) transpoEvent:transpoEvent];
+}
+
+-(void)createAndAddAnnotationForCoordinate:(CLLocationCoordinate2D)coordinate transpoEvent:(Event *)transpoEvent {
+    MyAnnotation* annotation= [[MyAnnotation alloc] init];
+    annotation.coordinate = coordinate;
+    
+    annotation.title = transpoEvent.title;
+    annotation.subtitle = transpoEvent.transpoType;
+    
+    [self.mapView addAnnotation:annotation];
 }
 
 - (void)updateTransportationEvent:(Event *)event route:(MKRoute *)route {
@@ -213,11 +226,13 @@
 }
 
 - (MKOverlayRenderer *)mapView:(MKMapView *)mapView rendererForOverlay:(id<MKOverlay>)overlay {
-    MKPolylineRenderer *renderer = [[MKPolylineRenderer alloc] initWithOverlay:overlay];
-    [renderer setLineWidth:4.0];
-    [renderer setStrokeColor:[UIColor blueColor]];
-    
-    return renderer;
+    if ([overlay isKindOfClass:[MKPolyline class]]) {
+        MKPolylineRenderer *renderer = [[MKPolylineRenderer alloc] initWithOverlay:overlay];
+        [renderer setLineWidth:4.0];
+        [renderer setStrokeColor:[UIColor blueColor]];
+        return renderer;
+    }
+    return nil;
 }
 
 /*
@@ -229,7 +244,5 @@
     // Pass the selected object to the new view controller.
 }
 */
-
-@synthesize coordinate;
 
 @end

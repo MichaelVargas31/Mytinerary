@@ -64,8 +64,6 @@
                     <connections>
                         <outlet property="passwordField" destination="1D0-YV-BXE" id="ra7-3d-rmr"/>
                         <outlet property="usernameField" destination="Sss-66-m8N" id="16Y-1i-Ths"/>
-                        <segue destination="zcb-mO-9dQ" kind="presentation" identifier="login" id="rMc-Si-arj"/>
-                        <segue destination="LRs-zy-NRI" kind="show" identifier="defaultItinerarySegue" id="xxW-4u-C6h"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -134,17 +132,11 @@
                                             <rect key="frame" x="247" y="41" width="88" height="31"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <state key="normal" title="Add itinerary"/>
-                                            <connections>
-                                                <segue destination="vAc-0f-oMv" kind="presentation" id="0lK-vv-Wn3"/>
-                                            </connections>
                                         </button>
                                         <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="g7q-Qx-5sY">
                                             <rect key="frame" x="295" y="139" width="48" height="30"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <state key="normal" title="Search"/>
-                                            <connections>
-                                                <segue destination="NKs-SD-tg9" kind="presentation" id="QYY-fI-C3q"/>
-                                            </connections>
                                         </button>
                                         <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Wwc-Fa-TOR">
                                             <rect key="frame" x="305" y="3" width="30" height="30"/>
@@ -178,7 +170,6 @@
                     </navigationItem>
                     <connections>
                         <outlet property="collectionView" destination="PWN-zR-u73" id="85v-RW-p1V"/>
-                        <segue destination="LRs-zy-NRI" kind="show" identifier="calendarSegue" id="hey-4Z-0eK"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XoH-4c-RPv" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -304,7 +295,6 @@
                         <outlet property="eventInputSharedView" destination="qBl-CW-RwM" id="gPK-Rc-Ram"/>
                         <outlet property="eventInputSubmitView" destination="0Mz-DC-EVM" id="HTY-jE-nL7"/>
                         <outlet property="eventInputTransportationView" destination="H6K-tF-Ewc" id="ams-bd-HUL"/>
-                        <segue destination="NKs-SD-tg9" kind="presentation" identifier="getLocationSegue" id="a8N-p0-ajg"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dHC-gh-g5I" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -856,19 +846,12 @@
                                     <action selector="onTapMapButton:" destination="rWW-ig-3vo" id="j4r-bi-PAw"/>
                                 </connections>
                             </barButtonItem>
-                            <barButtonItem title="profile" id="8Dq-it-gXc">
-                                <connections>
-                                    <segue destination="zcb-mO-9dQ" kind="show" id="jrK-2N-UHa"/>
-                                </connections>
-                            </barButtonItem>
+                            <barButtonItem title="profile" id="8Dq-it-gXc"/>
                         </rightBarButtonItems>
                     </navigationItem>
                     <connections>
                         <outlet property="WeeklyCalendarCollectionView" destination="jpi-hd-an0" id="bKP-UX-dKe"/>
                         <outlet property="tableView" destination="ecC-45-JY5" id="5N2-vq-HVy"/>
-                        <segue destination="vfi-ve-A7n" kind="show" identifier="eventDetailsSegue" id="d9T-RH-QQm"/>
-                        <segue destination="eHQ-Si-fcr" kind="presentation" identifier="addEventSegue" id="LIW-WB-8EA"/>
-                        <segue destination="v2s-7K-Yl1" kind="show" identifier="itineraryDetailsSegue" id="xi0-ST-P49"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Wko-au-X6b" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -918,7 +901,6 @@
                         <outlet property="stackView" destination="DlF-gi-F6b" id="HNf-Gw-T3P"/>
                         <outlet property="titleView" destination="2tG-Jo-8VX" id="8ob-EX-YlS"/>
                         <outlet property="transportationView" destination="DDv-Qj-jni" id="BXQ-UW-SKw"/>
-                        <segue destination="eHQ-Si-fcr" kind="presentation" identifier="editEventSegue" id="gy0-c7-1ub"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="k8a-Mk-oy0" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1514,9 +1496,6 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="sEt-qt-KBS" kind="relationship" relationship="rootViewController" id="pQ4-yh-r7y"/>
-                    </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="H02-Hc-cxd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -1532,19 +1511,10 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="rWW-ig-3vo" kind="relationship" relationship="rootViewController" id="fai-A2-8OF"/>
-                    </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dcJ-QG-9VO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2057" y="376"/>
         </scene>
     </scenes>
-    <inferredMetricsTieBreakers>
-        <segue reference="hey-4Z-0eK"/>
-        <segue reference="QYY-fI-C3q"/>
-        <segue reference="jrK-2N-UHa"/>
-        <segue reference="LIW-WB-8EA"/>
-    </inferredMetricsTieBreakers>
 </document>
