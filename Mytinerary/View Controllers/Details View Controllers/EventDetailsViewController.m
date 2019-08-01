@@ -58,22 +58,14 @@ static int const HOTEL_VIEW_HEIGHT = 110;
     // initialize title view labels
     self.titleView.titleLabel.text = self.event.title;
     
-    // add shared event description view
-    [self.stackView addArrangedSubview:self.descriptionView];
-    [self.descriptionView.heightAnchor constraintEqualToConstant:DESCRIPTION_VIEW_HEIGHT].active = YES;
-    self.descriptionView.descriptionLabel.text = self.event.eventDescription;
-    self.descriptionView.costLabel.text = [NSString stringWithFormat:@"$%@", self.event.cost];
-    self.descriptionView.notesLabel.text = self.event.notes;
-    
-    
-    // check to make sure there aren't 3 views already
-    if ([self.stackView arrangedSubviews].count == 3) {
+    // check to make sure there aren't 4 views already.
+    if ([self.stackView arrangedSubviews].count == 4) {
         // remove the extra view
         NSArray *subviews = self.stackView.arrangedSubviews;
         UIView *viewToBeRemoved;
         for (int i = 0; i<subviews.count; i++) {
-            if (![subviews[i] isKindOfClass:[EventDetailsTitleView class]] && ![subviews[i] isKindOfClass:[EventDetailsDescriptionView class]]) {
-                NSLog(@"view = %@", viewToBeRemoved);
+            if (!([subviews[i] isKindOfClass:[EventDetailsTitleView class]] || [subviews[i] isKindOfClass:[EventDetailsDescriptionView class]] || [subviews[i] isKindOfClass:[EventDetailsDeleteView class]])) {
+//                NSLog(@"view = %@", viewToBeRemoved);
 
                 viewToBeRemoved = subviews[i];
                 [self.stackView removeArrangedSubview:viewToBeRemoved];
@@ -86,7 +78,8 @@ static int const HOTEL_VIEW_HEIGHT = 110;
     NSString *eventCategory = self.event.category;
     if ([eventCategory isEqualToString:@"activity"]) {
         // add activity view
-        [self.stackView insertArrangedSubview:self.activityView atIndex:1];
+//        [self.stackView insertArrangedSubview:self.activityView atIndex:1];
+        [self.stackView addArrangedSubview:self.activityView];
         [self.activityView.heightAnchor constraintEqualToConstant:ACTIVITY_VIEW_HEIGHT].active = YES;
         // initialize activity view labels
         self.activityView.startTimeLabel.text = [dateFormatter stringFromDate:self.event.startTime];
@@ -95,7 +88,7 @@ static int const HOTEL_VIEW_HEIGHT = 110;
     }
     else if ([eventCategory isEqualToString:@"transportation"]) {
         // add transportation view
-        [self.stackView insertArrangedSubview:self.transportationView atIndex:1];
+        [self.stackView addArrangedSubview:self.transportationView];
         [self.transportationView.heightAnchor constraintEqualToConstant:TRANSPORTATION_VIEW_HEIGHT].active = YES;
         // initialize transportation view labels
         self.transportationView.startTimeLabel.text = [dateFormatter stringFromDate:self.event.startTime];
@@ -106,7 +99,7 @@ static int const HOTEL_VIEW_HEIGHT = 110;
     }
     else if ([eventCategory isEqualToString:@"food"]) {
         // add food view
-        [self.stackView insertArrangedSubview:self.foodView atIndex:1];
+        [self.stackView addArrangedSubview:self.foodView];
         [self.foodView.heightAnchor constraintEqualToConstant:FOOD_VIEW_HEIGHT].active = YES;
         // initialize food view labels
         self.foodView.startTimeLabel.text = [dateFormatter stringFromDate:self.event.startTime];
@@ -116,7 +109,7 @@ static int const HOTEL_VIEW_HEIGHT = 110;
     }
     else if ([eventCategory isEqualToString:@"hotel"]) {
         // add hotel view
-        [self.stackView insertArrangedSubview:self.hotelView atIndex:1];
+        [self.stackView addArrangedSubview:self.hotelView];
         [self.hotelView.heightAnchor constraintEqualToConstant:HOTEL_VIEW_HEIGHT].active = YES;
         // initialize hotel view labels
         self.hotelView.startTimeLabel.text = [dateFormatter stringFromDate:self.event.startTime];
@@ -125,8 +118,16 @@ static int const HOTEL_VIEW_HEIGHT = 110;
         self.hotelView.addressLabel.text = self.event.address;
     }
     
+    // add shared event description view
+    [self.stackView addArrangedSubview:self.descriptionView];
+    [self.descriptionView.heightAnchor constraintEqualToConstant:DESCRIPTION_VIEW_HEIGHT].active = YES;
+    self.descriptionView.descriptionLabel.text = self.event.eventDescription;
+    self.descriptionView.costLabel.text = [NSString stringWithFormat:@"$%@", self.event.cost];
+    self.descriptionView.notesLabel.text = self.event.notes;
+    
     // add delete event view
     [self.stackView insertArrangedSubview:self.deleteView atIndex:3];
+    NSLog(@"Stack view subarray after = %@", self.stackView.arrangedSubviews);
 }
 
 
