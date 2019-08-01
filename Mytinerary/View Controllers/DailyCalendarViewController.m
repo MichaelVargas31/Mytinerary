@@ -33,7 +33,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-  
+    
     
     // initializing formatter for calculating cell's times
     self.timeOfDayFormatter = [[NSDateFormatter alloc] init];
@@ -71,7 +71,7 @@
     // [self.expandView setHidden:TRUE];
     //[self.expandView sizeToFit:()];
     self.status = @"close";
-   
+    
     
     [self sideMenus];
 }
@@ -223,8 +223,8 @@
     
     NSArray *individualDayEvents = [NSArray arrayWithArray:self.eventsDictionary[date]];
     cell.eventArray = individualDayEvents;
-//    NSLog(@"self.eventsDictionary = %@", self.eventsDictionary);
-//    NSLog(@"\n\nFor date:%@, individualDayEvents = %@", date, individualDayEvents);
+    //    NSLog(@"self.eventsDictionary = %@", self.eventsDictionary);
+    //    NSLog(@"\n\nFor date:%@, individualDayEvents = %@", date, individualDayEvents);
     return cell;
 }
 
@@ -286,7 +286,7 @@
 }
 
 - (IBAction)onTapAddEventBtn:(id)sender {
- [self performSegueWithIdentifier:@"addEventSegue" sender:self];
+    [self performSegueWithIdentifier:@"addEventSegue" sender:self];
     
 }
 

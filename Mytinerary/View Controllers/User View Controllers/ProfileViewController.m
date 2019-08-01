@@ -24,16 +24,16 @@
 
 @implementation ProfileViewController
 
- // Do any additional setup after loading the view.
+// Do any additional setup after loading the view.
 - (void)viewDidLoad {
     [super viewDidLoad];
-   
+    
     self.collectionView.dataSource=self;
     self.collectionView.delegate=self;
     
     //sets the username on the profile view
     self.usernameLabel.text=User.currentUser.username;
-
+    
     //fetch itineraries
     [self fetchitineraries];
     
@@ -76,26 +76,26 @@
     //Search Where author of itineraries is equal to the current user logged in
     [iQuery whereKey:@"author" equalTo:PFUser.currentUser];
     [iQuery getFirstObjectInBackgroundWithBlock:^(PFObject *object, NSError *error)
-    {
-        if (!error) {
-            [iQuery orderByDescending: @"createdAt"];
-            [iQuery includeKey: @"author"];
-            iQuery.limit =10;
-            
-            //fetch data
-            [iQuery findObjectsInBackgroundWithBlock:^(NSArray<Itinerary *> * itinerary, NSError *  error) {
-                if(itinerary){
-                    self.iArray = itinerary;
-                    [self.collectionView reloadData];
-                }
-                else{
-                    NSLog(@"Error fetching data");
-                }
-            }];
-        }
-        
-    }];
-  
+     {
+         if (!error) {
+             [iQuery orderByDescending: @"createdAt"];
+             [iQuery includeKey: @"author"];
+             iQuery.limit =10;
+             
+             //fetch data
+             [iQuery findObjectsInBackgroundWithBlock:^(NSArray<Itinerary *> * itinerary, NSError *  error) {
+                 if(itinerary){
+                     self.iArray = itinerary;
+                     [self.collectionView reloadData];
+                 }
+                 else{
+                     NSLog(@"Error fetching data");
+                 }
+             }];
+         }
+         
+     }];
+    
 }
 
 - (nonnull __kindof UICollectionViewCell *)collectionView:(nonnull UICollectionView *)collectionView cellForItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
@@ -109,7 +109,7 @@
 }
 
 - (NSInteger)collectionView:(nonnull UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-   return self.iArray.count;
+    return self.iArray.count;
 }
 
 // Method to add profile header to collection View
@@ -134,7 +134,7 @@
 //}
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-//    NSLog(@"%@", self);
+    //    NSLog(@"%@", self);
     UICollectionViewCell *tappedCell = [self.collectionView cellForItemAtIndexPath:indexPath];
     [self performSegueWithIdentifier:@"calendarSegue" sender:tappedCell];
 }
@@ -163,7 +163,7 @@
         DailyCalendarViewController *dailyCalendarViewController = [storyboard instantiateViewControllerWithIdentifier:@"DailyCalendarViewController"];
         
         ItineraryCollectionViewCell *tappedCell = sender;
-
+        
         Itinerary *itinerary = tappedCell.itinerary;
         // set daily calendar view controller's itinerary
         dailyCalendarViewController.itinerary = itinerary;
@@ -178,8 +178,8 @@
             }
         }];
         
-        UINavigationController *navigationController = [segue destinationViewController];
-        [navigationController setViewControllers:[NSArray arrayWithObject:dailyCalendarViewController]];
+        SWRevealViewController *revealViewController = [segue destinationViewController];
+        revealViewController.itinerary = itinerary;
     }
     else {
         NSLog(@"If you're getting this message, you need to edit the prepareForSegue() method to add another segue");

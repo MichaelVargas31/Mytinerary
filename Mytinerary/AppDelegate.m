@@ -11,6 +11,7 @@
 #import "DailyCalendarViewController.h"
 #import "User.h"
 #import "LoginViewController.h"
+#import "SWRevealViewController.h"
 
 
 @interface AppDelegate ()
@@ -30,62 +31,31 @@
     
     [Parse initializeWithConfiguration:config];
     
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    self.window.rootViewController = [storyboard instantiateViewControllerWithIdentifier:@"SWRevealViewController"];
     
     
-
-        
-        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-        
     
-        self.window.rootViewController = [storyboard instantiateViewControllerWithIdentifier:@"SWRevealViewController"];
-        
-
     //Directly load profile view if there is a cached user already present
-   /* if(PFUser.currentUser) {
-       
+    if (PFUser.currentUser) {
+        
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
         
-            //@"Profile" is the ID for the navigation view controller in which profile page is embedded in
+        //@"Profile" is the ID for the navigation view controller in which profile page is embedded in
         User *currentUser = [User initUserWithPFUser:PFUser.currentUser];
         
-        
-        
         if (currentUser.defaultItinerary) {
-           /* DailyCalendarViewController *dailyCalendarViewController = [storyboard instantiateViewControllerWithIdentifier:@"DailyCalendarViewController"];
-            dailyCalendarViewController.itinerary = currentUser.defaultItinerary;
-            dailyCalendarViewController.fromLogin = true; // flag that fetches itinerary
-            self.window.rootViewController = dailyCalendarViewController;*/
-             // self.window.rootViewController = [storyboard instantiateViewControllerWithIdentifier:@"NavCont"];
-            
-            
-            
-          /*  UINavigationController *loginnavi = [storyboard instantiateViewControllerWithIdentifier:@"LoginNavigationController"];
-            
-            UIViewController *vc1 = [storyboard instantiateViewControllerWithIdentifier:@"LoginViewController"]; //if you assigned this ID is storyboard
-            UIViewController *vc2 = [storyboard instantiateViewControllerWithIdentifier:@"DailyCalendarViewController"];  //if you assigned this ID is storyboard
-            UIViewController *vc3 = [storyboard instantiateViewControllerWithIdentifier:@"ProfileViewController"];
-            NSArray *controllers = @[vc2, vc3];
-            //UINavigationController *navController = (UINavigationController *)self.window.rootViewController;
-            
-            UINavigationController *navcontrolle = (UINavigationController *)loginnavi;
-            [navcontrolle setViewControllers:controllers];
-           
-           
-            
-            
-            
-            
-            
-            
-            
-             self.window.rootViewController = [storyboard instantiateViewControllerWithIdentifier:@"SWRevealViewController"];
+            SWRevealViewController *revealViewController = [storyboard instantiateViewControllerWithIdentifier:@"SWRevealViewController"];
+            revealViewController.itinerary = currentUser.defaultItinerary;
+            revealViewController.fromLogin = true;
+            self.window.rootViewController = revealViewController;
         }
         else {
             self.window.rootViewController = [storyboard instantiateViewControllerWithIdentifier:@"SWRevealViewController"];
             //ProfileNavigationController
         }
-    }*/
-   
+    }
+    
     return YES;
 }
 
