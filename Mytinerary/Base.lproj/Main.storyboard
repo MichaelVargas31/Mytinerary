@@ -1092,9 +1092,9 @@
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aw9-Pu-t1W">
-                            <rect key="frame" x="68" y="49" width="105" height="30"/>
+                            <rect key="frame" x="77" y="49" width="87" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <state key="normal" title="Delete Itinerary">
+                            <state key="normal" title="Delete Event">
                                 <color key="titleColor" red="1" green="0.21470649429999999" blue="0.25217029819999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                             </state>
                             <connections>

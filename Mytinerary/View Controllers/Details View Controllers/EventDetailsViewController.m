@@ -147,14 +147,32 @@ static int const HOTEL_VIEW_HEIGHT = 110;
 
 
 - (IBAction)didTapDeleteButton:(id)sender {
-    [self.event deleteInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
-        if (succeeded) {
-            [self.delegate didDeleteEvent:self.event];
-            [self dismissViewControllerAnimated:YES completion:^{}];
-        } else {
-            NSLog(@"Error deleting event: %@", error.localizedDescription);
+    
+    UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Delete Event?" message:@"Are you sure you want to delete this event. This cannot be undone." preferredStyle:UIAlertControllerStyleAlert];
+    
+    // create Delete and Cancel buttons to alert
+    UIAlertAction* deleteAction = [UIAlertAction actionWithTitle:@"Delete" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        // if the user confirms the delete:
+        if (action) {
+            [self.event deleteInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+                if (succeeded) {
+                    // deletes event from its parent itinerary
+                    [self.delegate didDeleteEvent:self.event];
+                    [self dismissViewControllerAnimated:YES completion:^{}];
+                    
+                    
+                } else {
+                    NSLog(@"Error deleting event: %@", error.localizedDescription);
+                }
+            }];
         }
     }];
+    
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"cancel" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {}];
+    [alert addAction:cancelAction];
+    [alert addAction:deleteAction];
+    [self presentViewController:alert animated:YES completion:nil];
+    
 }
 
 

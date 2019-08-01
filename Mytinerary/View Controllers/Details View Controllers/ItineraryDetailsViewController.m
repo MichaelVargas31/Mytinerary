@@ -102,13 +102,18 @@ static const int TABLE_VIEW_HEADER_HEIGHT = 44;
 - (IBAction)didTapDeleteItinerary:(id)sender {
     
     // display an alert asking for confirmation of deletion
-    UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Delete Itinerary?" message:@"Are you sure you want to delete this itinerary. This cannot be undone." preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Delete Itinerary?" message:@"Are you sure you want to delete this itinerary. This will delete all this itinerary's events. This cannot be undone." preferredStyle:UIAlertControllerStyleAlert];
 
     // create Delete and Cancel buttons to alert
     UIAlertAction* deleteAction = [UIAlertAction actionWithTitle:@"Delete" style:UIAlertActionStyleDefault
     handler:^(UIAlertAction * action) {
         // if the delete button is pressed again
         if (action) {
+            // delete the itinerary's events individually
+            for (Event *eventToBeDeleted in self.itinerary.events) {
+                [eventToBeDeleted deleteInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {}];
+            }
+            
             [self.itinerary deleteInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
                 if (succeeded) {
                     NSLog(@"You deleted %@", self.itinerary.title);
