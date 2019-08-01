@@ -77,8 +77,9 @@
 
 - (void)dismissKeyboard {
     [self.view endEditing:YES];
+}
   
--(void)sideMenus {
+- (void)sideMenus {
     if (self.revealViewController != nil) {
         self.m.target = self.revealViewController;
         self.m.action = @selector(revealToggle:);
