@@ -16,6 +16,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (weak, nonatomic) IBOutlet UILabel *usernameLabel;
 
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *mB;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *aB;
+
 @end
 
 NS_ASSUME_NONNULL_END

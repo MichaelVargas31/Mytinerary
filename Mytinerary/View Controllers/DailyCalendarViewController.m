@@ -18,11 +18,13 @@
 #import "DateFormatter.h"
 #import "FSCalendar.h"
 #import "Parse/Parse.h"
+#import "SWRevealViewController.h"
 
 
 @interface DailyCalendarViewController () <UITableViewDelegate, UITableViewDataSource, CalendarEventViewDelegate, UICollectionViewDelegate, UICollectionViewDataSource>
 
 @property (strong, nonatomic) UIActivityIndicatorView *activityIndicator;
+@property (strong, nonatomic) NSString *status;
 
 @end
 
@@ -30,6 +32,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
     
     
     // initializing formatter for calculating cell's times
@@ -63,6 +66,31 @@
     else {
         [self loadItinView];
     }
+    
+    //self.expandView.hidden=true;
+    // [self.expandView setHidden:TRUE];
+    //[self.expandView sizeToFit:()];
+    self.status = @"close";
+    
+    
+    [self sideMenus];
+}
+
+-(void) sideMenus{
+    
+    if(self.revealViewController != nil){
+        self.menuButton.target = self.revealViewController;
+        self.menuButton.action = @selector(revealToggle:);
+        self.revealViewController.rearViewRevealWidth = 275;
+        self.revealViewController.rightViewRevealWidth = 160;
+        
+        self.alertButton.target= self.revealViewController;
+        self.alertButton.action = @selector(rightRevealToggle:);
+        
+        [self.view addGestureRecognizer:self.revealViewController.panGestureRecognizer];
+        
+    }
+    
 }
 
 - (void)fetchItineraryAndLoadView {
@@ -195,8 +223,8 @@
     
     NSArray *individualDayEvents = [NSArray arrayWithArray:self.eventsDictionary[date]];
     cell.eventArray = individualDayEvents;
-//    NSLog(@"self.eventsDictionary = %@", self.eventsDictionary);
-//    NSLog(@"\n\nFor date:%@, individualDayEvents = %@", date, individualDayEvents);
+    //    NSLog(@"self.eventsDictionary = %@", self.eventsDictionary);
+    //    NSLog(@"\n\nFor date:%@, individualDayEvents = %@", date, individualDayEvents);
     return cell;
 }
 
@@ -257,13 +285,16 @@
     [self presentViewController:navigationController animated:YES completion:nil];
 }
 
-- (IBAction)onTapAddEventButton:(id)sender {
+- (IBAction)onTapAddEventBtn:(id)sender {
     [self performSegueWithIdentifier:@"addEventSegue" sender:self];
+    
 }
 
 - (void)onTapItineraryTitle {
     [self performSegueWithIdentifier:@"itineraryDetailsSegue" sender:nil];
 }
+
+
 
 
 @end
