@@ -123,8 +123,6 @@ static const int TABLE_VIEW_HEADER_HEIGHT = 44;
                     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
                     UINavigationController *profileNavigationVC = [storyboard instantiateViewControllerWithIdentifier:@"Profile"];
                     appDelegate.window.rootViewController = profileNavigationVC;
-                    NSLog(@"stack = %@", [self.navigationController viewControllers]);
-
                 } else {
                     NSLog(@"The error you got was %@", error.localizedDescription);
                 }

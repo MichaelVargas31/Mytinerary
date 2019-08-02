@@ -66,7 +66,6 @@ static int const HOTEL_VIEW_HEIGHT = 110;
         UIView *viewToBeRemoved;
         for (int i = 0; i<subviews.count; i++) {
             if (!([subviews[i] isKindOfClass:[EventDetailsTitleView class]] || [subviews[i] isKindOfClass:[EventDetailsDescriptionView class]] || [subviews[i] isKindOfClass:[EventDetailsDeleteView class]])) {
-//                NSLog(@"view = %@", viewToBeRemoved);
 
                 viewToBeRemoved = subviews[i];
                 [self.stackView removeArrangedSubview:viewToBeRemoved];
@@ -128,7 +127,6 @@ static int const HOTEL_VIEW_HEIGHT = 110;
     
     // add delete event view
     [self.stackView insertArrangedSubview:self.deleteView atIndex:3];
-    NSLog(@"Stack view subarray after = %@", self.stackView.arrangedSubviews);
 }
 
 - (IBAction)onTapEditButton:(id)sender {

@@ -271,7 +271,7 @@
                         <outlet property="m" destination="IrT-10-MH7" id="rra-8M-LnR"/>
                         <outlet property="startTimeDatePicker" destination="xI8-xb-MdE" id="ly4-dT-aIf"/>
                         <outlet property="titleTextField" destination="81r-jN-GNE" id="GA6-Rf-BfJ"/>
-                        <segue destination="AST-nT-DsT" kind="show" identifier="AddNewItineraryToDailyCalendarSegue" id="RmN-u0-S7V"/>
+                        <segue destination="AST-nT-DsT" kind="showDetail" identifier="AddNewItineraryToDailyCalendarSegue" id="RmN-u0-S7V"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iEG-eb-U2D" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1784,7 +1784,7 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="Ly5-ib-0bT"/>
-        <segue reference="oWh-IL-bug"/>
+        <segue reference="RmN-u0-S7V"/>
         <segue reference="W6l-eq-cqv"/>
         <segue reference="Dwd-wo-Oze"/>
     </inferredMetricsTieBreakers>

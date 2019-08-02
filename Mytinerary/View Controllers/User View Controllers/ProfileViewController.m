@@ -119,7 +119,6 @@
     
     if (kind == UICollectionElementKindSectionHeader) {
         ProfileCollectionReusableView *profileHeaderView = [self.collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"ProfileCell" forIndexPath:indexPath];
-        NSLog(@"user: %@", PFUser.currentUser);
         User *currentUser = [User initUserWithPFUser:PFUser.currentUser];
         profileHeaderView.usernameLabel.text = currentUser.username;
         reusableview = profileHeaderView;
@@ -128,13 +127,7 @@
     return reusableview;
 }
 
-//-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-//{
-//    [self performSegueWithIdentifier:@"yourSegue" sender:self];
-//}
-
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    //    NSLog(@"%@", self);
     UICollectionViewCell *tappedCell = [self.collectionView cellForItemAtIndexPath:indexPath];
     [self performSegueWithIdentifier:@"calendarSegue" sender:tappedCell];
 }

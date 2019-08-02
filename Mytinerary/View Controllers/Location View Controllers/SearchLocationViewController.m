@@ -43,8 +43,6 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (self.delegate) {
         Location *location = self.results[indexPath.row];
-        NSLog(@"delegate: %@", self.delegate);
-        NSLog(@"selected location %@", location.name);
         [self.delegate didTapLocation:location textField:self.textField];
         [self dismissViewControllerAnimated:YES completion:nil];
     }
@@ -69,9 +67,6 @@
 //}
 
 -(void)GoogleAPIImplementation:(NSString *)query {
-    
-    NSLog(@"%@", self.searchBar.text);
-    
     NSString *base = @"https://maps.googleapis.com/maps/api/place/findplacefromtext/json?";
     // Getting the api key from the
     NSString * path = [NSBundle.mainBundle pathForResource:@"Keys" ofType:@"plist"];

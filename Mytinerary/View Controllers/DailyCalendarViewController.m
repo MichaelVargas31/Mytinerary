@@ -64,7 +64,7 @@
     self.tableView.rowHeight = [DailyTableViewCell returnRowHeight].floatValue;
     
     // if from login, itinerary obj must be fetched first
-    if (self.fromLogin) {
+    if (self.loadItinerary) {
         [self fetchItineraryAndLoadView];
     }
     else {

@@ -78,14 +78,10 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([[segue identifier] isEqualToString:@"defaultItinerarySegue"]) {
-        //UINavigationController *navigationController = [segue destinationViewController];
-        //DailyCalendarViewController *dailyCalendarViewController = [[navigationController viewControllers] firstObject];
-        
-        
         SWRevealViewController *revealViewController = [segue destinationViewController];
         User *user = sender;
         revealViewController.itinerary = user.defaultItinerary;
-        revealViewController.fromLogin = true;
+        revealViewController.loadItinerary = true;
     }
 }
 
