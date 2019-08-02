@@ -118,12 +118,14 @@ static const int TABLE_VIEW_HEADER_HEIGHT = 44;
                 if (succeeded) {
                     NSLog(@"You deleted %@", self.itinerary.title);
                     
-                    // go back to the profileViewController
-                    AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
-                    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-                    UINavigationController *profileNavigationVC = [storyboard instantiateViewControllerWithIdentifier:@"Profile"];
-                    appDelegate.window.rootViewController = profileNavigationVC;
-                    NSLog(@"stack = %@", [self.navigationController viewControllers]);
+//                    // go back to the profileViewController
+//                    AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+//                    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+//                    UINavigationController *profileNavigationVC = [storyboard instantiateViewControllerWithIdentifier:@"Profile"];
+//                    appDelegate.window.rootViewController = profileNavigationVC;
+//                    NSLog(@"stack = %@", [self.navigationController viewControllers]);
+                    [self performSegueWithIdentifier:@"DeleteItineraryToProfileSegue" sender:nil];
+
 
                 } else {
                     NSLog(@"The error you got was %@", error.localizedDescription);
@@ -218,6 +220,8 @@ static const int TABLE_VIEW_HEADER_HEIGHT = 44;
     } else if ([segue.identifier isEqualToString:@"ItinDetailsToEventDetailsSegue"]) {
         EventDetailsViewController *detailsVC = [segue destinationViewController];
         detailsVC.event = sender;
+    } else if ([segue.identifier isEqualToString:@"DeleteItineraryToProfileSegue"]) {
+        ;
     }
 }
 
