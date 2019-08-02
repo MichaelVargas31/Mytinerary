@@ -27,8 +27,12 @@
 #pragma mark - Table view data source
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
     LocationCellTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"LocationCellTableViewCell" forIndexPath:indexPath];
+    
     Location *location = self.results[indexPath.row];
+    
+    cell.location = location;
     
     cell.eventName.text = location.name;
     cell.eventAddress.text = location.address;
@@ -72,12 +76,12 @@
     
     NSLog(@"%@", self.searchBar.text);
     
-    NSString *base = @"https://maps.googleapis.com/maps/api/place/findplacefromtext/json?";
+    NSString *base = @"https://maps.googleapis.com/maps/api/place/textsearch/json?";
     // Getting the api key from the
     NSString * path = [NSBundle.mainBundle pathForResource:@"Keys" ofType:@"plist"];
     NSDictionary *keys = [NSDictionary dictionaryWithContentsOfFile:path];
     NSString *apiKey = keys[@"googleSearchApiKey"];
-    NSString *qString = [NSString stringWithFormat:@"input=%@&inputtype=textquery&fields=name,formatted_address,geometry,type&key=%@", query, apiKey];
+    NSString *qString = [NSString stringWithFormat:@"input=%@&inputtype=textquery&fields=name,formatted_address,geometry,type&key=%@",self.searchBar.text,apiKey];
     
     qString = [qString stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
     
@@ -89,7 +93,8 @@
         if (data) {
             
             NSDictionary *responseDictionary = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
-            NSArray *locations = [responseDictionary valueForKeyPath: @"candidates"];
+          
+            NSArray *locations = [responseDictionary valueForKeyPath: @"results"];
             self.results = [Location initWithDictionaries:locations];
             
             [self.tableView reloadData];

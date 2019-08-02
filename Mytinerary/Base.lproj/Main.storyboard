@@ -1539,7 +1539,7 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <segue destination="oG8-r8-cd1" kind="custom" customClass="SWRevealViewControllerSeguePushController" id="fKl-TQ-TQv"/>
+                                            <segue destination="oG8-r8-cd1" kind="custom" customClass="SWRevealViewControllerSeguePushController" id="dTY-Ol-ppU"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="GzO-Fx-evy">

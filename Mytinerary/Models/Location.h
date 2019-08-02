@@ -18,6 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSNumber *longitude;
 @property (nonatomic, strong) NSString *type;
 
+
 + (NSMutableArray *)initWithDictionaries:(NSArray<NSDictionary *> *)dictionaries;
 
 @end
