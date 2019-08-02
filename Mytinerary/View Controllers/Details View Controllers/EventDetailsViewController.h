@@ -11,8 +11,16 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@protocol EventDetailsViewControllerDelegate
+
+- (void)didUpdateEvent:(Event *)updatedEvent;
+- (void)didDeleteEvent:(Event *)deletedEvent;
+
+@end
+
 @interface EventDetailsViewController : UIViewController
 
+@property (nonatomic, weak) id<EventDetailsViewControllerDelegate> delegate;
 @property (strong, nonatomic) Event *event;
 
 @end

@@ -7,6 +7,7 @@
 //
 
 #import "Date.h"
+#import "Calendar.h"
 
 @implementation Date
 
@@ -31,7 +32,7 @@
 
 // increments date by [dayOffset] days
 + (NSDate *)incrementDayBy:(NSDate *)date dayOffset:(int)dayOffset {
-    NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+    NSCalendar *gregorian = [Calendar gregorianCalendarWithUTCTimeZone];
     NSDateComponents *offsetComponents = [[NSDateComponents alloc] init];
     [offsetComponents setDay:dayOffset];
     NSDate *incrementedDate = [gregorian dateByAddingComponents:offsetComponents toDate:date options:0];

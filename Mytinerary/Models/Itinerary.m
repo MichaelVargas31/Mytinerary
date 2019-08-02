@@ -20,10 +20,9 @@
 }
 
 // initialize a new itinerary with current user and given start/end times
-+ (void)initNewItinerary:(NSString *)title startTime:(NSDate *)startTime endTime:(NSDate *)endTime budget:(NSNumber *)budget withCompletion:(PFBooleanResultBlock)completion {
++ (Itinerary *)initNewItinerary:(NSString *)title startTime:(NSDate *)startTime endTime:(NSDate *)endTime budget:(NSNumber *)budget withCompletion:(PFBooleanResultBlock)completion {
 
     Itinerary *itinerary = [Itinerary new];
-    
     itinerary.author = [PFUser currentUser];
     itinerary.startTime = startTime;
     itinerary.endTime = endTime;
@@ -41,6 +40,8 @@
     itinerary.events = eventsArray;
     
     [itinerary saveInBackgroundWithBlock:completion];
+    
+    return itinerary;
 }
 
 - (BOOL)isEventDateValid:(NSDate *)eventStartTime eventEndTime:(NSDate *)eventEndTime {
@@ -53,6 +54,17 @@
         return false;
     }
     return true;
+}
+
+
+- (void)updateItinerary:(Itinerary *)updatedItinerary {
+    [updatedItinerary saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+        if (succeeded) {
+            NSLog(@"successfully saved itinerary '%@'", updatedItinerary.title);
+        } else {
+            NSLog(@"Error updating itinerary: %@", error.localizedDescription);
+        }
+    }];
 }
 
 // add event to an itinerary's list of events
@@ -76,5 +88,7 @@
         }
     }];
 }
+
+
 
 @end

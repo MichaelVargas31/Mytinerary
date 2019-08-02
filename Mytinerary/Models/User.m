@@ -7,7 +7,6 @@
 //
 
 #import "User.h"
-#import "Itinerary.h"
 
 @implementation User
 

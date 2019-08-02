@@ -20,6 +20,7 @@
 
 @interface ProfileViewController () <UICollectionViewDelegate, UICollectionViewDataSource>
 
+
 @end
 
 @implementation ProfileViewController
@@ -32,7 +33,7 @@
     self.collectionView.delegate=self;
     
     //sets the username on the profile view
-    self.usernameLabel.text=User.currentUser.username;
+    self.usernameLabel.text= User.currentUser.username;
     
     //fetch itineraries
     [self fetchitineraries];
@@ -46,8 +47,8 @@
     
     //item size
     //Fix size later to make it look better
-    CGFloat itemWidth=100;
-    CGFloat itemHeight=100;
+    CGFloat itemWidth = 100;
+    CGFloat itemHeight = 100;
     layout.itemSize= CGSizeMake(itemWidth, itemHeight);
     
     [self sideMenus];
@@ -76,26 +77,25 @@
     //Search Where author of itineraries is equal to the current user logged in
     [iQuery whereKey:@"author" equalTo:PFUser.currentUser];
     [iQuery getFirstObjectInBackgroundWithBlock:^(PFObject *object, NSError *error)
-     {
-         if (!error) {
-             [iQuery orderByDescending: @"createdAt"];
-             [iQuery includeKey: @"author"];
-             iQuery.limit =10;
-             
-             //fetch data
-             [iQuery findObjectsInBackgroundWithBlock:^(NSArray<Itinerary *> * itinerary, NSError *  error) {
-                 if(itinerary){
-                     self.iArray = itinerary;
-                     [self.collectionView reloadData];
-                 }
-                 else{
-                     NSLog(@"Error fetching data");
-                 }
-             }];
-         }
-         
-     }];
-    
+    {
+        if (!error) {
+            [iQuery orderByDescending: @"createdAt"];
+            [iQuery includeKey: @"author"];
+            iQuery.limit = 100;
+            
+            //fetch data
+            [iQuery findObjectsInBackgroundWithBlock:^(NSArray<Itinerary *> * itinerary, NSError *  error) {
+                if(itinerary){
+                    self.iArray = itinerary;
+                    [self.collectionView reloadData];
+                }
+                else{
+                    NSLog(@"Error fetching data");
+                }
+            }];
+        }
+        
+    }];
 }
 
 - (nonnull __kindof UICollectionViewCell *)collectionView:(nonnull UICollectionView *)collectionView cellForItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
@@ -185,6 +185,9 @@
         NSLog(@"If you're getting this message, you need to edit the prepareForSegue() method to add another segue");
     }
 }
+
+
+
 
 
 

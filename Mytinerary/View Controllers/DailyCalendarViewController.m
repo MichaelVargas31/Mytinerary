@@ -6,24 +6,31 @@
 //  Copyright © 2019 michaelvargas. All rights reserved.
 //
 
+// View Controllers
 #import "DailyCalendarViewController.h"
-#import "DailyTableViewCell.h"
-#import "WeekdayCollectionViewCell.h"
-#import "DailyCalendarEventUIView.h"
 #import "EventDetailsViewController.h"
 #import "ItineraryDetailsViewController.h"
 #import "InputEventViewController.h"
 #import "MapViewController.h"
+// Views
+#import "DailyTableViewCell.h"
+#import "WeekdayCollectionViewCell.h"
+#import "DailyCalendarEventUIView.h"
+// Models Singletons & Other
+#import "AppDelegate.h"
 #import "Event.h"
 #import "DateFormatter.h"
-#import "FSCalendar.h"
+#import "Calendar.h"
 #import "Parse/Parse.h"
+#import "Directions.h"
 #import "SWRevealViewController.h"
 
 
-@interface DailyCalendarViewController () <UITableViewDelegate, UITableViewDataSource, CalendarEventViewDelegate, UICollectionViewDelegate, UICollectionViewDataSource>
+@interface DailyCalendarViewController () <UITableViewDelegate, UITableViewDataSource, CalendarEventViewDelegate, UICollectionViewDelegate, UICollectionViewDataSource, InputEventViewControllerDelegate, EventDetailsViewControllerDelegate>
 
 @property (strong, nonatomic) UIActivityIndicatorView *activityIndicator;
+@property (strong, nonatomic) NSDate *displayedDate;
+// clean??? what is status
 @property (strong, nonatomic) NSString *status;
 
 @end
@@ -33,8 +40,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    
-    
     // initializing formatter for calculating cell's times
     self.timeOfDayFormatter = [[NSDateFormatter alloc] init];
     [self.timeOfDayFormatter setDateFormat:@"HH:mm:ss"];
@@ -43,8 +48,7 @@
     [self.dateFormatter setDateFormat:@"yyyy-MM-dd"];
     
     
-    self.calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
-    [self.calendar setTimeZone:[NSTimeZone timeZoneWithName:@"UTC"]];
+    self.calendar = [Calendar gregorianCalendarWithUTCTimeZone];
     
     // Do any additional setup after loading the view.
     
@@ -66,17 +70,14 @@
     else {
         [self loadItinView];
     }
+
     
-    //self.expandView.hidden=true;
-    // [self.expandView setHidden:TRUE];
-    //[self.expandView sizeToFit:()];
-    self.status = @"close";
-    
+//    self.status = @"close";
     
     [self sideMenus];
 }
 
--(void) sideMenus{
+-(void)sideMenus{
     
     if(self.revealViewController != nil){
         self.menuButton.target = self.revealViewController;
@@ -93,19 +94,30 @@
     
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+    if ([self.WeeklyCalendarCollectionView indexPathsForSelectedItems].count == 0) {
+        NSIndexPath *indexPath = [NSIndexPath indexPathForItem:0 inSection:0];
+        [self.WeeklyCalendarCollectionView selectItemAtIndexPath:indexPath animated:YES scrollPosition:UICollectionViewScrollPositionNone];
+        [self collectionView:self.WeeklyCalendarCollectionView didSelectItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]];
+    }
+}
+
 - (void)fetchItineraryAndLoadView {
     // set up activity indicator -- TODO: not sure if this actually works
     self.activityIndicator = [[UIActivityIndicatorView alloc] init];
     self.activityIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyleWhiteLarge;
     self.activityIndicator.center = self.view.center;
     [self.view addSubview:self.activityIndicator];
+    [self.activityIndicator hidesWhenStopped];
     [self.activityIndicator startAnimating];
     
     [Itinerary fetchAllInBackground:[NSArray arrayWithObject:self.itinerary] block:^(NSArray * _Nullable objects, NSError * _Nullable error) {
         if (objects) {
             NSLog(@"itinerary successfully fetched!");
             self.itinerary = [objects firstObject];
+            [self.activityIndicator stopAnimating];
             [self loadItinView];
+            [self.activityIndicator stopAnimating];
         }
         else {
             NSLog(@"error fetching itinerary object: %@", error);
@@ -126,17 +138,22 @@
         if (!error) {
             [self setupDayDictionary:self.itinerary.events];
             [self.WeeklyCalendarCollectionView reloadData];
-            [self refreshViewUsingDate:[self.calendar startOfDayForDate:self.itinerary.startTime]];
+            
+            // on first load, show itinerary's first day by default
+            NSDate *firstDay = [self.calendar startOfDayForDate:self.itinerary.startTime];
+            [self refreshViewUsingDate:firstDay];
+            self.displayedDate = firstDay;
         } else {
             NSLog(@"error: %@", error.localizedDescription);
         }
     }];
 }
 
-
 #pragma mark - Data Handling
 
 -(void)refreshViewUsingDate:(NSDate *)newDate {
+    // make sure its the midnight version of the date
+    newDate = [self.calendar startOfDayForDate:newDate];
     // remove old events from screen
     for(UIView *view in [self.tableView subviews]) {
         if ([view isKindOfClass:[DailyCalendarEventUIView class]] == YES) {
@@ -155,12 +172,10 @@
     }
 }
 
-
 // For grouping the array of events into a dictionary.
 // key = NSDate [with time set to midnight]
 // value = NSArray with events
 - (void) setupDayDictionary:(NSArray *)eventsArray {
-    
     // setting up looping variables
     NSDate *loopDay = [self.calendar startOfDayForDate:self.itinerary.startTime];
     NSDate *endDay = [self.calendar dateBySettingHour:0 minute:0 second:00 ofDate:self.itinerary.endTime options:0];
@@ -188,6 +203,38 @@
     self.eventsDictionary = [NSDictionary dictionaryWithDictionary:tempEventsDict];
 }
 
+// returns date index of added event
+- (NSDate *)addEventToDayDictionary:(Event *)event {
+    // get the date of the updated event, change time to midnight
+    NSDate *eventDate = [self.calendar startOfDayForDate:event.startTime];
+    // add to day dictionary
+    [self.eventsDictionary[eventDate] addObject:event];
+    return eventDate;
+}
+
+- (NSDate *)updateEventInDayDictionary:(Event *)event {
+    NSDate *dayDictIdx = [self.calendar startOfDayForDate:event.startTime];
+    NSMutableArray *dayEvents = self.eventsDictionary[dayDictIdx];
+    BOOL noMatchingEvent = true;
+    
+    for (int i = 0; i < dayEvents.count; i++) {
+        if ([event isSameEventObj:dayEvents[i]]) {
+            [dayEvents removeObject:dayEvents[i]];
+            noMatchingEvent = false;
+            break;
+        }
+    }
+    
+    // if no matching event, do not modify dictionary and return nil
+    if (noMatchingEvent) {
+        return nil;
+    }
+    
+    // if matching event found, modify dictionary and return dict idx
+    [dayEvents addObject:event];
+    return dayDictIdx;
+}
+
 
 #pragma mark - Table & Collection Views
 
@@ -200,12 +247,10 @@
     return cell;
 }
 
-
 - (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     // 48 half hour increments in day
     return 48;
 }
-
 
 - (nonnull __kindof UICollectionViewCell *)collectionView:(nonnull UICollectionView *)collectionView cellForItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
     WeekdayCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"WeekdayCollectionViewCell" forIndexPath:indexPath];
@@ -223,8 +268,6 @@
     
     NSArray *individualDayEvents = [NSArray arrayWithArray:self.eventsDictionary[date]];
     cell.eventArray = individualDayEvents;
-    //    NSLog(@"self.eventsDictionary = %@", self.eventsDictionary);
-    //    NSLog(@"\n\nFor date:%@, individualDayEvents = %@", date, individualDayEvents);
     return cell;
 }
 
@@ -237,9 +280,8 @@
     // reset the tableview and all the sheiza on it
     WeekdayCollectionViewCell *cell = (WeekdayCollectionViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
     cell.dateLabel.backgroundColor = [UIColor colorWithRed:.5 green:.5 blue:.5 alpha:1];
-    // NSLog(@"tapped cell's Date [7 hours behind] = %@", cell.date);
     [self refreshViewUsingDate:cell.date];
-    
+    self.displayedDate = cell.date;
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath {
@@ -248,17 +290,63 @@
     
 }
 
+#pragma - Transportation
+
+// automatically makes transportations events for the currently displayed day
+- (IBAction)onTapAutoTransportButton:(id)sender {
+    NSDate *dayIdx = self.displayedDate;
+    NSMutableArray <Event *> *dayEvents = self.eventsDictionary[dayIdx];
+    dayEvents = [self makeDailyTransportationEvents:dayEvents];
+}
+
+- (NSMutableArray <Event *> *)makeDailyTransportationEvents:(NSMutableArray <Event *> *)dayEvents {
+    // sort events in ascending order by start time
+    [dayEvents sortUsingComparator:^NSComparisonResult(Event *event1, Event *event2) {
+        return [event1.startTime compare:event2.startTime];
+    }];
+    
+    int dayEventsOGLength = (int)dayEvents.count;
+    
+    for (int i = 0; i < dayEventsOGLength - 1; i++) {
+        // sliding window -- if event pair has no transportation events, add one
+        // TODO check for address matching
+        Event *event1 = dayEvents[i];
+        Event *event2 = dayEvents[i + 1];
+        
+        // if neither event is of type transportation
+        if (![event1.category isEqualToString:@"transportation"] && ![event2.category isEqualToString:@"transportation"]) {
+            Event *transpoEvent = [Directions makeTransportationEventFromEvents:event1 endEvent:event2];
+            
+            // add transportation event to itinerary (in parse) and current view
+            [dayEvents addObject:transpoEvent];
+            [self.itinerary addEventToItinerary:transpoEvent withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
+                if (succeeded) {
+                    NSLog(@"new transpo event successfully added to itin");
+                }
+                else {
+                    NSLog(@"error adding new transpo event to itin: %@", error.domain);
+                }
+            }];
+        }
+    }
+    
+    return dayEvents;
+}
+
+
 #pragma mark - Navigation
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([[segue identifier] isEqualToString:@"eventDetailsSegue"]) {
         EventDetailsViewController *eventDetailsViewController = [segue destinationViewController];
         eventDetailsViewController.event = sender;
+        eventDetailsViewController.delegate = self;
     }
     else if ([[segue identifier] isEqualToString:@"addEventSegue"]) {
         // send itinerary to input event VC to add new event to appropriate itinerary
         InputEventViewController *inputEventViewController = [segue destinationViewController];
         inputEventViewController.itinerary = self.itinerary;
+        inputEventViewController.delegate = self;
     }
     else if ([[segue identifier] isEqualToString:@"itineraryDetailsSegue"]) {
         ItineraryDetailsViewController *itineraryDetailsViewController = [segue destinationViewController];
@@ -266,18 +354,14 @@
     }
 }
 
-
 - (void)calendarEventView:(nonnull DailyCalendarEventUIView *)calendarEventView didTapEvent:(nonnull Event *)event {
     [self performSegueWithIdentifier:@"eventDetailsSegue" sender:event];
 }
 
 - (IBAction)onTapMapButton:(id)sender {
     // navigate to map by resetting nav controller view controller stack
-    
     UINavigationController *navigationController = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"ItineraryNavigationController"];
-    
     MapViewController *mapViewController = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"MapViewController"];
-    
     // pass itinerary from daily calendar to map
     mapViewController.itinerary = self.itinerary;
     
@@ -292,6 +376,44 @@
 
 - (void)onTapItineraryTitle {
     [self performSegueWithIdentifier:@"itineraryDetailsSegue" sender:nil];
+}
+
+// refresh calendar after making new event
+// flow: (new) event input --> daily calendar
+- (void)didMakeEvent:(nonnull Event *)updatedEvent {
+    NSDate *dayDictIdx = [self addEventToDayDictionary:updatedEvent];
+    [self refreshViewUsingDate:dayDictIdx];
+}
+
+// refresh calendar after editing event
+// flow: edit event --> event details --> daily calendar
+- (void)didUpdateEvent:(nonnull Event *)updatedEvent {
+    NSDate *dayDictIdx = [self updateEventInDayDictionary:updatedEvent];
+    if (dayDictIdx) {
+        [self refreshViewUsingDate:dayDictIdx];
+    }
+}
+
+- (void)didDeleteEvent:(nonnull Event *)deletedEvent {
+    // get rid of the deleted event locally
+    NSMutableArray *newEventArray = [NSMutableArray arrayWithArray:self.itinerary.events];
+    [newEventArray removeObject:deletedEvent];
+    self.itinerary.events = newEventArray;
+    // get rid of it in parse (update the itinerary object)
+    [self.itinerary saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+        if (error) {
+            NSLog(@"failed to update itinerary %@", self.itinerary.title);
+        }
+    }];
+    [self refreshViewUsingDate:deletedEvent.startTime];
+}
+
+
+- (IBAction)didTapBackToProfile:(id)sender {
+    AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    UINavigationController *profileNavigationVC = [storyboard instantiateViewControllerWithIdentifier:@"Profile"];
+    appDelegate.window.rootViewController = profileNavigationVC;
 }
 
 

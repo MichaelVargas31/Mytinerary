@@ -53,21 +53,31 @@
     }
 }
 
-- (BOOL)searchBar:(UISearchBar *)searchBar shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
+- (BOOL)searchBar:(UISearchBar *)searchBar shoulkladChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
     NSString *newText = [searchBar.text stringByReplacingCharactersInRange:range withString:text];
     return true;
 }
 
-- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
+
+
+- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
     [self GoogleAPIImplementation:searchBar.text];
 }
+
+//- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
+//    [self GoogleAPIImplementation:searchBar.text];
+//}
 
 -(void)GoogleAPIImplementation:(NSString *)query {
     
     NSLog(@"%@", self.searchBar.text);
     
     NSString *base = @"https://maps.googleapis.com/maps/api/place/findplacefromtext/json?";
-    NSString *qString = [NSString stringWithFormat:@"input=%@&inputtype=textquery&fields=name,formatted_address,geometry,type&key=AIzaSyCL31u6ixoxmF4rIT768UnJuZaAXzFJVF0", query];
+    // Getting the api key from the
+    NSString * path = [NSBundle.mainBundle pathForResource:@"Keys" ofType:@"plist"];
+    NSDictionary *keys = [NSDictionary dictionaryWithContentsOfFile:path];
+    NSString *apiKey = keys[@"googleSearchApiKey"];
+    NSString *qString = [NSString stringWithFormat:@"input=%@&inputtype=textquery&fields=name,formatted_address,geometry,type&key=%@", query, apiKey];
     
     qString = [qString stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
     
@@ -84,7 +94,7 @@
             
             [self.tableView reloadData];
         }
-    }];
+    }];;
     [task resume];
 }
 

@@ -8,7 +8,6 @@
 
 #import <UIKit/UIKit.h>
 #import "Itinerary.h"
-#import "FSCalendar.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -19,11 +18,13 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, nonatomic) NSDateFormatter *dateFormatter;
 
 @property (strong, nonatomic) NSDictionary *eventsDictionary;
+@property (strong, nonatomic) NSArray *dateArray;
 @property (strong, nonatomic) NSCalendar *calendar;
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UICollectionView *WeeklyCalendarCollectionView;
 
+- (IBAction)didTapBackToProfile:(id)sender;
 
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *menuButton;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *alertButton;
