@@ -20,6 +20,8 @@
 
 - (void)updateItinerary:(Itinerary *)updatedItinerary;
 
++ (void)deleteItinerary:(Itinerary *)itinerary withCompletion:(PFBooleanResultBlock)completion;
+
 - (void)addEventToItinerary:(Event *)event withCompletion:(PFBooleanResultBlock)completion;
 
 - (BOOL)isEventDateValid:(NSDate *)eventStartTime eventEndTime:(NSDate *)eventEndTime;
