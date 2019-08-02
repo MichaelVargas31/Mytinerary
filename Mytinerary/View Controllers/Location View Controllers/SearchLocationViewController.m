@@ -22,6 +22,8 @@
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     self.searchBar.delegate = self;
+    
+    self.searchBar.showsCancelButton = true;
 }
 
 #pragma mark - Table view data source
@@ -51,20 +53,22 @@
     }
 }
 
+# pragma - search bar
+
 - (BOOL)searchBar:(UISearchBar *)searchBar shoulkladChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
     NSString *newText = [searchBar.text stringByReplacingCharactersInRange:range withString:text];
     return true;
 }
 
-
-
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
     [self GoogleAPIImplementation:searchBar.text];
 }
 
-//- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
-//    [self GoogleAPIImplementation:searchBar.text];
-//}
+- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+# pragma - Google API
 
 -(void)GoogleAPIImplementation:(NSString *)query {
     NSString *base = @"https://maps.googleapis.com/maps/api/place/findplacefromtext/json?";

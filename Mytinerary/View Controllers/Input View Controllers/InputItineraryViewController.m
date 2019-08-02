@@ -17,6 +17,9 @@
 
 @interface InputItineraryViewController ()
 
+@property (weak, nonatomic) UIScrollView *scrollView;
+@property (weak, nonatomic) UIStackView *stackView;
+
 @property (weak, nonatomic) IBOutlet UILabel *addOrEditItneraryLabel;
 @property (weak, nonatomic) IBOutlet UIButton *createOrSaveButton;
 @property (weak, nonatomic) IBOutlet UITextField *titleTextField;
@@ -34,7 +37,30 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-
+    // make and configure scroll view
+    UIScrollView *scrollView = [[UIScrollView alloc] init];
+    [self.view addSubview:scrollView];
+    scrollView.translatesAutoresizingMaskIntoConstraints = false;
+    
+    NSArray *scrollConstraints = [NSArray arrayWithObjects:[scrollView.leadingAnchor constraintEqualToAnchor:self.view.leadingAnchor], [scrollView.trailingAnchor constraintEqualToAnchor:self.view.trailingAnchor], [scrollView.topAnchor constraintEqualToAnchor:self.view.topAnchor], [scrollView.bottomAnchor constraintEqualToAnchor:self.view.bottomAnchor], nil];
+    [NSLayoutConstraint activateConstraints:scrollConstraints];
+    
+    // make and configure stack view as subview of scroll view
+    UIStackView *stackView = [[UIStackView alloc] init];
+    stackView.axis = UILayoutConstraintAxisVertical;
+    stackView.alignment = UIStackViewAlignmentFill;
+    stackView.spacing = 0;
+    stackView.distribution = UIStackViewDistributionFill;
+    [scrollView addSubview:stackView];
+    
+    stackView.translatesAutoresizingMaskIntoConstraints = false;
+    NSArray *stackConstraints = [NSArray arrayWithObjects:[stackView.leadingAnchor constraintEqualToAnchor:scrollView.leadingAnchor], [stackView.trailingAnchor constraintEqualToAnchor:scrollView.trailingAnchor], [stackView.topAnchor constraintEqualToAnchor:scrollView.topAnchor], [stackView.bottomAnchor constraintEqualToAnchor:scrollView.bottomAnchor], [stackView.widthAnchor constraintEqualToAnchor:scrollView.widthAnchor], nil];
+    [NSLayoutConstraint activateConstraints:stackConstraints];
+    
+    // store pointers to stackView and scrollView to render additional input forms
+    self.stackView = stackView;
+    self.scrollView = scrollView;
+    
     // adjust date pickers
     [self.startTimeDatePicker setDatePickerMode:UIDatePickerModeDate];
     [self.endTimeDatePicker setDatePickerMode:UIDatePickerModeDate];
