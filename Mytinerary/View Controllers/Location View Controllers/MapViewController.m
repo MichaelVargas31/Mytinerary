@@ -14,6 +14,7 @@
 #import "Location.h"
 #import "Event.h"
 #import "Directions.h"
+#import "SWRevealViewController.h"
 
 #import "MyAnnotation.h"
 
@@ -137,15 +138,16 @@
 }
 
 - (IBAction)onTapCalendarButton:(id)sender {
-    UINavigationController *navigationController = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"ItineraryNavigationController"];
-    
-    DailyCalendarViewController *dailyCalendarViewController = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"DailyCalendarViewController"];
-    
-    // pass itinerary from map to daily calendar
-    dailyCalendarViewController.itinerary = self.itinerary;
-    
-    [navigationController setViewControllers:[NSArray arrayWithObject:dailyCalendarViewController]];
-    [self presentViewController:navigationController animated:YES completion:nil];
+    [self performSegueWithIdentifier:@"mapToCalendarSegue" sender:nil];
+//    UINavigationController *navigationController = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"ItineraryNavigationController"];
+//
+//    DailyCalendarViewController *dailyCalendarViewController = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"DailyCalendarViewController"];
+//
+//    // pass itinerary from map to daily calendar
+//    dailyCalendarViewController.itinerary = self.itinerary;
+//
+//    [navigationController setViewControllers:[NSArray arrayWithObject:dailyCalendarViewController]];
+//    [self presentViewController:navigationController animated:YES completion:nil];
 }
 
 - (void)onTapItineraryTitle {
@@ -235,14 +237,16 @@
     return nil;
 }
 
-/*
+
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+    if ([[segue identifier] isEqualToString:@"mapToCalendarSegue"]) {
+        SWRevealViewController *revealViewController = [segue destinationViewController];
+        revealViewController.itinerary = self.itinerary;
+    }
 }
-*/
+
 
 @end

@@ -32,6 +32,13 @@
     return @"Event";
 }
 
+- (BOOL)isSameEventObj:(Event *)event {
+    NSString *event1ID = self.objectId;
+    NSString *event2ID = event.objectId;
+    
+    return [event1ID isEqualToString:event2ID];
+}
+
 /* initialize a event
 (required: title, category, start/end times, address, completion;
  optional: event description, notes) */

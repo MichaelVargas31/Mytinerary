@@ -25,8 +25,15 @@
     // Override point for customization after application launch.
     ParseClientConfiguration *config = [ParseClientConfiguration   configurationWithBlock:^(id<ParseMutableClientConfiguration> configuration) {
         
-        configuration.applicationId = @"mytinerary";
-        configuration.server = @"https://mytinerary-fbu.herokuapp.com/parse";
+        NSString * path = [NSBundle.mainBundle pathForResource:@"Keys" ofType:@"plist"];
+        NSDictionary *keys = [NSDictionary dictionaryWithContentsOfFile:path];
+        
+        NSLog(@"Path = %@\nKeys = %@", path, keys);
+        
+        
+        
+        configuration.applicationId = keys[@"parseApplicationId"];;
+        configuration.server = keys[@"parseApplicationServer"];
     }];
     
     [Parse initializeWithConfiguration:config];

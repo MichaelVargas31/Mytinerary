@@ -20,6 +20,7 @@
 
 @interface ProfileViewController () <UICollectionViewDelegate, UICollectionViewDataSource>
 
+
 @end
 
 @implementation ProfileViewController
@@ -32,7 +33,7 @@
     self.collectionView.delegate=self;
     
     //sets the username on the profile view
-    self.usernameLabel.text=User.currentUser.username;
+    self.usernameLabel.text= User.currentUser.username;
     
     //fetch itineraries
     [self fetchitineraries];
@@ -184,6 +185,9 @@
         NSLog(@"If you're getting this message, you need to edit the prepareForSegue() method to add another segue");
     }
 }
+
+
+
 
 
 

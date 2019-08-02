@@ -108,6 +108,8 @@ static int const EVENT_INPUT_SUBMIT_VIEW_HEIGHT = 50;
     }
     
     // setup shared category picker view
+    [self.eventInputSharedView.startTimeDatePicker setMinimumDate:self.itinerary.startTime];
+    [self.eventInputSharedView.endTimeDatePicker setMaximumDate:self.itinerary.endTime];
     self.eventInputSharedView.categoryPickerView.delegate = self;
     self.eventInputSharedView.categoryPickerView.dataSource = self;
     self.eventCategoryPickerData = [NSArray arrayWithObjects:@"activity", @"transportation", @"food", @"hotel", nil];
@@ -245,18 +247,21 @@ static int const EVENT_INPUT_SUBMIT_VIEW_HEIGHT = 50;
     
     // if updating preexisting event
     if (self.event) {
+        Event *event = [[Event alloc] init];
         if ([selectedCategory isEqualToString:@"activity"]) {
-            [self updateActivityEvent:self.event];
+            event = [self updateActivityEvent:self.event];
         }
         else if ([selectedCategory isEqualToString:@"transportation"]) {
-            [self updateTransportationEvent:self.event];
+            event = [self updateTransportationEvent:self.event];
         }
         else if ([selectedCategory isEqualToString:@"food"]) {
-            [self updateFoodEvent:self.event];
+            event = [self updateFoodEvent:self.event];
         }
         else if ([selectedCategory isEqualToString:@"hotel"]) {
-            [self updateHotelEvent:self.event];
+            event = [self updateHotelEvent:self.event];
         }
+        // calling the didUpdateEvent method in its delegate to update information
+        [self.delegate didUpdateEvent:event];
     }
     // if creating a new event
     else {
@@ -294,6 +299,9 @@ static int const EVENT_INPUT_SUBMIT_VIEW_HEIGHT = 50;
                     NSLog(@"event failed to add to itin: %@", error);
                 }
             }];
+            
+            // call didMakeEvent in delegate (daily calendar VC) to refresh calendar view
+            [self.delegate didMakeEvent:event];
         }
     }
 }
@@ -339,8 +347,6 @@ static int const EVENT_INPUT_SUBMIT_VIEW_HEIGHT = 50;
     event = [event updateActivityEvent:self.eventInputSharedView.titleTextField.text eventDescription:self.eventInputSharedView.descriptionTextView.text address:self.eventInputActivityView.locationTextField.text latitude:latitude longitude:longitude locationType:locationType startTime:self.eventInputSharedView.startTimeDatePicker.date endTime:self.eventInputSharedView.endTimeDatePicker.date cost:cost notes:self.eventInputActivityView.notesTextView.text withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
         if (succeeded) {
             NSLog(@"activity event successfully updated!");
-            // calling the didUpdateEvent method in its delegate to update information
-            [self.delegate didUpdateEvent:event];
             [self dismissViewControllerAnimated:YES completion:nil];
         }
         else {
@@ -401,7 +407,6 @@ static int const EVENT_INPUT_SUBMIT_VIEW_HEIGHT = 50;
     event = [event updateTransportationEvent:self.eventInputSharedView.titleTextField.text eventDescription:self.eventInputSharedView.descriptionTextView.text startAddress:self.eventInputTransportationView.startLocationTextField.text startLatitude:startLatitude startLongitude:startLongitude endAddress:self.eventInputTransportationView.endLocationTextField.text endLatitude:endLatitude endLongitude:endLongitude startTime:self.eventInputSharedView.startTimeDatePicker.date endTime:self.eventInputSharedView.endTimeDatePicker.date transpoType:selectedTranspoType cost:cost notes:self.eventInputTransportationView.notesTextView.text withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
         if (succeeded) {
             NSLog(@"transportation event successfully updated!");
-            [self.delegate didUpdateEvent:event];
             [self dismissViewControllerAnimated:YES completion:nil];
         }
         else {
@@ -449,7 +454,6 @@ static int const EVENT_INPUT_SUBMIT_VIEW_HEIGHT = 50;
     event = [event updateFoodEvent:self.eventInputSharedView.titleTextField.text eventDescription:self.eventInputSharedView.descriptionTextView.text address:self.eventInputFoodView.locationTextField.text latitude:latitude longitude:longitude locationType:locationType startTime:self.eventInputSharedView.startTimeDatePicker.date endTime:self.eventInputSharedView.endTimeDatePicker.date foodType:self.eventInputFoodView.typeTextField.text foodCost:selectedFoodCost notes:self.eventInputFoodView.notesTextView.text withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
         if (succeeded) {
             NSLog(@"food event successfully updated!");
-            [self.delegate didUpdateEvent:event];
             [self dismissViewControllerAnimated:YES completion:nil];
         }
         else {
@@ -508,7 +512,6 @@ static int const EVENT_INPUT_SUBMIT_VIEW_HEIGHT = 50;
     event = [event updateHotelEvent:self.eventInputSharedView.titleTextField.text eventDescription:self.eventInputSharedView.descriptionTextView.text address:self.eventInputHotelView.locationTextField.text latitude:latitude longitude:longitude locationType:locationType startTime:self.eventInputSharedView.startTimeDatePicker.date endTime:self.eventInputSharedView.endTimeDatePicker.date hotelType:selectedHotelType cost:cost notes:self.eventInputHotelView.notesTextView.text withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
         if (succeeded) {
             NSLog(@"hotel event successfully updated!");
-            [self.delegate didUpdateEvent:event];
             [self dismissViewControllerAnimated:YES completion:nil];
         }
         else {
@@ -527,8 +530,7 @@ static int const EVENT_INPUT_SUBMIT_VIEW_HEIGHT = 50;
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([[segue identifier] isEqualToString:@"getLocationSegue"]) {
-        UINavigationController *navigationController = [segue destinationViewController];
-        SearchLocationViewController *searchLocationViewController = [[navigationController viewControllers] firstObject];
+        SearchLocationViewController *searchLocationViewController = [segue destinationViewController];
         searchLocationViewController.delegate = self;
         searchLocationViewController.textField = sender;
     }
