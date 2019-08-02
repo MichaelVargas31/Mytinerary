@@ -75,7 +75,7 @@
 }
 
 // TODO: create transportation event between two events
-+ (Event *)makeTransportationEventFromEvents:(Event *)startEvent endEvent:(Event *)endEvent {
++ (Event *)makeTransportationEventFromEvents:(Event *)startEvent endEvent:(Event *)endEvent withCompletion:(PFBooleanResultBlock)completion {
     // set up title
     NSString *title = [NSString stringWithFormat:@"%@ to %@", startEvent.title, endEvent.title];
     
@@ -122,14 +122,7 @@
             }
             
             // update transportation type + end time (from ETA response)
-            [transportationEvent updateTransportationEventTypeAndTimes:transportationEvent.transpoType startTime:startTime endTime:endTime withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
-                if (succeeded) {
-                    NSLog(@"successfully updated transpo ETA");
-                }
-                else {
-                    NSLog(@"error updating transpo ETA: %@", error.domain);
-                }
-            }];
+            [transportationEvent updateTransportationEventTypeAndTimes:transportationEvent.transpoType startTime:startTime endTime:endTime withCompletion:completion];
         }
         else {
             NSLog(@"error getting ETA: %@", error.domain);

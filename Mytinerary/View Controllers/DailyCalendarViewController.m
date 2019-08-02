@@ -296,10 +296,10 @@
 - (IBAction)onTapAutoTransportButton:(id)sender {
     NSDate *dayIdx = self.displayedDate;
     NSMutableArray <Event *> *dayEvents = self.eventsDictionary[dayIdx];
-    dayEvents = [self makeDailyTransportationEvents:dayEvents];
+    dayEvents = [self makeDailyTransportationEvents:dayIdx dayEvents:dayEvents];
 }
 
-- (NSMutableArray <Event *> *)makeDailyTransportationEvents:(NSMutableArray <Event *> *)dayEvents {
+- (NSMutableArray <Event *> *)makeDailyTransportationEvents:(NSDate *)dayIdx dayEvents:(NSMutableArray <Event *> *)dayEvents {
     // sort events in ascending order by start time
     [dayEvents sortUsingComparator:^NSComparisonResult(Event *event1, Event *event2) {
         return [event1.startTime compare:event2.startTime];
@@ -315,10 +315,21 @@
         
         // if neither event is of type transportation
         if (![event1.category isEqualToString:@"transportation"] && ![event2.category isEqualToString:@"transportation"]) {
-            Event *transpoEvent = [Directions makeTransportationEventFromEvents:event1 endEvent:event2];
+            Event *transpoEvent = [Directions makeTransportationEventFromEvents:event1 endEvent:event2 withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
+                if (succeeded) {
+                    NSLog(@"Successfully made transportation event");
+                    
+                    // add transpo object locally, refresh view
+                    [self refreshViewUsingDate:dayIdx];
+                }
+                else {
+                    NSLog(@"error making transportation event: %@", error.domain);
+                }
+            }];
             
-            // add transportation event to itinerary (in parse) and current view
+            // add transpo event locally
             [dayEvents addObject:transpoEvent];
+            // add transportation event to itinerary (in parse)
             [self.itinerary addEventToItinerary:transpoEvent withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
                 if (succeeded) {
                     NSLog(@"new transpo event successfully added to itin");
