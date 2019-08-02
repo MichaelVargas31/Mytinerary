@@ -20,7 +20,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet MKMapView *mapView;
 @property (nonatomic, strong) CLLocationManager *locationManager;
 @property (nonatomic, strong) CLLocation* currentLocation;
-@property (nonatomic, strong) NSArray *eArray;
 @property (nonatomic, strong) MKAnnotationView *pin;
 
 // emily did this, ask her about it

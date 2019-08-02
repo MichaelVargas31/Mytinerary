@@ -16,11 +16,12 @@
 #import "EventDetailsDeleteView.h"
 #import "InputEventViewController.h"
 #import "DateFormatter.h"
+#import "Directions.h"
 
 static int const TITLE_VIEW_HEIGHT = 100;
 static int const DESCRIPTION_VIEW_HEIGHT = 300;
 static int const ACTIVITY_VIEW_HEIGHT = 80;
-static int const TRANSPORTATION_VIEW_HEIGHT = 180;
+static int const TRANSPORTATION_VIEW_HEIGHT = 225;
 static int const FOOD_VIEW_HEIGHT = 110;
 static int const HOTEL_VIEW_HEIGHT = 110;
 
@@ -130,14 +131,15 @@ static int const HOTEL_VIEW_HEIGHT = 110;
     NSLog(@"Stack view subarray after = %@", self.stackView.arrangedSubviews);
 }
 
-
 - (IBAction)onTapEditButton:(id)sender {
     [self performSegueWithIdentifier:@"editEventSegue" sender:self];
 }
 
+- (IBAction)onTapOpenMapsButton:(id)sender {
+    [Directions openTransportationEventInMaps:self.event];
+}
 
 - (void)didUpdateEvent:(nonnull Event *)updatedEvent {
-    NSLog(@"Updated event: %@", updatedEvent);
     self.event = updatedEvent;
     [self refreshViews];
     
@@ -160,9 +162,8 @@ static int const HOTEL_VIEW_HEIGHT = 110;
                     // deletes event from its parent itinerary
                     [self.delegate didDeleteEvent:self.event];
                     [self dismissViewControllerAnimated:YES completion:^{}];
-                    
-                    
-                } else {
+                }
+                else {
                     NSLog(@"Error deleting event: %@", error.localizedDescription);
                 }
             }];
@@ -186,6 +187,5 @@ static int const HOTEL_VIEW_HEIGHT = 110;
         inputEventViewController.delegate = self;
     }
 }
-
 
 @end

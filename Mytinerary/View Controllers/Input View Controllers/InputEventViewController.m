@@ -59,6 +59,10 @@ static int const EVENT_INPUT_SUBMIT_VIEW_HEIGHT = 50;
                                                           handler:^(UIAlertAction * action) {}];
     [self.alert addAction:defaultAction];
     
+    // dismiss keyboard on tap
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissKeyboard)];
+    [self.view addGestureRecognizer:tap];
+    
     // make and configure scroll view
     UIScrollView *scrollView = [[UIScrollView alloc] init];
     [self.view addSubview:scrollView];
@@ -120,7 +124,7 @@ static int const EVENT_INPUT_SUBMIT_VIEW_HEIGHT = 50;
     // setup transportation category picker view
     self.eventInputTransportationView.typePickerView.delegate = self;
     self.eventInputTransportationView.typePickerView.dataSource = self;
-    self.transportationTypePickerData = [NSArray arrayWithObjects:@"walk", @"bike", @"car", @"public transportation", nil];
+    self.transportationTypePickerData = [NSArray arrayWithObjects:@"drive", @"walk", @"transit", @"ride", nil];
     // setup transportation location text view tags
     self.eventInputTransportationView.startLocationTextField.tag = 1;
     self.eventInputTransportationView.endLocationTextField.tag = 2;
@@ -150,21 +154,22 @@ static int const EVENT_INPUT_SUBMIT_VIEW_HEIGHT = 50;
     
     // set category picker to current event category, prefill category specific fields
     if ([event.category isEqualToString:@"activity"]) {
-        [self.eventInputSharedView.categoryPickerView selectRow:0 inComponent:0 animated:YES];
+        [self.eventInputSharedView.categoryPickerView selectRow:0 inComponent:0 animated:NO];
         [self prefillActivityEventFields:event];
     }
     else if ([event.category isEqualToString:@"transportation"]) {
-        [self.eventInputSharedView.categoryPickerView selectRow:1 inComponent:0 animated:YES];
+        [self.eventInputSharedView.categoryPickerView selectRow:1 inComponent:0 animated:NO];
         [self prefillTransportationEventFields:event];
     }
     else if ([event.category isEqualToString:@"food"]) {
-        [self.eventInputSharedView.categoryPickerView selectRow:2 inComponent:0 animated:YES];
+        [self.eventInputSharedView.categoryPickerView selectRow:2 inComponent:0 animated:NO];
         [self prefillFoodEventFields:event];
     }
     else if ([event.category isEqualToString:@"hotel"]) {
-        [self.eventInputSharedView.categoryPickerView selectRow:3 inComponent:0 animated:YES];
+        [self.eventInputSharedView.categoryPickerView selectRow:3 inComponent:0 animated:NO];
         [self prefillHotelEventFields:event];
     }
+    [self showCategorySubview:event.category];
 }
 
 - (void)prefillActivityEventFields:(Event *)event {
@@ -179,17 +184,17 @@ static int const EVENT_INPUT_SUBMIT_VIEW_HEIGHT = 50;
     self.eventInputTransportationView.costTextField.text = [NSString stringWithFormat:@"%@", event.cost];
     self.eventInputTransportationView.notesTextView.text = event.notes;
     
-    if ([event.transpoType isEqualToString:@"walk"]) {
-        [self.eventInputSharedView.categoryPickerView selectRow:0 inComponent:0 animated:YES];
+    if ([event.transpoType isEqualToString:@"drive"]) {
+        [self.eventInputTransportationView.typePickerView selectRow:0 inComponent:0 animated:YES];
     }
-    else if ([event.transpoType isEqualToString:@"bike"]) {
-        [self.eventInputSharedView.categoryPickerView selectRow:1 inComponent:0 animated:YES];
+    else if ([event.transpoType isEqualToString:@"walk"]) {
+        [self.eventInputTransportationView.typePickerView selectRow:1 inComponent:0 animated:YES];
     }
-    else if ([event.transpoType isEqualToString:@"car"]) {
-        [self.eventInputSharedView.categoryPickerView selectRow:2 inComponent:0 animated:YES];
+    else if ([event.transpoType isEqualToString:@"transit"]) {
+        [self.eventInputTransportationView.typePickerView selectRow:2 inComponent:0 animated:YES];
     }
-    else if ([event.transpoType isEqualToString:@"public transportation"]) {
-        [self.eventInputSharedView.categoryPickerView selectRow:3 inComponent:0 animated:YES];
+    else if ([event.transpoType isEqualToString:@"ride"]) {
+        [self.eventInputTransportationView.typePickerView selectRow:3 inComponent:0 animated:YES];
     }
 }
 
@@ -199,16 +204,16 @@ static int const EVENT_INPUT_SUBMIT_VIEW_HEIGHT = 50;
     self.eventInputFoodView.notesTextView.text = event.notes;
     
     if ([event.foodCost isEqualToString:@"$"]) {
-        [self.eventInputSharedView.categoryPickerView selectRow:0 inComponent:0 animated:YES];
+        [self.eventInputFoodView.costPickerView selectRow:0 inComponent:0 animated:YES];
     }
     else if ([event.foodCost isEqualToString:@"$$"]) {
-        [self.eventInputSharedView.categoryPickerView selectRow:1 inComponent:0 animated:YES];
+        [self.eventInputFoodView.costPickerView selectRow:1 inComponent:0 animated:YES];
     }
     else if ([event.foodCost isEqualToString:@"$$$"]) {
-        [self.eventInputSharedView.categoryPickerView selectRow:2 inComponent:0 animated:YES];
+        [self.eventInputFoodView.costPickerView selectRow:2 inComponent:0 animated:YES];
     }
     else if ([event.foodCost isEqualToString:@"$$$$"]) {
-        [self.eventInputSharedView.categoryPickerView selectRow:3 inComponent:0 animated:YES];
+        [self.eventInputFoodView.costPickerView selectRow:3 inComponent:0 animated:YES];
     }
 }
 
@@ -218,16 +223,16 @@ static int const EVENT_INPUT_SUBMIT_VIEW_HEIGHT = 50;
     self.eventInputHotelView.notesTextView.text = event.notes;
     
     if ([event.hotelType isEqualToString:@"hotel"]) {
-        [self.eventInputSharedView.categoryPickerView selectRow:0 inComponent:0 animated:YES];
+        [self.eventInputHotelView.typePickerView selectRow:0 inComponent:0 animated:YES];
     }
     else if ([event.hotelType isEqualToString:@"campground"]) {
-        [self.eventInputSharedView.categoryPickerView selectRow:1 inComponent:0 animated:YES];
+        [self.eventInputHotelView.typePickerView selectRow:1 inComponent:0 animated:YES];
     }
     else if ([event.hotelType isEqualToString:@"hostel"]) {
-        [self.eventInputSharedView.categoryPickerView selectRow:2 inComponent:0 animated:YES];
+        [self.eventInputHotelView.typePickerView selectRow:2 inComponent:0 animated:YES];
     }
     else if ([event.hotelType isEqualToString:@"airbnb"]) {
-        [self.eventInputSharedView.categoryPickerView selectRow:3 inComponent:0 animated:YES];
+        [self.eventInputHotelView.typePickerView selectRow:3 inComponent:0 animated:YES];
     }
 }
 
@@ -386,10 +391,10 @@ static int const EVENT_INPUT_SUBMIT_VIEW_HEIGHT = 50;
 
 - (Event *)updateTransportationEvent:(Event *)event {
     // testing purposes for now
-    NSNumber *startLatitude = @(0);
-    NSNumber *startLongitude = @(0);
-    NSNumber *endLatitude = @(0);
-    NSNumber *endLongitude = @(0);
+    NSNumber *startLatitude = self.location.latitude;
+    NSNumber *startLongitude = self.location.longitude;
+    NSNumber *endLatitude = self.endLocation.latitude;
+    NSNumber *endLongitude = self.endLocation.longitude;
     
     float cost = (float)0.0;
     if (![self.eventInputTransportationView.costTextField.text isEqualToString:@""]) {
@@ -525,8 +530,7 @@ static int const EVENT_INPUT_SUBMIT_VIEW_HEIGHT = 50;
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([[segue identifier] isEqualToString:@"getLocationSegue"]) {
-        UINavigationController *navigationController = [segue destinationViewController];
-        SearchLocationViewController *searchLocationViewController = [[navigationController viewControllers] firstObject];
+        SearchLocationViewController *searchLocationViewController = [segue destinationViewController];
         searchLocationViewController.delegate = self;
         searchLocationViewController.textField = sender;
     }
@@ -576,30 +580,34 @@ static int const EVENT_INPUT_SUBMIT_VIEW_HEIGHT = 50;
     
     // if from event category picker
     if (pickerView.tag == 0) {
-        // clear previously added category subview before adding new category subview
-        NSArray *subviews = [self.stackView arrangedSubviews];
-        if (subviews.count > 1) {
-            [self.stackView removeArrangedSubview:subviews[1]];
-            [subviews[1] removeFromSuperview];
-        }
-        
-        // add corresponding category subview
-        if ([selectedCategory isEqualToString:@"activity"]) {
-            [self.stackView insertArrangedSubview:self.eventInputActivityView atIndex:1];
-            [self.eventInputActivityView.heightAnchor constraintEqualToConstant:EVENT_INPUT_ACTIVITY_VIEW_HEIGHT].active = YES;
-        }
-        else if ([selectedCategory isEqualToString:@"transportation"]) {
-            [self.stackView insertArrangedSubview:self.eventInputTransportationView atIndex:1];
-            [self.eventInputTransportationView.heightAnchor constraintEqualToConstant:EVENT_INPUT_TRANSPORTATION_VIEW_HEIGHT].active = YES;
-        }
-        else if ([selectedCategory isEqualToString:@"food"]) {
-            [self.stackView insertArrangedSubview:self.eventInputFoodView atIndex:1];
-            [self.eventInputFoodView.heightAnchor constraintEqualToConstant:EVENT_INPUT_FOOD_VIEW_HEIGHT].active = YES;
-        }
-        else if ([selectedCategory isEqualToString:@"hotel"]) {
-            [self.stackView insertArrangedSubview:self.eventInputHotelView atIndex:1];
-            [self.eventInputHotelView.heightAnchor constraintEqualToConstant:EVENT_INPUT_HOTEL_VIEW_HEIGHT].active = YES;
-        }
+        [self showCategorySubview:selectedCategory];
+    }
+}
+
+- (void)showCategorySubview:(NSString *)selectedCategory {
+    // clear previously added category subview before adding new category subview
+    NSArray *subviews = [self.stackView arrangedSubviews];
+    if (subviews.count > 1) {
+        [self.stackView removeArrangedSubview:subviews[1]];
+        [subviews[1] removeFromSuperview];
+    }
+    
+    // add corresponding category subview
+    if ([selectedCategory isEqualToString:@"activity"]) {
+        [self.stackView insertArrangedSubview:self.eventInputActivityView atIndex:1];
+        [self.eventInputActivityView.heightAnchor constraintEqualToConstant:EVENT_INPUT_ACTIVITY_VIEW_HEIGHT].active = YES;
+    }
+    else if ([selectedCategory isEqualToString:@"transportation"]) {
+        [self.stackView insertArrangedSubview:self.eventInputTransportationView atIndex:1];
+        [self.eventInputTransportationView.heightAnchor constraintEqualToConstant:EVENT_INPUT_TRANSPORTATION_VIEW_HEIGHT].active = YES;
+    }
+    else if ([selectedCategory isEqualToString:@"food"]) {
+        [self.stackView insertArrangedSubview:self.eventInputFoodView atIndex:1];
+        [self.eventInputFoodView.heightAnchor constraintEqualToConstant:EVENT_INPUT_FOOD_VIEW_HEIGHT].active = YES;
+    }
+    else if ([selectedCategory isEqualToString:@"hotel"]) {
+        [self.stackView insertArrangedSubview:self.eventInputHotelView atIndex:1];
+        [self.eventInputHotelView.heightAnchor constraintEqualToConstant:EVENT_INPUT_HOTEL_VIEW_HEIGHT].active = YES;
     }
 }
 
@@ -644,6 +652,10 @@ static int const EVENT_INPUT_SUBMIT_VIEW_HEIGHT = 50;
         self.eventInputHotelView.locationTextField.text = location.address;
         self.location = location;
     }
+}
+
+- (void)dismissKeyboard {
+    [self.view endEditing:YES];
 }
 
 @end

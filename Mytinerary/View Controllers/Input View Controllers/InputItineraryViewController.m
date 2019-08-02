@@ -12,6 +12,8 @@
 #import "InputValidation.h"
 #import "Itinerary.h"
 #import "Calendar.h"
+#import "SWRevealViewController.h"
+
 
 @interface InputItineraryViewController ()
 
@@ -32,9 +34,13 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+
     // adjust date pickers
     [self.startTimeDatePicker setDatePickerMode:UIDatePickerModeDate];
     [self.endTimeDatePicker setDatePickerMode:UIDatePickerModeDate];
+    
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissKeyboard)];
+    [self.view addGestureRecognizer:tap];
     
     // set up alert controller
     self.alert = [UIAlertController alertControllerWithTitle:@"Error"
@@ -97,8 +103,8 @@
         
         if (!self.itineraryIsNew) {
             [self.itinerary updateItinerary:self.itinerary];
-//            [self dismissViewControllerAnimated:YES completion:nil];
-            [self performSegueWithIdentifier:@"AddNewItineraryToDailyCalendarSegue" sender:nil];
+            [self dismissViewControllerAnimated:YES completion:nil];
+            // UPDATE DETAILS VIEW (after editing itin, update itin details view)
 
         } else {
             self.itinerary = [Itinerary initNewItinerary:title startTime:startTime endTime:endTime budget:budget withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
@@ -113,6 +119,10 @@
             }];
         }
     }
+}
+
+- (void)dismissKeyboard {
+    [self.view endEditing:YES];
 }
 
 

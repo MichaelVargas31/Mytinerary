@@ -26,6 +26,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (IBAction)didTapBackToProfile:(id)sender;
 
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *menuButton;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *alertButton;
+
 // config default itin functionality
 @property BOOL fromLogin;
 

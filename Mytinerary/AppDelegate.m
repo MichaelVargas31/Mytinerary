@@ -8,6 +8,10 @@
 
 #import "AppDelegate.h"
 #import "Parse/Parse.h"
+#import "DailyCalendarViewController.h"
+#import "User.h"
+#import "LoginViewController.h"
+#import "SWRevealViewController.h"
 
 
 @interface AppDelegate ()
@@ -34,13 +38,31 @@
     
     [Parse initializeWithConfiguration:config];
     
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    self.window.rootViewController = [storyboard instantiateViewControllerWithIdentifier:@"SWRevealViewController"];
+    
+    
+    
     //Directly load profile view if there is a cached user already present
-    if(PFUser.currentUser){
-       
-            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-            
-            self.window.rootViewController = [storyboard instantiateViewControllerWithIdentifier:@"Profile"]; //@"Profile" is the ID for the navigation view controller in which profile page is embedded in 
+    if (PFUser.currentUser) {
+        
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        
+        //@"Profile" is the ID for the navigation view controller in which profile page is embedded in
+        User *currentUser = [User initUserWithPFUser:PFUser.currentUser];
+        
+        if (currentUser.defaultItinerary) {
+            SWRevealViewController *revealViewController = [storyboard instantiateViewControllerWithIdentifier:@"SWRevealViewController"];
+            revealViewController.itinerary = currentUser.defaultItinerary;
+            revealViewController.fromLogin = true;
+            self.window.rootViewController = revealViewController;
+        }
+        else {
+            self.window.rootViewController = [storyboard instantiateViewControllerWithIdentifier:@"SWRevealViewController"];
+            //ProfileNavigationController
+        }
     }
+    
     return YES;
 }
 

@@ -8,6 +8,7 @@
 
 #import "LoginViewController.h"
 #import "DailyCalendarViewController.h"
+#import "SWRevealViewController.h"
 #import "User.h"
 #import "Itinerary.h"
 #import "Parse/Parse.h"
@@ -20,18 +21,20 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissKeyboard)];
+    [self.view addGestureRecognizer:tap];
 }
 
 - (IBAction)loginButton:(id)sender {
     [self loginUser];
 }
 
-//logs in user 
+//logs in user
 - (void)loginUser {
     NSString *userName = self.usernameField.text;
     NSString *passWord = self.passwordField.text;
-
+    
     [User loginUser:userName password:passWord withCompletion:^(PFUser * _Nullable pfuser, NSError * _Nullable error) {
         if (error != nil) {
             NSLog(@"Login failed");
@@ -56,8 +59,8 @@
     NSString *password = self.passwordField.text;
     
     [User registerUser:username password:password withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
-        if(error !=nil){
-            NSLog(@"Error: %@",error.localizedDescription );
+        if(error != nil){
+            NSLog(@"Error: %@", error);
         }
         else {
             NSLog(@"User sign up successful");
@@ -66,16 +69,23 @@
     }];
 }
 
+- (void)dismissKeyboard {
+    [self.view endEditing:YES];
+}
+
 
 #pragma mark - Navigation
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([[segue identifier] isEqualToString:@"defaultItinerarySegue"]) {
-        UINavigationController *navigationController = [segue destinationViewController];
-        DailyCalendarViewController *dailyCalendarViewController = [[navigationController viewControllers] firstObject];
+        //UINavigationController *navigationController = [segue destinationViewController];
+        //DailyCalendarViewController *dailyCalendarViewController = [[navigationController viewControllers] firstObject];
+        
+        
+        SWRevealViewController *revealViewController = [segue destinationViewController];
         User *user = sender;
-        dailyCalendarViewController.itinerary = user.defaultItinerary;
-        dailyCalendarViewController.fromLogin = true;
+        revealViewController.itinerary = user.defaultItinerary;
+        revealViewController.fromLogin = true;
     }
 }
 

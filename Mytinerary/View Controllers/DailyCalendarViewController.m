@@ -22,11 +22,16 @@
 #import "DateFormatter.h"
 #import "Calendar.h"
 #import "Parse/Parse.h"
+#import "Directions.h"
+#import "SWRevealViewController.h"
 
 
 @interface DailyCalendarViewController () <UITableViewDelegate, UITableViewDataSource, CalendarEventViewDelegate, UICollectionViewDelegate, UICollectionViewDataSource, InputEventViewControllerDelegate, EventDetailsViewControllerDelegate>
 
 @property (strong, nonatomic) UIActivityIndicatorView *activityIndicator;
+@property (strong, nonatomic) NSDate *displayedDate;
+// clean??? what is status
+@property (strong, nonatomic) NSString *status;
 
 @end
 
@@ -34,7 +39,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
     
     // initializing formatter for calculating cell's times
     self.timeOfDayFormatter = [[NSDateFormatter alloc] init];
@@ -66,6 +70,28 @@
     else {
         [self loadItinView];
     }
+
+    
+//    self.status = @"close";
+    
+    [self sideMenus];
+}
+
+-(void)sideMenus{
+    
+    if(self.revealViewController != nil){
+        self.menuButton.target = self.revealViewController;
+        self.menuButton.action = @selector(revealToggle:);
+        self.revealViewController.rearViewRevealWidth = 275;
+        self.revealViewController.rightViewRevealWidth = 160;
+        
+        self.alertButton.target= self.revealViewController;
+        self.alertButton.action = @selector(rightRevealToggle:);
+        
+        [self.view addGestureRecognizer:self.revealViewController.panGestureRecognizer];
+        
+    }
+    
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -82,6 +108,7 @@
     self.activityIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyleWhiteLarge;
     self.activityIndicator.center = self.view.center;
     [self.view addSubview:self.activityIndicator];
+    [self.activityIndicator hidesWhenStopped];
     [self.activityIndicator startAnimating];
     
     [Itinerary fetchAllInBackground:[NSArray arrayWithObject:self.itinerary] block:^(NSArray * _Nullable objects, NSError * _Nullable error) {
@@ -90,6 +117,7 @@
             self.itinerary = [objects firstObject];
             [self.activityIndicator stopAnimating];
             [self loadItinView];
+            [self.activityIndicator stopAnimating];
         }
         else {
             NSLog(@"error fetching itinerary object: %@", error);
@@ -110,13 +138,16 @@
         if (!error) {
             [self setupDayDictionary:self.itinerary.events];
             [self.WeeklyCalendarCollectionView reloadData];
-            [self refreshViewUsingDate:[self.calendar startOfDayForDate:self.itinerary.startTime]];
+            
+            // on first load, show itinerary's first day by default
+            NSDate *firstDay = [self.calendar startOfDayForDate:self.itinerary.startTime];
+            [self refreshViewUsingDate:firstDay];
+            self.displayedDate = firstDay;
         } else {
             NSLog(@"error: %@", error.localizedDescription);
         }
     }];
 }
-
 
 #pragma mark - Data Handling
 
@@ -141,12 +172,10 @@
     }
 }
 
-
 // For grouping the array of events into a dictionary.
 // key = NSDate [with time set to midnight]
 // value = NSArray with events
 - (void) setupDayDictionary:(NSArray *)eventsArray {
-    
     // setting up looping variables
     NSDate *loopDay = [self.calendar startOfDayForDate:self.itinerary.startTime];
     NSDate *endDay = [self.calendar dateBySettingHour:0 minute:0 second:00 ofDate:self.itinerary.endTime options:0];
@@ -218,12 +247,10 @@
     return cell;
 }
 
-
 - (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     // 48 half hour increments in day
     return 48;
 }
-
 
 - (nonnull __kindof UICollectionViewCell *)collectionView:(nonnull UICollectionView *)collectionView cellForItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
     WeekdayCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"WeekdayCollectionViewCell" forIndexPath:indexPath];
@@ -241,7 +268,6 @@
     
     NSArray *individualDayEvents = [NSArray arrayWithArray:self.eventsDictionary[date]];
     cell.eventArray = individualDayEvents;
-    
     return cell;
 }
 
@@ -255,6 +281,7 @@
     WeekdayCollectionViewCell *cell = (WeekdayCollectionViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
     cell.dateLabel.backgroundColor = [UIColor colorWithRed:.5 green:.5 blue:.5 alpha:1];
     [self refreshViewUsingDate:cell.date];
+    self.displayedDate = cell.date;
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath {
@@ -262,6 +289,50 @@
     cell.dateLabel.backgroundColor = [UIColor colorWithRed:.2 green:.6 blue:.99 alpha:1];
     
 }
+
+#pragma - Transportation
+
+// automatically makes transportations events for the currently displayed day
+- (IBAction)onTapAutoTransportButton:(id)sender {
+    NSDate *dayIdx = self.displayedDate;
+    NSMutableArray <Event *> *dayEvents = self.eventsDictionary[dayIdx];
+    dayEvents = [self makeDailyTransportationEvents:dayEvents];
+}
+
+- (NSMutableArray <Event *> *)makeDailyTransportationEvents:(NSMutableArray <Event *> *)dayEvents {
+    // sort events in ascending order by start time
+    [dayEvents sortUsingComparator:^NSComparisonResult(Event *event1, Event *event2) {
+        return [event1.startTime compare:event2.startTime];
+    }];
+    
+    int dayEventsOGLength = (int)dayEvents.count;
+    
+    for (int i = 0; i < dayEventsOGLength - 1; i++) {
+        // sliding window -- if event pair has no transportation events, add one
+        // TODO check for address matching
+        Event *event1 = dayEvents[i];
+        Event *event2 = dayEvents[i + 1];
+        
+        // if neither event is of type transportation
+        if (![event1.category isEqualToString:@"transportation"] && ![event2.category isEqualToString:@"transportation"]) {
+            Event *transpoEvent = [Directions makeTransportationEventFromEvents:event1 endEvent:event2];
+            
+            // add transportation event to itinerary (in parse) and current view
+            [dayEvents addObject:transpoEvent];
+            [self.itinerary addEventToItinerary:transpoEvent withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
+                if (succeeded) {
+                    NSLog(@"new transpo event successfully added to itin");
+                }
+                else {
+                    NSLog(@"error adding new transpo event to itin: %@", error.domain);
+                }
+            }];
+        }
+    }
+    
+    return dayEvents;
+}
+
 
 #pragma mark - Navigation
 
@@ -283,7 +354,6 @@
     }
 }
 
-
 - (void)calendarEventView:(nonnull DailyCalendarEventUIView *)calendarEventView didTapEvent:(nonnull Event *)event {
     [self performSegueWithIdentifier:@"eventDetailsSegue" sender:event];
 }
@@ -299,8 +369,9 @@
     [self presentViewController:navigationController animated:YES completion:nil];
 }
 
-- (IBAction)onTapAddEventButton:(id)sender {
+- (IBAction)onTapAddEventBtn:(id)sender {
     [self performSegueWithIdentifier:@"addEventSegue" sender:self];
+    
 }
 
 - (void)onTapItineraryTitle {
@@ -344,6 +415,8 @@
     UINavigationController *profileNavigationVC = [storyboard instantiateViewControllerWithIdentifier:@"Profile"];
     appDelegate.window.rootViewController = profileNavigationVC;
 }
+
+
 
 
 @end
