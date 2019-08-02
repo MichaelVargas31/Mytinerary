@@ -77,7 +77,7 @@
     NSLog(@"%@", self.searchBar.text);
     
     NSString *base = @"https://maps.googleapis.com/maps/api/place/textsearch/json?";
-    // Getting the api key from the
+    // Getting the api key from the keys file
     NSString * path = [NSBundle.mainBundle pathForResource:@"Keys" ofType:@"plist"];
     NSDictionary *keys = [NSDictionary dictionaryWithContentsOfFile:path];
     NSString *apiKey = keys[@"googleSearchApiKey"];
