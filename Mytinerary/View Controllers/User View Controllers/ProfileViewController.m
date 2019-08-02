@@ -152,14 +152,8 @@
     // Pass the selected object to the new view controller.
     if ([segue.identifier isEqualToString:@"calendarSegue"]) {
         
-        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-        DailyCalendarViewController *dailyCalendarViewController = [storyboard instantiateViewControllerWithIdentifier:@"DailyCalendarViewController"];
-        
         ItineraryCollectionViewCell *tappedCell = sender;
-        
         Itinerary *itinerary = tappedCell.itinerary;
-        // set daily calendar view controller's itinerary
-        dailyCalendarViewController.itinerary = itinerary;
         
         // reset current user's default itinerary
         [User resetDefaultItinerary:PFUser.currentUser itinerary:itinerary withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
@@ -173,6 +167,7 @@
         
         SWRevealViewController *revealViewController = [segue destinationViewController];
         revealViewController.itinerary = itinerary;
+        revealViewController.loadItinerary = true;
     }
     else {
         NSLog(@"If you're getting this message, you need to edit the prepareForSegue() method to add another segue");

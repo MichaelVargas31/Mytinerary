@@ -78,8 +78,7 @@
 }
 
 -(void)sideMenus{
-    
-    if(self.revealViewController != nil){
+    if (self.revealViewController != nil) {
         self.menuButton.target = self.revealViewController;
         self.menuButton.action = @selector(revealToggle:);
         self.revealViewController.rearViewRevealWidth = 275;
@@ -151,7 +150,7 @@
 
 #pragma mark - Data Handling
 
--(void)refreshViewUsingDate:(NSDate *)newDate {
+- (void)refreshViewUsingDate:(NSDate *)newDate {
     // make sure its the midnight version of the date
     newDate = [self.calendar startOfDayForDate:newDate];
     // remove old events from screen
@@ -280,8 +279,12 @@
     // reset the tableview and all the sheiza on it
     WeekdayCollectionViewCell *cell = (WeekdayCollectionViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
     cell.dateLabel.backgroundColor = [UIColor colorWithRed:.5 green:.5 blue:.5 alpha:1];
-    [self refreshViewUsingDate:cell.date];
-    self.displayedDate = cell.date;
+    
+    // only refresh view if dates have already been loaded
+    if (cell.date) {
+         [self refreshViewUsingDate:cell.date];
+         self.displayedDate = cell.date;
+    }
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath {
@@ -407,16 +410,17 @@
 
 - (void)didDeleteEvent:(nonnull Event *)deletedEvent {
     // get rid of the deleted event locally
-    NSMutableArray *newEventArray = [NSMutableArray arrayWithArray:self.itinerary.events];
-    [newEventArray removeObject:deletedEvent];
-    self.itinerary.events = newEventArray;
+    NSDate *dayIdx = [self.calendar startOfDayForDate:deletedEvent.startTime];
+    NSMutableArray *dayEvents = self.eventsDictionary[dayIdx];
+    [dayEvents removeObject:deletedEvent];
+    
     // get rid of it in parse (update the itinerary object)
     [self.itinerary saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
         if (error) {
             NSLog(@"failed to update itinerary %@", self.itinerary.title);
         }
     }];
-    [self refreshViewUsingDate:deletedEvent.startTime];
+    [self refreshViewUsingDate:[self.calendar startOfDayForDate:deletedEvent.startTime]];
 }
 
 

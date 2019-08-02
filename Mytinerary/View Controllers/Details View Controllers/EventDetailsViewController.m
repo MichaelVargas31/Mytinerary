@@ -178,7 +178,6 @@ static int const DELETE_VIEW_HEIGHT = 100;
 
 
 - (IBAction)didTapDeleteButton:(id)sender {
-    
     UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Delete Event?" message:@"Are you sure you want to delete this event. This cannot be undone." preferredStyle:UIAlertControllerStyleAlert];
     
     // create Delete and Cancel buttons to alert
@@ -189,7 +188,7 @@ static int const DELETE_VIEW_HEIGHT = 100;
                 if (succeeded) {
                     // deletes event from its parent itinerary
                     [self.delegate didDeleteEvent:self.event];
-                    [self dismissViewControllerAnimated:YES completion:^{}];
+                    [self.navigationController popViewControllerAnimated:YES];
                 }
                 else {
                     NSLog(@"Error deleting event: %@", error.localizedDescription);
@@ -204,7 +203,6 @@ static int const DELETE_VIEW_HEIGHT = 100;
     [self presentViewController:alert animated:YES completion:nil];
     
 }
-
 
 #pragma mark - Navigation
 
