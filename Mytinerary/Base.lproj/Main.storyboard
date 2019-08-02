@@ -754,6 +754,9 @@
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
+                                        <accessibility key="accessibilityConfiguration">
+                                            <accessibilityTraits key="traits" notEnabled="YES"/>
+                                        </accessibility>
                                         <connections>
                                             <outlet property="calendarTimeLabel" destination="a6U-na-0tu" id="sML-yR-7dD"/>
                                         </connections>

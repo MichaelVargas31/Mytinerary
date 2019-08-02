@@ -239,6 +239,8 @@
 
 - (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
     DailyTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"DailyEventCell" forIndexPath:indexPath];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    
     // Adding time labels to each cell
     NSDate *midnight = [self.timeOfDayFormatter dateFromString:@"00:00:00"];
     NSDate *newTime = [midnight dateByAddingTimeInterval:1800*indexPath.row];
@@ -427,15 +429,11 @@
     [self refreshViewUsingDate:[self.calendar startOfDayForDate:deletedEvent.startTime]];
 }
 
-
 - (IBAction)didTapBackToProfile:(id)sender {
     AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     UINavigationController *profileNavigationVC = [storyboard instantiateViewControllerWithIdentifier:@"Profile"];
     appDelegate.window.rootViewController = profileNavigationVC;
 }
-
-
-
 
 @end
