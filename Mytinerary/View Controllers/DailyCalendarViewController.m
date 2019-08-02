@@ -30,6 +30,7 @@
 
 @property (strong, nonatomic) UIActivityIndicatorView *activityIndicator;
 @property (strong, nonatomic) NSDate *displayedDate;
+@property (strong, nonatomic) NSArray <NSDate *> *itineraryDates; // holds dates of itinerary in order
 // clean??? what is status
 @property (strong, nonatomic) NSString *status;
 
@@ -258,6 +259,7 @@
     
     NSMutableArray *allDates = [NSMutableArray arrayWithArray:[self.eventsDictionary allKeys]];
     allDates = (NSMutableArray *)[allDates sortedArrayUsingSelector:@selector(compare:)];
+    self.itineraryDates = allDates;
     NSDate *date = allDates[indexPath.item];
     cell.date = date;
     
@@ -398,7 +400,18 @@
 // flow: (new) event input --> daily calendar
 - (void)didMakeEvent:(nonnull Event *)updatedEvent {
     NSDate *dayDictIdx = [self addEventToDayDictionary:updatedEvent];
-    [self refreshViewUsingDate:dayDictIdx];
+    
+    // deselect previously selected day
+    NSUInteger deselectedDayIndex = [self.itineraryDates indexOfObject:self.displayedDate];
+    NSIndexPath *deselectedIndexPath = [NSIndexPath indexPathForItem:deselectedDayIndex inSection:0];
+    [self.WeeklyCalendarCollectionView deselectItemAtIndexPath:deselectedIndexPath animated:YES];
+    [self collectionView:self.WeeklyCalendarCollectionView didDeselectItemAtIndexPath:deselectedIndexPath];
+    
+    // select day of new event
+    NSUInteger selectedDayIndex = [self.itineraryDates indexOfObject:dayDictIdx];
+    NSIndexPath *selectedIndexPath = [NSIndexPath indexPathForItem:selectedDayIndex inSection:0];
+    [self.WeeklyCalendarCollectionView selectItemAtIndexPath:selectedIndexPath animated:YES scrollPosition:UICollectionViewScrollPositionNone];
+    [self collectionView:self.WeeklyCalendarCollectionView didSelectItemAtIndexPath:selectedIndexPath];
 }
 
 // refresh calendar after editing event
