@@ -414,6 +414,10 @@
     NSMutableArray *dayEvents = self.eventsDictionary[dayIdx];
     [dayEvents removeObject:deletedEvent];
     
+    NSMutableArray *itinEvents = [NSMutableArray arrayWithArray:self.itinerary.events];
+    [itinEvents removeObject:deletedEvent];
+    self.itinerary.events = itinEvents;
+    
     // get rid of it in parse (update the itinerary object)
     [self.itinerary saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
         if (error) {
