@@ -24,7 +24,7 @@
 #import "Parse/Parse.h"
 #import "Directions.h"
 #import "SWRevealViewController.h"
-
+#import "Itinerary.h"
 
 @interface DailyCalendarViewController () <UITableViewDelegate, UITableViewDataSource, CalendarEventViewDelegate, UICollectionViewDelegate, UICollectionViewDataSource, InputEventViewControllerDelegate, EventDetailsViewControllerDelegate>
 
@@ -429,16 +429,16 @@
     NSMutableArray *dayEvents = self.eventsDictionary[dayIdx];
     [dayEvents removeObject:deletedEvent];
     
-    NSMutableArray *itinEvents = [NSMutableArray arrayWithArray:self.itinerary.events];
-    [itinEvents removeObject:deletedEvent];
-    self.itinerary.events = itinEvents;
-    
     // get rid of it in parse (update the itinerary object)
-    [self.itinerary saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
-        if (error) {
-            NSLog(@"failed to update itinerary %@", self.itinerary.title);
+    [Event deleteEvent:deletedEvent itinerary:self.itinerary withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
+        if (succeeded) {
+            NSLog(@"successfully deleted '%@'", deletedEvent.title);
+        }
+        else {
+            NSLog(@"error deleting '%@': %@", deletedEvent.title, error.domain);
         }
     }];
+    
     [self refreshViewUsingDate:[self.calendar startOfDayForDate:deletedEvent.startTime]];
 }
 

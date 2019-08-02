@@ -4,6 +4,8 @@
 #import "Parse/Parse.h"
 #import "Event.h"
 
+@class Event;
+
 @interface Itinerary : PFObject<PFSubclassing>
 
 @property (nonatomic, strong) NSDate *startTime;

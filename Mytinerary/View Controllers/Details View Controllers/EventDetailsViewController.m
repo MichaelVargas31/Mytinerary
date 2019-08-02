@@ -184,16 +184,8 @@ static int const DELETE_VIEW_HEIGHT = 100;
     UIAlertAction* deleteAction = [UIAlertAction actionWithTitle:@"Delete" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         // if the user confirms the delete:
         if (action) {
-            [self.event deleteInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
-                if (succeeded) {
-                    // deletes event from its parent itinerary
-                    [self.delegate didDeleteEvent:self.event];
-                    [self.navigationController popViewControllerAnimated:YES];
-                }
-                else {
-                    NSLog(@"Error deleting event: %@", error.localizedDescription);
-                }
-            }];
+            [self.delegate didDeleteEvent:self.event];
+            [self.navigationController popViewControllerAnimated:YES];
         }
     }];
     
@@ -201,7 +193,6 @@ static int const DELETE_VIEW_HEIGHT = 100;
     [alert addAction:cancelAction];
     [alert addAction:deleteAction];
     [self presentViewController:alert animated:YES completion:nil];
-    
 }
 
 #pragma mark - Navigation
