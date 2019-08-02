@@ -6,6 +6,7 @@
 //  Copyright © 2019 michaelvargas. All rights reserved.
 //
 
+#import "SWRevealViewController.h"
 #import "ItineraryDetailsViewController.h"
 #import "InputItineraryViewController.h"
 #import "ProfileViewController.h"
@@ -124,6 +125,13 @@ static const int TABLE_VIEW_HEADER_HEIGHT = 44;
 //                    UINavigationController *profileNavigationVC = [storyboard instantiateViewControllerWithIdentifier:@"Profile"];
 //                    appDelegate.window.rootViewController = profileNavigationVC;
 //                    NSLog(@"stack = %@", [self.navigationController viewControllers]);
+                    
+                    
+//                    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+//                    SWRevealViewController *revealViewController = [storyboard instantiateViewControllerWithIdentifier:@"SWRevealViewController"];
+//                    self.delegate = revealViewController;
+//                    [self.delegate didDeleteItinerary];
+                    
                     [self performSegueWithIdentifier:@"DeleteItineraryToProfileSegue" sender:nil];
 
 
@@ -221,7 +229,12 @@ static const int TABLE_VIEW_HEADER_HEIGHT = 44;
         EventDetailsViewController *detailsVC = [segue destinationViewController];
         detailsVC.event = sender;
     } else if ([segue.identifier isEqualToString:@"DeleteItineraryToProfileSegue"]) {
-        ;
+//        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+//        SWRevealViewController *revealVC = [storyboard instantiateViewControllerWithIdentifier:@"SWRevealViewController"];
+        
+        SWRevealViewController *revealVC = [segue destinationViewController];
+        // tells the revealVC which segue we want it to execute next
+        revealVC.nextSegue = @"ToProfileSegue";
     }
 }
 
