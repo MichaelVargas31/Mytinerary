@@ -1648,6 +1648,7 @@
                     <connections>
                         <outlet property="mapView" destination="Ypp-lD-JTy" id="LOL-df-Hok"/>
                         <segue destination="AST-nT-DsT" kind="showDetail" identifier="mapToCalendarSegue" id="pBk-Pq-aqM"/>
+                        <segue destination="v2s-7K-Yl1" kind="show" identifier="mapToItineraryDetailsSegue" id="pGb-W9-DTJ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="d8L-Cq-QBq" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1764,7 +1765,8 @@
     <inferredMetricsTieBreakers>
         <segue reference="C4H-d4-iJq"/>
         <segue reference="sJn-uW-gz0"/>
-        <segue reference="RmN-u0-S7V"/>
+        <segue reference="pBk-Pq-aqM"/>
+        <segue reference="pGb-W9-DTJ"/>
         <segue reference="GkC-3I-Ydq"/>
         <segue reference="Dwd-wo-Oze"/>
     </inferredMetricsTieBreakers>
