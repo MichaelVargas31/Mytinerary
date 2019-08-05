@@ -138,7 +138,8 @@
 }
 
 - (IBAction)onTapCalendarButton:(id)sender {
-    [self performSegueWithIdentifier:@"mapToCalendarSegue" sender:nil];
+    [self dismissViewControllerAnimated:YES completion:nil];
+    // [self performSegueWithIdentifier:@"mapToCalendarSegue" sender:nil];
 //    UINavigationController *navigationController = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"ItineraryNavigationController"];
 //
 //    DailyCalendarViewController *dailyCalendarViewController = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"DailyCalendarViewController"];

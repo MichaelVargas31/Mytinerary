@@ -271,7 +271,7 @@ static int const EVENT_INPUT_SUBMIT_VIEW_HEIGHT = 50;
         NSDate *eventStartTime = self.eventInputSharedView.startTimeDatePicker.date;
         NSDate *eventEndTime = self.eventInputSharedView.endTimeDatePicker.date;
         if (![self.itinerary isEventDateValid:eventStartTime eventEndTime:eventEndTime]) {
-            NSLog(@"event times invalid with itinerary times");
+            NSLog(@"Sorry! Event times invalid with itinerary times!");
             self.alert.message = @"event times invalid with itinerary times";
             [self presentViewController:self.alert animated:YES completion:nil];
         }
