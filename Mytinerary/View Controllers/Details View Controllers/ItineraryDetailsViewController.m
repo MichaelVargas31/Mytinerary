@@ -119,18 +119,6 @@ static const int TABLE_VIEW_HEADER_HEIGHT = 44;
                 if (succeeded) {
                     NSLog(@"You deleted %@", self.itinerary.title);
                     
-//                    // go back to the profileViewController
-//                    AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
-//                    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-//                    UINavigationController *profileNavigationVC = [storyboard instantiateViewControllerWithIdentifier:@"Profile"];
-//                    appDelegate.window.rootViewController = profileNavigationVC;
-//                    NSLog(@"stack = %@", [self.navigationController viewControllers]);
-                    
-                    
-//                    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-//                    SWRevealViewController *revealViewController = [storyboard instantiateViewControllerWithIdentifier:@"SWRevealViewController"];
-//                    self.delegate = revealViewController;
-//                    [self.delegate didDeleteItinerary];
                     
                     [self performSegueWithIdentifier:@"DeleteItineraryToProfileSegue" sender:nil];
 
