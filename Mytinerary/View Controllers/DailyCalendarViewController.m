@@ -303,7 +303,26 @@
 - (IBAction)onTapAutoTransportButton:(id)sender {
     NSDate *dayIdx = self.displayedDate;
     NSMutableArray <Event *> *dayEvents = self.eventsDictionary[dayIdx];
+    dayEvents = [self deleteDailyTransportationEvents:dayIdx dayEvents:dayEvents];
     dayEvents = [self makeDailyTransportationEvents:dayIdx dayEvents:dayEvents];
+}
+
+- (NSMutableArray <Event *> *)deleteDailyTransportationEvents:(NSDate *)dayIdx dayEvents:(NSMutableArray <Event *> *)dayEvents {
+    // delete transportation events locally
+    NSMutableArray *transpoEventsToDelete = [[NSMutableArray alloc] init];
+    for (Event *event in dayEvents) {
+        if ([event.category isEqualToString:@"transportation"]) {
+            [transpoEventsToDelete addObject:event];
+            [dayEvents removeObject:event];
+        }
+    }
+    
+    // delete in parse
+    for (Event *event in transpoEventsToDelete) {
+        [Event deleteEvent:event itinerary:self.itinerary withCompletion:nil];
+    }
+    
+    return dayEvents;
 }
 
 - (NSMutableArray <Event *> *)makeDailyTransportationEvents:(NSDate *)dayIdx dayEvents:(NSMutableArray <Event *> *)dayEvents {
