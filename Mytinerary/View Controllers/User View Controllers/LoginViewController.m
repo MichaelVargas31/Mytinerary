@@ -42,7 +42,7 @@
         else {
             NSLog(@"Login was sucessful");
 
-            User *user = [User makeUserWithPFUser:pfuser];
+            User *user = User.currentUser;
             [self performSegueWithIdentifier:@"defaultItinerarySegue" sender:user];
         }
     }];
@@ -74,7 +74,7 @@
     if ([[segue identifier] isEqualToString:@"defaultItinerarySegue"]) {
         SWRevealViewController *revealViewController = [segue destinationViewController];
         User *user = sender;
-
+        
         if (!user.defaultItinerary) {
             // in this case, you head straight to profile => no single itinerary necessary
             revealViewController.nextSegue = @"ToProfileSegue";
