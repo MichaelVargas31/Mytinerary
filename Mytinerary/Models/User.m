@@ -24,11 +24,11 @@
     User *user = [User user];
     
     // set user properties
-    user.username = @"testtest";
+    user.username = username;
     user.password = password;
     
-//    [user signUpInBackgroundWithBlock:completion];
-    [user signUp];
+    [user signUpInBackgroundWithBlock:completion];
+//    [user signUp];
 }
 
 + (void)loginUser:(NSString *)username password:(NSString *)password withCompletion:(PFUserResultBlock)completion {

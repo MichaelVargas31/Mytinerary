@@ -43,12 +43,7 @@
             NSLog(@"Login was sucessful");
 
             User *user = [User makeUserWithPFUser:pfuser];
-            if (user.defaultItinerary) {
-                [self performSegueWithIdentifier:@"defaultItinerarySegue" sender:user];
-            }
-            else {
-                [self performSegueWithIdentifier:@"login" sender:nil];
-            }
+            [self performSegueWithIdentifier:@"defaultItinerarySegue" sender:user];
         }
     }];
 }
@@ -64,7 +59,7 @@
         }
         else {
             NSLog(@"User sign up successful");
-            [self performSegueWithIdentifier:@"login" sender:nil];
+            [self performSegueWithIdentifier:@"defaultItinerarySegue" sender:User.currentUser];
         }
     }];
 }
@@ -79,8 +74,14 @@
     if ([[segue identifier] isEqualToString:@"defaultItinerarySegue"]) {
         SWRevealViewController *revealViewController = [segue destinationViewController];
         User *user = sender;
-        revealViewController.itinerary = user.defaultItinerary;
-        revealViewController.loadItinerary = true;
+
+        if (!user.defaultItinerary) {
+            // in this case, you head straight to profile => no single itinerary necessary
+            revealViewController.nextSegue = @"ToProfileSegue";
+        } else {
+            revealViewController.itinerary = user.defaultItinerary;
+            revealViewController.loadItinerary = true;
+        }
     }
 }
 
