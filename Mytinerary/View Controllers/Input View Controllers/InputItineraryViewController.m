@@ -37,30 +37,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    // make and configure scroll view
-    UIScrollView *scrollView = [[UIScrollView alloc] init];
-    [self.view addSubview:scrollView];
-    scrollView.translatesAutoresizingMaskIntoConstraints = false;
-    
-    NSArray *scrollConstraints = [NSArray arrayWithObjects:[scrollView.leadingAnchor constraintEqualToAnchor:self.view.leadingAnchor], [scrollView.trailingAnchor constraintEqualToAnchor:self.view.trailingAnchor], [scrollView.topAnchor constraintEqualToAnchor:self.view.topAnchor], [scrollView.bottomAnchor constraintEqualToAnchor:self.view.bottomAnchor], nil];
-    [NSLayoutConstraint activateConstraints:scrollConstraints];
-    
-    // make and configure stack view as subview of scroll view
-    UIStackView *stackView = [[UIStackView alloc] init];
-    stackView.axis = UILayoutConstraintAxisVertical;
-    stackView.alignment = UIStackViewAlignmentFill;
-    stackView.spacing = 0;
-    stackView.distribution = UIStackViewDistributionFill;
-    [scrollView addSubview:stackView];
-    
-    stackView.translatesAutoresizingMaskIntoConstraints = false;
-    NSArray *stackConstraints = [NSArray arrayWithObjects:[stackView.leadingAnchor constraintEqualToAnchor:scrollView.leadingAnchor], [stackView.trailingAnchor constraintEqualToAnchor:scrollView.trailingAnchor], [stackView.topAnchor constraintEqualToAnchor:scrollView.topAnchor], [stackView.bottomAnchor constraintEqualToAnchor:scrollView.bottomAnchor], [stackView.widthAnchor constraintEqualToAnchor:scrollView.widthAnchor], nil];
-    [NSLayoutConstraint activateConstraints:stackConstraints];
-    
-    // store pointers to stackView and scrollView to render additional input forms
-    self.stackView = stackView;
-    self.scrollView = scrollView;
-    
     // adjust date pickers
     [self.startTimeDatePicker setDatePickerMode:UIDatePickerModeDate];
     [self.endTimeDatePicker setDatePickerMode:UIDatePickerModeDate];
@@ -160,10 +136,6 @@
         SWRevealViewController *revealViewController = [segue destinationViewController];
         revealViewController.itinerary = self.itinerary;
         revealViewController.loadItinerary = true;
-//        UINavigationController *dailyCalNavigationController = [segue destinationViewController];
-//        DailyCalendarViewController *dailyCalendarViewController = [[dailyCalNavigationController viewControllers] firstObject];
-//        dailyCalendarViewController.itinerary = self.itinerary;
-        
     } else {
         NSLog(@"not here man");
     }
