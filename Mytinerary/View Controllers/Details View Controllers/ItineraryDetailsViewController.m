@@ -132,8 +132,6 @@ static const int TABLE_VIEW_HEADER_HEIGHT = 44;
     [self performSegueWithIdentifier:@"EditItinerarySegue" sender:nil];
 }
 
-
-
 #pragma mark - Parse Data
 
 - (void)deleteItinerary {

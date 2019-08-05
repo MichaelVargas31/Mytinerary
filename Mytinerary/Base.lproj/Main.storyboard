@@ -1462,6 +1462,7 @@
                         <outlet property="titleLabel" destination="jhz-Gs-eIj" id="kLK-ac-KhY"/>
                         <segue destination="RUl-zE-tk7" kind="presentation" identifier="EditItinerarySegue" id="Ly5-ib-0bT"/>
                         <segue destination="AST-nT-DsT" kind="showDetail" identifier="DeleteItineraryToProfileSegue" id="iPX-Q9-7gZ"/>
+                        <segue destination="vfi-ve-A7n" kind="show" identifier="ItinDetailsToEventDetailsSegue" id="cYv-hw-WLz"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4vL-kr-Pll" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1763,10 +1764,11 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="C4H-d4-iJq"/>
+        <segue reference="Ly5-ib-0bT"/>
         <segue reference="sJn-uW-gz0"/>
-        <segue reference="pBk-Pq-aqM"/>
+        <segue reference="iPX-Q9-7gZ"/>
         <segue reference="pGb-W9-DTJ"/>
+        <segue reference="cYv-hw-WLz"/>
         <segue reference="GkC-3I-Ydq"/>
         <segue reference="Dwd-wo-Oze"/>
     </inferredMetricsTieBreakers>
