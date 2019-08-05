@@ -5,6 +5,7 @@
 #import "SearchLocationViewController.h"
 #import "InputValidation.h"
 #import "Directions.h"
+#import "Itinerary.h"
 
 @implementation Event
 
@@ -81,6 +82,17 @@
     
     Event *updatedEvent = [self initNewEvent:title eventDescription:eventDescription address:self.address latitude:self.latitude longitude:self.longitude locationType:locationType category:category startTime:startTime endTime:endTime notes:notes withCompletion:completion];
     return updatedEvent;
+}
+
++ (void) deleteEvent:(Event *)event itinerary:(Itinerary *)itinerary withCompletion:(PFBooleanResultBlock)completion {
+    // delete event
+    [event deleteInBackgroundWithBlock:completion];
+    
+    // remove event pointer from itinerary
+    NSMutableArray *itinEvents = [NSMutableArray arrayWithArray:itinerary.events];
+    [itinEvents removeObject:event];
+    itinerary.events = itinEvents;
+    [itinerary updateItinerary:itinerary];
 }
 
 /* initialize an activity event

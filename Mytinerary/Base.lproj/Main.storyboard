@@ -271,7 +271,7 @@
                         <outlet property="m" destination="IrT-10-MH7" id="rra-8M-LnR"/>
                         <outlet property="startTimeDatePicker" destination="xI8-xb-MdE" id="ly4-dT-aIf"/>
                         <outlet property="titleTextField" destination="81r-jN-GNE" id="GA6-Rf-BfJ"/>
-                        <segue destination="AST-nT-DsT" kind="show" identifier="AddNewItineraryToDailyCalendarSegue" id="RmN-u0-S7V"/>
+                        <segue destination="AST-nT-DsT" kind="showDetail" identifier="AddNewItineraryToDailyCalendarSegue" id="RmN-u0-S7V"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iEG-eb-U2D" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -754,6 +754,9 @@
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
+                                        <accessibility key="accessibilityConfiguration">
+                                            <accessibilityTraits key="traits" notEnabled="YES"/>
+                                        </accessibility>
                                         <connections>
                                             <outlet property="calendarTimeLabel" destination="a6U-na-0tu" id="sML-yR-7dD"/>
                                         </connections>
@@ -825,7 +828,7 @@
                                 </cells>
                             </collectionView>
                         </subviews>
-                        <color key="backgroundColor" red="0.0" green="0.97680455450000003" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="w80-C5-rJ4" secondAttribute="bottom" id="5OV-SM-CYr"/>
                             <constraint firstItem="ecC-45-JY5" firstAttribute="leading" secondItem="BQN-GC-MwF" secondAttribute="leading" id="AGr-rQ-ft4"/>
@@ -870,31 +873,7 @@
                     <view key="view" contentMode="scaleToFill" id="pUc-D2-j19">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="I7A-PG-fR6">
-                                <rect key="frame" x="0.0" y="64" width="375" height="559"/>
-                                <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="DlF-gi-F6b">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="559"/>
-                                    </stackView>
-                                </subviews>
-                                <constraints>
-                                    <constraint firstAttribute="bottom" secondItem="DlF-gi-F6b" secondAttribute="bottom" id="GxA-bW-Z51"/>
-                                    <constraint firstItem="DlF-gi-F6b" firstAttribute="leading" secondItem="I7A-PG-fR6" secondAttribute="leading" id="PGL-WA-kbw"/>
-                                    <constraint firstItem="DlF-gi-F6b" firstAttribute="top" secondItem="I7A-PG-fR6" secondAttribute="top" id="ZGF-cj-dpQ"/>
-                                    <constraint firstAttribute="trailing" secondItem="DlF-gi-F6b" secondAttribute="trailing" id="oL7-Id-coe"/>
-                                    <constraint firstItem="DlF-gi-F6b" firstAttribute="centerY" secondItem="I7A-PG-fR6" secondAttribute="centerY" id="pHv-2g-eJO"/>
-                                    <constraint firstItem="DlF-gi-F6b" firstAttribute="centerX" secondItem="I7A-PG-fR6" secondAttribute="centerX" id="zFq-eT-HbG"/>
-                                </constraints>
-                            </scrollView>
-                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <constraints>
-                            <constraint firstItem="I7A-PG-fR6" firstAttribute="top" secondItem="sCz-aI-Y8Q" secondAttribute="top" id="02Y-3C-a5r"/>
-                            <constraint firstItem="I7A-PG-fR6" firstAttribute="bottom" secondItem="sCz-aI-Y8Q" secondAttribute="bottom" id="7Vx-1R-MW7"/>
-                            <constraint firstItem="I7A-PG-fR6" firstAttribute="leading" secondItem="sCz-aI-Y8Q" secondAttribute="leading" id="Na2-KI-1fi"/>
-                            <constraint firstItem="I7A-PG-fR6" firstAttribute="trailing" secondItem="sCz-aI-Y8Q" secondAttribute="trailing" id="cta-xS-wNp"/>
-                        </constraints>
                         <viewLayoutGuide key="safeArea" id="sCz-aI-Y8Q"/>
                     </view>
                     <connections>
@@ -903,8 +882,6 @@
                         <outlet property="descriptionView" destination="amQ-3f-oIw" id="rkh-n4-Jna"/>
                         <outlet property="foodView" destination="5Tv-H4-KVj" id="ltv-aB-2M3"/>
                         <outlet property="hotelView" destination="5Xa-qA-xpn" id="1um-VO-XFn"/>
-                        <outlet property="scrollView" destination="I7A-PG-fR6" id="gJJ-LZ-ToL"/>
-                        <outlet property="stackView" destination="DlF-gi-F6b" id="HNf-Gw-T3P"/>
                         <outlet property="titleView" destination="2tG-Jo-8VX" id="8ob-EX-YlS"/>
                         <outlet property="transportationView" destination="DDv-Qj-jni" id="BXQ-UW-SKw"/>
                         <segue destination="eHQ-Si-fcr" kind="presentation" identifier="editEventSegue" id="GkC-3I-Ydq"/>
@@ -1789,6 +1766,8 @@
         <segue reference="sJn-uW-gz0"/>
         <segue reference="ISd-z3-EBT"/>
         <segue reference="W6l-eq-cqv"/>
+        <segue reference="RmN-u0-S7V"/>
+        <segue reference="GkC-3I-Ydq"/>
         <segue reference="Dwd-wo-Oze"/>
     </inferredMetricsTieBreakers>
 </document>

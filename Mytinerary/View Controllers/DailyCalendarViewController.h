@@ -30,7 +30,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *alertButton;
 
 // config default itin functionality
-@property BOOL fromLogin;
+@property BOOL loadItinerary;
 
 @end
 

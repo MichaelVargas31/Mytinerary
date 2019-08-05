@@ -24,6 +24,7 @@ static int const ACTIVITY_VIEW_HEIGHT = 80;
 static int const TRANSPORTATION_VIEW_HEIGHT = 225;
 static int const FOOD_VIEW_HEIGHT = 110;
 static int const HOTEL_VIEW_HEIGHT = 110;
+static int const DELETE_VIEW_HEIGHT = 100;
 
 @interface EventDetailsViewController () <InputEventViewControllerDelegate>
 
@@ -53,6 +54,34 @@ static int const HOTEL_VIEW_HEIGHT = 110;
     // setup date formatter
     NSDateFormatter *dateFormatter = [DateFormatter hourDateFormatter];
     
+    // make and configure scroll view
+    UIScrollView *scrollView = [[UIScrollView alloc] init];
+    [self.view addSubview:scrollView];
+    scrollView.translatesAutoresizingMaskIntoConstraints = false;
+    scrollView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+    
+    NSArray *scrollConstraints = [NSArray arrayWithObjects:[scrollView.leadingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.leadingAnchor], [scrollView.trailingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.trailingAnchor], [scrollView.topAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.topAnchor], [scrollView.heightAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.heightAnchor], nil];
+    
+    [NSLayoutConstraint activateConstraints:scrollConstraints];
+    
+    [scrollView addSubview:self.stackView];
+    
+    // make and configure stack view as subview of scroll view
+    UIStackView *stackView = [[UIStackView alloc] init];
+    stackView.axis = UILayoutConstraintAxisVertical;
+    stackView.alignment = UIStackViewAlignmentFill;
+    stackView.spacing = 0;
+    stackView.distribution = UIStackViewDistributionFill;
+    [scrollView addSubview:stackView];
+    
+    stackView.translatesAutoresizingMaskIntoConstraints = false;
+    NSArray *stackConstraints = [NSArray arrayWithObjects:[stackView.leadingAnchor constraintEqualToAnchor:scrollView.leadingAnchor], [stackView.trailingAnchor constraintEqualToAnchor:scrollView.trailingAnchor], [stackView.topAnchor constraintEqualToAnchor:scrollView.topAnchor], [stackView.bottomAnchor constraintEqualToAnchor:scrollView.bottomAnchor], [stackView.widthAnchor constraintEqualToAnchor:scrollView.widthAnchor], nil];
+    [NSLayoutConstraint activateConstraints:stackConstraints];
+    
+    // store pointers to stackView and scrollView to render additional input forms
+    self.stackView = stackView;
+    self.scrollView = scrollView;
+    
     // add shared event details title view
     [self.stackView addArrangedSubview:self.titleView];
     [self.titleView.heightAnchor constraintEqualToConstant:TITLE_VIEW_HEIGHT].active = YES;
@@ -66,7 +95,6 @@ static int const HOTEL_VIEW_HEIGHT = 110;
         UIView *viewToBeRemoved;
         for (int i = 0; i<subviews.count; i++) {
             if (!([subviews[i] isKindOfClass:[EventDetailsTitleView class]] || [subviews[i] isKindOfClass:[EventDetailsDescriptionView class]] || [subviews[i] isKindOfClass:[EventDetailsDeleteView class]])) {
-//                NSLog(@"view = %@", viewToBeRemoved);
 
                 viewToBeRemoved = subviews[i];
                 [self.stackView removeArrangedSubview:viewToBeRemoved];
@@ -128,7 +156,7 @@ static int const HOTEL_VIEW_HEIGHT = 110;
     
     // add delete event view
     [self.stackView insertArrangedSubview:self.deleteView atIndex:3];
-    NSLog(@"Stack view subarray after = %@", self.stackView.arrangedSubviews);
+    [self.deleteView.heightAnchor constraintEqualToConstant:DELETE_VIEW_HEIGHT].active = YES;
 }
 
 - (IBAction)onTapEditButton:(id)sender {
@@ -150,23 +178,14 @@ static int const HOTEL_VIEW_HEIGHT = 110;
 
 
 - (IBAction)didTapDeleteButton:(id)sender {
-    
     UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Delete Event?" message:@"Are you sure you want to delete this event. This cannot be undone." preferredStyle:UIAlertControllerStyleAlert];
     
     // create Delete and Cancel buttons to alert
     UIAlertAction* deleteAction = [UIAlertAction actionWithTitle:@"Delete" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         // if the user confirms the delete:
         if (action) {
-            [self.event deleteInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
-                if (succeeded) {
-                    // deletes event from its parent itinerary
-                    [self.delegate didDeleteEvent:self.event];
-                    [self dismissViewControllerAnimated:YES completion:^{}];
-                }
-                else {
-                    NSLog(@"Error deleting event: %@", error.localizedDescription);
-                }
-            }];
+            [self.delegate didDeleteEvent:self.event];
+            [self.navigationController popViewControllerAnimated:YES];
         }
     }];
     
@@ -174,9 +193,7 @@ static int const HOTEL_VIEW_HEIGHT = 110;
     [alert addAction:cancelAction];
     [alert addAction:deleteAction];
     [self presentViewController:alert animated:YES completion:nil];
-    
 }
-
 
 #pragma mark - Navigation
 
