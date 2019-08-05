@@ -119,7 +119,7 @@
     
     if (kind == UICollectionElementKindSectionHeader) {
         ProfileCollectionReusableView *profileHeaderView = [self.collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"ProfileCell" forIndexPath:indexPath];
-        User *currentUser = [User initUserWithPFUser:PFUser.currentUser];
+        User *currentUser = User.currentUser;
         profileHeaderView.usernameLabel.text = currentUser.username;
         reusableview = profileHeaderView;
     }
