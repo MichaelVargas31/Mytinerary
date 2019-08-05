@@ -31,8 +31,6 @@
 @property (strong, nonatomic) UIActivityIndicatorView *activityIndicator;
 @property (strong, nonatomic) NSDate *displayedDate;
 @property (strong, nonatomic) NSArray <NSDate *> *itineraryDates; // holds dates of itinerary in order
-// clean??? what is status
-@property (strong, nonatomic) NSString *status;
 
 @end
 
@@ -71,9 +69,6 @@
     else {
         [self loadItinView];
     }
-
-    
-//    self.status = @"close";
     
     [self sideMenus];
 }
