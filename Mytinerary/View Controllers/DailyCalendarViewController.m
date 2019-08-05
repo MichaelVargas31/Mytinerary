@@ -68,6 +68,7 @@
     [self.activityIndicator hidesWhenStopped];
     
     // if from login, itinerary obj must be fetched first
+    [self.activityIndicator startAnimating];
     if (self.loadItinerary) {
         [self fetchItineraryAndLoadView];
     }
@@ -103,15 +104,11 @@
 }
 
 - (void)fetchItineraryAndLoadView {
-    [self.activityIndicator startAnimating];
-    
     [Itinerary fetchAllInBackground:[NSArray arrayWithObject:self.itinerary] block:^(NSArray * _Nullable objects, NSError * _Nullable error) {
         if (objects) {
             NSLog(@"itinerary successfully fetched!");
             self.itinerary = [objects firstObject];
-            [self.activityIndicator stopAnimating];
             [self loadItinView];
-            [self.activityIndicator stopAnimating];
         }
         else {
             NSLog(@"error fetching itinerary object: %@", error);
@@ -137,6 +134,8 @@
             NSDate *firstDay = [self.calendar startOfDayForDate:self.itinerary.startTime];
             [self refreshViewUsingDate:firstDay];
             self.displayedDate = firstDay;
+            
+            [self.activityIndicator stopAnimating];
         } else {
             NSLog(@"error: %@", error.localizedDescription);
         }
@@ -302,8 +301,6 @@
     NSMutableArray <Event *> *dayEvents = self.eventsDictionary[dayIdx];
     dayEvents = [self deleteDailyTransportationEvents:dayIdx dayEvents:dayEvents];
     dayEvents = [self makeDailyTransportationEvents:dayIdx dayEvents:dayEvents];
-    
-    [self.activityIndicator stopAnimating];
 }
 
 - (NSMutableArray <Event *> *)deleteDailyTransportationEvents:(NSDate *)dayIdx dayEvents:(NSMutableArray <Event *> *)dayEvents {
@@ -346,6 +343,11 @@
                     
                     // add transpo object locally, refresh view
                     [self refreshViewUsingDate:dayIdx];
+                    
+                    // stop activity indicator on last transpo event
+                    if (i == dayEventsOGLength - 2) {
+                         [self.activityIndicator stopAnimating];
+                    }
                 }
                 else {
                     NSLog(@"error making transportation event: %@", error.domain);
