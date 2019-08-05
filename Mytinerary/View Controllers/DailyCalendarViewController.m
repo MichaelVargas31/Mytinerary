@@ -277,18 +277,28 @@
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    // reset the tableview and all the sheiza on it
+    // reset the collection view and all the sheiza on it
+
     WeekdayCollectionViewCell *cell = (WeekdayCollectionViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
-    cell.dateLabel.backgroundColor = [UIColor colorWithRed:.5 green:.5 blue:.5 alpha:1];
+    
+    //animates dates when cell is selected
+     if(cell.isSelected){
+    [UIView beginAnimations:nil context:nil];
+    [UIView setAnimationDuration:0.2];
+    [collectionView cellForItemAtIndexPath:indexPath].backgroundColor=[UIColor lightGrayColor];
+    [collectionView cellForItemAtIndexPath:indexPath].backgroundColor=[UIColor whiteColor];
+    [UIView commitAnimations];
+    }
+    
     [self refreshViewUsingDate:cell.date];
     self.displayedDate = cell.date;
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath {
     WeekdayCollectionViewCell *cell = (WeekdayCollectionViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
-    cell.dateLabel.backgroundColor = [UIColor colorWithRed:.2 green:.6 blue:.99 alpha:1];
     
-}
+   // cell.dateLabel.backgroundColor = [UIColor colorWithRed:.2 green:.6 blue:.99 alpha:1];
+    }
 
 #pragma - Transportation
 
