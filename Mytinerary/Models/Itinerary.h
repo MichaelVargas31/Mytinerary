@@ -4,6 +4,8 @@
 #import "Parse/Parse.h"
 #import "Event.h"
 
+@class Event;
+
 @interface Itinerary : PFObject<PFSubclassing>
 
 @property (nonatomic, strong) NSDate *startTime;
@@ -17,6 +19,8 @@
 + (Itinerary *)initNewItinerary:(NSString *)title startTime:(NSDate *)startTime endTime:(NSDate *)endTime budget:(NSNumber *)budget withCompletion:(PFBooleanResultBlock)completion;
 
 - (void)updateItinerary:(Itinerary *)updatedItinerary;
+
++ (void)deleteItinerary:(Itinerary *)itinerary withCompletion:(PFBooleanResultBlock)completion;
 
 - (void)addEventToItinerary:(Event *)event withCompletion:(PFBooleanResultBlock)completion;
 

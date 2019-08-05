@@ -109,12 +109,7 @@ static const int TABLE_VIEW_HEADER_HEIGHT = 44;
     handler:^(UIAlertAction * action) {
         // if the delete button is pressed again
         if (action) {
-            // delete the itinerary's events individually
-            for (Event *eventToBeDeleted in self.itinerary.events) {
-                [eventToBeDeleted deleteInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {}];
-            }
-            
-            [self.itinerary deleteInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+            [Itinerary deleteItinerary:self.itinerary withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
                 if (succeeded) {
                     NSLog(@"You deleted %@", self.itinerary.title);
                     
@@ -123,10 +118,9 @@ static const int TABLE_VIEW_HEADER_HEIGHT = 44;
                     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
                     UINavigationController *profileNavigationVC = [storyboard instantiateViewControllerWithIdentifier:@"Profile"];
                     appDelegate.window.rootViewController = profileNavigationVC;
-                    NSLog(@"stack = %@", [self.navigationController viewControllers]);
-
-                } else {
-                    NSLog(@"The error you got was %@", error.localizedDescription);
+                }
+                else {
+                    NSLog(@"could not delete itin: %@", error.description);
                 }
             }];
         }

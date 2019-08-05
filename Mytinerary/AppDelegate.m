@@ -54,7 +54,7 @@
         if (currentUser.defaultItinerary) {
             SWRevealViewController *revealViewController = [storyboard instantiateViewControllerWithIdentifier:@"SWRevealViewController"];
             revealViewController.itinerary = currentUser.defaultItinerary;
-            revealViewController.fromLogin = true;
+            revealViewController.loadItinerary = true;
             self.window.rootViewController = revealViewController;
         }
         else {
