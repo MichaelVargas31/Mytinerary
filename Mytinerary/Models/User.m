@@ -26,10 +26,11 @@
     PFUser *user = [PFUser user];
     
     // set user properties
-    user.username = username;
+    user.username = @"testtest";
     user.password = password;
     
-    [user signUpInBackgroundWithBlock:completion];
+//    [user signUpInBackgroundWithBlock:completion];
+    [user signUp];
 }
 
 + (void)loginUser:(NSString *)username password:(NSString *)password withCompletion:(PFUserResultBlock)completion {

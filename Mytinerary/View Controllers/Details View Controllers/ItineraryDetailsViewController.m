@@ -6,6 +6,7 @@
 //  Copyright © 2019 michaelvargas. All rights reserved.
 //
 
+#import "SWRevealViewController.h"
 #import "ItineraryDetailsViewController.h"
 #import "InputItineraryViewController.h"
 #import "ProfileViewController.h"
@@ -15,6 +16,7 @@
 #import "DateHeaderTableViewCell.h"
 #import "DeleteItineraryTableViewCell.h"
 #import "Itinerary.h"
+#import "User.h"
 #import "DateFormatter.h"
 #import "Date.h"
 #import "Parse/Parse.h"
@@ -109,20 +111,7 @@ static const int TABLE_VIEW_HEADER_HEIGHT = 44;
     handler:^(UIAlertAction * action) {
         // if the delete button is pressed again
         if (action) {
-            [Itinerary deleteItinerary:self.itinerary withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
-                if (succeeded) {
-                    NSLog(@"You deleted %@", self.itinerary.title);
-                    
-                    // go back to the profileViewController
-                    AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
-                    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-                    UINavigationController *profileNavigationVC = [storyboard instantiateViewControllerWithIdentifier:@"Profile"];
-                    appDelegate.window.rootViewController = profileNavigationVC;
-                }
-                else {
-                    NSLog(@"could not delete itin: %@", error.description);
-                }
-            }];
+            [self deleteItinerary];
         }
     }];
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"cancel" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {}];
@@ -134,6 +123,41 @@ static const int TABLE_VIEW_HEADER_HEIGHT = 44;
 
 - (IBAction)didTapEdit:(id)sender {
     [self performSegueWithIdentifier:@"EditItinerarySegue" sender:nil];
+}
+
+
+
+#pragma mark - Parse Data
+
+- (void)deleteItinerary {
+    // delete the itinerary's events individually
+    for (Event *eventToBeDeleted in self.itinerary.events) {
+        [eventToBeDeleted deleteInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {}];
+    }
+    
+    // delete the user's default itinerary
+    if (PFUser.currentUser) {
+        [PFUser.currentUser removeObjectForKey:@"defaultItinerary"];
+        [PFUser.currentUser saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+            if (!succeeded) {
+                NSLog(@"Error deleting defaultItinerary: %@", error.localizedDescription);
+            }
+        }];
+    }
+    
+    // delete itinerary itself
+    [self.itinerary deleteInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+        if (succeeded) {
+            NSLog(@"You deleted %@", self.itinerary.title);
+            
+            
+            [self performSegueWithIdentifier:@"DeleteItineraryToProfileSegue" sender:nil];
+            
+            
+        } else {
+            NSLog(@"The error you got was %@", error.localizedDescription);
+        }
+    }];
 }
 
 
@@ -212,6 +236,10 @@ static const int TABLE_VIEW_HEADER_HEIGHT = 44;
     } else if ([segue.identifier isEqualToString:@"ItinDetailsToEventDetailsSegue"]) {
         EventDetailsViewController *detailsVC = [segue destinationViewController];
         detailsVC.event = sender;
+    } else if ([segue.identifier isEqualToString:@"DeleteItineraryToProfileSegue"]) {
+        SWRevealViewController *revealVC = [segue destinationViewController];
+        // tells the revealVC which segue we want it to execute next
+        revealVC.nextSegue = @"ToProfileSegue";
     }
 }
 
