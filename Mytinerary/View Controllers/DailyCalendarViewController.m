@@ -49,8 +49,6 @@
     
     self.calendar = [Calendar gregorianCalendarWithUTCTimeZone];
     
-    // Do any additional setup after loading the view.
-    
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     self.WeeklyCalendarCollectionView.dataSource = self;
@@ -61,6 +59,13 @@
     self.timeOfDayFormatter = [DateFormatter timeOfDayFormatter];
     // set up table view
     self.tableView.rowHeight = [DailyTableViewCell returnRowHeight].floatValue;
+    
+    // set up activity indicator -- TODO: not sure if this actually works
+    self.activityIndicator = [[UIActivityIndicatorView alloc] init];
+    self.activityIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyleWhiteLarge;
+    self.activityIndicator.center = self.view.center;
+    [self.view addSubview:self.activityIndicator];
+    [self.activityIndicator hidesWhenStopped];
     
     // if from login, itinerary obj must be fetched first
     if (self.loadItinerary) {
@@ -98,12 +103,6 @@
 }
 
 - (void)fetchItineraryAndLoadView {
-    // set up activity indicator -- TODO: not sure if this actually works
-    self.activityIndicator = [[UIActivityIndicatorView alloc] init];
-    self.activityIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyleWhiteLarge;
-    self.activityIndicator.center = self.view.center;
-    [self.view addSubview:self.activityIndicator];
-    [self.activityIndicator hidesWhenStopped];
     [self.activityIndicator startAnimating];
     
     [Itinerary fetchAllInBackground:[NSArray arrayWithObject:self.itinerary] block:^(NSArray * _Nullable objects, NSError * _Nullable error) {
@@ -296,24 +295,29 @@
 
 // automatically makes transportations events for the currently displayed day
 - (IBAction)onTapAutoTransportButton:(id)sender {
+    [self.activityIndicator startAnimating];
+    [self.view addSubview:self.activityIndicator];
+    
     NSDate *dayIdx = self.displayedDate;
     NSMutableArray <Event *> *dayEvents = self.eventsDictionary[dayIdx];
     dayEvents = [self deleteDailyTransportationEvents:dayIdx dayEvents:dayEvents];
     dayEvents = [self makeDailyTransportationEvents:dayIdx dayEvents:dayEvents];
+    
+    [self.activityIndicator stopAnimating];
 }
 
 - (NSMutableArray <Event *> *)deleteDailyTransportationEvents:(NSDate *)dayIdx dayEvents:(NSMutableArray <Event *> *)dayEvents {
-    // delete transportation events locally
+    // find day transportation events
     NSMutableArray *transpoEventsToDelete = [[NSMutableArray alloc] init];
     for (Event *event in dayEvents) {
         if ([event.category isEqualToString:@"transportation"]) {
             [transpoEventsToDelete addObject:event];
-            [dayEvents removeObject:event];
         }
     }
     
-    // delete in parse
+    // delete locally and in parse
     for (Event *event in transpoEventsToDelete) {
+        [dayEvents removeObject:event];
         [Event deleteEvent:event itinerary:self.itinerary withCompletion:nil];
     }
     
