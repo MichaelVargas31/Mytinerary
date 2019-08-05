@@ -41,8 +41,8 @@
         }
         else {
             NSLog(@"Login was sucessful");
-            
-            User *user = [User initUserWithPFUser:pfuser];
+
+            User *user = [User makeUserWithPFUser:pfuser];
             if (user.defaultItinerary) {
                 [self performSegueWithIdentifier:@"defaultItinerarySegue" sender:user];
             }
@@ -58,7 +58,7 @@
     NSString *username = self.usernameField.text;
     NSString *password = self.passwordField.text;
     
-    [User registerUser:username password:password withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
+    [User signUpUser:username password:password withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
         if(error != nil){
             NSLog(@"Error: %@", error);
         }
@@ -72,7 +72,6 @@
 - (void)dismissKeyboard {
     [self.view endEditing:YES];
 }
-
 
 #pragma mark - Navigation
 

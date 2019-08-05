@@ -6,13 +6,11 @@
 
 @interface User : PFUser
 
-@property (nonatomic, strong) NSString *username;
-@property (nonatomic, strong) NSString *password;
 @property (nonatomic, strong) Itinerary *defaultItinerary;
 
-+ (User *)initUserWithPFUser:(PFUser *)user;
++ (User *)makeUserWithPFUser:(PFUser *)user;
 
-+ (void)registerUser:(NSString *)username password:(NSString *)password withCompletion:(PFBooleanResultBlock)completion;
++ (void)signUpUser:(NSString *)username password:(NSString *)password withCompletion:(PFBooleanResultBlock)completion;
 
 // example usage of registerUser
 /* [User registerUser:@"hi" password:@"hi" withCompletion:^(BOOL succeeded, NSError * _Nullable error) {

@@ -44,12 +44,12 @@
     
     
     //Directly load profile view if there is a cached user already present
-    if (PFUser.currentUser) {
+    if (User.currentUser) {
         
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
         
         //@"Profile" is the ID for the navigation view controller in which profile page is embedded in
-        User *currentUser = [User initUserWithPFUser:PFUser.currentUser];
+        User *currentUser = User.currentUser;
         
         if (currentUser.defaultItinerary) {
             SWRevealViewController *revealViewController = [storyboard instantiateViewControllerWithIdentifier:@"SWRevealViewController"];

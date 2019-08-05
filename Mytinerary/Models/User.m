@@ -10,20 +10,18 @@
 
 @implementation User
 
-@synthesize username;
-@synthesize password;
 @synthesize defaultItinerary;
 
-+ (User *)initUserWithPFUser:(PFUser *)PFUser {
-    User *user = [[User alloc] init];
++ (User *)makeUserWithPFUser:(PFUser *)PFUser {
+    User *user = [User user];
     user.username = PFUser[@"username"];
     user.defaultItinerary = PFUser[@"defaultItinerary"];
     return user;
 }
 
-+ (void)registerUser:(NSString *)username password:(NSString *)password withCompletion:(PFBooleanResultBlock)completion {
++ (void)signUpUser:(NSString *)username password:(NSString *)password withCompletion:(PFBooleanResultBlock)completion {
     // initialize a user object
-    PFUser *user = [PFUser user];
+    User *user = [User user];
     
     // set user properties
     user.username = username;
