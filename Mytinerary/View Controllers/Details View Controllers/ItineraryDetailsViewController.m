@@ -137,12 +137,8 @@ static const int TABLE_VIEW_HEADER_HEIGHT = 44;
     
     // delete the user's default itinerary
     if (PFUser.currentUser) {
-//        User *user = [User initUserWithPFUser:PFUser.currentUser];
-//        user.defaultItinerary = nil;
-//        PFUser.currentUser[@"defaultItinerary"] = nil;
         [PFUser.currentUser removeObjectForKey:@"defaultItinerary"];
         [PFUser.currentUser saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
-//        [user saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
             if (!succeeded) {
                 NSLog(@"Error deleting defaultItinerary: %@", error.localizedDescription);
             }
@@ -241,9 +237,6 @@ static const int TABLE_VIEW_HEADER_HEIGHT = 44;
         EventDetailsViewController *detailsVC = [segue destinationViewController];
         detailsVC.event = sender;
     } else if ([segue.identifier isEqualToString:@"DeleteItineraryToProfileSegue"]) {
-//        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-//        SWRevealViewController *revealVC = [storyboard instantiateViewControllerWithIdentifier:@"SWRevealViewController"];
-        
         SWRevealViewController *revealVC = [segue destinationViewController];
         // tells the revealVC which segue we want it to execute next
         revealVC.nextSegue = @"ToProfileSegue";
