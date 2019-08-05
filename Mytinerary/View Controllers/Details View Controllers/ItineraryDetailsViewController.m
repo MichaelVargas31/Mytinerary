@@ -16,6 +16,7 @@
 #import "DateHeaderTableViewCell.h"
 #import "DeleteItineraryTableViewCell.h"
 #import "Itinerary.h"
+#import "User.h"
 #import "DateFormatter.h"
 #import "Date.h"
 #import "Parse/Parse.h"
@@ -110,23 +111,7 @@ static const int TABLE_VIEW_HEADER_HEIGHT = 44;
     handler:^(UIAlertAction * action) {
         // if the delete button is pressed again
         if (action) {
-            // delete the itinerary's events individually
-            for (Event *eventToBeDeleted in self.itinerary.events) {
-                [eventToBeDeleted deleteInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {}];
-            }
-            
-            [self.itinerary deleteInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
-                if (succeeded) {
-                    NSLog(@"You deleted %@", self.itinerary.title);
-                    
-                    
-                    [self performSegueWithIdentifier:@"DeleteItineraryToProfileSegue" sender:nil];
-
-
-                } else {
-                    NSLog(@"The error you got was %@", error.localizedDescription);
-                }
-            }];
+            [self deleteItinerary];
         }
     }];
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"cancel" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {}];
@@ -138,6 +123,45 @@ static const int TABLE_VIEW_HEADER_HEIGHT = 44;
 
 - (IBAction)didTapEdit:(id)sender {
     [self performSegueWithIdentifier:@"EditItinerarySegue" sender:nil];
+}
+
+
+
+#pragma mark - Parse Data
+
+- (void)deleteItinerary {
+    // delete the itinerary's events individually
+    for (Event *eventToBeDeleted in self.itinerary.events) {
+        [eventToBeDeleted deleteInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {}];
+    }
+    
+    // delete the user's default itinerary
+    if (PFUser.currentUser) {
+//        User *user = [User initUserWithPFUser:PFUser.currentUser];
+//        user.defaultItinerary = nil;
+//        PFUser.currentUser[@"defaultItinerary"] = nil;
+        [PFUser.currentUser removeObjectForKey:@"defaultItinerary"];
+        [PFUser.currentUser saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+//        [user saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+            if (!succeeded) {
+                NSLog(@"Error deleting defaultItinerary: %@", error.localizedDescription);
+            }
+        }];
+    }
+    
+    // delete itinerary itself
+    [self.itinerary deleteInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+        if (succeeded) {
+            NSLog(@"You deleted %@", self.itinerary.title);
+            
+            
+            [self performSegueWithIdentifier:@"DeleteItineraryToProfileSegue" sender:nil];
+            
+            
+        } else {
+            NSLog(@"The error you got was %@", error.localizedDescription);
+        }
+    }];
 }
 
 
