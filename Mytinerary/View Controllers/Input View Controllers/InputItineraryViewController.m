@@ -108,9 +108,7 @@
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info {
     // Get the image captured by the UIImagePickerController
-    UIImage *originalImage = info[UIImagePickerControllerOriginalImage];
-    UIImage *editedImage = info[UIImagePickerControllerEditedImage];
-    
+    UIImage *originalImage = info[UIImagePickerControllerOriginalImage];    
     [self.imageView setImage:originalImage];
     
     // Dismiss UIImagePickerController
@@ -182,10 +180,6 @@
         SWRevealViewController *revealViewController = [segue destinationViewController];
         revealViewController.itinerary = self.itinerary;
         revealViewController.loadItinerary = true;
-//        UINavigationController *dailyCalNavigationController = [segue destinationViewController];
-//        DailyCalendarViewController *dailyCalendarViewController = [[dailyCalNavigationController viewControllers] firstObject];
-//        dailyCalendarViewController.itinerary = self.itinerary;
-        
     } else {
         NSLog(@"not here man");
     }
