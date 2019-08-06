@@ -273,8 +273,22 @@
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    // reset the tableview and all the sheiza on it
+    // reset the collection view and all the sheiza on it
+
     WeekdayCollectionViewCell *cell = (WeekdayCollectionViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
+    
+    //animates dates when cell is selected
+     if(cell.isSelected){
+    [UIView beginAnimations:nil context:nil];
+    [UIView setAnimationDuration:0.2];
+    [collectionView cellForItemAtIndexPath:indexPath].backgroundColor=[UIColor lightGrayColor];
+    [collectionView cellForItemAtIndexPath:indexPath].backgroundColor=[UIColor whiteColor];
+    [UIView commitAnimations];
+    }
+    
+    [self refreshViewUsingDate:cell.date];
+    self.displayedDate = cell.date;
+
     cell.dateLabel.backgroundColor = [UIColor colorWithRed:.5 green:.5 blue:.5 alpha:1];
     
     // only refresh view if dates have already been loaded
@@ -282,13 +296,14 @@
          [self refreshViewUsingDate:cell.date];
          self.displayedDate = cell.date;
     }
+
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath {
     WeekdayCollectionViewCell *cell = (WeekdayCollectionViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
-    cell.dateLabel.backgroundColor = [UIColor colorWithRed:.2 green:.6 blue:.99 alpha:1];
     
-}
+   // cell.dateLabel.backgroundColor = [UIColor colorWithRed:.2 green:.6 blue:.99 alpha:1];
+    }
 
 #pragma - Transportation
 
@@ -370,7 +385,11 @@
     
     return dayEvents;
 }
-
+- (IBAction)onTapMapButton:(id)sender {
+    
+     [self performSegueWithIdentifier:@"calendarToMapSegue" sender:nil];
+    
+}
 
 #pragma mark - Navigation
 
@@ -389,6 +408,13 @@
     else if ([[segue identifier] isEqualToString:@"itineraryDetailsSegue"]) {
         ItineraryDetailsViewController *itineraryDetailsViewController = [segue destinationViewController];
         itineraryDetailsViewController.itinerary = self.itinerary;
+    } else if ([segue.identifier isEqualToString:@"calendarToMapSegue"]) {
+       // tells the revealVC which segue we want it to execute next
+        //passes itinerary objects to map from reveal view controller so that the sidebar on the map will work
+        //segue from calendar to revealVC
+       SWRevealViewController *revealVC = [segue destinationViewController];
+        revealVC.nextSegue = @"toMapSegue";
+        revealVC.itinerary=self.itinerary;
     }
 }
 
@@ -396,16 +422,7 @@
     [self performSegueWithIdentifier:@"eventDetailsSegue" sender:event];
 }
 
-- (IBAction)onTapMapButton:(id)sender {
-    // navigate to map by resetting nav controller view controller stack
-    UINavigationController *navigationController = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"ItineraryNavigationController"];
-    MapViewController *mapViewController = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"MapViewController"];
-    // pass itinerary from daily calendar to map
-    mapViewController.itinerary = self.itinerary;
-    
-    [navigationController setViewControllers:[NSArray arrayWithObject:mapViewController]];
-    [self presentViewController:navigationController animated:YES completion:nil];
-}
+
 
 - (IBAction)onTapAddEventBtn:(id)sender {
     [self performSegueWithIdentifier:@"addEventSegue" sender:self];
