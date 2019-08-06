@@ -30,8 +30,6 @@
         
         NSLog(@"Path = %@\nKeys = %@", path, keys);
         
-        
-        
         configuration.applicationId = keys[@"parseApplicationId"];;
         configuration.server = keys[@"parseApplicationServer"];
     }];
@@ -39,22 +37,17 @@
     [Parse initializeWithConfiguration:config];
     
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    self.window.rootViewController = [storyboard instantiateViewControllerWithIdentifier:@"SWRevealViewController"];
-    
-    
     
     //Directly load profile view if there is a cached user already present
-    if (PFUser.currentUser) {
-        
-        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    if (User.currentUser) {
         
         //@"Profile" is the ID for the navigation view controller in which profile page is embedded in
-        User *currentUser = [User initUserWithPFUser:PFUser.currentUser];
+        User *currentUser = User.currentUser;
         
         if (currentUser.defaultItinerary) {
             SWRevealViewController *revealViewController = [storyboard instantiateViewControllerWithIdentifier:@"SWRevealViewController"];
             revealViewController.itinerary = currentUser.defaultItinerary;
-            revealViewController.fromLogin = true;
+            revealViewController.loadItinerary = true;
             self.window.rootViewController = revealViewController;
         }
         else {

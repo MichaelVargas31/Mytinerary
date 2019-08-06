@@ -17,6 +17,9 @@
 
 @interface InputItineraryViewController ()
 
+@property (weak, nonatomic) UIScrollView *scrollView;
+@property (weak, nonatomic) UIStackView *stackView;
+
 @property (weak, nonatomic) IBOutlet UILabel *addOrEditItneraryLabel;
 @property (weak, nonatomic) IBOutlet UIButton *createOrSaveButton;
 @property (weak, nonatomic) IBOutlet UITextField *titleTextField;
@@ -34,7 +37,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-
     // adjust date pickers
     [self.startTimeDatePicker setDatePickerMode:UIDatePickerModeDate];
     [self.endTimeDatePicker setDatePickerMode:UIDatePickerModeDate];
@@ -131,10 +133,9 @@
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"AddNewItineraryToDailyCalendarSegue"]) {
-        UINavigationController *dailyCalNavigationController = [segue destinationViewController];
-        DailyCalendarViewController *dailyCalendarViewController = [[dailyCalNavigationController viewControllers] firstObject];
-        dailyCalendarViewController.itinerary = self.itinerary;
-        
+        SWRevealViewController *revealViewController = [segue destinationViewController];
+        revealViewController.itinerary = self.itinerary;
+        revealViewController.loadItinerary = true;
     } else {
         NSLog(@"not here man");
     }

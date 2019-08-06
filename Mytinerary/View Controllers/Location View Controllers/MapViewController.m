@@ -9,12 +9,14 @@
 #import <MapKit/MapKit.h>
 #import "MapViewController.h"
 #import "DailyCalendarViewController.h"
+#import "ItineraryDetailsViewController.h"
 #import "AppDelegate.h"
 #import "Parse/Parse.h"
 #import "Location.h"
 #import "Event.h"
 #import "Directions.h"
 #import "SWRevealViewController.h"
+#import "EventDetailsViewController.h"
 
 #import "MyAnnotation.h"
 
@@ -103,6 +105,7 @@
     MyAnnotation *annotation = [[MyAnnotation alloc] init];
     [annotation setCoordinate:coord];
     [annotation setTitle:event.title];
+    [annotation setEvent:event];
     
     if ([category isEqualToString:@"food"]) {
         annotation.group = 1;
@@ -144,27 +147,39 @@
             case 3: // hotel
                 pinView.pinTintColor = UIColor.redColor;
                 break;
-            default: // no annotation for transportation object
-                return nil;
+            default: // transportation -- eventually change to custom annotation
+                pinView.pinTintColor = UIColor.greenColor;
+                break;
         }
     }
 
     pinView.annotation = annotation;
     pinView.animatesDrop = YES;
     pinView.canShowCallout = YES;
+    
+    UIButton *btn = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
+    [pinView setRightCalloutAccessoryView:btn];
   
     return pinView;
 }
 
+- (void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view calloutAccessoryControlTapped:(UIControl *)control {
+    // get event associated with annotation view
+    MyAnnotation *annotation = view.annotation;
+    Event *event = annotation.event;
+    
+    // segue to event details view
+    [self performSegueWithIdentifier:@"mapToEventDetailsSegue" sender:event];
+}
+
 - (IBAction)onTapCalendarButton:(id)sender {
+
       //goes back to daily calendar
      [self performSegueWithIdentifier:@"mapToCalendarSegue" sender:nil];
-
 }
 
 - (void)onTapItineraryTitle {
-    // TODO -- wait for shandler to finish segues
-    NSLog(@"tapped itinerary title!");
+    [self performSegueWithIdentifier:@"mapToItineraryDetailsSegue" sender:nil];
 }
 
 #pragma mark - Transportation/directions stuff
@@ -199,10 +214,11 @@
 -(void)createAndAddAnnotationForCoordinate:(CLLocationCoordinate2D)coordinate transpoEvent:(Event *)transpoEvent {
     MyAnnotation* annotation= [[MyAnnotation alloc] init];
     annotation.coordinate = coordinate;
-    
+
     annotation.title = transpoEvent.title;
     annotation.subtitle = transpoEvent.transpoType;
-    
+    annotation.event = transpoEvent;
+
     [self.mapView addAnnotation:annotation];
 }
 
@@ -258,7 +274,15 @@
         SWRevealViewController *revealViewController = [segue destinationViewController];
         revealViewController.itinerary = self.itinerary;
     }
+    else if ([[segue identifier] isEqualToString:@"mapToEventDetailsSegue"]) {
+        Event *event = sender;
+        EventDetailsViewController *eventDetailsViewController = [segue destinationViewController];
+        eventDetailsViewController.event = event;
+    }
+    else if ([[segue identifier] isEqualToString:@"mapToItineraryDetailsSegue"]) {
+        ItineraryDetailsViewController *itineraryDetailsViewController = [segue destinationViewController];
+        itineraryDetailsViewController.itinerary = self.itinerary;
+    }
 }
-
 
 @end
