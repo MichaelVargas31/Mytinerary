@@ -1483,7 +1483,6 @@
                     <connections>
                         <outlet property="headerView" destination="7m0-dC-mcs" id="OMU-A6-m7V"/>
                         <outlet property="tableView" destination="vWC-jV-u2G" id="53s-pL-9ku"/>
-                        <outlet property="titleLabel" destination="jhz-Gs-eIj" id="kLK-ac-KhY"/>
                         <segue destination="RUl-zE-tk7" kind="presentation" identifier="EditItinerarySegue" id="Ly5-ib-0bT"/>
                         <segue destination="AST-nT-DsT" kind="showDetail" identifier="DeleteItineraryToProfileSegue" id="iPX-Q9-7gZ"/>
                         <segue destination="vfi-ve-A7n" kind="show" identifier="ItinDetailsToEventDetailsSegue" id="cYv-hw-WLz"/>
