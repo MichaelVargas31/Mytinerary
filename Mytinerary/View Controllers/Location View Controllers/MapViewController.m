@@ -9,6 +9,7 @@
 #import <MapKit/MapKit.h>
 #import "MapViewController.h"
 #import "DailyCalendarViewController.h"
+#import "ItineraryDetailsViewController.h"
 #import "AppDelegate.h"
 #import "Parse/Parse.h"
 #import "Location.h"
@@ -157,8 +158,7 @@
 }
 
 - (void)onTapItineraryTitle {
-    // TODO -- wait for shandler to finish segues
-    NSLog(@"tapped itinerary title!");
+    [self performSegueWithIdentifier:@"mapToItineraryDetailsSegue" sender:nil];
 }
 
 #pragma mark - Transportation/directions stuff
@@ -257,8 +257,10 @@
         Event *event = sender;
         EventDetailsViewController *eventDetailsViewController = [segue destinationViewController];
         eventDetailsViewController.event = event;
+    else if ([[segue identifier] isEqualToString:@"mapToItineraryDetailsSegue"]) {
+        ItineraryDetailsViewController *itineraryDetailsViewController = [segue destinationViewController];
+        itineraryDetailsViewController.itinerary = self.itinerary;
     }
 }
-
 
 @end

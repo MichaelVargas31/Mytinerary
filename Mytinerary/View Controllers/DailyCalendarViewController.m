@@ -31,8 +31,6 @@
 @property (strong, nonatomic) UIActivityIndicatorView *activityIndicator;
 @property (strong, nonatomic) NSDate *displayedDate;
 @property (strong, nonatomic) NSArray <NSDate *> *itineraryDates; // holds dates of itinerary in order
-// clean??? what is status
-@property (strong, nonatomic) NSString *status;
 
 @end
 
@@ -51,8 +49,6 @@
     
     self.calendar = [Calendar gregorianCalendarWithUTCTimeZone];
     
-    // Do any additional setup after loading the view.
-    
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     self.WeeklyCalendarCollectionView.dataSource = self;
@@ -64,16 +60,21 @@
     // set up table view
     self.tableView.rowHeight = [DailyTableViewCell returnRowHeight].floatValue;
     
+    // set up activity indicator -- TODO: not sure if this actually works
+    self.activityIndicator = [[UIActivityIndicatorView alloc] init];
+    self.activityIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyleWhiteLarge;
+    self.activityIndicator.center = self.view.center;
+    [self.view addSubview:self.activityIndicator];
+    [self.activityIndicator hidesWhenStopped];
+    
     // if from login, itinerary obj must be fetched first
+    [self.activityIndicator startAnimating];
     if (self.loadItinerary) {
         [self fetchItineraryAndLoadView];
     }
     else {
         [self loadItinView];
     }
-
-    
-//    self.status = @"close";
     
     [self sideMenus];
 }
@@ -103,21 +104,11 @@
 }
 
 - (void)fetchItineraryAndLoadView {
-    // set up activity indicator -- TODO: not sure if this actually works
-    self.activityIndicator = [[UIActivityIndicatorView alloc] init];
-    self.activityIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyleWhiteLarge;
-    self.activityIndicator.center = self.view.center;
-    [self.view addSubview:self.activityIndicator];
-    [self.activityIndicator hidesWhenStopped];
-    [self.activityIndicator startAnimating];
-    
     [Itinerary fetchAllInBackground:[NSArray arrayWithObject:self.itinerary] block:^(NSArray * _Nullable objects, NSError * _Nullable error) {
         if (objects) {
             NSLog(@"itinerary successfully fetched!");
             self.itinerary = [objects firstObject];
-            [self.activityIndicator stopAnimating];
             [self loadItinView];
-            [self.activityIndicator stopAnimating];
         }
         else {
             NSLog(@"error fetching itinerary object: %@", error);
@@ -143,6 +134,8 @@
             NSDate *firstDay = [self.calendar startOfDayForDate:self.itinerary.startTime];
             [self refreshViewUsingDate:firstDay];
             self.displayedDate = firstDay;
+            
+            [self.activityIndicator stopAnimating];
         } else {
             NSLog(@"error: %@", error.localizedDescription);
         }
@@ -301,9 +294,31 @@
 
 // automatically makes transportations events for the currently displayed day
 - (IBAction)onTapAutoTransportButton:(id)sender {
+    [self.activityIndicator startAnimating];
+    [self.view addSubview:self.activityIndicator];
+    
     NSDate *dayIdx = self.displayedDate;
     NSMutableArray <Event *> *dayEvents = self.eventsDictionary[dayIdx];
+    dayEvents = [self deleteDailyTransportationEvents:dayIdx dayEvents:dayEvents];
     dayEvents = [self makeDailyTransportationEvents:dayIdx dayEvents:dayEvents];
+}
+
+- (NSMutableArray <Event *> *)deleteDailyTransportationEvents:(NSDate *)dayIdx dayEvents:(NSMutableArray <Event *> *)dayEvents {
+    // find day transportation events
+    NSMutableArray *transpoEventsToDelete = [[NSMutableArray alloc] init];
+    for (Event *event in dayEvents) {
+        if ([event.category isEqualToString:@"transportation"]) {
+            [transpoEventsToDelete addObject:event];
+        }
+    }
+    
+    // delete locally and in parse
+    for (Event *event in transpoEventsToDelete) {
+        [dayEvents removeObject:event];
+        [Event deleteEvent:event itinerary:self.itinerary withCompletion:nil];
+    }
+    
+    return dayEvents;
 }
 
 - (NSMutableArray <Event *> *)makeDailyTransportationEvents:(NSDate *)dayIdx dayEvents:(NSMutableArray <Event *> *)dayEvents {
@@ -328,6 +343,11 @@
                     
                     // add transpo object locally, refresh view
                     [self refreshViewUsingDate:dayIdx];
+                    
+                    // stop activity indicator on last transpo event
+                    if (i == dayEventsOGLength - 2) {
+                         [self.activityIndicator stopAnimating];
+                    }
                 }
                 else {
                     NSLog(@"error making transportation event: %@", error.domain);
