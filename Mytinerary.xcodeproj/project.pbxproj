@@ -46,6 +46,7 @@
 		84B5E51722E10637006F4815 /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84B5E51622E10637006F4815 /* MapViewController.m */; };
 		C628AEE5E20C9C7409D9B734 /* Pods_MytineraryTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 58B8F33A939BCC86C8C98935 /* Pods_MytineraryTests.framework */; };
 		FF05D5C522F3B0F8003014E3 /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FF05D5C322F3B0F8003014E3 /* SWRevealViewController.m */; };
+		FF05D5D422F9FE16003014E3 /* ItineraryDetailsHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = FF05D5D322F9FE16003014E3 /* ItineraryDetailsHeaderView.m */; };
 		FF0E77F522EA53A200CFEF9A /* WeekdayCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FF0E77F422EA53A200CFEF9A /* WeekdayCollectionViewCell.m */; };
 		FF0E77FB22EF8EF800CFEF9A /* DeleteItineraryTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FF0E77FA22EF8EF800CFEF9A /* DeleteItineraryTableViewCell.m */; };
 		FF0E780822F219BE00CFEF9A /* EventDetailsDeleteView.m in Sources */ = {isa = PBXBuildFile; fileRef = FF0E780722F219BE00CFEF9A /* EventDetailsDeleteView.m */; };
@@ -161,6 +162,8 @@
 		E49E5CF74D83A7C35B144F7A /* Pods_MytineraryUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MytineraryUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FF05D5C322F3B0F8003014E3 /* SWRevealViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SWRevealViewController.m; path = ../../../Downloads/SWRevealViewController.m; sourceTree = "<group>"; };
 		FF05D5C422F3B0F8003014E3 /* SWRevealViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SWRevealViewController.h; path = ../../../Downloads/SWRevealViewController.h; sourceTree = "<group>"; };
+		FF05D5D222F9FE16003014E3 /* ItineraryDetailsHeaderView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ItineraryDetailsHeaderView.h; sourceTree = "<group>"; };
+		FF05D5D322F9FE16003014E3 /* ItineraryDetailsHeaderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ItineraryDetailsHeaderView.m; sourceTree = "<group>"; };
 		FF0E77F322EA53A200CFEF9A /* WeekdayCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WeekdayCollectionViewCell.h; sourceTree = "<group>"; };
 		FF0E77F422EA53A200CFEF9A /* WeekdayCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WeekdayCollectionViewCell.m; sourceTree = "<group>"; };
 		FF0E77F922EF8EF800CFEF9A /* DeleteItineraryTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeleteItineraryTableViewCell.h; sourceTree = "<group>"; };
@@ -478,6 +481,8 @@
 				8495D7B022DF879600CFED2D /* ItineraryCollectionViewCell.m */,
 				FF47EC5D22E67B64001C0DA7 /* ProfileCollectionReusableView.h */,
 				FF47EC5E22E67B64001C0DA7 /* ProfileCollectionReusableView.m */,
+				FF05D5D222F9FE16003014E3 /* ItineraryDetailsHeaderView.h */,
+				FF05D5D322F9FE16003014E3 /* ItineraryDetailsHeaderView.m */,
 				8468099322E7DD1F001F9F0C /* LocationCellTableViewCell.h */,
 				8468099422E7DD1F001F9F0C /* LocationCellTableViewCell.m */,
 				23F5AA6A22E92A7F0084086B /* EventTableViewCell.h */,
@@ -761,6 +766,7 @@
 				8495D7AE22DE991B00CFED2D /* ProfileViewController.m in Sources */,
 				FF47EC6722E7C829001C0DA7 /* SearchLocationViewController.m in Sources */,
 				23F5AA3C22E22DFA0084086B /* EventInputSubmitView.m in Sources */,
+				FF05D5D422F9FE16003014E3 /* ItineraryDetailsHeaderView.m in Sources */,
 				23F5AA7E22EBAF7E0084086B /* DailyCalendarEventUIView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

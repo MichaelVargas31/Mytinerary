@@ -12,6 +12,7 @@
 #import "ProfileViewController.h"
 #import "AppDelegate.h"
 #import "EventTableViewCell.h"
+#import "ItineraryDetailsHeaderView.h"
 #import "EventDetailsViewController.h"
 #import "DateHeaderTableViewCell.h"
 #import "DeleteItineraryTableViewCell.h"
@@ -25,12 +26,6 @@ static const int TABLE_VIEW_HEADER_HEIGHT = 44;
 
 @interface ItineraryDetailsViewController () <UITableViewDelegate, UITableViewDataSource>
 
-// itinerary labels
-@property (weak, nonatomic) IBOutlet UILabel *titleLabel;
-@property (weak, nonatomic) IBOutlet UIImageView *imageView;
-@property (weak, nonatomic) IBOutlet UILabel *startTimeLabel;
-@property (weak, nonatomic) IBOutlet UILabel *endTimeLabel;
-@property (weak, nonatomic) IBOutlet UILabel *budgetLabel;
 
 // actions
 - (IBAction)didTapDeleteItinerary:(id)sender;
@@ -38,6 +33,7 @@ static const int TABLE_VIEW_HEADER_HEIGHT = 44;
 
 // events
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (weak, nonatomic) IBOutlet ItineraryDetailsHeaderView *headerView;
 @property (strong, nonatomic) NSArray *events;
 @property (strong, nonatomic) NSMutableArray *eventsByDay;
 
@@ -51,28 +47,16 @@ static const int TABLE_VIEW_HEADER_HEIGHT = 44;
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     
-    // setup date formatter
-    NSDateFormatter *dateFormatter = [DateFormatter hourDateFormatter];
+    [self configureHeader];
+    // configure header view
+    NSLog(@"%@", self.tableView.tableHeaderView);
     
-    // initialize labels on view
-    self.titleLabel.text = self.itinerary.title;
-    if (self.itinerary.image) {
-        [self.itinerary.image getDataInBackgroundWithBlock:^(NSData * _Nullable data, NSError * _Nullable error) {
-            if (data) {
-                UIImage *image = [UIImage imageWithData:data];
-                [self.imageView setImage:image];
-            } else {
-                NSLog(@"error getting image data: %@", error.localizedDescription);
-            }
-        }];
-    }
-    self.startTimeLabel.text = [dateFormatter stringFromDate:self.itinerary.startTime];
-    self.endTimeLabel.text = [dateFormatter stringFromDate:self.itinerary.endTime];
-    self.budgetLabel.text = [NSString stringWithFormat:@"$%@", self.itinerary.budget];
-    
+
     // get itinerary's events
     [self reloadEventTable];
 }
+
+
 
 - (void)reloadEventTable {
     // get number of days in itinerary
@@ -187,7 +171,6 @@ static const int TABLE_VIEW_HEADER_HEIGHT = 44;
     NSDateFormatter *dateFormatter = [DateFormatter hourDateFormatter];
     
     EventTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"EventTableViewCell"];
-    
     Event *event = self.eventsByDay[indexPath.section][indexPath.row];
     
     cell.titleLabel.text = event.title;
@@ -212,6 +195,32 @@ static const int TABLE_VIEW_HEADER_HEIGHT = 44;
     
     return cell;
 }
+
+
+
+- (void)configureHeader {
+     // setup date formatter
+        NSDateFormatter *dateFormatter = [DateFormatter hourDateFormatter];
+    
+        // initialize labels on view
+        self.headerView.titleLabel.text = self.itinerary.title;
+        if (self.itinerary.image) {
+            [self.itinerary.image getDataInBackgroundWithBlock:^(NSData * _Nullable data, NSError * _Nullable error) {
+                if (data) {
+                    UIImage *image = [UIImage imageWithData:data];
+                    [self.headerView.imageView setImage:image];
+                } else {
+                    NSLog(@"error getting image data: %@", error.localizedDescription);
+                }
+            }];
+        }
+    
+        self.headerView.startTimeLabel.text = [dateFormatter stringFromDate:self.itinerary.startTime];
+        self.headerView.endTimeLabel.text = [dateFormatter stringFromDate:self.itinerary.endTime];
+        self.headerView.budgetLabel.text = [NSString stringWithFormat:@"$%@", self.itinerary.budget];
+        self.tableView.tableHeaderView = self.headerView;
+}
+
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     DateHeaderTableViewCell *header = [tableView dequeueReusableCellWithIdentifier:@"DateHeaderTableViewCell"];
