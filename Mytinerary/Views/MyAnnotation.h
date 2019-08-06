@@ -7,9 +7,9 @@
 //
 
 #import <MapKit/MapKit.h>
+#import "Event.h"
 
 @interface MyAnnotation : NSObject <MKAnnotation> {
-    
     CLLocationCoordinate2D coordinate;
     NSString *title;
     NSString *subtitle;
@@ -18,6 +18,7 @@
 @property (nonatomic, copy) NSString *title;
 @property (nonatomic, copy) NSString *subtitle;
 @property (nonatomic, assign) int group;
+@property (nonatomic, assign) Event *event;
 
 @end
 

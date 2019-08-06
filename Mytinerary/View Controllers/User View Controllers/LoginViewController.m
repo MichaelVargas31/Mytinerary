@@ -41,14 +41,9 @@
         }
         else {
             NSLog(@"Login was sucessful");
-            
-            User *user = [User initUserWithPFUser:pfuser];
-            if (user.defaultItinerary) {
-                [self performSegueWithIdentifier:@"defaultItinerarySegue" sender:user];
-            }
-            else {
-                [self performSegueWithIdentifier:@"login" sender:nil];
-            }
+
+            User *user = User.currentUser;
+            [self performSegueWithIdentifier:@"defaultItinerarySegue" sender:user];
         }
     }];
 }
@@ -58,13 +53,13 @@
     NSString *username = self.usernameField.text;
     NSString *password = self.passwordField.text;
     
-    [User registerUser:username password:password withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
+    [User signUpUser:username password:password withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
         if(error != nil){
             NSLog(@"Error: %@", error);
         }
         else {
             NSLog(@"User sign up successful");
-            [self performSegueWithIdentifier:@"login" sender:nil];
+            [self performSegueWithIdentifier:@"defaultItinerarySegue" sender:User.currentUser];
         }
     }];
 }
@@ -73,15 +68,20 @@
     [self.view endEditing:YES];
 }
 
-
 #pragma mark - Navigation
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([[segue identifier] isEqualToString:@"defaultItinerarySegue"]) {
         SWRevealViewController *revealViewController = [segue destinationViewController];
         User *user = sender;
-        revealViewController.itinerary = user.defaultItinerary;
-        revealViewController.loadItinerary = true;
+        
+        if (!user.defaultItinerary) {
+            // in this case, you head straight to profile => no single itinerary necessary
+            revealViewController.nextSegue = @"ToProfileSegue";
+        } else {
+            revealViewController.itinerary = user.defaultItinerary;
+            revealViewController.loadItinerary = true;
+        }
     }
 }
 

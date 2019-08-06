@@ -56,6 +56,9 @@ static const int TABLE_VIEW_HEADER_HEIGHT = 44;
 
 
 - (void)reloadEventTable {
+  
+    [self configureHeader];
+
     // get number of days in itinerary
     NSInteger numItinDays = [Date daysBetweenDate:self.itinerary.startTime andDate:self.itinerary.endTime];
     
@@ -81,10 +84,17 @@ static const int TABLE_VIEW_HEADER_HEIGHT = 44;
                     [eventsByDay[itinDayIndex] addObject:event];
                 }
             }
-            self.eventsByDay = eventsByDay;
             
-            [self configureHeader];
-            [self.tableView reloadData];
+            for (NSMutableArray <Event *>*dayEvents in eventsByDay) {
+                // sort events in ascending order by start time
+                [dayEvents sortUsingComparator:^NSComparisonResult(Event *event1, Event *event2) {
+                    return [event1.startTime compare:event2.startTime];
+                }];
+            }
+            
+            self.eventsByDay = eventsByDay;
+
+          [self.tableView reloadData];
         }
         else {
             NSLog(@"error loading events: %@", error);
@@ -117,8 +127,6 @@ static const int TABLE_VIEW_HEADER_HEIGHT = 44;
 - (IBAction)didTapEdit:(id)sender {
     [self performSegueWithIdentifier:@"EditItinerarySegue" sender:nil];
 }
-
-
 
 #pragma mark - Parse Data
 
