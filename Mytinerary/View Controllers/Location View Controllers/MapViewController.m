@@ -83,7 +83,6 @@
     CLLocationCoordinate2D coord = CLLocationCoordinate2DMake(event.latitude.floatValue, event.longitude.floatValue);
     
     MyAnnotation *annotation = [[MyAnnotation alloc] init];
-//    MKPointAnnotation *annotation = [[MKPointAnnotation alloc] init];
     [annotation setCoordinate:coord];
     [annotation setTitle:event.title];
     [annotation setEvent:event];
@@ -128,8 +127,9 @@
             case 3: // hotel
                 pinView.pinTintColor = UIColor.redColor;
                 break;
-            default: // no annotation for transportation object
-                return nil;
+            default: // transportation -- eventually change to custom annotation
+                pinView.pinTintColor = UIColor.greenColor;
+                break;
         }
     }
 
@@ -154,15 +154,6 @@
 
 - (IBAction)onTapCalendarButton:(id)sender {
     [self performSegueWithIdentifier:@"mapToCalendarSegue" sender:nil];
-//    UINavigationController *navigationController = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"ItineraryNavigationController"];
-//
-//    DailyCalendarViewController *dailyCalendarViewController = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"DailyCalendarViewController"];
-//
-//    // pass itinerary from map to daily calendar
-//    dailyCalendarViewController.itinerary = self.itinerary;
-//
-//    [navigationController setViewControllers:[NSArray arrayWithObject:dailyCalendarViewController]];
-//    [self presentViewController:navigationController animated:YES completion:nil];
 }
 
 - (void)onTapItineraryTitle {
@@ -202,10 +193,11 @@
 -(void)createAndAddAnnotationForCoordinate:(CLLocationCoordinate2D)coordinate transpoEvent:(Event *)transpoEvent {
     MyAnnotation* annotation= [[MyAnnotation alloc] init];
     annotation.coordinate = coordinate;
-    
+
     annotation.title = transpoEvent.title;
     annotation.subtitle = transpoEvent.transpoType;
-    
+    annotation.event = transpoEvent;
+
     [self.mapView addAnnotation:annotation];
 }
 
