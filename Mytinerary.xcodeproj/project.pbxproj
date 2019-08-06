@@ -35,19 +35,18 @@
 		8448C0F522DFA2C800427FB2 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 8448C0EF22DFA2C800427FB2 /* User.m */; };
 		8448C0F622DFA2C800427FB2 /* Itinerary.m in Sources */ = {isa = PBXBuildFile; fileRef = 8448C0F122DFA2C800427FB2 /* Itinerary.m */; };
 		8448C0F722DFA2C800427FB2 /* Event.m in Sources */ = {isa = PBXBuildFile; fileRef = 8448C0F222DFA2C800427FB2 /* Event.m */; };
-		8464D7C722F0ABE4009BB52C /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8464D7C622F0ABE4009BB52C /* ViewController.m */; };
 		8468099522E7DD1F001F9F0C /* LocationCellTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8468099422E7DD1F001F9F0C /* LocationCellTableViewCell.m */; };
 		8468099822E93EAF001F9F0C /* MyAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 8468099722E93EAF001F9F0C /* MyAnnotation.m */; };
 		8495D7A922DE8BDD00CFED2D /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8495D7A822DE8BDD00CFED2D /* LoginViewController.m */; };
 		8495D7AE22DE991B00CFED2D /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8495D7AD22DE991B00CFED2D /* ProfileViewController.m */; };
 		8495D7B122DF879600CFED2D /* ItineraryCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8495D7B022DF879600CFED2D /* ItineraryCollectionViewCell.m */; };
+		84A51A0422FA02B400772A14 /* Keys.plist in Resources */ = {isa = PBXBuildFile; fileRef = 84A51A0322FA02B400772A14 /* Keys.plist */; };
 		84B581CE22F25316004BA82B /* PhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84B581CD22F25316004BA82B /* PhotoViewController.m */; };
 		84B5E51722E10637006F4815 /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84B5E51622E10637006F4815 /* MapViewController.m */; };
 		C628AEE5E20C9C7409D9B734 /* Pods_MytineraryTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 58B8F33A939BCC86C8C98935 /* Pods_MytineraryTests.framework */; };
 		FF05D5C522F3B0F8003014E3 /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FF05D5C322F3B0F8003014E3 /* SWRevealViewController.m */; };
 		FF0E77F522EA53A200CFEF9A /* WeekdayCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FF0E77F422EA53A200CFEF9A /* WeekdayCollectionViewCell.m */; };
 		FF0E77FB22EF8EF800CFEF9A /* DeleteItineraryTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FF0E77FA22EF8EF800CFEF9A /* DeleteItineraryTableViewCell.m */; };
-		FF0E77FF22F2010600CFEF9A /* Keys.plist in Resources */ = {isa = PBXBuildFile; fileRef = FF0E77FE22F2010600CFEF9A /* Keys.plist */; };
 		FF0E780822F219BE00CFEF9A /* EventDetailsDeleteView.m in Sources */ = {isa = PBXBuildFile; fileRef = FF0E780722F219BE00CFEF9A /* EventDetailsDeleteView.m */; };
 		FF0E780E22F35A8700CFEF9A /* Calendar.m in Sources */ = {isa = PBXBuildFile; fileRef = FF0E780D22F35A8700CFEF9A /* Calendar.m */; };
 		FF47EC5F22E67B64001C0DA7 /* ProfileCollectionReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = FF47EC5E22E67B64001C0DA7 /* ProfileCollectionReusableView.m */; };
@@ -135,8 +134,6 @@
 		8448C0F222DFA2C800427FB2 /* Event.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Event.m; sourceTree = "<group>"; };
 		8448C0F322DFA2C800427FB2 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
 		8448C0F422DFA2C800427FB2 /* Itinerary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Itinerary.h; sourceTree = "<group>"; };
-		8464D7C522F0ABE4009BB52C /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		8464D7C622F0ABE4009BB52C /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		8468099322E7DD1F001F9F0C /* LocationCellTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LocationCellTableViewCell.h; sourceTree = "<group>"; };
 		8468099422E7DD1F001F9F0C /* LocationCellTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LocationCellTableViewCell.m; sourceTree = "<group>"; };
 		8468099622E93EAF001F9F0C /* MyAnnotation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyAnnotation.h; sourceTree = "<group>"; };
@@ -147,6 +144,7 @@
 		8495D7AD22DE991B00CFED2D /* ProfileViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProfileViewController.m; sourceTree = "<group>"; };
 		8495D7AF22DF879600CFED2D /* ItineraryCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ItineraryCollectionViewCell.h; sourceTree = "<group>"; };
 		8495D7B022DF879600CFED2D /* ItineraryCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ItineraryCollectionViewCell.m; sourceTree = "<group>"; };
+		84A51A0322FA02B400772A14 /* Keys.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Keys.plist; sourceTree = SOURCE_ROOT; };
 		84B581CC22F25316004BA82B /* PhotoViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PhotoViewController.h; sourceTree = "<group>"; };
 		84B581CD22F25316004BA82B /* PhotoViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PhotoViewController.m; sourceTree = "<group>"; };
 		84B5E51522E10637006F4815 /* MapViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MapViewController.h; sourceTree = "<group>"; };
@@ -165,7 +163,6 @@
 		FF0E77F422EA53A200CFEF9A /* WeekdayCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WeekdayCollectionViewCell.m; sourceTree = "<group>"; };
 		FF0E77F922EF8EF800CFEF9A /* DeleteItineraryTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeleteItineraryTableViewCell.h; sourceTree = "<group>"; };
 		FF0E77FA22EF8EF800CFEF9A /* DeleteItineraryTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DeleteItineraryTableViewCell.m; sourceTree = "<group>"; };
-		FF0E77FE22F2010600CFEF9A /* Keys.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Keys.plist; sourceTree = "<group>"; };
 		FF0E780622F219BE00CFEF9A /* EventDetailsDeleteView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EventDetailsDeleteView.h; sourceTree = "<group>"; };
 		FF0E780722F219BE00CFEF9A /* EventDetailsDeleteView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EventDetailsDeleteView.m; sourceTree = "<group>"; };
 		FF0E780C22F35A8700CFEF9A /* Calendar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Calendar.h; sourceTree = "<group>"; };
@@ -413,8 +410,6 @@
 			isa = PBXGroup;
 			children = (
 				2393755122F0FA1B002CBAA7 /* Locations */,
-				8464D7C522F0ABE4009BB52C /* ViewController.h */,
-				8464D7C622F0ABE4009BB52C /* ViewController.m */,
 				FF05D5C422F3B0F8003014E3 /* SWRevealViewController.h */,
 				FF05D5C322F3B0F8003014E3 /* SWRevealViewController.m */,
 				FF6C5EF722DE640200D0EB83 /* AppDelegate.h */,
@@ -427,7 +422,7 @@
 				FF6C5F0022DE640200D0EB83 /* Assets.xcassets */,
 				FF6C5F0222DE640200D0EB83 /* LaunchScreen.storyboard */,
 				FF6C5F0522DE640200D0EB83 /* Info.plist */,
-				FF0E77FE22F2010600CFEF9A /* Keys.plist */,
+				84A51A0322FA02B400772A14 /* Keys.plist */,
 				FF6C5F0622DE640200D0EB83 /* main.m */,
 			);
 			path = Mytinerary;
@@ -602,7 +597,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FF0E77FF22F2010600CFEF9A /* Keys.plist in Resources */,
+				84A51A0422FA02B400772A14 /* Keys.plist in Resources */,
 				FF6C5F0422DE640200D0EB83 /* LaunchScreen.storyboard in Resources */,
 				FF6C5F0122DE640200D0EB83 /* Assets.xcassets in Resources */,
 				FF6C5EFF22DE640200D0EB83 /* Main.storyboard in Resources */,
@@ -716,7 +711,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8464D7C722F0ABE4009BB52C /* ViewController.m in Sources */,
 				23F5AA5322E61DF40084086B /* EventDetailsFoodView.m in Sources */,
 				23F5A9F222E0DEAD0084086B /* EventInputActivityView.m in Sources */,
 				FF05D5C522F3B0F8003014E3 /* SWRevealViewController.m in Sources */,
