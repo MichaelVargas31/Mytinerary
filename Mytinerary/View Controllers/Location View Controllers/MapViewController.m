@@ -257,6 +257,7 @@
         Event *event = sender;
         EventDetailsViewController *eventDetailsViewController = [segue destinationViewController];
         eventDetailsViewController.event = event;
+    }
     else if ([[segue identifier] isEqualToString:@"mapToItineraryDetailsSegue"]) {
         ItineraryDetailsViewController *itineraryDetailsViewController = [segue destinationViewController];
         itineraryDetailsViewController.itinerary = self.itinerary;
