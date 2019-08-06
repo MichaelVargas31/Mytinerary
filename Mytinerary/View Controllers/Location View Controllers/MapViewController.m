@@ -18,7 +18,7 @@
 #import "SWRevealViewController.h"
 #import "EventDetailsViewController.h"
 
-#import "MyAnnotation.h"
+#import "EventAnnotation.h"
 
 @interface MapViewController () <CLLocationManagerDelegate, MKMapViewDelegate, MKAnnotation>
 
@@ -83,7 +83,7 @@
     NSString *category = event.category;
     CLLocationCoordinate2D coord = CLLocationCoordinate2DMake(event.latitude.floatValue, event.longitude.floatValue);
     
-    MyAnnotation *annotation = [[MyAnnotation alloc] init];
+    EventAnnotation *annotation = [[EventAnnotation alloc] init];
     [annotation setCoordinate:coord];
     [annotation setTitle:event.title];
     [annotation setEvent:event];
@@ -108,45 +108,24 @@
 }
 
 - (MKAnnotationView *)mapView:(MKMapView *)mV viewForAnnotation:(id )annotation {
-    MKPinAnnotationView *pinView = (MKPinAnnotationView*)[self.mapView dequeueReusableAnnotationViewWithIdentifier:@"Pin"];
-    
-    if (pinView == nil) {
-        pinView = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"Pin"];
-    }
-    
-    if ([annotation isKindOfClass:[MyAnnotation class]])
-    {
-        MyAnnotation *myAnn = (MyAnnotation *)annotation;
-        switch (myAnn.group)
-        {
-            case 1: // food
-                pinView.pinTintColor = UIColor.purpleColor;
-                break;
-            case 2: // activity
-                pinView.pinTintColor = UIColor.yellowColor;
-                break;
-            case 3: // hotel
-                pinView.pinTintColor = UIColor.redColor;
-                break;
-            default: // transportation -- eventually change to custom annotation
-                pinView.pinTintColor = UIColor.greenColor;
-                break;
+    if ([annotation isKindOfClass:[EventAnnotation class]]) {
+        EventAnnotation *eventAnnotation = (EventAnnotation *)annotation;
+        MKAnnotationView *annotationView = [self.mapView dequeueReusableAnnotationViewWithIdentifier:@"EventAnnotation"];
+        
+        if (annotationView == nil) {
+            annotationView = [eventAnnotation annotationView];
         }
+        else {
+            annotationView.annotation = eventAnnotation;
+        }
+        return annotationView;
     }
-
-    pinView.annotation = annotation;
-    pinView.animatesDrop = YES;
-    pinView.canShowCallout = YES;
-    
-    UIButton *btn = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
-    [pinView setRightCalloutAccessoryView:btn];
-  
-    return pinView;
+    return nil;
 }
 
 - (void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view calloutAccessoryControlTapped:(UIControl *)control {
     // get event associated with annotation view
-    MyAnnotation *annotation = view.annotation;
+    EventAnnotation *annotation = view.annotation;
     Event *event = annotation.event;
     
     // segue to event details view
@@ -187,17 +166,7 @@
     
     // add annotation to middle of route
     MKMapPoint middlePoint = route.polyline.points[route.polyline.pointCount/2];
-    [self createAndAddAnnotationForCoordinate:MKCoordinateForMapPoint(middlePoint) transpoEvent:transpoEvent];
-}
-
--(void)createAndAddAnnotationForCoordinate:(CLLocationCoordinate2D)coordinate transpoEvent:(Event *)transpoEvent {
-    MyAnnotation* annotation= [[MyAnnotation alloc] init];
-    annotation.coordinate = coordinate;
-
-    annotation.title = transpoEvent.title;
-    annotation.subtitle = transpoEvent.transpoType;
-    annotation.event = transpoEvent;
-
+    EventAnnotation *annotation = [EventAnnotation initAnnotationWithEventForCoordinate:transpoEvent coordinate:MKCoordinateForMapPoint(middlePoint)];
     [self.mapView addAnnotation:annotation];
 }
 
