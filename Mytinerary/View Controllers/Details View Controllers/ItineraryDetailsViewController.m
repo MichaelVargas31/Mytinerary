@@ -89,8 +89,15 @@ static const int TABLE_VIEW_HEADER_HEIGHT = 44;
                     [eventsByDay[itinDayIndex] addObject:event];
                 }
             }
-            self.eventsByDay = eventsByDay;
             
+            for (NSMutableArray <Event *>*dayEvents in eventsByDay) {
+                // sort events in ascending order by start time
+                [dayEvents sortUsingComparator:^NSComparisonResult(Event *event1, Event *event2) {
+                    return [event1.startTime compare:event2.startTime];
+                }];
+            }
+            
+            self.eventsByDay = eventsByDay;
             [self.tableView reloadData];
         }
         else {
@@ -124,8 +131,6 @@ static const int TABLE_VIEW_HEADER_HEIGHT = 44;
 - (IBAction)didTapEdit:(id)sender {
     [self performSegueWithIdentifier:@"EditItinerarySegue" sender:nil];
 }
-
-
 
 #pragma mark - Parse Data
 
