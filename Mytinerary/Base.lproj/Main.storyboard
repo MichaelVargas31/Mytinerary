@@ -1649,6 +1649,7 @@
                     <connections>
                         <outlet property="mapView" destination="Ypp-lD-JTy" id="LOL-df-Hok"/>
                         <segue destination="AST-nT-DsT" kind="showDetail" identifier="mapToCalendarSegue" id="pBk-Pq-aqM"/>
+                        <segue destination="vfi-ve-A7n" kind="show" identifier="mapToEventDetailsSegue" id="dot-u4-pzB"/>
                         <segue destination="v2s-7K-Yl1" kind="show" identifier="mapToItineraryDetailsSegue" id="pGb-W9-DTJ"/>
                     </connections>
                 </viewController>
@@ -1766,6 +1767,8 @@
     <inferredMetricsTieBreakers>
         <segue reference="Ly5-ib-0bT"/>
         <segue reference="sJn-uW-gz0"/>
+        <segue reference="pBk-Pq-aqM"/>
+        <segue reference="dot-u4-pzB"/>
         <segue reference="iPX-Q9-7gZ"/>
         <segue reference="pGb-W9-DTJ"/>
         <segue reference="cYv-hw-WLz"/>
