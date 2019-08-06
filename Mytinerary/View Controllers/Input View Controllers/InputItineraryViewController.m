@@ -141,9 +141,11 @@
         self.itinerary.title = title;
         
         // convert image to PFFileObject
-        NSData *imageData = UIImagePNGRepresentation(self.imageView.image);
-        PFFileObject *imageFileObject = [PFFileObject fileObjectWithData:imageData];
-        self.itinerary.image = imageFileObject;
+        if (self.imageView.image) {
+            NSData *imageData = UIImagePNGRepresentation(self.imageView.image);
+            PFFileObject *imageFileObject = [PFFileObject fileObjectWithData:imageData];
+            self.itinerary.image = imageFileObject;
+        }
         self.itinerary.startTime = startTime;
         self.itinerary.endTime = endTime;
         self.itinerary.budget = budget;
