@@ -256,8 +256,8 @@ static const int TABLE_VIEW_HEADER_HEIGHT = 44;
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([[segue identifier] isEqualToString:@"EditItinerarySegue"]) {
-        UINavigationController *navigationController = [segue destinationViewController];
-        InputItineraryViewController *inputItineraryViewController = [[navigationController viewControllers] firstObject];
+//        UINavigationController *navigationController = [segue destinationViewController];
+        InputItineraryViewController *inputItineraryViewController = [segue destinationViewController];
         inputItineraryViewController.itinerary = self.itinerary;
         inputItineraryViewController.delegate = self;
     } else if ([segue.identifier isEqualToString:@"ItinDetailsToEventDetailsSegue"]) {

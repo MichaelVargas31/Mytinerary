@@ -301,7 +301,7 @@
     [self refreshViewUsingDate:cell.date];
     self.displayedDate = cell.date;
 
-    cell.dateLabel.backgroundColor = [UIColor colorWithRed:.5 green:.5 blue:.5 alpha:1];
+   // cell.dateLabel.backgroundColor = [UIColor colorWithRed:.5 green:.5 blue:.5 alpha:1];
     
     // only refresh view if dates have already been loaded
     if (cell.date) {
