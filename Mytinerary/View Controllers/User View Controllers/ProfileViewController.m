@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import "ProfileViewController.h"
+#import "InputProfileViewController.h"
 #import "DailyCalendarViewController.h"
 #import "LoginViewController.h"
 #import "ItineraryCollectionViewCell.h"
@@ -127,10 +128,15 @@
     return reusableview;
 }
 
--(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     UICollectionViewCell *tappedCell = [self.collectionView cellForItemAtIndexPath:indexPath];
     [self performSegueWithIdentifier:@"calendarSegue" sender:tappedCell];
 }
+
+- (IBAction)onTapEditButton:(id)sender {
+    [self performSegueWithIdentifier:@"editProfileSegue" sender:nil];
+}
+
 
 #pragma mark - Navigation
 
@@ -157,6 +163,10 @@
         SWRevealViewController *revealViewController = [segue destinationViewController];
         revealViewController.itinerary = itinerary;
         revealViewController.loadItinerary = true;
+    }
+    else if ([[segue identifier] isEqualToString:@"editProfileSegue"]) {
+        InputProfileViewController *inputProfileViewController = [segue destinationViewController];
+        inputProfileViewController.itineraries = self.iArray;
     }
     else {
         NSLog(@"If you're getting this message, you need to edit the prepareForSegue() method to add another segue");

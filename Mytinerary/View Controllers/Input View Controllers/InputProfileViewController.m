@@ -10,7 +10,7 @@
 #import "User.h"
 #import "Itinerary.h"
 
-@interface InputProfileViewController ()
+@interface InputProfileViewController () <UIPickerViewDelegate, UIPickerViewDataSource>
 
 @property (weak, nonatomic) IBOutlet UITextField *usernameTextField;
 @property (weak, nonatomic) IBOutlet UITextField *passwordTextField;
@@ -26,6 +26,18 @@
     User *user = User.currentUser;
     self.usernameTextField.text = user.username;
 
+    // fill in defaultItineraryPicker
+    self.defaultItineraryPicker.delegate = self;
+    self.defaultItineraryPicker.dataSource = self;
+    
+    // prefill with current default Itinerary
+    if (user.defaultItinerary) {
+        NSLog(@"default itin: %@", user.defaultItinerary);
+        NSUInteger defaultItinIdx = [self.itineraries indexOfObjectPassingTest:^BOOL(Itinerary * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            return [obj.objectId isEqualToString:user.defaultItinerary.objectId];
+        }];
+        [self.defaultItineraryPicker selectRow:defaultItinIdx inComponent:0 animated:NO];
+    }
 }
 
 - (IBAction)onTapSubmitButton:(id)sender {
@@ -44,5 +56,19 @@
     // Pass the selected object to the new view controller.
 }
 */
+
+#pragma - picker view
+
+- (NSInteger)numberOfComponentsInPickerView:(nonnull UIPickerView *)pickerView {
+    return 1;
+}
+
+- (NSInteger)pickerView:(nonnull UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
+    return self.itineraries.count;
+}
+
+- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
+    return self.itineraries[row].title;
+}
 
 @end

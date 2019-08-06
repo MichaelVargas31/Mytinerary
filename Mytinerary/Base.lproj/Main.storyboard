@@ -134,6 +134,9 @@
                                             <rect key="frame" x="305" y="3" width="30" height="30"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <state key="normal" title="Edit"/>
+                                            <connections>
+                                                <action selector="onTapEditButton:" destination="4gg-9d-2Wa" eventType="touchUpInside" id="tzW-Iy-zGS"/>
+                                            </connections>
                                         </button>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Itineraries" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JLt-qb-W21">
                                             <rect key="frame" x="8" y="151" width="67" height="18"/>
