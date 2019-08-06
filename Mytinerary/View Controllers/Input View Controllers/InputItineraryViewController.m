@@ -15,7 +15,7 @@
 #import "SWRevealViewController.h"
 
 
-@interface InputItineraryViewController ()
+@interface InputItineraryViewController () <UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 
 @property (weak, nonatomic) UIScrollView *scrollView;
 @property (weak, nonatomic) UIStackView *stackView;
@@ -23,12 +23,15 @@
 @property (weak, nonatomic) IBOutlet UILabel *addOrEditItneraryLabel;
 @property (weak, nonatomic) IBOutlet UIButton *createOrSaveButton;
 @property (weak, nonatomic) IBOutlet UITextField *titleTextField;
+@property (weak, nonatomic) IBOutlet UIImageView *imageView;
 @property (weak, nonatomic) IBOutlet UIDatePicker *startTimeDatePicker;
 @property (weak, nonatomic) IBOutlet UIDatePicker *endTimeDatePicker;
 @property (weak, nonatomic) IBOutlet UITextField *budgetTextField;
 @property BOOL itineraryIsNew;  // True if you are CREATING itinerary
 
 @property (strong, nonatomic) UIAlertController *alert;
+
+- (IBAction)didTapAddImage:(id)sender;
 
 @end
 
@@ -67,6 +70,16 @@
     } else {
         self.addOrEditItneraryLabel.text = @"Edit Itinerary";
         self.titleTextField.text = self.itinerary.title;
+        // Image stored as PFFileObject
+        [self.itinerary.image getDataInBackgroundWithBlock:^(NSData * _Nullable data, NSError * _Nullable error) {
+            if (data) {
+                UIImage *image = [UIImage imageWithData:data];
+                [self.imageView setImage:image];
+            } else {
+                NSLog(@"error getting image data: %@", error.localizedDescription);
+            }
+        }];
+//        NSData *imageData = [NSData dataWithData:self.itinerary.image];
         self.startTimeDatePicker.date = self.itinerary.startTime;
         self.endTimeDatePicker.date = self.itinerary.endTime;
         self.budgetTextField.text = [NSString stringWithFormat:@"%@", self.itinerary.budget];
@@ -77,6 +90,33 @@
 - (IBAction)onTapCloseButton:(id)sender {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
+
+
+- (IBAction)didTapAddImage:(id)sender {
+    UIImagePickerController *imagePickerVC = [UIImagePickerController new];
+    imagePickerVC.delegate = self;
+    imagePickerVC.allowsEditing = YES;
+    if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
+        imagePickerVC.sourceType = UIImagePickerControllerSourceTypeCamera;
+    }
+    else {
+        NSLog(@"Camera not available => will use library");
+        imagePickerVC.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    }
+    [self presentViewController:imagePickerVC animated:YES completion:nil];
+}
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info {
+    // Get the image captured by the UIImagePickerController
+    UIImage *originalImage = info[UIImagePickerControllerOriginalImage];
+    UIImage *editedImage = info[UIImagePickerControllerEditedImage];
+    
+    [self.imageView setImage:originalImage];
+    
+    // Dismiss UIImagePickerController
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
 
 - (IBAction)onTapCreateItinerary:(id)sender {
     NSString *title = self.titleTextField.text;
@@ -99,6 +139,11 @@
     } else {
         // Edit existing itinerary
         self.itinerary.title = title;
+        
+        // convert image to PFFileObject
+        NSData *imageData = UIImagePNGRepresentation(self.imageView.image);
+        PFFileObject *imageFileObject = [PFFileObject fileObjectWithData:imageData];
+        self.itinerary.image = imageFileObject;
         self.itinerary.startTime = startTime;
         self.itinerary.endTime = endTime;
         self.itinerary.budget = budget;
