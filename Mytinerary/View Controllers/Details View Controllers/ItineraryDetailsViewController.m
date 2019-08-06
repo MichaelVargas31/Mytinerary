@@ -24,7 +24,7 @@
 
 static const int TABLE_VIEW_HEADER_HEIGHT = 44;
 
-@interface ItineraryDetailsViewController () <UITableViewDelegate, UITableViewDataSource>
+@interface ItineraryDetailsViewController () <UITableViewDelegate, UITableViewDataSource, InputItineraryViewControllerDelegate>
 
 
 // actions
@@ -47,11 +47,8 @@ static const int TABLE_VIEW_HEADER_HEIGHT = 44;
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     
-    [self configureHeader];
-    // configure header view
-    NSLog(@"%@", self.tableView.tableHeaderView);
     
-
+    [self configureHeader];
     // get itinerary's events
     [self reloadEventTable];
 }
@@ -86,6 +83,7 @@ static const int TABLE_VIEW_HEADER_HEIGHT = 44;
             }
             self.eventsByDay = eventsByDay;
             
+            [self configureHeader];
             [self.tableView reloadData];
         }
         else {
@@ -253,6 +251,7 @@ static const int TABLE_VIEW_HEADER_HEIGHT = 44;
         UINavigationController *navigationController = [segue destinationViewController];
         InputItineraryViewController *inputItineraryViewController = [[navigationController viewControllers] firstObject];
         inputItineraryViewController.itinerary = self.itinerary;
+        inputItineraryViewController.delegate = self;
     } else if ([segue.identifier isEqualToString:@"ItinDetailsToEventDetailsSegue"]) {
         EventDetailsViewController *detailsVC = [segue destinationViewController];
         detailsVC.event = sender;
@@ -262,5 +261,12 @@ static const int TABLE_VIEW_HEADER_HEIGHT = 44;
         revealVC.nextSegue = @"ToProfileSegue";
     }
 }
+
+
+- (void)didSaveItinerary {
+    [self configureHeader];
+    [self reloadEventTable];
+}
+
 
 @end

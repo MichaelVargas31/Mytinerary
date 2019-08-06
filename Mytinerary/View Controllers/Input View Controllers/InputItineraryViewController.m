@@ -152,9 +152,8 @@
         
         if (!self.itineraryIsNew) {
             [self.itinerary updateItinerary:self.itinerary];
+            [self.delegate didSaveItinerary];   // Tells the itinerary details view controller to update
             [self dismissViewControllerAnimated:YES completion:nil];
-            // UPDATE DETAILS VIEW (after editing itin, update itin details view)
-
         } else {
             self.itinerary = [Itinerary initNewItinerary:title startTime:startTime endTime:endTime budget:budget withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
                 if (succeeded) {
