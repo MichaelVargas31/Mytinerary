@@ -43,7 +43,6 @@
         
         //@"Profile" is the ID for the navigation view controller in which profile page is embedded in
         User *currentUser = User.currentUser;
-        currentUser.defaultItinerary = currentUser[@"defaultItinerary"];
         
         if (currentUser.defaultItinerary) {
             SWRevealViewController *revealViewController = [storyboard instantiateViewControllerWithIdentifier:@"SWRevealViewController"];

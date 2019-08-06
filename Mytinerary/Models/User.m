@@ -19,6 +19,13 @@
     return user;
 }
 
++ (nullable instancetype)currentUser {
+    User *user = [super currentUser];
+    user.defaultItinerary = user[@"defaultItinerary"];
+    
+    return user;
+}
+
 + (void)signUpUser:(NSString *)username password:(NSString *)password withCompletion:(PFBooleanResultBlock)completion {
     // initialize a user object
     User *user = [User user];

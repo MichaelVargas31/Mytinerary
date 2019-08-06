@@ -10,6 +10,8 @@
 
 + (User *)makeUserWithPFUser:(PFUser *)user;
 
++ (nullable instancetype)currentUser;
+
 + (void)signUpUser:(NSString *)username password:(NSString *)password withCompletion:(PFBooleanResultBlock)completion;
 
 // example usage of registerUser
