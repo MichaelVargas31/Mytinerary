@@ -67,6 +67,15 @@
     }];
 }
 
++ (void)deleteItinerary:(Itinerary *)itinerary withCompletion:(PFBooleanResultBlock)completion {
+    // delete all of itinerary's events
+    for (Event *eventToBeDeleted in itinerary.events) {
+        [eventToBeDeleted deleteInBackground];
+    }
+    
+    [itinerary deleteInBackgroundWithBlock:completion];
+}
+
 // add event to an itinerary's list of events
 - (void)addEventToItinerary:(Event *)event withCompletion:(PFBooleanResultBlock)completion {
     

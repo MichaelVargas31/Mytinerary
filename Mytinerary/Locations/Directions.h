@@ -20,7 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (void)openTransportationEventInMaps:(Event *)event;
 
-+ (Event *)makeTransportationEventFromEvents:(Event *)startEvent endEvent:(Event *)endEvent;
++ (Event *)makeTransportationEventFromEvents:(Event *)startEvent endEvent:(Event *)endEvent withCompletion:(PFBooleanResultBlock)completion;
 
 @end
 

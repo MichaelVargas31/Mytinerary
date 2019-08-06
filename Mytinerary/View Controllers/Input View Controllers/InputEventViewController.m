@@ -109,7 +109,10 @@ static int const EVENT_INPUT_SUBMIT_VIEW_HEIGHT = 50;
     
     // setup shared category picker view
     [self.eventInputSharedView.startTimeDatePicker setMinimumDate:self.itinerary.startTime];
+    [self.eventInputSharedView.startTimeDatePicker setMaximumDate:self.itinerary.endTime];
+    [self.eventInputSharedView.endTimeDatePicker setMinimumDate:self.itinerary.startTime];
     [self.eventInputSharedView.endTimeDatePicker setMaximumDate:self.itinerary.endTime];
+    
     self.eventInputSharedView.categoryPickerView.delegate = self;
     self.eventInputSharedView.categoryPickerView.dataSource = self;
     self.eventCategoryPickerData = [NSArray arrayWithObjects:@"activity", @"transportation", @"food", @"hotel", nil];

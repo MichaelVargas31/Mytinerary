@@ -11,6 +11,7 @@
 		06B8D04C40E1C9F29C166801 /* Pods_Mytinerary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9FBBF0DECFB9E3F7EDAD49EC /* Pods_Mytinerary.framework */; };
 		2393754A22EFA599002CBAA7 /* Directions.m in Sources */ = {isa = PBXBuildFile; fileRef = 2393754922EFA599002CBAA7 /* Directions.m */; };
 		2393754C22EFA913002CBAA7 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2393754B22EFA913002CBAA7 /* MapKit.framework */; };
+		2393755822F8DB1D002CBAA7 /* Keys.plist in Resources */ = {isa = PBXBuildFile; fileRef = FF0E77FE22F2010600CFEF9A /* Keys.plist */; };
 		23F5A9E922DFE59A0084086B /* InputItineraryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 23F5A9E822DFE59A0084086B /* InputItineraryViewController.m */; };
 		23F5A9EC22E0D3890084086B /* EventInputSharedView.m in Sources */ = {isa = PBXBuildFile; fileRef = 23F5A9EB22E0D3890084086B /* EventInputSharedView.m */; };
 		23F5A9EF22E0D9B50084086B /* InputEventViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 23F5A9EE22E0D9B50084086B /* InputEventViewController.m */; };
@@ -598,6 +599,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				84A51A0422FA02B400772A14 /* Keys.plist in Resources */,
+				2393755822F8DB1D002CBAA7 /* Keys.plist in Resources */,
 				FF6C5F0422DE640200D0EB83 /* LaunchScreen.storyboard in Resources */,
 				FF6C5F0122DE640200D0EB83 /* Assets.xcassets in Resources */,
 				FF6C5EFF22DE640200D0EB83 /* Main.storyboard in Resources */,
@@ -734,6 +736,7 @@
 				23F5AA6F22EA0D480084086B /* Date.m in Sources */,
 				FF0E780E22F35A8700CFEF9A /* Calendar.m in Sources */,
 				8448C0F722DFA2C800427FB2 /* Event.m in Sources */,
+				8448C0F622DFA2C800427FB2 /* Itinerary.m in Sources */,
 				23F5A9EF22E0D9B50084086B /* InputEventViewController.m in Sources */,
 				23F5AA6C22E92A7F0084086B /* EventTableViewCell.m in Sources */,
 				8468099822E93EAF001F9F0C /* MyAnnotation.m in Sources */,
@@ -748,7 +751,6 @@
 				FF6C5F3522DE8B8900D0EB83 /* DailyTableViewCell.m in Sources */,
 				23F5A9EC22E0D3890084086B /* EventInputSharedView.m in Sources */,
 				FF6C5F0722DE640200D0EB83 /* main.m in Sources */,
-				8448C0F622DFA2C800427FB2 /* Itinerary.m in Sources */,
 				FF6C5EF922DE640200D0EB83 /* AppDelegate.m in Sources */,
 				23F5AA7B22EA7DA10084086B /* InputValidation.m in Sources */,
 				23F5AA3322E11F310084086B /* EventInputTransportationView.m in Sources */,
@@ -928,13 +930,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 82F2G2LCDZ;
+				DEVELOPMENT_TEAM = JW339Z77B6;
 				INFOPLIST_FILE = Mytinerary/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.FBU.Mytinerary;
+				PRODUCT_BUNDLE_IDENTIFIER = com.Mytinerary;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -946,13 +948,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 82F2G2LCDZ;
+				DEVELOPMENT_TEAM = JW339Z77B6;
 				INFOPLIST_FILE = Mytinerary/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.FBU.Mytinerary;
+				PRODUCT_BUNDLE_IDENTIFIER = com.Mytinerary;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
