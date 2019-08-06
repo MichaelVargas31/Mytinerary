@@ -25,6 +25,7 @@
 #import "Directions.h"
 #import "SWRevealViewController.h"
 #import "Itinerary.h"
+#import "User.h"
 
 @interface DailyCalendarViewController () <UITableViewDelegate, UITableViewDataSource, CalendarEventViewDelegate, UICollectionViewDelegate, UICollectionViewDataSource, InputEventViewControllerDelegate, EventDetailsViewControllerDelegate>
 
@@ -108,6 +109,17 @@
         if (objects) {
             NSLog(@"itinerary successfully fetched!");
             self.itinerary = [objects firstObject];
+            [self.activityIndicator stopAnimating];
+            
+            // reset current user's default itinerary
+            [User resetDefaultItinerary:PFUser.currentUser itinerary:self.itinerary withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
+                if (succeeded) {
+                    NSLog(@"'%@' default itinerary successfully set to: %@", PFUser.currentUser.username, self.itinerary.title);
+                }
+                else {
+                    NSLog(@"failed to set '%@' default itinerary", PFUser.currentUser.username);
+                }
+            }];
             [self loadItinView];
         }
         else {
