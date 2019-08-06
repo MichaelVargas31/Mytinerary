@@ -132,18 +132,7 @@
     [self performSegueWithIdentifier:@"calendarSegue" sender:tappedCell];
 }
 
-
-- (IBAction)logout:(id)sender {
-    [User logoutUser:^(NSError * _Nullable error) {
-        AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
-        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-        LoginViewController *loginViewController = [storyboard instantiateViewControllerWithIdentifier:@"LoginViewController"];
-        appDelegate.window.rootViewController = loginViewController;
-    }];
-}
-
 #pragma mark - Navigation
-
 
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation

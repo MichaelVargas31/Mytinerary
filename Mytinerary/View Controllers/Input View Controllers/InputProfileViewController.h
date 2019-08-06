@@ -7,10 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Itinerary.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface InputProfileViewController : UIViewController
+
+@property (strong, nonatomic) NSArray <Itinerary *> *itineraries;
 
 @end
 

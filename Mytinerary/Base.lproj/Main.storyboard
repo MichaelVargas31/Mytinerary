@@ -134,9 +134,6 @@
                                             <rect key="frame" x="305" y="3" width="30" height="30"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <state key="normal" title="Edit"/>
-                                            <connections>
-                                                <segue destination="h65-3a-1UM" kind="presentation" id="sCL-eo-bbE"/>
-                                            </connections>
                                         </button>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Itineraries" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JLt-qb-W21">
                                             <rect key="frame" x="8" y="151" width="67" height="18"/>
@@ -165,6 +162,7 @@
                         <outlet property="collectionView" destination="PWN-zR-u73" id="85v-RW-p1V"/>
                         <outlet property="mB" destination="cAq-5g-GJT" id="dhD-M2-bRr"/>
                         <segue destination="AST-nT-DsT" kind="showDetail" identifier="calendarSegue" id="oWh-IL-bug"/>
+                        <segue destination="h65-3a-1UM" kind="presentation" identifier="editProfileSegue" id="Zb2-Oj-2P3"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XoH-4c-RPv" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1854,7 +1852,7 @@
     <inferredMetricsTieBreakers>
         <segue reference="Ly5-ib-0bT"/>
         <segue reference="sJn-uW-gz0"/>
-        <segue reference="RmN-u0-S7V"/>
+        <segue reference="oWh-IL-bug"/>
         <segue reference="pGb-W9-DTJ"/>
         <segue reference="cYv-hw-WLz"/>
         <segue reference="GkC-3I-Ydq"/>

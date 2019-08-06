@@ -7,6 +7,8 @@
 //
 
 #import "InputProfileViewController.h"
+#import "User.h"
+#import "Itinerary.h"
 
 @interface InputProfileViewController ()
 
@@ -20,7 +22,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    // prefill username/password text fields
+    User *user = User.currentUser;
+    self.usernameTextField.text = user.username;
+
 }
 
 - (IBAction)onTapSubmitButton:(id)sender {
