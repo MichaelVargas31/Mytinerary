@@ -27,6 +27,7 @@ static const int TABLE_VIEW_HEADER_HEIGHT = 44;
 
 // itinerary labels
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
+@property (weak, nonatomic) IBOutlet UIImageView *imageView;
 @property (weak, nonatomic) IBOutlet UILabel *startTimeLabel;
 @property (weak, nonatomic) IBOutlet UILabel *endTimeLabel;
 @property (weak, nonatomic) IBOutlet UILabel *budgetLabel;
@@ -55,6 +56,16 @@ static const int TABLE_VIEW_HEADER_HEIGHT = 44;
     
     // initialize labels on view
     self.titleLabel.text = self.itinerary.title;
+    if (self.itinerary.image) {
+        [self.itinerary.image getDataInBackgroundWithBlock:^(NSData * _Nullable data, NSError * _Nullable error) {
+            if (data) {
+                UIImage *image = [UIImage imageWithData:data];
+                [self.imageView setImage:image];
+            } else {
+                NSLog(@"error getting image data: %@", error.localizedDescription);
+            }
+        }];
+    }
     self.startTimeLabel.text = [dateFormatter stringFromDate:self.itinerary.startTime];
     self.endTimeLabel.text = [dateFormatter stringFromDate:self.itinerary.endTime];
     self.budgetLabel.text = [NSString stringWithFormat:@"$%@", self.itinerary.budget];
