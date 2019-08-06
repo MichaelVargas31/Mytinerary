@@ -19,6 +19,7 @@
 #import "EventDetailsViewController.h"
 
 #import "EventAnnotation.h"
+#import "TransportationEventAnnotationView.h"
 
 @interface MapViewController () <CLLocationManagerDelegate, MKMapViewDelegate, MKAnnotation>
 
@@ -61,6 +62,9 @@
             NSLog(@"error loading events from '%@': %@", self.itinerary.title, error);
         }
     }];
+    
+    // setup custom annotation view
+    [self.mapView registerClass:[TransportationEventAnnotationView class] forAnnotationViewWithReuseIdentifier:@"TransportationEventAnnotationView"];
 }
 
 - (void)makeEventAnnotations {
@@ -107,20 +111,57 @@
     }
 }
 
-- (MKAnnotationView *)mapView:(MKMapView *)mV viewForAnnotation:(id )annotation {
-    if ([annotation isKindOfClass:[EventAnnotation class]]) {
-        EventAnnotation *eventAnnotation = (EventAnnotation *)annotation;
-        MKAnnotationView *annotationView = [self.mapView dequeueReusableAnnotationViewWithIdentifier:@"EventAnnotation"];
+- (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id)annotation {
+        if ([annotation isKindOfClass:[EventAnnotation class]]) {
+            EventAnnotation *eventAnnotation = (EventAnnotation *)annotation;
+            
+            // use pin annotation view for non-transportation events
+            if (![eventAnnotation.event.category isEqualToString:@"transportation"]) {
+                MKPinAnnotationView *pinView = (MKPinAnnotationView *)[mapView dequeueReusableAnnotationViewWithIdentifier:@"Pin"];
+                
+                // if nothing to dequeue, init new pin annotation view
+                if (pinView == nil) {
+                    pinView = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"Pin"];
+                }
+                else {
+                    pinView.annotation = eventAnnotation;
+                }
+                switch (eventAnnotation.group) {
+                    case 1: // food
+                        pinView.pinTintColor = UIColor.purpleColor;
+                        break;
+                    case 2: // activity
+                        pinView.pinTintColor = UIColor.yellowColor;
+                        break;
+                    case 3: // hotel
+                        pinView.pinTintColor = UIColor.redColor;
+                        break;
+                    default: // should never get here
+                        pinView.pinTintColor = UIColor.greenColor;
+                        break;
+                }
+                pinView.annotation = self;
+                pinView.animatesDrop = YES;
+                pinView.canShowCallout = YES;
         
-        if (annotationView == nil) {
-            annotationView = [eventAnnotation annotationView];
+                UIButton *btn = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
+                [pinView setRightCalloutAccessoryView:btn];
+        
+                return pinView;
+            }
+            // custom annotation for transportation events
+            else {
+                TransportationEventAnnotationView *transpoAnnotationView = (TransportationEventAnnotationView *)[mapView dequeueReusableAnnotationViewWithIdentifier:@"TransportationEventAnnotationView"];
+                if (transpoAnnotationView == nil) {
+                    transpoAnnotationView = [transpoAnnotationView initWithAnnotation:eventAnnotation reuseIdentifier:@"TransportationEventAnnotationView"];
+                }
+                else {
+                    transpoAnnotationView.annotation = eventAnnotation;
+                }
+                return transpoAnnotationView;
+            }
         }
-        else {
-            annotationView.annotation = eventAnnotation;
-        }
-        return annotationView;
-    }
-    return nil;
+        return nil;
 }
 
 - (void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view calloutAccessoryControlTapped:(UIControl *)control {
