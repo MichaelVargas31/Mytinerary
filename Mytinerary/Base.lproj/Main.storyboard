@@ -171,10 +171,10 @@
             </objects>
             <point key="canvasLocation" x="6330" y="4226"/>
         </scene>
-        <!--View Controller-->
+        <!--Input Profile View Controller-->
         <scene sceneID="Eww-RO-81j">
             <objects>
-                <viewController id="h65-3a-1UM" sceneMemberID="viewController">
+                <viewController id="h65-3a-1UM" customClass="InputProfileViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="0Y8-70-Wna">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -229,16 +229,27 @@
                                 <rect key="frame" x="163" y="600" width="49" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Submit"/>
+                                <connections>
+                                    <action selector="onTapSubmitButton:" destination="h65-3a-1UM" eventType="touchUpInside" id="ChB-HL-Zsh"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HdM-xQ-gEM">
                                 <rect key="frame" x="306" y="45" width="37" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="close"/>
+                                <connections>
+                                    <action selector="onTapCloseButton:" destination="h65-3a-1UM" eventType="touchUpInside" id="0lJ-ph-Kmn"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="92I-eJ-wP4"/>
                     </view>
+                    <connections>
+                        <outlet property="defaultItineraryPicker" destination="q2O-13-hw1" id="B5N-Xz-7Oy"/>
+                        <outlet property="passwordTextField" destination="ZVK-3f-dG2" id="uTq-Vv-195"/>
+                        <outlet property="usernameTextField" destination="fb5-9W-s5G" id="1am-L7-OOx"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uTC-A2-ICn" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
