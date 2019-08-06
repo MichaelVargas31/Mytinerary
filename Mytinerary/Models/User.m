@@ -51,4 +51,14 @@
     [user saveInBackgroundWithBlock:completion];
 }
 
+- (void)updateUser:(NSString *)username password:(NSString *)password defaultItinerary:(Itinerary *)defaultItinerary withCompletion:(PFBooleanResultBlock)completion {
+    if (![username isEqualToString:@""]) {
+        self.username = username;
+    }
+    if (![password isEqualToString:@""]) {
+        self.password = password;
+    }
+    [User resetDefaultItinerary:self itinerary:defaultItinerary withCompletion:completion];
+}
+
 @end

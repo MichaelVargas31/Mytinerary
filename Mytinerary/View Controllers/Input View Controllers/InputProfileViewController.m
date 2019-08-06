@@ -15,6 +15,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *usernameTextField;
 @property (weak, nonatomic) IBOutlet UITextField *passwordTextField;
 @property (weak, nonatomic) IBOutlet UIPickerView *defaultItineraryPicker;
+@property (strong, nonatomic) UIAlertController *alert;
 
 @end
 
@@ -22,6 +23,14 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    // setup alert controller
+    self.alert = [UIAlertController alertControllerWithTitle:@"Error"
+                                                     message:@"This is an alert."
+                                              preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
+                                                          handler:^(UIAlertAction * action) {}];
+    [self.alert addAction:defaultAction];
+    
     // prefill username/password text fields
     User *user = User.currentUser;
     self.usernameTextField.text = user.username;
@@ -41,6 +50,20 @@
 }
 
 - (IBAction)onTapSubmitButton:(id)sender {
+    int selectedDefaultItinIdx = (int)[self.defaultItineraryPicker selectedRowInComponent:0];
+    Itinerary *selectedDefaultItinerary = self.itineraries[selectedDefaultItinIdx];
+    
+    [User.currentUser updateUser:self.usernameTextField.text password:self.passwordTextField.text defaultItinerary:selectedDefaultItinerary withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
+        if (succeeded) {
+            NSLog(@"successfully updated user");
+            [self dismissViewControllerAnimated:YES completion:nil];
+        }
+        else {
+            NSLog(@"error updating user: %@", error.domain);
+            self.alert.message = error.domain;
+            [self presentViewController:self.alert animated:YES completion:nil];
+        }
+    }];
 }
 
 - (IBAction)onTapCloseButton:(id)sender {
