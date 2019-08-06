@@ -7,41 +7,36 @@
 //
 
 #import "TransportationEventAnnotationView.h"
+#import "EventAnnotation.h"
 #import "Image.h"
 
 @implementation TransportationEventAnnotationView
 
 - (instancetype)initWithAnnotation:(id<MKAnnotation>)annotation reuseIdentifier:(NSString *)reuseIdentifier {
-    TransportationEventAnnotationView *transpoEventAnnotationView = [super initWithAnnotation:annotation reuseIdentifier:reuseIdentifier];
+    self = [super initWithAnnotation:annotation reuseIdentifier:reuseIdentifier];
+    EventAnnotation *eventAnnotation = annotation;
     
-    transpoEventAnnotationView.enabled = YES;
-    UIImage *carImage = [UIImage imageNamed:@"teal-car"];
-    UIImage *resizedCarImage = [Image imageWithImage:carImage scaledToFillSize:CGSizeMake(35, 35)];
-    transpoEventAnnotationView.image = resizedCarImage;
+    [self assignTranspoImage:eventAnnotation];
 
-    transpoEventAnnotationView.annotation = annotation;
-    transpoEventAnnotationView.canShowCallout = YES;
+    self.annotation = annotation;
+    self.canShowCallout = YES;
 
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
-    [transpoEventAnnotationView setRightCalloutAccessoryView:btn];
+    [self setRightCalloutAccessoryView:btn];
 
-    return transpoEventAnnotationView;
+    return self;
 }
 
-+ (UIImage *)imageWithImage:(UIImage *)image scaledToFillSize:(CGSize)size {
-    CGFloat scale = MAX(size.width/image.size.width, size.height/image.size.height);
-    CGFloat width = image.size.width * scale;
-    CGFloat height = image.size.height * scale;
-    CGRect imageRect = CGRectMake((size.width - width)/2.0f,
-                                  (size.height - height)/2.0f,
-                                  width,
-                                  height);
-    
-    UIGraphicsBeginImageContextWithOptions(size, NO, 0);
-    [image drawInRect:imageRect];
-    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    return newImage;
+- (void)assignTranspoImage:(EventAnnotation *)eventAnnotation {
+    UIImage *image = [[UIImage alloc] init];
+    if ([eventAnnotation.event.transpoType isEqualToString:@"drive"]) {
+        image = [UIImage imageNamed:@"teal-car"];
+    }
+    else if ([eventAnnotation.event.transpoType isEqualToString:@"walk"]) {
+        image = [UIImage imageNamed:@"walking"];
+    }
+    UIImage *resizedImage = [Image imageWithImage:image scaledToFillSize:CGSizeMake(35, 35)];
+    self.image = resizedImage;
 }
 
 @end

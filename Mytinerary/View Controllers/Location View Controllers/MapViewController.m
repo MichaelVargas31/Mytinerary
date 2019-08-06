@@ -158,6 +158,8 @@
                 else {
                     transpoAnnotationView.annotation = eventAnnotation;
                 }
+                
+                [transpoAnnotationView assignTranspoImage:eventAnnotation];
                 return transpoAnnotationView;
             }
         }
@@ -185,7 +187,7 @@
 
 // get the route from a given transportation event
 - (void)getTransportationEventRoute:(Event *)event {
-    [Directions getDirectionsLatLng:event.latitude startLng:event.longitude endLat:event.endLatitude endLng:event.endLongitude departureDate:event.startTime withCompletion:^(MKDirectionsResponse * _Nullable response, NSError * _Nullable error) {
+    [Directions getDirectionsLatLng:event.latitude startLng:event.longitude endLat:event.endLatitude endLng:event.endLongitude departureDate:event.startTime transpoType:event.transpoType withCompletion:^(MKDirectionsResponse * _Nullable response, NSError * _Nullable error) {
         if (response) {
             NSLog(@"successfully got directions for '%@'", event.title);
             MKRoute *route = response.routes[0];

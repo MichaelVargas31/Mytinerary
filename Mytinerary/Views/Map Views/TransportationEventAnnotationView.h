@@ -8,10 +8,15 @@
 
 #import <MapKit/MapKit.h>
 #import <UIKit/UIKit.h>
+#import "EventAnnotation.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface TransportationEventAnnotationView : MKAnnotationView
+
+- (instancetype)initWithAnnotation:(id<MKAnnotation>)annotation reuseIdentifier:(NSString *)reuseIdentifier;
+
+- (void)assignTranspoImage:(EventAnnotation *)eventAnnotation;
 
 @end
 
