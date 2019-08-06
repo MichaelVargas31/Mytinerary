@@ -15,6 +15,7 @@
 #import "Event.h"
 #import "Directions.h"
 #import "SWRevealViewController.h"
+#import "EventDetailsViewController.h"
 
 #import "MyAnnotation.h"
 
@@ -82,8 +83,10 @@
     CLLocationCoordinate2D coord = CLLocationCoordinate2DMake(event.latitude.floatValue, event.longitude.floatValue);
     
     MyAnnotation *annotation = [[MyAnnotation alloc] init];
+//    MKPointAnnotation *annotation = [[MKPointAnnotation alloc] init];
     [annotation setCoordinate:coord];
     [annotation setTitle:event.title];
+    [annotation setEvent:event];
     
     if ([category isEqualToString:@"food"]) {
         annotation.group = 1;
@@ -133,8 +136,20 @@
     pinView.annotation = annotation;
     pinView.animatesDrop = YES;
     pinView.canShowCallout = YES;
+    
+    UIButton *btn = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
+    [pinView setRightCalloutAccessoryView:btn];
   
     return pinView;
+}
+
+- (void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view calloutAccessoryControlTapped:(UIControl *)control {
+    // get event associated with annotation view
+    MyAnnotation *annotation = view.annotation;
+    Event *event = annotation.event;
+    
+    // segue to event details view
+    [self performSegueWithIdentifier:@"mapToEventDetailsSegue" sender:event];
 }
 
 - (IBAction)onTapCalendarButton:(id)sender {
@@ -245,6 +260,11 @@
     if ([[segue identifier] isEqualToString:@"mapToCalendarSegue"]) {
         SWRevealViewController *revealViewController = [segue destinationViewController];
         revealViewController.itinerary = self.itinerary;
+    }
+    else if ([[segue identifier] isEqualToString:@"mapToEventDetailsSegue"]) {
+        Event *event = sender;
+        EventDetailsViewController *eventDetailsViewController = [segue destinationViewController];
+        eventDetailsViewController.event = event;
     }
 }
 
