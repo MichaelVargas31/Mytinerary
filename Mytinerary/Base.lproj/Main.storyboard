@@ -163,7 +163,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XoH-4c-RPv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="8540" y="4751.8740629685162"/>
+            <point key="canvasLocation" x="7433" y="4319"/>
         </scene>
         <!--Input Itinerary View Controller-->
         <scene sceneID="d6m-Ae-efd">
@@ -854,7 +854,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Wko-au-X6b" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="9456.7999999999993" y="3213.6431784107949"/>
+            <point key="canvasLocation" x="10271" y="3193"/>
         </scene>
         <!--Event Details View Controller-->
         <scene sceneID="H8t-UC-jw5">
@@ -1450,9 +1450,9 @@
                         <outlet property="startTimeLabel" destination="qlY-B4-Sol" id="H3A-DE-WTb"/>
                         <outlet property="tableView" destination="vWC-jV-u2G" id="53s-pL-9ku"/>
                         <outlet property="titleLabel" destination="jhz-Gs-eIj" id="kLK-ac-KhY"/>
-                        <segue destination="RUl-zE-tk7" kind="presentation" identifier="EditItinerarySegue" id="Ly5-ib-0bT"/>
                         <segue destination="AST-nT-DsT" kind="showDetail" identifier="DeleteItineraryToProfileSegue" id="iPX-Q9-7gZ"/>
                         <segue destination="vfi-ve-A7n" kind="show" identifier="ItinDetailsToEventDetailsSegue" id="cYv-hw-WLz"/>
+                        <segue destination="vAc-0f-oMv" kind="presentation" identifier="EditItinerarySegue" id="Uy5-kQ-HM8"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4vL-kr-Pll" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1518,7 +1518,6 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <segue destination="oG8-r8-cd1" kind="custom" customClass="SWRevealViewControllerSeguePushController" id="dTY-Ol-ppU"/>
                                             <segue destination="oG8-r8-cd1" kind="custom" identifier="SideBarToProfileSegue" customClass="SWRevealViewControllerSeguePushController" id="fKl-TQ-TQv"/>
                                         </connections>
                                     </tableViewCell>
@@ -1567,7 +1566,7 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <segue destination="RUl-zE-tk7" kind="custom" customClass="SWRevealViewControllerSeguePushController" id="C4H-d4-iJq"/>
+                                            <segue destination="vAc-0f-oMv" kind="presentation" id="hw8-pD-mAT"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="44" id="HNI-sU-RSn">
@@ -1808,19 +1807,12 @@
         <image name="User Profile Picture" width="29" height="29"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="C4H-d4-iJq"/>
-        <segue reference="ISd-z3-EBT"/>
-        <segue reference="W6l-eq-cqv"/>
-        <segue reference="Nvk-iu-SCg"/>
-        <segue reference="Ly5-ib-0bT"/>
-        <segue reference="sJn-uW-gz0"/>
-        <segue reference="pBk-Pq-aqM"/>
-        <segue reference="dot-u4-pzB"/>
+        <segue reference="fKl-TQ-TQv"/>
         <segue reference="iPX-Q9-7gZ"/>
-        <segue reference="pGb-W9-DTJ"/>
+        <segue reference="zNL-pN-NjU"/>
         <segue reference="cYv-hw-WLz"/>
-        <segue reference="ISd-z3-EBT"/>
-        <segue reference="GkC-3I-Ydq"/>
+        <segue reference="W6l-eq-cqv"/>
+        <segue reference="Uy5-kQ-HM8"/>
         <segue reference="Dwd-wo-Oze"/>
     </inferredMetricsTieBreakers>
 </document>
