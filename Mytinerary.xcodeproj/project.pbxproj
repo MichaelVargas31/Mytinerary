@@ -245,6 +245,17 @@
 			path = Locations;
 			sourceTree = "<group>";
 		};
+		2393756822FA2AB0002CBAA7 /* Map Views */ = {
+			isa = PBXGroup;
+			children = (
+				8468099622E93EAF001F9F0C /* EventAnnotation.h */,
+				8468099722E93EAF001F9F0C /* EventAnnotation.m */,
+				2393755F22FA2652002CBAA7 /* TransportationEventAnnotationView.h */,
+				2393756022FA2652002CBAA7 /* TransportationEventAnnotationView.m */,
+			);
+			path = "Map Views";
+			sourceTree = "<group>";
+		};
 		23F5AA4422E61D6E0084086B /* Event Input Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -482,10 +493,7 @@
 		FF6C5F2F22DE8B1900D0EB83 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				8468099622E93EAF001F9F0C /* EventAnnotation.h */,
-				8468099722E93EAF001F9F0C /* EventAnnotation.m */,
-				2393755F22FA2652002CBAA7 /* TransportationEventAnnotationView.h */,
-				2393756022FA2652002CBAA7 /* TransportationEventAnnotationView.m */,
+				2393756822FA2AB0002CBAA7 /* Map Views */,
 				FF0E77EF22EA532F00CFEF9A /* Calendar Views */,
 				23F5AA4422E61D6E0084086B /* Event Input Views */,
 				23F5AA5A22E62B600084086B /* Event Details Views */,

@@ -23,8 +23,6 @@
 
 + (EventAnnotation *)initAnnotationWithEventForCoordinate:(Event *)event coordinate:(CLLocationCoordinate2D)coordinate;
 
-- (MKAnnotationView *)annotationView;
-
 @end
 
 
