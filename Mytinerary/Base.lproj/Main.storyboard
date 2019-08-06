@@ -846,6 +846,7 @@
                         <segue destination="vfi-ve-A7n" kind="show" identifier="eventDetailsSegue" id="S6S-hJ-Kow"/>
                         <segue destination="v2s-7K-Yl1" kind="show" identifier="itineraryDetailsSegue" id="zNL-pN-NjU"/>
                         <segue destination="eHQ-Si-fcr" kind="presentation" identifier="addEventSegue" id="W6l-eq-cqv"/>
+                        <segue destination="AST-nT-DsT" kind="show" identifier="calendarToMapSegue" id="FZp-6T-F1m"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Wko-au-X6b" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1494,6 +1495,7 @@
                         <segue destination="WKR-Y8-Lbk" kind="show" identifier="login" id="18L-74-wfL"/>
                         <segue destination="d9u-z2-YaY" kind="custom" identifier="sw_front" customClass="SWRevealViewControllerSegueSetController" id="S8S-kB-Jsa"/>
                         <segue destination="Tkc-U7-zfU" kind="custom" identifier="sw_right" customClass="SWRevealViewControllerSegueSetController" id="Cd5-Do-SnB"/>
+                        <segue destination="QCh-Uv-00M" kind="custom" identifier="toMapSegue" customClass="SWRevealViewControllerSeguePushController" id="mXn-pa-Nfz"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Rbx-7R-qgU" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1669,6 +1671,7 @@
                         <viewLayoutGuide key="safeArea" id="qu1-eQ-0kq"/>
                     </view>
                     <navigationItem key="navigationItem" id="fnH-oE-JUS">
+                        <barButtonItem key="leftBarButtonItem" image="Menu Image" id="AIn-sV-AIe"/>
                         <barButtonItem key="rightBarButtonItem" image="Calendar" id="kTH-2Y-RA1">
                             <connections>
                                 <action selector="onTapCalendarButton:" destination="P9I-0f-YVX" id="Eoa-uK-nL6"/>
@@ -1676,13 +1679,14 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="mapMenuBtn" destination="AIn-sV-AIe" id="5Gh-yB-O9L"/>
                         <outlet property="mapView" destination="Ypp-lD-JTy" id="LOL-df-Hok"/>
                         <segue destination="AST-nT-DsT" kind="showDetail" identifier="mapToCalendarSegue" id="pBk-Pq-aqM"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="d8L-Cq-QBq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="9457" y="2427"/>
+            <point key="canvasLocation" x="10396" y="2426.5367316341831"/>
         </scene>
         <!--Photo View Controller-->
         <scene sceneID="NLI-FV-F7v">
@@ -1790,6 +1794,24 @@
             </objects>
             <point key="canvasLocation" x="8392.7999999999993" y="3213.6431784107949"/>
         </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="TPc-in-Iky">
+            <objects>
+                <navigationController storyboardIdentifier="MapNavController" automaticallyAdjustsScrollViewInsets="NO" id="QCh-Uv-00M" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="MX9-g6-hby">
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="P9I-0f-YVX" kind="relationship" relationship="rootViewController" id="xrX-R1-HRo"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="MRn-2n-EqP" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="9456.7999999999993" y="2426.5367316341831"/>
+        </scene>
     </scenes>
     <resources>
         <image name="Calendar" width="29" height="29"/>
@@ -1804,8 +1826,8 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="C4H-d4-iJq"/>
-        <segue reference="pBk-Pq-aqM"/>
+        <segue reference="FZp-6T-F1m"/>
         <segue reference="W6l-eq-cqv"/>
-        <segue reference="Dwd-wo-Oze"/>
+        <segue reference="Nvk-iu-SCg"/>
     </inferredMetricsTieBreakers>
 </document>

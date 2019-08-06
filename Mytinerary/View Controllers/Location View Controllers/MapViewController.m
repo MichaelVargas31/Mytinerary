@@ -36,6 +36,8 @@
     self.mapView.delegate = self;
     [self.mapView setShowsUserLocation:false];
     
+    [self sideMenus];
+    
     // initialize empty mutable array
     self.routePolylineEvents = [[NSMutableArray alloc] init];
     
@@ -59,6 +61,23 @@
             NSLog(@"error loading events from '%@': %@", self.itinerary.title, error);
         }
     }];
+}
+
+
+-(void)sideMenus{
+    
+    if(self.revealViewController != nil){
+        self.mapMenuBtn.target = self.revealViewController;
+        self.mapMenuBtn.action = @selector(revealToggle:);
+        self.revealViewController.rearViewRevealWidth = 275;
+        self.revealViewController.rightViewRevealWidth = 160;
+        
+     
+        
+        [self.view addGestureRecognizer:self.revealViewController.panGestureRecognizer];
+        
+    }
+    
 }
 
 - (void)makeEventAnnotations {
@@ -138,17 +157,9 @@
 }
 
 - (IBAction)onTapCalendarButton:(id)sender {
-    [self dismissViewControllerAnimated:YES completion:nil];
-    // [self performSegueWithIdentifier:@"mapToCalendarSegue" sender:nil];
-//    UINavigationController *navigationController = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"ItineraryNavigationController"];
-//
-//    DailyCalendarViewController *dailyCalendarViewController = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"DailyCalendarViewController"];
-//
-//    // pass itinerary from map to daily calendar
-//    dailyCalendarViewController.itinerary = self.itinerary;
-//
-//    [navigationController setViewControllers:[NSArray arrayWithObject:dailyCalendarViewController]];
-//    [self presentViewController:navigationController animated:YES completion:nil];
+      //goes back to daily calendar
+     [self performSegueWithIdentifier:@"mapToCalendarSegue" sender:nil];
+
 }
 
 - (void)onTapItineraryTitle {

@@ -342,7 +342,11 @@
     
     return dayEvents;
 }
-
+- (IBAction)onTapMapButton:(id)sender {
+    
+     [self performSegueWithIdentifier:@"calendarToMapSegue" sender:nil];
+    
+}
 
 #pragma mark - Navigation
 
@@ -361,6 +365,13 @@
     else if ([[segue identifier] isEqualToString:@"itineraryDetailsSegue"]) {
         ItineraryDetailsViewController *itineraryDetailsViewController = [segue destinationViewController];
         itineraryDetailsViewController.itinerary = self.itinerary;
+    } else if ([segue.identifier isEqualToString:@"calendarToMapSegue"]) {
+       // tells the revealVC which segue we want it to execute next
+        //passes itinerary objects to map from reveal view controller so that the sidebar on the map will work
+        //segue from calendar to revealVC
+       SWRevealViewController *revealVC = [segue destinationViewController];
+        revealVC.nextSegue = @"toMapSegue";
+        revealVC.itinerary=self.itinerary;
     }
 }
 
@@ -368,16 +379,7 @@
     [self performSegueWithIdentifier:@"eventDetailsSegue" sender:event];
 }
 
-- (IBAction)onTapMapButton:(id)sender {
-    // navigate to map by resetting nav controller view controller stack
-    UINavigationController *navigationController = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"ItineraryNavigationController"];
-    MapViewController *mapViewController = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"MapViewController"];
-    // pass itinerary from daily calendar to map
-    mapViewController.itinerary = self.itinerary;
-    
-    [navigationController setViewControllers:[NSArray arrayWithObject:mapViewController]];
-    [self presentViewController:navigationController animated:YES completion:nil];
-}
+
 
 - (IBAction)onTapAddEventBtn:(id)sender {
     [self performSegueWithIdentifier:@"addEventSegue" sender:self];
