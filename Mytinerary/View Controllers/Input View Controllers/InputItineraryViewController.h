@@ -11,7 +11,15 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@protocol InputItineraryViewControllerDelegate <NSObject>
+
+- (void) didSaveItinerary;
+
+@end
+
 @interface InputItineraryViewController : UIViewController
+
+@property (weak, nonatomic) id<InputItineraryViewControllerDelegate> delegate;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *m;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *a;
 

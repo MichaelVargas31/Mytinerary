@@ -15,6 +15,7 @@
 @property (nonatomic, strong) NSNumber *totalCost;
 @property (nonatomic, strong) NSNumber *budget;
 @property (nonatomic, strong) NSString *title;
+@property (nonatomic, strong) PFFileObject *image;
 
 + (Itinerary *)initNewItinerary:(NSString *)title startTime:(NSDate *)startTime endTime:(NSDate *)endTime budget:(NSNumber *)budget withCompletion:(PFBooleanResultBlock)completion;
 

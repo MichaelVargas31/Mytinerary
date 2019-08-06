@@ -51,8 +51,11 @@
             self.window.rootViewController = revealViewController;
         }
         else {
-            self.window.rootViewController = [storyboard instantiateViewControllerWithIdentifier:@"SWRevealViewController"];
-            //ProfileNavigationController
+            
+            SWRevealViewController *revealVC = [storyboard instantiateViewControllerWithIdentifier:@"SWRevealViewController"];
+            // tells the revealVC to head to profile first
+            revealVC.nextSegue = @"ToProfileSegue";
+            self.window.rootViewController = revealVC;
         }
     }
     
