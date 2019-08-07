@@ -12,6 +12,8 @@
 		2393754A22EFA599002CBAA7 /* Directions.m in Sources */ = {isa = PBXBuildFile; fileRef = 2393754922EFA599002CBAA7 /* Directions.m */; };
 		2393754C22EFA913002CBAA7 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2393754B22EFA913002CBAA7 /* MapKit.framework */; };
 		2393755B22F9DEE7002CBAA7 /* InputProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2393755A22F9DEE7002CBAA7 /* InputProfileViewController.m */; };
+		2393756122FA2652002CBAA7 /* TransportationEventAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2393756022FA2652002CBAA7 /* TransportationEventAnnotationView.m */; };
+		2393756722FA29D2002CBAA7 /* Image.m in Sources */ = {isa = PBXBuildFile; fileRef = 2393756622FA29D2002CBAA7 /* Image.m */; };
 		23F1C5DD22FB479700ADF49B /* MyAnnotation.h in Sources */ = {isa = PBXBuildFile; fileRef = 8468099622E93EAF001F9F0C /* MyAnnotation.h */; };
 		23F1C5E322FB506700ADF49B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FF6C5EFD22DE640200D0EB83 /* Main.storyboard */; };
 		23F1C5E522FB51CC00ADF49B /* Keys.plist in Resources */ = {isa = PBXBuildFile; fileRef = 23F1C5E422FB51CC00ADF49B /* Keys.plist */; };
@@ -40,7 +42,7 @@
 		8448C0F622DFA2C800427FB2 /* Itinerary.m in Sources */ = {isa = PBXBuildFile; fileRef = 8448C0F122DFA2C800427FB2 /* Itinerary.m */; };
 		8448C0F722DFA2C800427FB2 /* Event.m in Sources */ = {isa = PBXBuildFile; fileRef = 8448C0F222DFA2C800427FB2 /* Event.m */; };
 		8468099522E7DD1F001F9F0C /* LocationCellTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8468099422E7DD1F001F9F0C /* LocationCellTableViewCell.m */; };
-		8468099822E93EAF001F9F0C /* MyAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 8468099722E93EAF001F9F0C /* MyAnnotation.m */; };
+		8468099822E93EAF001F9F0C /* EventAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 8468099722E93EAF001F9F0C /* EventAnnotation.m */; };
 		8495D7A922DE8BDD00CFED2D /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8495D7A822DE8BDD00CFED2D /* LoginViewController.m */; };
 		8495D7AE22DE991B00CFED2D /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8495D7AD22DE991B00CFED2D /* ProfileViewController.m */; };
 		8495D7B122DF879600CFED2D /* ItineraryCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8495D7B022DF879600CFED2D /* ItineraryCollectionViewCell.m */; };
@@ -90,6 +92,10 @@
 		2393754B22EFA913002CBAA7 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		2393755922F9DEE7002CBAA7 /* InputProfileViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InputProfileViewController.h; sourceTree = "<group>"; };
 		2393755A22F9DEE7002CBAA7 /* InputProfileViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InputProfileViewController.m; sourceTree = "<group>"; };
+		2393755F22FA2652002CBAA7 /* TransportationEventAnnotationView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TransportationEventAnnotationView.h; sourceTree = "<group>"; };
+		2393756022FA2652002CBAA7 /* TransportationEventAnnotationView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TransportationEventAnnotationView.m; sourceTree = "<group>"; };
+		2393756522FA29D2002CBAA7 /* Image.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Image.h; sourceTree = "<group>"; };
+		2393756622FA29D2002CBAA7 /* Image.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Image.m; sourceTree = "<group>"; };
 		23F1C5E422FB51CC00ADF49B /* Keys.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Keys.plist; sourceTree = "<group>"; };
 		23F5A9E722DFE59A0084086B /* InputItineraryViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InputItineraryViewController.h; sourceTree = "<group>"; };
 		23F5A9E822DFE59A0084086B /* InputItineraryViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InputItineraryViewController.m; sourceTree = "<group>"; };
@@ -142,8 +148,8 @@
 		8448C0F422DFA2C800427FB2 /* Itinerary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Itinerary.h; sourceTree = "<group>"; };
 		8468099322E7DD1F001F9F0C /* LocationCellTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LocationCellTableViewCell.h; sourceTree = "<group>"; };
 		8468099422E7DD1F001F9F0C /* LocationCellTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LocationCellTableViewCell.m; sourceTree = "<group>"; };
-		8468099622E93EAF001F9F0C /* MyAnnotation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyAnnotation.h; sourceTree = "<group>"; };
-		8468099722E93EAF001F9F0C /* MyAnnotation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyAnnotation.m; sourceTree = "<group>"; };
+		8468099622E93EAF001F9F0C /* EventAnnotation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EventAnnotation.h; sourceTree = "<group>"; };
+		8468099722E93EAF001F9F0C /* EventAnnotation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EventAnnotation.m; sourceTree = "<group>"; };
 		8495D7A722DE8BDD00CFED2D /* LoginViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		8495D7A822DE8BDD00CFED2D /* LoginViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		8495D7AC22DE991B00CFED2D /* ProfileViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProfileViewController.h; sourceTree = "<group>"; };
@@ -240,6 +246,17 @@
 			path = Locations;
 			sourceTree = "<group>";
 		};
+		2393756822FA2AB0002CBAA7 /* Map Views */ = {
+			isa = PBXGroup;
+			children = (
+				8468099622E93EAF001F9F0C /* EventAnnotation.h */,
+				8468099722E93EAF001F9F0C /* EventAnnotation.m */,
+				2393755F22FA2652002CBAA7 /* TransportationEventAnnotationView.h */,
+				2393756022FA2652002CBAA7 /* TransportationEventAnnotationView.m */,
+			);
+			path = "Map Views";
+			sourceTree = "<group>";
+		};
 		23F5AA4422E61D6E0084086B /* Event Input Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -291,6 +308,8 @@
 				23F5AA7A22EA7DA10084086B /* InputValidation.m */,
 				FF0E780C22F35A8700CFEF9A /* Calendar.h */,
 				FF0E780D22F35A8700CFEF9A /* Calendar.m */,
+				2393756522FA29D2002CBAA7 /* Image.h */,
+				2393756622FA29D2002CBAA7 /* Image.m */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -473,8 +492,7 @@
 		FF6C5F2F22DE8B1900D0EB83 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				8468099622E93EAF001F9F0C /* MyAnnotation.h */,
-				8468099722E93EAF001F9F0C /* MyAnnotation.m */,
+				2393756822FA2AB0002CBAA7 /* Map Views */,
 				FF0E77EF22EA532F00CFEF9A /* Calendar Views */,
 				23F5AA4422E61D6E0084086B /* Event Input Views */,
 				23F5AA5A22E62B600084086B /* Event Details Views */,
@@ -742,6 +760,7 @@
 				FF0E780822F219BE00CFEF9A /* EventDetailsDeleteView.m in Sources */,
 				23F5AA3622E120AB0084086B /* EventInputFoodView.m in Sources */,
 				23F5AA4A22E61DBE0084086B /* EventDetailsDescriptionView.m in Sources */,
+				2393756722FA29D2002CBAA7 /* Image.m in Sources */,
 				8495D7A922DE8BDD00CFED2D /* LoginViewController.m in Sources */,
 				23F5AA6F22EA0D480084086B /* Date.m in Sources */,
 				2393755B22F9DEE7002CBAA7 /* InputProfileViewController.m in Sources */,
@@ -750,8 +769,9 @@
 				8448C0F622DFA2C800427FB2 /* Itinerary.m in Sources */,
 				23F5A9EF22E0D9B50084086B /* InputEventViewController.m in Sources */,
 				23F5AA6C22E92A7F0084086B /* EventTableViewCell.m in Sources */,
-				8468099822E93EAF001F9F0C /* MyAnnotation.m in Sources */,
+				8468099822E93EAF001F9F0C /* EventAnnotation.m in Sources */,
 				84B5E51722E10637006F4815 /* MapViewController.m in Sources */,
+				2393756122FA2652002CBAA7 /* TransportationEventAnnotationView.m in Sources */,
 				8468099522E7DD1F001F9F0C /* LocationCellTableViewCell.m in Sources */,
 				FF9299D522F3A9D30027D782 /* EventDetailsViewController.m in Sources */,
 				84B581CE22F25316004BA82B /* PhotoViewController.m in Sources */,

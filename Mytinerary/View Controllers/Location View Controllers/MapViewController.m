@@ -18,7 +18,8 @@
 #import "SWRevealViewController.h"
 #import "EventDetailsViewController.h"
 
-#import "MyAnnotation.h"
+#import "EventAnnotation.h"
+#import "TransportationEventAnnotationView.h"
 
 @interface MapViewController () <CLLocationManagerDelegate, MKMapViewDelegate, MKAnnotation>
 
@@ -63,6 +64,9 @@
             NSLog(@"error loading events from '%@': %@", self.itinerary.title, error);
         }
     }];
+    
+    // setup custom annotation view
+    [self.mapView registerClass:[TransportationEventAnnotationView class] forAnnotationViewWithReuseIdentifier:@"TransportationEventAnnotationView"];
 }
 
 
@@ -102,7 +106,7 @@
     NSString *category = event.category;
     CLLocationCoordinate2D coord = CLLocationCoordinate2DMake(event.latitude.floatValue, event.longitude.floatValue);
     
-    MyAnnotation *annotation = [[MyAnnotation alloc] init];
+    EventAnnotation *annotation = [[EventAnnotation alloc] init];
     [annotation setCoordinate:coord];
     [annotation setTitle:event.title];
     [annotation setEvent:event];
@@ -126,46 +130,64 @@
     }
 }
 
-- (MKAnnotationView *)mapView:(MKMapView *)mV viewForAnnotation:(id )annotation {
-    MKPinAnnotationView *pinView = (MKPinAnnotationView*)[self.mapView dequeueReusableAnnotationViewWithIdentifier:@"Pin"];
-    
-    if (pinView == nil) {
-        pinView = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"Pin"];
-    }
-    
-    if ([annotation isKindOfClass:[MyAnnotation class]])
-    {
-        MyAnnotation *myAnn = (MyAnnotation *)annotation;
-        switch (myAnn.group)
-        {
-            case 1: // food
-                pinView.pinTintColor = UIColor.purpleColor;
-                break;
-            case 2: // activity
-                pinView.pinTintColor = UIColor.yellowColor;
-                break;
-            case 3: // hotel
-                pinView.pinTintColor = UIColor.redColor;
-                break;
-            default: // transportation -- eventually change to custom annotation
-                pinView.pinTintColor = UIColor.greenColor;
-                break;
+- (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id)annotation {
+        if ([annotation isKindOfClass:[EventAnnotation class]]) {
+            EventAnnotation *eventAnnotation = (EventAnnotation *)annotation;
+            
+            // use pin annotation view for non-transportation events
+            if (![eventAnnotation.event.category isEqualToString:@"transportation"]) {
+                MKPinAnnotationView *pinView = (MKPinAnnotationView *)[mapView dequeueReusableAnnotationViewWithIdentifier:@"Pin"];
+                
+                // if nothing to dequeue, init new pin annotation view
+                if (pinView == nil) {
+                    pinView = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"Pin"];
+                }
+                else {
+                    pinView.annotation = eventAnnotation;
+                }
+                switch (eventAnnotation.group) {
+                    case 1: // food
+                        pinView.pinTintColor = UIColor.purpleColor;
+                        break;
+                    case 2: // activity
+                        pinView.pinTintColor = UIColor.yellowColor;
+                        break;
+                    case 3: // hotel
+                        pinView.pinTintColor = UIColor.redColor;
+                        break;
+                    default: // should never get here
+                        pinView.pinTintColor = UIColor.greenColor;
+                        break;
+                }
+                pinView.annotation = self;
+                pinView.animatesDrop = YES;
+                pinView.canShowCallout = YES;
+        
+                UIButton *btn = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
+                [pinView setRightCalloutAccessoryView:btn];
+        
+                return pinView;
+            }
+            // custom annotation for transportation events
+            else {
+                TransportationEventAnnotationView *transpoAnnotationView = (TransportationEventAnnotationView *)[mapView dequeueReusableAnnotationViewWithIdentifier:@"TransportationEventAnnotationView"];
+                if (transpoAnnotationView == nil) {
+                    transpoAnnotationView = [transpoAnnotationView initWithAnnotation:eventAnnotation reuseIdentifier:@"TransportationEventAnnotationView"];
+                }
+                else {
+                    transpoAnnotationView.annotation = eventAnnotation;
+                }
+                
+                [transpoAnnotationView assignTranspoImage:eventAnnotation];
+                return transpoAnnotationView;
+            }
         }
-    }
-
-    pinView.annotation = annotation;
-    pinView.animatesDrop = YES;
-    pinView.canShowCallout = YES;
-    
-    UIButton *btn = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
-    [pinView setRightCalloutAccessoryView:btn];
-  
-    return pinView;
+        return nil;
 }
 
 - (void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view calloutAccessoryControlTapped:(UIControl *)control {
     // get event associated with annotation view
-    MyAnnotation *annotation = view.annotation;
+    EventAnnotation *annotation = view.annotation;
     Event *event = annotation.event;
     
     // segue to event details view
@@ -186,7 +208,12 @@
 
 // get the route from a given transportation event
 - (void)getTransportationEventRoute:(Event *)event {
-    [Directions getDirectionsLatLng:event.latitude startLng:event.longitude endLat:event.endLatitude endLng:event.endLongitude departureDate:event.startTime withCompletion:^(MKDirectionsResponse * _Nullable response, NSError * _Nullable error) {
+    // routes not supported for transit, substitute with route for drive
+    NSString *transpoType = event.transpoType;
+    if ([event.transpoType isEqualToString:@"transit"]) {
+        transpoType = @"drive";
+    }
+    [Directions getDirectionsLatLng:event.latitude startLng:event.longitude endLat:event.endLatitude endLng:event.endLongitude departureDate:event.startTime transpoType:transpoType withCompletion:^(MKDirectionsResponse * _Nullable response, NSError * _Nullable error) {
         if (response) {
             NSLog(@"successfully got directions for '%@'", event.title);
             MKRoute *route = response.routes[0];
@@ -194,8 +221,6 @@
             // keep corresponding transpo events parallel with overlays
             [self showDirection:route transpoEvent:event];
             [self.routePolylineEvents addObject:event];
-            
-            [self updateTransportationEvent:event route:route];
         }
         else {
             NSLog(@"error getting directions for '%@': %@", event.title, error);
@@ -208,51 +233,8 @@
     
     // add annotation to middle of route
     MKMapPoint middlePoint = route.polyline.points[route.polyline.pointCount/2];
-    [self createAndAddAnnotationForCoordinate:MKCoordinateForMapPoint(middlePoint) transpoEvent:transpoEvent];
-}
-
--(void)createAndAddAnnotationForCoordinate:(CLLocationCoordinate2D)coordinate transpoEvent:(Event *)transpoEvent {
-    MyAnnotation* annotation= [[MyAnnotation alloc] init];
-    annotation.coordinate = coordinate;
-
-    annotation.title = transpoEvent.title;
-    annotation.subtitle = transpoEvent.transpoType;
-    annotation.event = transpoEvent;
-
+    EventAnnotation *annotation = [EventAnnotation initAnnotationWithEventForCoordinate:transpoEvent coordinate:MKCoordinateForMapPoint(middlePoint)];
     [self.mapView addAnnotation:annotation];
-}
-
-- (void)updateTransportationEvent:(Event *)event route:(MKRoute *)route {
-    NSTimeInterval timeElapsed = route.expectedTravelTime;
-    NSDate *updatedEndTime = [NSDate dateWithTimeInterval:timeElapsed sinceDate:event.startTime];
-    
-    NSString *transpoType = [[NSString alloc] init];
-    switch (route.transportType) {
-        case MKDirectionsTransportTypeWalking:
-            transpoType = @"walk";
-            break;
-        case MKDirectionsTransportTypeTransit:
-            transpoType = @"transit";
-            break;
-        case MKDirectionsTransportTypeAutomobile:
-            transpoType = @"drive";
-            break;
-        case MKDirectionsTransportTypeAny:
-            transpoType = @"ride";
-            break;
-        default:
-            transpoType = @"other";
-            break;
-    }
-    
-    [event updateTransportationEventTypeAndTimes:transpoType startTime:event.startTime endTime:updatedEndTime withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
-        if (succeeded) {
-            NSLog(@"transportation times/type successfully updated");
-        }
-        else {
-            NSLog(@"error updating transpo event times/type: %@", error);
-        }
-    }];
 }
 
 - (MKOverlayRenderer *)mapView:(MKMapView *)mapView rendererForOverlay:(id<MKOverlay>)overlay {
