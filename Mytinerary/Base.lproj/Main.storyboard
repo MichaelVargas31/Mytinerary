@@ -98,13 +98,18 @@
                                             <rect key="frame" x="0.0" y="0.0" width="106" height="127"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uBf-lI-Qa4">
-                                                    <rect key="frame" x="0.0" y="-1" width="106" height="128"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uBf-lI-Qa4">
+                                                    <rect key="frame" x="0.0" y="74" width="106" height="53"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ngw-Ox-IOr">
+                                                    <rect key="frame" x="0.0" y="0.0" width="106" height="127"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                </imageView>
                                             </subviews>
                                         </view>
                                         <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -163,7 +168,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XoH-4c-RPv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4428" y="1997"/>
+            <point key="canvasLocation" x="4428" y="1996.5517241379312"/>
         </scene>
         <!--Input Itinerary View Controller-->
         <scene sceneID="d6m-Ae-efd">
@@ -1483,7 +1488,6 @@
                     <connections>
                         <outlet property="headerView" destination="7m0-dC-mcs" id="OMU-A6-m7V"/>
                         <outlet property="tableView" destination="vWC-jV-u2G" id="53s-pL-9ku"/>
-                        <segue destination="RUl-zE-tk7" kind="presentation" identifier="EditItinerarySegue" id="Ly5-ib-0bT"/>
                         <segue destination="AST-nT-DsT" kind="showDetail" identifier="DeleteItineraryToProfileSegue" id="iPX-Q9-7gZ"/>
                         <segue destination="vfi-ve-A7n" kind="show" identifier="ItinDetailsToEventDetailsSegue" id="cYv-hw-WLz"/>
                         <segue destination="vAc-0f-oMv" kind="presentation" identifier="EditItinerarySegue" id="Uy5-kQ-HM8"/>
@@ -1757,24 +1761,6 @@
             <point key="canvasLocation" x="3105" y="1994"/>
         </scene>
         <!--Navigation Controller-->
-        <scene sceneID="ttg-n4-2Br">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="RUl-zE-tk7" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="adL-a2-lTZ">
-                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="vAc-0f-oMv" kind="relationship" relationship="rootViewController" id="UmD-F4-rA7"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Ttl-9D-7qj" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="3105" y="2962"/>
-        </scene>
-        <!--Navigation Controller-->
         <scene sceneID="t95-Ti-icp">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="XwM-0H-wI6" sceneMemberID="viewController">
@@ -1842,7 +1828,7 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="fKl-TQ-TQv"/>
-        <segue reference="FZp-6T-F1m"/>
+        <segue reference="oWh-IL-bug"/>
         <segue reference="zNL-pN-NjU"/>
         <segue reference="S6S-hJ-Kow"/>
         <segue reference="W6l-eq-cqv"/>
