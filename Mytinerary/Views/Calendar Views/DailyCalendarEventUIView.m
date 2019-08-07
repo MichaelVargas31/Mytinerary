@@ -35,7 +35,7 @@
     
     // Configuring appearance of the cell
     CGFloat screenWidth = [[UIScreen mainScreen] bounds].size.width;
-    [self setFrame:CGRectMake(60, self.topBorder, screenWidth - 68, self.eventLength)];
+    [self setFrame:CGRectMake(50, self.topBorder + 1, screenWidth - 58, self.eventLength - 2)];
     
     if ([event.category isEqualToString:@"activity"]) {
         self.backgroundColor = [Colors goldColor];
@@ -57,7 +57,7 @@
     [self setAlpha:.75];
     
     // Adding title label
-    UILabel *eventNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(8, 8, screenWidth - 68 - 16, 20)];
+    UILabel *eventNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(8, 8, screenWidth - 58 - 16, 20)];
     [eventNameLabel setTextColor:[UIColor blackColor]];
     [eventNameLabel setFont:[UIFont systemFontOfSize:14.0f weight:UIFontWeightMedium]];
     eventNameLabel.text = event.title;
