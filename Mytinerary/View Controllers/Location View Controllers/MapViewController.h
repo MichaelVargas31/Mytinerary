@@ -21,6 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) CLLocationManager *locationManager;
 @property (nonatomic, strong) CLLocation* currentLocation;
 @property (nonatomic, strong) MKAnnotationView *pin;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *mapMenuBtn;
 
 // emily did this, ask her about it
 @property (nonatomic, strong) Itinerary *itinerary;

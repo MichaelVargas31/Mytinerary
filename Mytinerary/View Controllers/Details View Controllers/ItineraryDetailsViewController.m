@@ -12,6 +12,7 @@
 #import "ProfileViewController.h"
 #import "AppDelegate.h"
 #import "EventTableViewCell.h"
+#import "ItineraryDetailsHeaderView.h"
 #import "EventDetailsViewController.h"
 #import "DateHeaderTableViewCell.h"
 #import "DeleteItineraryTableViewCell.h"
@@ -23,13 +24,8 @@
 
 static const int TABLE_VIEW_HEADER_HEIGHT = 44;
 
-@interface ItineraryDetailsViewController () <UITableViewDelegate, UITableViewDataSource>
+@interface ItineraryDetailsViewController () <UITableViewDelegate, UITableViewDataSource, InputItineraryViewControllerDelegate>
 
-// itinerary labels
-@property (weak, nonatomic) IBOutlet UILabel *titleLabel;
-@property (weak, nonatomic) IBOutlet UILabel *startTimeLabel;
-@property (weak, nonatomic) IBOutlet UILabel *endTimeLabel;
-@property (weak, nonatomic) IBOutlet UILabel *budgetLabel;
 
 // actions
 - (IBAction)didTapDeleteItinerary:(id)sender;
@@ -37,6 +33,7 @@ static const int TABLE_VIEW_HEADER_HEIGHT = 44;
 
 // events
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (weak, nonatomic) IBOutlet ItineraryDetailsHeaderView *headerView;
 @property (strong, nonatomic) NSArray *events;
 @property (strong, nonatomic) NSMutableArray *eventsByDay;
 
@@ -50,20 +47,18 @@ static const int TABLE_VIEW_HEADER_HEIGHT = 44;
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     
-    // setup date formatter
-    NSDateFormatter *dateFormatter = [DateFormatter hourDateFormatter];
     
-    // initialize labels on view
-    self.titleLabel.text = self.itinerary.title;
-    self.startTimeLabel.text = [dateFormatter stringFromDate:self.itinerary.startTime];
-    self.endTimeLabel.text = [dateFormatter stringFromDate:self.itinerary.endTime];
-    self.budgetLabel.text = [NSString stringWithFormat:@"$%@", self.itinerary.budget];
-    
+    [self configureHeader];
     // get itinerary's events
     [self reloadEventTable];
 }
 
+
+
 - (void)reloadEventTable {
+  
+    [self configureHeader];
+
     // get number of days in itinerary
     NSInteger numItinDays = [Date daysBetweenDate:self.itinerary.startTime andDate:self.itinerary.endTime];
     
@@ -98,7 +93,8 @@ static const int TABLE_VIEW_HEADER_HEIGHT = 44;
             }
             
             self.eventsByDay = eventsByDay;
-            [self.tableView reloadData];
+
+          [self.tableView reloadData];
         }
         else {
             NSLog(@"error loading events: %@", error);
@@ -181,7 +177,6 @@ static const int TABLE_VIEW_HEADER_HEIGHT = 44;
     NSDateFormatter *dateFormatter = [DateFormatter hourDateFormatter];
     
     EventTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"EventTableViewCell"];
-    
     Event *event = self.eventsByDay[indexPath.section][indexPath.row];
     
     cell.titleLabel.text = event.title;
@@ -206,6 +201,32 @@ static const int TABLE_VIEW_HEADER_HEIGHT = 44;
     
     return cell;
 }
+
+
+
+- (void)configureHeader {
+     // setup date formatter
+        NSDateFormatter *dateFormatter = [DateFormatter hourDateFormatter];
+    
+        // initialize labels on view
+        self.headerView.titleLabel.text = self.itinerary.title;
+        if (self.itinerary.image) {
+            [self.itinerary.image getDataInBackgroundWithBlock:^(NSData * _Nullable data, NSError * _Nullable error) {
+                if (data) {
+                    UIImage *image = [UIImage imageWithData:data];
+                    [self.headerView.imageView setImage:image];
+                } else {
+                    NSLog(@"error getting image data: %@", error.localizedDescription);
+                }
+            }];
+        }
+    
+        self.headerView.startTimeLabel.text = [dateFormatter stringFromDate:self.itinerary.startTime];
+        self.headerView.endTimeLabel.text = [dateFormatter stringFromDate:self.itinerary.endTime];
+        self.headerView.budgetLabel.text = [NSString stringWithFormat:@"$%@", self.itinerary.budget];
+        self.tableView.tableHeaderView = self.headerView;
+}
+
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     DateHeaderTableViewCell *header = [tableView dequeueReusableCellWithIdentifier:@"DateHeaderTableViewCell"];
@@ -235,9 +256,10 @@ static const int TABLE_VIEW_HEADER_HEIGHT = 44;
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([[segue identifier] isEqualToString:@"EditItinerarySegue"]) {
-        UINavigationController *navigationController = [segue destinationViewController];
-        InputItineraryViewController *inputItineraryViewController = [[navigationController viewControllers] firstObject];
+//        UINavigationController *navigationController = [segue destinationViewController];
+        InputItineraryViewController *inputItineraryViewController = [segue destinationViewController];
         inputItineraryViewController.itinerary = self.itinerary;
+        inputItineraryViewController.delegate = self;
     } else if ([segue.identifier isEqualToString:@"ItinDetailsToEventDetailsSegue"]) {
         EventDetailsViewController *detailsVC = [segue destinationViewController];
         detailsVC.event = sender;
@@ -247,5 +269,12 @@ static const int TABLE_VIEW_HEADER_HEIGHT = 44;
         revealVC.nextSegue = @"ToProfileSegue";
     }
 }
+
+
+- (void)didSaveItinerary {
+    [self configureHeader];
+    [self reloadEventTable];
+}
+
 
 @end
