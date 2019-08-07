@@ -160,6 +160,7 @@
 - (void)refreshViewUsingDate:(NSDate *)newDate {
     // make sure its the midnight version of the date
     newDate = [self.calendar startOfDayForDate:newDate];
+    
     // remove old events from screen
     for(UIView *view in [self.tableView subviews]) {
         if ([view isKindOfClass:[DailyCalendarEventUIView class]] == YES) {
@@ -285,7 +286,6 @@
     return cell;
 }
 
-
 - (NSInteger)collectionView:(nonnull UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     return self.eventsDictionary.count;     // dictionary has 1 entry per day in itinerary
 }
@@ -295,33 +295,24 @@
 
     WeekdayCollectionViewCell *cell = (WeekdayCollectionViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
     
-    //animates dates when cell is selected
-     if(cell.isSelected){
     [UIView beginAnimations:nil context:nil];
     [UIView setAnimationDuration:0.2];
-    [collectionView cellForItemAtIndexPath:indexPath].backgroundColor=[UIColor lightGrayColor];
-    [collectionView cellForItemAtIndexPath:indexPath].backgroundColor=[UIColor whiteColor];
-    [UIView commitAnimations];
-    }
+    cell.backgroundColor = [Colors darkLightBlueColor];
+    cell.dateLabel.backgroundColor = [Colors darkBlueColor];
     
+    // refresh events calendar view
     [self refreshViewUsingDate:cell.date];
     self.displayedDate = cell.date;
-
-   // cell.dateLabel.backgroundColor = [UIColor colorWithRed:.5 green:.5 blue:.5 alpha:1];
     
-    // only refresh view if dates have already been loaded
-    if (cell.date) {
-         [self refreshViewUsingDate:cell.date];
-         self.displayedDate = cell.date;
-    }
-
+    [UIView commitAnimations];
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath {
     WeekdayCollectionViewCell *cell = (WeekdayCollectionViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
-    
-   // cell.dateLabel.backgroundColor = [UIColor colorWithRed:.2 green:.6 blue:.99 alpha:1];
-    }
+    // color styling
+    cell.backgroundColor = [Colors lightBlueColor];
+    cell.dateLabel.backgroundColor = [Colors blueColor];
+}
 
 #pragma - Transportation
 

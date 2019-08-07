@@ -9,16 +9,9 @@
 #import "DailyCalendarEventUIView.h"
 #import "DailyCalendarViewController.h"
 #import "DailyTableViewCell.h"
+#import "Colors.h"
 
 @implementation DailyCalendarEventUIView
-
-/*
- // Only override drawRect: if you perform custom drawing.
- // An empty implementation adversely affects performance during animation.
- - (void)drawRect:(CGRect)rect {
- // Drawing code
- }
- */
 
 - (void)createEventViewWithEventModel:(Event *)event {
     // assign event as view property
@@ -40,26 +33,50 @@
     self.topBorder = (eventStartHour * rowHeight)*2 + ((eventStartMinute/30.0) * rowHeight);
     self.eventLength = (eventEndHour * rowHeight)*2 + ((eventEndMinute/30.0) * rowHeight) - self.topBorder;
     
-    
     // Configuring appearance of the cell
-    [self setFrame:CGRectMake(60, self.topBorder, 320, self.eventLength)];
-    [self setBackgroundColor:[UIColor lightGrayColor]];
-    self.layer.borderColor = [UIColor blueColor].CGColor;
-    self.layer.borderWidth = 3.0f;
+    CGFloat screenWidth = [[UIScreen mainScreen] bounds].size.width;
+    [self setFrame:CGRectMake(60, self.topBorder, screenWidth - 68, self.eventLength)];
+    
+    if ([event.category isEqualToString:@"activity"]) {
+        self.backgroundColor = [Colors goldColor];
+        [self addLeftBorderWithColor:[Colors darkGoldColor] andWidth:3.0f];
+    }
+    else if ([event.category isEqualToString:@"transportation"]) {
+        self.backgroundColor = [Colors purpleColor];
+        [self addLeftBorderWithColor:[Colors darkPurpleColor] andWidth:3.0f];
+    }
+    else if ([event.category isEqualToString:@"food"]) {
+        self.backgroundColor = [Colors redColor];
+        [self addLeftBorderWithColor:[Colors darkRedColor] andWidth:3.0f];
+    }
+    else if ([event.category isEqualToString:@"hotel"]) {
+        self.backgroundColor = [Colors blueColor];
+        [self addLeftBorderWithColor:[Colors darkBlueColor] andWidth:3.0f];
+    }
+    
     [self setAlpha:.75];
     
     // Adding title label
-    UILabel *eventNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 10, 100, 20)];
+    UILabel *eventNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(8, 8, screenWidth - 68 - 16, 20)];
     [eventNameLabel setTextColor:[UIColor blackColor]];
-    [eventNameLabel setBackgroundColor:[UIColor redColor]];
-    [eventNameLabel setFont:[UIFont fontWithName: @"Trebuchet MS" size: 14.0f]];
+    [eventNameLabel setFont:[UIFont systemFontOfSize:14.0f weight:UIFontWeightMedium]];
     eventNameLabel.text = event.title;
+    [eventNameLabel sizeToFit];
     [self addSubview:eventNameLabel];
     
     // Add tap gesture recognizer
     [self setUserInteractionEnabled:YES];
     UITapGestureRecognizer *eventTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didTapEvent:)];
     [self addGestureRecognizer:eventTap];
+}
+
+//https://stackoverflow.com/questions/17355280/how-to-add-a-border-just-on-the-top-side-of-a-uiview
+- (void)addLeftBorderWithColor:(UIColor *)color andWidth:(CGFloat) borderWidth {
+    UIView *border = [UIView new];
+    border.backgroundColor = color;
+    border.frame = CGRectMake(0, 0, borderWidth, self.frame.size.height);
+    [border setAutoresizingMask:UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleRightMargin];
+    [self addSubview:border];
 }
 
 - (void)didTapEvent:(UITapGestureRecognizer *)sender {

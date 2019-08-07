@@ -15,12 +15,24 @@
     return [Colors colorWithHue:32 saturation:67 brightness:99 alpha:1];
 }
 
++ (UIColor *)darkGoldColor {
+    return [Colors colorWithHue:32 saturation:67 brightness:79 alpha:1];
+}
+
 + (UIColor *)redColor {
     return [Colors colorWithHue:357 saturation:59 brightness:79 alpha:1];
 }
 
++ (UIColor *)darkRedColor {
+    return [Colors colorWithHue:357 saturation:59 brightness:59 alpha:1];
+}
+
 + (UIColor *)purpleColor {
     return [Colors colorWithHue:332 saturation:22 brightness:68 alpha:1];
+}
+
++ (UIColor *)darkPurpleColor {
+    return [Colors colorWithHue:332 saturation:22 brightness:48 alpha:1];
 }
 
 + (UIColor *)periwinkleColor {
@@ -32,7 +44,7 @@
 }
 
 + (UIColor *)darkLightBlueColor {
-    return [Colors colorWithHue:225 saturation:50 brightness:90 alpha:1];
+    return [Colors colorWithHue:225 saturation:50 brightness:70 alpha:1];
 }
 
 + (UIColor *)blueColor {
@@ -40,7 +52,7 @@
 }
 
 + (UIColor *)darkBlueColor {
-    return [Colors colorWithHue:225 saturation:67 brightness:76 alpha:1];
+    return [Colors colorWithHue:225 saturation:67 brightness:56 alpha:1];
 }
 
 // converts values from out of 360:100:100:1 --> 1:1:1:1

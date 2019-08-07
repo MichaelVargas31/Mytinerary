@@ -833,11 +833,8 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ecC-45-JY5">
-                                <rect key="frame" x="0.0" y="140" width="375" height="483"/>
+                                <rect key="frame" x="0.0" y="141" width="375" height="482"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="483" id="dlf-m6-e15"/>
-                                </constraints>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="DailyEventCell" rowHeight="99" id="WRN-i9-cQ4" customClass="DailyTableViewCell">
                                         <rect key="frame" x="0.0" y="28" width="375" height="99"/>
@@ -935,12 +932,16 @@
                         <constraints>
                             <constraint firstItem="jpi-hd-an0" firstAttribute="leading" secondItem="BQN-GC-MwF" secondAttribute="leading" id="1Il-bs-pic"/>
                             <constraint firstAttribute="bottom" secondItem="w80-C5-rJ4" secondAttribute="bottom" id="5OV-SM-CYr"/>
+                            <constraint firstItem="w80-C5-rJ4" firstAttribute="top" secondItem="ecC-45-JY5" secondAttribute="bottom" id="5m6-YC-z3t"/>
                             <constraint firstItem="ecC-45-JY5" firstAttribute="leading" secondItem="BQN-GC-MwF" secondAttribute="leading" id="AGr-rQ-ft4"/>
                             <constraint firstItem="ecC-45-JY5" firstAttribute="bottom" secondItem="BQN-GC-MwF" secondAttribute="bottom" id="Cox-Zb-MFE"/>
+                            <constraint firstItem="ecC-45-JY5" firstAttribute="top" secondItem="jpi-hd-an0" secondAttribute="bottom" id="HMT-XD-dg7"/>
                             <constraint firstItem="jpi-hd-an0" firstAttribute="top" secondItem="BQN-GC-MwF" secondAttribute="top" id="M0v-14-AaH"/>
                             <constraint firstItem="w80-C5-rJ4" firstAttribute="leading" secondItem="e7X-fC-HXC" secondAttribute="leading" id="W50-5V-iXd"/>
+                            <constraint firstItem="ecC-45-JY5" firstAttribute="leading" secondItem="BQN-GC-MwF" secondAttribute="leading" id="axl-VP-pMV"/>
                             <constraint firstItem="jpi-hd-an0" firstAttribute="trailing" secondItem="BQN-GC-MwF" secondAttribute="trailing" id="c3o-6M-mdM"/>
                             <constraint firstAttribute="trailing" secondItem="w80-C5-rJ4" secondAttribute="trailing" id="fJk-fo-rxW"/>
+                            <constraint firstItem="ecC-45-JY5" firstAttribute="trailing" secondItem="BQN-GC-MwF" secondAttribute="trailing" id="g3F-5V-qUo"/>
                             <constraint firstItem="ecC-45-JY5" firstAttribute="trailing" secondItem="BQN-GC-MwF" secondAttribute="trailing" id="nYG-58-NeO"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="BQN-GC-MwF"/>
