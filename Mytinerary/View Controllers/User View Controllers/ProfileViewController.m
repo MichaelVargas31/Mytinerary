@@ -119,8 +119,6 @@
         }
     }
     
-    cell.title.layer.cornerRadius = 15;
-    cell.imageView.layer.cornerRadius = 15;
     cell.layer.cornerRadius = 10;
     
     
