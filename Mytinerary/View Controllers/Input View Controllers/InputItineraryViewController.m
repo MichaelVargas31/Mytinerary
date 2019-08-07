@@ -153,7 +153,7 @@
             [self.delegate didSaveItinerary];   // Tells the itinerary details view controller to update
             [self dismissViewControllerAnimated:YES completion:nil];
         } else {
-            self.itinerary = [Itinerary initNewItinerary:title startTime:startTime endTime:endTime budget:budget withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
+            self.itinerary = [Itinerary initNewItinerary:title startTime:startTime endTime:endTime budget:budget imageFile:self.itinerary.image withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
                 if (succeeded) {
                     [self performSegueWithIdentifier:@"AddNewItineraryToDailyCalendarSegue" sender:nil];
                 }
