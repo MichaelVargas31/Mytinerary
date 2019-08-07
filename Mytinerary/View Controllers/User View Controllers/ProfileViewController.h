@@ -13,6 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface ProfileViewController : UIViewController
 
 @property (strong, nonatomic) NSArray *iArray;
+@property (strong, nonatomic) NSArray *itineraryImageArray;
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (weak, nonatomic) IBOutlet UILabel *usernameLabel;
 

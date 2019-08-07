@@ -14,12 +14,14 @@
 #import "ProfileCollectionReusableView.h"
 #import "Itinerary.h"
 #import "Parse/Parse.h"
+#import "ProgressIndicatorView.h"
 #import "User.h"
 #import "SWRevealViewController.h"
 
 
 @interface ProfileViewController () <UICollectionViewDelegate, UICollectionViewDataSource>
 
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 
 @end
 
@@ -52,6 +54,10 @@
     layout.itemSize= CGSizeMake(itemWidth, itemHeight);
     
     [self sideMenus];
+    [self.activityIndicator startAnimating];
+    [self.collectionView reloadData];
+    [self.activityIndicator stopAnimating];
+    
 }
 
 -(void) sideMenus{
@@ -84,10 +90,14 @@
             iQuery.limit = 100;
             
             //fetch data
-            [iQuery findObjectsInBackgroundWithBlock:^(NSArray<Itinerary *> * itinerary, NSError *  error) {
-                if(itinerary){
-                    self.iArray = itinerary;
+            [iQuery findObjectsInBackgroundWithBlock:^(NSArray<Itinerary *> * itineraryArray, NSError *  error) {
+                if(itineraryArray){
+                    self.iArray = itineraryArray;
+                    
+                    
+                    [self.activityIndicator startAnimating];
                     [self.collectionView reloadData];
+                    [self.activityIndicator stopAnimating];
                 }
                 else{
                     NSLog(@"Error fetching data");
@@ -104,6 +114,15 @@
     Itinerary *itinerary = self.iArray[indexPath.item];
     cell.itinerary = itinerary;
     cell.title.text=itinerary.title;
+    if (itinerary.image) {
+        NSData *imageData = [itinerary.image getData];
+        if (imageData) {
+            UIImage *image = [UIImage imageWithData:imageData];
+            [cell.imageView setImage:image];
+            cell.imageView.image = image;
+        }
+    }
+    
     
     return cell;
 }

@@ -90,6 +90,11 @@
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
+                                <activityIndicatorView key="backgroundView" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="whiteLarge" id="OgC-Tj-A05">
+                                    <rect key="frame" x="0.0" y="-64" width="375" height="667"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <color key="color" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </activityIndicatorView>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" alpha="0.65000000000000002" contentMode="center" reuseIdentifier="ItineraryCollectionViewCell" id="BAq-YN-vSf" customClass="ItineraryCollectionViewCell">
                                         <rect key="frame" x="0.0" y="210" width="106" height="127"/>
@@ -115,6 +120,7 @@
                                         <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <gestureRecognizers/>
                                         <connections>
+                                            <outlet property="imageView" destination="ngw-Ox-IOr" id="yxi-bU-EBN"/>
                                             <outlet property="title" destination="uBf-lI-Qa4" id="MrN-nA-NQ1"/>
                                         </connections>
                                     </collectionViewCell>
@@ -161,6 +167,7 @@
                         <barButtonItem key="leftBarButtonItem" image="Menu Image" id="cAq-5g-GJT"/>
                     </navigationItem>
                     <connections>
+                        <outlet property="activityIndicator" destination="OgC-Tj-A05" id="ybY-Ks-SNA"/>
                         <outlet property="collectionView" destination="PWN-zR-u73" id="85v-RW-p1V"/>
                         <outlet property="mB" destination="cAq-5g-GJT" id="dhD-M2-bRr"/>
                         <segue destination="AST-nT-DsT" kind="showDetail" identifier="calendarSegue" id="oWh-IL-bug"/>
