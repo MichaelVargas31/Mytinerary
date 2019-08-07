@@ -48,6 +48,7 @@
     UIButton *button = [[UIButton alloc] init];
     [button setAccessibilityFrame:CGRectMake(0, 0, 100, 40)];
     [button setTitle:self.itinerary.title forState:UIControlStateNormal];
+    [button.titleLabel setFont:[UIFont systemFontOfSize:18.0f weight:UIFontWeightBold]];
     [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [button addTarget:self action:@selector(onTapItineraryTitle) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.titleView = button;
