@@ -356,11 +356,12 @@
                                 <rect key="frame" x="32" y="193" width="311" height="124"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="R5j-sK-jky">
-                                <rect key="frame" x="32" y="193" width="74" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="R5j-sK-jky">
+                                <rect key="frame" x="32" y="195" width="125" height="29"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <state key="normal" title="Add Image"/>
+                                <state key="normal" title="  Add Image" image="Camera Image">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
                                 <connections>
                                     <action selector="didTapAddImage:" destination="vAc-0f-oMv" eventType="touchUpInside" id="iDy-DM-IJA"/>
                                 </connections>
@@ -1923,7 +1924,7 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="fKl-TQ-TQv"/>
-        <segue reference="ISd-z3-EBT"/>
+        <segue reference="RmN-u0-S7V"/>
         <segue reference="zNL-pN-NjU"/>
         <segue reference="S6S-hJ-Kow"/>
         <segue reference="W6l-eq-cqv"/>
