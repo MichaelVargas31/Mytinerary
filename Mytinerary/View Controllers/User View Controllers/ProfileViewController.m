@@ -41,18 +41,15 @@
     //fetch itineraries
     [self fetchitineraries];
     
-    //flow layout
-    UICollectionViewFlowLayout *layout = (UICollectionViewFlowLayout *) self.collectionView.collectionViewLayout;
+    // layout of collection view
+    UICollectionViewFlowLayout *layout = (UICollectionViewFlowLayout *)self.collectionView.collectionViewLayout;
+    layout.minimumInteritemSpacing = 5;
+    layout.minimumLineSpacing = 5;
+    CGFloat postersPerLine = 3;
+    CGFloat itemWidth = (self.collectionView.frame.size.width - layout.minimumInteritemSpacing * (postersPerLine - 1)) / postersPerLine;
+    CGFloat itemHeight = 1.3 * itemWidth;
+    layout.itemSize = CGSizeMake(itemWidth, itemHeight);
     
-    //spacing
-    
-    //posters per line (maybe) CGFloat postersPerLine=2;
-    
-    //item size
-    //Fix size later to make it look better
-    CGFloat itemWidth = 100;
-    CGFloat itemHeight = 100;
-    layout.itemSize= CGSizeMake(itemWidth, itemHeight);
     
     [self sideMenus];
     [self.collectionView reloadData];
