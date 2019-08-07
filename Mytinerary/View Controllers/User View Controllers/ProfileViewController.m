@@ -43,10 +43,10 @@
     
     // layout of collection view
     UICollectionViewFlowLayout *layout = (UICollectionViewFlowLayout *)self.collectionView.collectionViewLayout;
-    layout.minimumInteritemSpacing = 5;
-    layout.minimumLineSpacing = 5;
+    layout.minimumInteritemSpacing = 10;
+    layout.minimumLineSpacing = 10;
     CGFloat postersPerLine = 3;
-    CGFloat itemWidth = (self.collectionView.frame.size.width - layout.minimumInteritemSpacing * (postersPerLine - 1)) / postersPerLine;
+    CGFloat itemWidth = (self.collectionView.frame.size.width - layout.minimumInteritemSpacing * (postersPerLine - 1) - layout.sectionInset.right * 2) / postersPerLine;
     CGFloat itemHeight = 1.3 * itemWidth;
     layout.itemSize = CGSizeMake(itemWidth, itemHeight);
     
@@ -118,6 +118,10 @@
             cell.imageView.image = image;
         }
     }
+    
+    cell.title.layer.cornerRadius = 15;
+    cell.imageView.layer.cornerRadius = 15;
+    cell.layer.cornerRadius = 10;
     
     
     return cell;
