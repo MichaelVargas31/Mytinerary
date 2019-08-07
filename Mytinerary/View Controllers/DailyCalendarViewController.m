@@ -92,9 +92,7 @@
         self.alertButton.action = @selector(rightRevealToggle:);
         
         [self.view addGestureRecognizer:self.revealViewController.panGestureRecognizer];
-        
     }
-    
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -134,6 +132,7 @@
     UIButton *button = [[UIButton alloc] init];
     [button setAccessibilityFrame:CGRectMake(0, 0, 100, 40)];
     [button setTitle:self.itinerary.title forState:UIControlStateNormal];
+    [button.titleLabel setFont:[UIFont systemFontOfSize:18.0f weight:UIFontWeightBold]];
     [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [button addTarget:self action:@selector(onTapItineraryTitle) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.titleView = button;
@@ -313,8 +312,6 @@
     cell.backgroundColor = [Colors lightBlueColor];
     cell.dateLabel.backgroundColor = [Colors blueColor];
 }
-
-#pragma - Transportation
 
 // automatically makes transportations events for the currently displayed day
 - (IBAction)onTapAutoTransportButton:(id)sender {
