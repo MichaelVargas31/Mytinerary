@@ -26,6 +26,7 @@
 #import "SWRevealViewController.h"
 #import "Itinerary.h"
 #import "User.h"
+#import "Colors.h"
 
 @interface DailyCalendarViewController () <UITableViewDelegate, UITableViewDataSource, CalendarEventViewDelegate, UICollectionViewDelegate, UICollectionViewDataSource, InputEventViewControllerDelegate, EventDetailsViewControllerDelegate>
 
@@ -276,6 +277,11 @@
     
     NSArray *individualDayEvents = [NSArray arrayWithArray:self.eventsDictionary[date]];
     cell.eventArray = individualDayEvents;
+    
+    // color styling
+    cell.backgroundColor = [Colors lightBlueColor];
+    cell.dateLabel.backgroundColor = [Colors blueColor];
+    
     return cell;
 }
 
