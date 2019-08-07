@@ -269,20 +269,32 @@
 }
 
 - (void)didDeleteEvent:(nonnull Event *)deletedEvent {
+    // get rid of it in parse (update the itinerary object)
+    [Event deleteEvent:deletedEvent itinerary:self.itinerary withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
+        if (succeeded) {
+            NSLog(@"successfully deleted '%@'", deletedEvent.title);
+        }
+        else {
+            NSLog(@"error deleting '%@': %@", deletedEvent.title, error.domain);
+        }
+    }];
+    
     [self didUpdateEvent:deletedEvent];
 }
 
 - (void)didUpdateEvent:(nonnull Event *)updatedEvent {
     [self.events removeObject:updatedEvent];
     
-    // remove from polyline events and overlays
-    NSInteger updatedEventIdx = [self.routePolylineEvents indexOfObject:updatedEvent];
-    [self.routePolylineEvents removeObject:updatedEvent];
-    [self.mapView removeOverlay:self.mapView.overlays[updatedEventIdx]];
+    // if transportation object, remove route polyline overlays + corresponding events
+    if ([updatedEvent.category isEqualToString:@"transportation"]) {
+        NSInteger updatedEventIdx = [self.routePolylineEvents indexOfObject:updatedEvent];
+        [self.routePolylineEvents removeObject:updatedEvent];
+        [self.mapView removeOverlay:self.mapView.overlays[updatedEventIdx]];
+    }
     
     // remove from all annotations
     NSArray <EventAnnotation *> *mapAnnotations = self.mapView.annotations;
-    updatedEventIdx = [mapAnnotations indexOfObjectPassingTest:^BOOL(EventAnnotation * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+    NSInteger updatedEventIdx = [mapAnnotations indexOfObjectPassingTest:^BOOL(EventAnnotation * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         return [obj.event.objectId isEqualToString:updatedEvent.objectId];
     }];
     [self.mapView removeAnnotation:self.mapView.annotations[updatedEventIdx]];
