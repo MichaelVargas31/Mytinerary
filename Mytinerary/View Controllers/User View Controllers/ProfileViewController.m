@@ -55,9 +55,7 @@
     layout.itemSize= CGSizeMake(itemWidth, itemHeight);
     
     [self sideMenus];
-    [self.activityIndicator startAnimating];
     [self.collectionView reloadData];
-    [self.activityIndicator stopAnimating];
     
 }
 
@@ -79,6 +77,7 @@
 }
 
 -(void)fetchitineraries {
+    [self.activityIndicator startAnimating];
     //Itinerary Query
     PFQuery *iQuery = [Itinerary query];
     //Search Where author of itineraries is equal to the current user logged in
@@ -96,7 +95,6 @@
                     self.iArray = itineraryArray;
                     
                     
-                    [self.activityIndicator startAnimating];
                     [self.collectionView reloadData];
                     [self.activityIndicator stopAnimating];
                 }

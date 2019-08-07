@@ -15,7 +15,7 @@
 		2393755B22F9DEE7002CBAA7 /* InputProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2393755A22F9DEE7002CBAA7 /* InputProfileViewController.m */; };
 		2393756122FA2652002CBAA7 /* TransportationEventAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2393756022FA2652002CBAA7 /* TransportationEventAnnotationView.m */; };
 		2393756722FA29D2002CBAA7 /* Image.m in Sources */ = {isa = PBXBuildFile; fileRef = 2393756622FA29D2002CBAA7 /* Image.m */; };
-		23F1C5DD22FB479700ADF49B /* MyAnnotation.h in Sources */ = {isa = PBXBuildFile; fileRef = 8468099622E93EAF001F9F0C /* MyAnnotation.h */; };
+		23F1C5DD22FB479700ADF49B /* EventAnnotation.h in Sources */ = {isa = PBXBuildFile; fileRef = 8468099622E93EAF001F9F0C /* EventAnnotation.h */; };
 		23F1C5E322FB506700ADF49B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FF6C5EFD22DE640200D0EB83 /* Main.storyboard */; };
 		23F1C5E522FB51CC00ADF49B /* Keys.plist in Resources */ = {isa = PBXBuildFile; fileRef = 23F1C5E422FB51CC00ADF49B /* Keys.plist */; };
 		23F5A9E922DFE59A0084086B /* InputItineraryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 23F5A9E822DFE59A0084086B /* InputItineraryViewController.m */; };
@@ -638,7 +638,6 @@
 				2393755822F8DB1D002CBAA7 /* (null) in Resources */,
 				FF6C5F0422DE640200D0EB83 /* LaunchScreen.storyboard in Resources */,
 				FF6C5F0122DE640200D0EB83 /* Assets.xcassets in Resources */,
-				FF6C5EFF22DE640200D0EB83 /* Main.storyboard in Resources */,
 				FFC18FD422FB3BB800932B68 /* Keys.plist in Resources */,
 				23F1C5E522FB51CC00ADF49B /* Keys.plist in Resources */,
 				23F1C5E322FB506700ADF49B /* Main.storyboard in Resources */,
@@ -754,7 +753,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				23F1C5DD22FB479700ADF49B /* MyAnnotation.h in Sources */,
+				23F1C5DD22FB479700ADF49B /* EventAnnotation.h in Sources */,
 				23F5AA5322E61DF40084086B /* EventDetailsFoodView.m in Sources */,
 				23F5A9F222E0DEAD0084086B /* EventInputActivityView.m in Sources */,
 				FF05D5C522F3B0F8003014E3 /* SWRevealViewController.m in Sources */,
@@ -977,13 +976,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = JW339Z77B6;
+				DEVELOPMENT_TEAM = 82F2G2LCDZ;
 				INFOPLIST_FILE = Mytinerary/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.Mytinerary;
+				PRODUCT_BUNDLE_IDENTIFIER = com.FBU.Mytinerary;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -995,13 +994,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = JW339Z77B6;
+				DEVELOPMENT_TEAM = 82F2G2LCDZ;
 				INFOPLIST_FILE = Mytinerary/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.Mytinerary;
+				PRODUCT_BUNDLE_IDENTIFIER = com.FBU.Mytinerary;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
