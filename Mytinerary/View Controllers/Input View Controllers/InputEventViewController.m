@@ -256,6 +256,15 @@ static int const EVENT_INPUT_SUBMIT_VIEW_HEIGHT = 50;
         }
         else if ([selectedCategory isEqualToString:@"transportation"]) {
             event = [self updateTransportationEvent:self.event];
+            [event updateTransportationEventTypeAndTimes:event.transpoType startTime:event.startTime endTime:event.endTime withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
+                if (succeeded) {
+                    NSLog(@"successfully updated event ETA");
+                    [self.delegate didUpdateEvent:event];
+                }
+                else {
+                    NSLog(@"unable to update event ETA");
+                }
+            }];
         }
         else if ([selectedCategory isEqualToString:@"food"]) {
             event = [self updateFoodEvent:self.event];

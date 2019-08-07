@@ -50,4 +50,6 @@
 
 + (void)resetDefaultItinerary:(PFUser *)user itinerary:(Itinerary *)itinerary withCompletion:(PFBooleanResultBlock)completion;
 
+- (void)updateUser:(NSString *)username password:(NSString *)password defaultItinerary:(Itinerary *)defaultItinerary withCompletion:(PFBooleanResultBlock)completion;
+
 @end

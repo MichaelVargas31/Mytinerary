@@ -173,9 +173,19 @@
 }
 
 - (Event *) updateTransportationEventTypeAndTimes:(NSString *)transpoType startTime:(NSDate *)startTime endTime:(NSDate *)endTime withCompletion:(PFBooleanResultBlock)completion {
-    Event *updatedEvent = [self updateTransportationEvent:self.title eventDescription:self.eventDescription startAddress:self.address startLatitude:self.latitude startLongitude:self.longitude endAddress:self.endAddress endLatitude:self.endLatitude endLongitude:self.endLongitude startTime:startTime endTime:endTime transpoType:transpoType cost:self.cost.floatValue notes:self.notes withCompletion:completion];
     
-    return updatedEvent;
+    [Directions getETALatLng:self.latitude startLng:self.longitude endLat:self.endLatitude endLng:self.endLongitude departureDate:startTime transpoType:transpoType withCompletion:^(MKETAResponse * _Nullable response, NSError * _Nullable error) {
+        if (response) {
+            NSDate *endTime = [NSDate dateWithTimeInterval:response.expectedTravelTime sinceDate:startTime];
+            
+            [self updateTransportationEvent:self.title eventDescription:self.eventDescription startAddress:self.address startLatitude:self.latitude startLongitude:self.longitude endAddress:self.endAddress endLatitude:self.endLatitude endLongitude:self.endLongitude startTime:startTime endTime:endTime transpoType:transpoType cost:self.cost.floatValue notes:self.notes withCompletion:completion];
+        }
+        else {
+            NSLog(@"error getting ETA: %@", error.domain);
+        }
+    }];
+    
+    return self;
 }
 
 /* initialize a food event
