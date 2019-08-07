@@ -195,8 +195,6 @@
             // keep corresponding transpo events parallel with overlays
             [self showDirection:route transpoEvent:event];
             [self.routePolylineEvents addObject:event];
-            
-            [self updateTransportationEvent:event route:route];
         }
         else {
             NSLog(@"error getting directions for '%@': %@", event.title, error);
@@ -211,39 +209,6 @@
     MKMapPoint middlePoint = route.polyline.points[route.polyline.pointCount/2];
     EventAnnotation *annotation = [EventAnnotation initAnnotationWithEventForCoordinate:transpoEvent coordinate:MKCoordinateForMapPoint(middlePoint)];
     [self.mapView addAnnotation:annotation];
-}
-
-- (void)updateTransportationEvent:(Event *)event route:(MKRoute *)route {
-    NSTimeInterval timeElapsed = route.expectedTravelTime;
-    NSDate *updatedEndTime = [NSDate dateWithTimeInterval:timeElapsed sinceDate:event.startTime];
-    
-    NSString *transpoType = [[NSString alloc] init];
-    switch (route.transportType) {
-        case MKDirectionsTransportTypeWalking:
-            transpoType = @"walk";
-            break;
-        case MKDirectionsTransportTypeTransit:
-            transpoType = @"transit";
-            break;
-        case MKDirectionsTransportTypeAutomobile:
-            transpoType = @"drive";
-            break;
-        case MKDirectionsTransportTypeAny:
-            transpoType = @"ride";
-            break;
-        default:
-            transpoType = @"other";
-            break;
-    }
-    
-    [event updateTransportationEventTypeAndTimes:transpoType startTime:event.startTime endTime:updatedEndTime withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
-        if (succeeded) {
-            NSLog(@"transportation times/type successfully updated");
-        }
-        else {
-            NSLog(@"error updating transpo event times/type: %@", error);
-        }
-    }];
 }
 
 - (MKOverlayRenderer *)mapView:(MKMapView *)mapView rendererForOverlay:(id<MKOverlay>)overlay {

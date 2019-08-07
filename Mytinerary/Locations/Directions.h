@@ -18,6 +18,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (void)getDirectionsLatLng:(NSNumber *)startLat startLng:(NSNumber *)startLng endLat:(NSNumber *)endLat endLng:(NSNumber *)endLng departureDate:(NSDate *)departureDate transpoType:(NSString *)transpoType withCompletion:(MKDirectionsHandler _Nonnull)completion;
 
++ (void)getETALatLng:(NSNumber *)startLat startLng:(NSNumber *)startLng endLat:(NSNumber *)endLat endLng:(NSNumber *)endLng departureDate:(NSDate *)departureDate transpoType:(NSString *)transpoType withCompletion:(MKETAHandler _Nonnull)completion;
+
 + (void)openTransportationEventInMaps:(Event *)event;
 
 + (Event *)makeTransportationEventFromEvents:(Event *)startEvent endEvent:(Event *)endEvent withCompletion:(PFBooleanResultBlock)completion;

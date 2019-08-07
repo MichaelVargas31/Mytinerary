@@ -35,6 +35,13 @@
     else if ([eventAnnotation.event.transpoType isEqualToString:@"walk"]) {
         image = [UIImage imageNamed:@"walking"];
     }
+    else if ([eventAnnotation.event.transpoType isEqualToString:@"transit"]) {
+        image = [UIImage imageNamed:@"bus"];
+    }
+    else {
+        image = [UIImage imageNamed:@"teal-car"];
+    }
+    
     UIImage *resizedImage = [Image imageWithImage:image scaledToFillSize:CGSizeMake(35, 35)];
     self.image = resizedImage;
 }
