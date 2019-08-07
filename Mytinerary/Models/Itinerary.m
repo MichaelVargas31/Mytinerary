@@ -14,6 +14,7 @@
 @dynamic totalCost;
 @dynamic budget;
 @dynamic title;
+@dynamic image;
 
 + (nonnull NSString *)parseClassName {
     return @"Itinerary";
@@ -42,6 +43,12 @@
     [itinerary saveInBackgroundWithBlock:completion];
     
     return itinerary;
+}
+
+- (void)addImageToItinerary:(Itinerary *)itinerary image:(PFFileObject *)image withCompletion:(PFBooleanResultBlock)completion {
+    NSLog(@"adding photo to itinerary '%@'", itinerary.title);
+    itinerary.image = image;
+    [self updateItinerary:itinerary];
 }
 
 - (BOOL)isEventDateValid:(NSDate *)eventStartTime eventEndTime:(NSDate *)eventEndTime {

@@ -39,6 +39,8 @@
     self.mapView.delegate = self;
     [self.mapView setShowsUserLocation:false];
     
+    [self sideMenus];
+    
     // initialize empty mutable array
     self.routePolylineEvents = [[NSMutableArray alloc] init];
     
@@ -65,6 +67,23 @@
     
     // setup custom annotation view
     [self.mapView registerClass:[TransportationEventAnnotationView class] forAnnotationViewWithReuseIdentifier:@"TransportationEventAnnotationView"];
+}
+
+
+-(void)sideMenus{
+    
+    if(self.revealViewController != nil){
+        self.mapMenuBtn.target = self.revealViewController;
+        self.mapMenuBtn.action = @selector(revealToggle:);
+        self.revealViewController.rearViewRevealWidth = 275;
+        self.revealViewController.rightViewRevealWidth = 160;
+        
+     
+        
+        [self.view addGestureRecognizer:self.revealViewController.panGestureRecognizer];
+        
+    }
+    
 }
 
 - (void)makeEventAnnotations {
@@ -176,7 +195,9 @@
 }
 
 - (IBAction)onTapCalendarButton:(id)sender {
-    [self performSegueWithIdentifier:@"mapToCalendarSegue" sender:nil];
+
+      //goes back to daily calendar
+     [self performSegueWithIdentifier:@"mapToCalendarSegue" sender:nil];
 }
 
 - (void)onTapItineraryTitle {
