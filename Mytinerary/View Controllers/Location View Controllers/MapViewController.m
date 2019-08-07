@@ -20,11 +20,11 @@
 
 #import "EventAnnotation.h"
 #import "TransportationEventAnnotationView.h"
+#import "Colors.h"
 
-@interface MapViewController () <CLLocationManagerDelegate, MKMapViewDelegate, MKAnnotation>
+@interface MapViewController () <CLLocationManagerDelegate, MKMapViewDelegate, MKAnnotation, EventDetailsViewControllerDelegate>
 
-@property (strong, nonatomic) Event *event;
-@property (nonatomic, strong) NSArray *events;
+@property (nonatomic, strong) NSMutableArray *events;
 @property (strong, nonatomic) NSMutableArray <Event *> *routePolylineEvents; // parallel with mapkit's polyline overlays (representing transportation events)
 
 @end
@@ -53,11 +53,11 @@
     self.navigationItem.titleView = button;
     
     // get itinerary events
-    self.events = self.itinerary.events;
+    self.events = [NSMutableArray arrayWithArray:self.itinerary.events];
     [Event fetchAllIfNeededInBackground:self.events block:^(NSArray * _Nullable objects, NSError * _Nullable error) {
         if (objects) {
             NSLog(@"successfully loaded events from '%@'", self.itinerary.title);
-            self.events = objects;
+            self.events = [NSMutableArray arrayWithArray:objects];
             [self makeEventAnnotations];
         }
         else {
@@ -147,16 +147,16 @@
                 }
                 switch (eventAnnotation.group) {
                     case 1: // food
-                        pinView.pinTintColor = UIColor.purpleColor;
+                        pinView.pinTintColor = [Colors redColor];
                         break;
                     case 2: // activity
-                        pinView.pinTintColor = UIColor.yellowColor;
+                        pinView.pinTintColor = [Colors goldColor];
                         break;
                     case 3: // hotel
-                        pinView.pinTintColor = UIColor.redColor;
+                        pinView.pinTintColor = [Colors blueColor];
                         break;
                     default: // should never get here
-                        pinView.pinTintColor = UIColor.greenColor;
+                        pinView.pinTintColor = [Colors goldColor];
                         break;
                 }
                 pinView.annotation = self;
@@ -241,7 +241,7 @@
     if ([overlay isKindOfClass:[MKPolyline class]]) {
         MKPolylineRenderer *renderer = [[MKPolylineRenderer alloc] initWithOverlay:overlay];
         [renderer setLineWidth:4.0];
-        [renderer setStrokeColor:[UIColor blueColor]];
+        [renderer setStrokeColor:[Colors periwinkleColor]];
         return renderer;
     }
     return nil;
@@ -260,11 +260,34 @@
         Event *event = sender;
         EventDetailsViewController *eventDetailsViewController = [segue destinationViewController];
         eventDetailsViewController.event = event;
+        eventDetailsViewController.delegate = self;
     }
     else if ([[segue identifier] isEqualToString:@"mapToItineraryDetailsSegue"]) {
         ItineraryDetailsViewController *itineraryDetailsViewController = [segue destinationViewController];
         itineraryDetailsViewController.itinerary = self.itinerary;
     }
+}
+
+- (void)didDeleteEvent:(nonnull Event *)deletedEvent {
+    [self didUpdateEvent:deletedEvent];
+}
+
+- (void)didUpdateEvent:(nonnull Event *)updatedEvent {
+    [self.events removeObject:updatedEvent];
+    
+    // remove from polyline events and overlays
+    NSInteger updatedEventIdx = [self.routePolylineEvents indexOfObject:updatedEvent];
+    [self.routePolylineEvents removeObject:updatedEvent];
+    [self.mapView removeOverlay:self.mapView.overlays[updatedEventIdx]];
+    
+    // remove from all annotations
+    NSArray <EventAnnotation *> *mapAnnotations = self.mapView.annotations;
+    updatedEventIdx = [mapAnnotations indexOfObjectPassingTest:^BOOL(EventAnnotation * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        return [obj.event.objectId isEqualToString:updatedEvent.objectId];
+    }];
+    [self.mapView removeAnnotation:self.mapView.annotations[updatedEventIdx]];
+    
+    [self viewDidLoad];
 }
 
 @end

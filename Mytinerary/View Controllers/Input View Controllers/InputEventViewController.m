@@ -253,6 +253,7 @@ static int const EVENT_INPUT_SUBMIT_VIEW_HEIGHT = 50;
         Event *event = [[Event alloc] init];
         if ([selectedCategory isEqualToString:@"activity"]) {
             event = [self updateActivityEvent:self.event];
+            [self.delegate didUpdateEvent:event];
         }
         else if ([selectedCategory isEqualToString:@"transportation"]) {
             event = [self updateTransportationEvent:self.event];
@@ -268,12 +269,12 @@ static int const EVENT_INPUT_SUBMIT_VIEW_HEIGHT = 50;
         }
         else if ([selectedCategory isEqualToString:@"food"]) {
             event = [self updateFoodEvent:self.event];
+            [self.delegate didUpdateEvent:event];
         }
         else if ([selectedCategory isEqualToString:@"hotel"]) {
             event = [self updateHotelEvent:self.event];
+            [self.delegate didUpdateEvent:event];
         }
-        // calling the didUpdateEvent method in its delegate to update information
-        [self.delegate didUpdateEvent:event];
     }
     // if creating a new event
     else {
