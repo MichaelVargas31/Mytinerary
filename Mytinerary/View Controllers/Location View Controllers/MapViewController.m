@@ -187,7 +187,12 @@
 
 // get the route from a given transportation event
 - (void)getTransportationEventRoute:(Event *)event {
-    [Directions getDirectionsLatLng:event.latitude startLng:event.longitude endLat:event.endLatitude endLng:event.endLongitude departureDate:event.startTime transpoType:event.transpoType withCompletion:^(MKDirectionsResponse * _Nullable response, NSError * _Nullable error) {
+    // routes not supported for transit, substitute with route for drive
+    NSString *transpoType = event.transpoType;
+    if ([event.transpoType isEqualToString:@"transit"]) {
+        transpoType = @"drive";
+    }
+    [Directions getDirectionsLatLng:event.latitude startLng:event.longitude endLat:event.endLatitude endLng:event.endLongitude departureDate:event.startTime transpoType:transpoType withCompletion:^(MKDirectionsResponse * _Nullable response, NSError * _Nullable error) {
         if (response) {
             NSLog(@"successfully got directions for '%@'", event.title);
             MKRoute *route = response.routes[0];
