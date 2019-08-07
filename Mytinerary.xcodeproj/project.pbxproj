@@ -13,6 +13,8 @@
 		2393754C22EFA913002CBAA7 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2393754B22EFA913002CBAA7 /* MapKit.framework */; };
 		2393755B22F9DEE7002CBAA7 /* InputProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2393755A22F9DEE7002CBAA7 /* InputProfileViewController.m */; };
 		23F1C5DD22FB479700ADF49B /* MyAnnotation.h in Sources */ = {isa = PBXBuildFile; fileRef = 8468099622E93EAF001F9F0C /* MyAnnotation.h */; };
+		23F1C5E322FB506700ADF49B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FF6C5EFD22DE640200D0EB83 /* Main.storyboard */; };
+		23F1C5E522FB51CC00ADF49B /* Keys.plist in Resources */ = {isa = PBXBuildFile; fileRef = 23F1C5E422FB51CC00ADF49B /* Keys.plist */; };
 		23F5A9E922DFE59A0084086B /* InputItineraryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 23F5A9E822DFE59A0084086B /* InputItineraryViewController.m */; };
 		23F5A9EC22E0D3890084086B /* EventInputSharedView.m in Sources */ = {isa = PBXBuildFile; fileRef = 23F5A9EB22E0D3890084086B /* EventInputSharedView.m */; };
 		23F5A9EF22E0D9B50084086B /* InputEventViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 23F5A9EE22E0D9B50084086B /* InputEventViewController.m */; };
@@ -54,7 +56,6 @@
 		FF47EC5F22E67B64001C0DA7 /* ProfileCollectionReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = FF47EC5E22E67B64001C0DA7 /* ProfileCollectionReusableView.m */; };
 		FF47EC6722E7C829001C0DA7 /* SearchLocationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FF47EC6622E7C829001C0DA7 /* SearchLocationViewController.m */; };
 		FF6C5EF922DE640200D0EB83 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FF6C5EF822DE640200D0EB83 /* AppDelegate.m */; };
-		FF6C5EFF22DE640200D0EB83 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FF6C5EFD22DE640200D0EB83 /* Main.storyboard */; };
 		FF6C5F0122DE640200D0EB83 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FF6C5F0022DE640200D0EB83 /* Assets.xcassets */; };
 		FF6C5F0422DE640200D0EB83 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FF6C5F0222DE640200D0EB83 /* LaunchScreen.storyboard */; };
 		FF6C5F0722DE640200D0EB83 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = FF6C5F0622DE640200D0EB83 /* main.m */; };
@@ -89,6 +90,7 @@
 		2393754B22EFA913002CBAA7 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		2393755922F9DEE7002CBAA7 /* InputProfileViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InputProfileViewController.h; sourceTree = "<group>"; };
 		2393755A22F9DEE7002CBAA7 /* InputProfileViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InputProfileViewController.m; sourceTree = "<group>"; };
+		23F1C5E422FB51CC00ADF49B /* Keys.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Keys.plist; sourceTree = "<group>"; };
 		23F5A9E722DFE59A0084086B /* InputItineraryViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InputItineraryViewController.h; sourceTree = "<group>"; };
 		23F5A9E822DFE59A0084086B /* InputItineraryViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InputItineraryViewController.m; sourceTree = "<group>"; };
 		23F5A9EA22E0D3890084086B /* EventInputSharedView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EventInputSharedView.h; sourceTree = "<group>"; };
@@ -429,7 +431,7 @@
 				FF6C5F0022DE640200D0EB83 /* Assets.xcassets */,
 				FF6C5F0222DE640200D0EB83 /* LaunchScreen.storyboard */,
 				FF6C5F0522DE640200D0EB83 /* Info.plist */,
-				23F1C5E122FB496500ADF49B /* Keys.plist */,
+				23F1C5E422FB51CC00ADF49B /* Keys.plist */,
 				FF6C5F0622DE640200D0EB83 /* main.m */,
 			);
 			path = Mytinerary;
@@ -606,10 +608,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				23F1C5E222FB496500ADF49B /* Keys.plist in Resources */,
+				23F1C5E522FB51CC00ADF49B /* Keys.plist in Resources */,
+				23F1C5E322FB506700ADF49B /* Main.storyboard in Resources */,
 				FF6C5F0422DE640200D0EB83 /* LaunchScreen.storyboard in Resources */,
 				FF6C5F0122DE640200D0EB83 /* Assets.xcassets in Resources */,
-				FF6C5EFF22DE640200D0EB83 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
