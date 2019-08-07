@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import "ProfileViewController.h"
+#import "InputProfileViewController.h"
 #import "DailyCalendarViewController.h"
 #import "LoginViewController.h"
 #import "ItineraryCollectionViewCell.h"
@@ -127,23 +128,17 @@
     return reusableview;
 }
 
--(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     UICollectionViewCell *tappedCell = [self.collectionView cellForItemAtIndexPath:indexPath];
     [self performSegueWithIdentifier:@"calendarSegue" sender:tappedCell];
 }
 
-
-- (IBAction)logout:(id)sender {
-    [User logoutUser:^(NSError * _Nullable error) {
-        AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
-        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-        LoginViewController *loginViewController = [storyboard instantiateViewControllerWithIdentifier:@"LoginViewController"];
-        appDelegate.window.rootViewController = loginViewController;
-    }];
+- (IBAction)onTapEditButton:(id)sender {
+    [self performSegueWithIdentifier:@"editProfileSegue" sender:nil];
 }
 
-#pragma mark - Navigation
 
+#pragma mark - Navigation
 
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -168,6 +163,10 @@
         SWRevealViewController *revealViewController = [segue destinationViewController];
         revealViewController.itinerary = itinerary;
         revealViewController.loadItinerary = true;
+    }
+    else if ([[segue identifier] isEqualToString:@"editProfileSegue"]) {
+        InputProfileViewController *inputProfileViewController = [segue destinationViewController];
+        inputProfileViewController.itineraries = self.iArray;
     }
     else {
         NSLog(@"If you're getting this message, you need to edit the prepareForSegue() method to add another segue");

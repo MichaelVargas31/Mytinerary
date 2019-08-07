@@ -11,8 +11,8 @@
 		06B8D04C40E1C9F29C166801 /* Pods_Mytinerary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9FBBF0DECFB9E3F7EDAD49EC /* Pods_Mytinerary.framework */; };
 		2393754A22EFA599002CBAA7 /* Directions.m in Sources */ = {isa = PBXBuildFile; fileRef = 2393754922EFA599002CBAA7 /* Directions.m */; };
 		2393754C22EFA913002CBAA7 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2393754B22EFA913002CBAA7 /* MapKit.framework */; };
+		2393755B22F9DEE7002CBAA7 /* InputProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2393755A22F9DEE7002CBAA7 /* InputProfileViewController.m */; };
 		23F1C5DD22FB479700ADF49B /* MyAnnotation.h in Sources */ = {isa = PBXBuildFile; fileRef = 8468099622E93EAF001F9F0C /* MyAnnotation.h */; };
-		23F1C5E222FB496500ADF49B /* Keys.plist in Resources */ = {isa = PBXBuildFile; fileRef = 23F1C5E122FB496500ADF49B /* Keys.plist */; };
 		23F5A9E922DFE59A0084086B /* InputItineraryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 23F5A9E822DFE59A0084086B /* InputItineraryViewController.m */; };
 		23F5A9EC22E0D3890084086B /* EventInputSharedView.m in Sources */ = {isa = PBXBuildFile; fileRef = 23F5A9EB22E0D3890084086B /* EventInputSharedView.m */; };
 		23F5A9EF22E0D9B50084086B /* InputEventViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 23F5A9EE22E0D9B50084086B /* InputEventViewController.m */; };
@@ -87,7 +87,8 @@
 		2393754822EFA599002CBAA7 /* Directions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Directions.h; sourceTree = "<group>"; };
 		2393754922EFA599002CBAA7 /* Directions.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Directions.m; sourceTree = "<group>"; };
 		2393754B22EFA913002CBAA7 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
-		23F1C5E122FB496500ADF49B /* Keys.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Keys.plist; sourceTree = "<group>"; };
+		2393755922F9DEE7002CBAA7 /* InputProfileViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InputProfileViewController.h; sourceTree = "<group>"; };
+		2393755A22F9DEE7002CBAA7 /* InputProfileViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InputProfileViewController.m; sourceTree = "<group>"; };
 		23F5A9E722DFE59A0084086B /* InputItineraryViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InputItineraryViewController.h; sourceTree = "<group>"; };
 		23F5A9E822DFE59A0084086B /* InputItineraryViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InputItineraryViewController.m; sourceTree = "<group>"; };
 		23F5A9EA22E0D3890084086B /* EventInputSharedView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EventInputSharedView.h; sourceTree = "<group>"; };
@@ -362,6 +363,8 @@
 				23F5A9EE22E0D9B50084086B /* InputEventViewController.m */,
 				23F5A9E722DFE59A0084086B /* InputItineraryViewController.h */,
 				23F5A9E822DFE59A0084086B /* InputItineraryViewController.m */,
+				2393755922F9DEE7002CBAA7 /* InputProfileViewController.h */,
+				2393755A22F9DEE7002CBAA7 /* InputProfileViewController.m */,
 			);
 			path = "Input View Controllers";
 			sourceTree = "<group>";
@@ -739,6 +742,7 @@
 				23F5AA4A22E61DBE0084086B /* EventDetailsDescriptionView.m in Sources */,
 				8495D7A922DE8BDD00CFED2D /* LoginViewController.m in Sources */,
 				23F5AA6F22EA0D480084086B /* Date.m in Sources */,
+				2393755B22F9DEE7002CBAA7 /* InputProfileViewController.m in Sources */,
 				FF0E780E22F35A8700CFEF9A /* Calendar.m in Sources */,
 				8448C0F722DFA2C800427FB2 /* Event.m in Sources */,
 				8448C0F622DFA2C800427FB2 /* Itinerary.m in Sources */,
