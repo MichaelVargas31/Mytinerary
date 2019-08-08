@@ -139,13 +139,17 @@
         [self presentViewController:self.alert animated:YES completion:nil];
     } else {
         // Edit existing itinerary
+        Itinerary *newItinerary = [[Itinerary alloc] init];
+        self.itinerary = newItinerary;
         self.itinerary.title = title;
         
         // convert image to PFFileObject
         if (self.imageView.image) {
             NSData *imageData = UIImagePNGRepresentation(self.imageView.image);
             PFFileObject *imageFileObject = [PFFileObject fileObjectWithData:imageData];
+            self.itinerary.image = [PFFileObject fileObjectWithData:imageData];
             self.itinerary.image = imageFileObject;
+            NSLog(@"self.itinery.image = %@", self.itinerary.image);
         }
         self.itinerary.startTime = startTime;
         self.itinerary.endTime = endTime;

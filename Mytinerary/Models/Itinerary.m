@@ -30,7 +30,10 @@
     itinerary.totalCost = @(0);
     itinerary.title = title;
     
-    
+    if (imageFile) {
+        itinerary.image = imageFile;
+    }
+
     if (budget > 0) {
         itinerary.budget = budget;
     }
