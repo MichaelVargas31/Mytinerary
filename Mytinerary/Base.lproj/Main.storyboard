@@ -1007,7 +1007,6 @@
                             <constraint firstAttribute="bottom" secondItem="w80-C5-rJ4" secondAttribute="bottom" id="5OV-SM-CYr"/>
                             <constraint firstItem="w80-C5-rJ4" firstAttribute="top" secondItem="ecC-45-JY5" secondAttribute="bottom" id="5m6-YC-z3t"/>
                             <constraint firstItem="ecC-45-JY5" firstAttribute="leading" secondItem="BQN-GC-MwF" secondAttribute="leading" id="AGr-rQ-ft4"/>
-                            <constraint firstItem="ecC-45-JY5" firstAttribute="bottom" secondItem="BQN-GC-MwF" secondAttribute="bottom" id="Cox-Zb-MFE"/>
                             <constraint firstItem="ecC-45-JY5" firstAttribute="top" secondItem="jpi-hd-an0" secondAttribute="bottom" id="HMT-XD-dg7"/>
                             <constraint firstItem="jpi-hd-an0" firstAttribute="top" secondItem="BQN-GC-MwF" secondAttribute="top" id="M0v-14-AaH"/>
                             <constraint firstItem="w80-C5-rJ4" firstAttribute="leading" secondItem="e7X-fC-HXC" secondAttribute="leading" id="W50-5V-iXd"/>
@@ -1283,7 +1282,7 @@
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aw9-Pu-t1W">
-                            <rect key="frame" x="77" y="16" width="87" height="21"/>
+                            <rect key="frame" x="76.5" y="16" width="87" height="21"/>
                             <state key="normal" title="Delete Event">
                                 <color key="titleColor" red="1" green="0.21470649429999999" blue="0.25217029819999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                             </state>
@@ -2100,10 +2099,10 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="sJn-uW-gz0"/>
-        <segue reference="pBk-Pq-aqM"/>
-        <segue reference="pGb-W9-DTJ"/>
-        <segue reference="dot-u4-pzB"/>
-        <segue reference="GkC-3I-Ydq"/>
+        <segue reference="FZp-6T-F1m"/>
+        <segue reference="zNL-pN-NjU"/>
+        <segue reference="S6S-hJ-Kow"/>
+        <segue reference="W6l-eq-cqv"/>
         <segue reference="Uy5-kQ-HM8"/>
         <segue reference="Dwd-wo-Oze"/>
     </inferredMetricsTieBreakers>
