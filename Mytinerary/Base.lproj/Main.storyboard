@@ -188,6 +188,29 @@
                                     </connections>
                                 </collectionReusableView>
                             </collectionView>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="OgC-Tj-A05">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <color key="color" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </activityIndicatorView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Itinerary library is empty" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="R5A-IA-fcN">
+                                <rect key="frame" x="95" y="323" width="185" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="185" id="C2h-1z-yah"/>
+                                    <constraint firstAttribute="height" constant="21" id="wfC-72-QOb"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="R5A-IA-fcN" firstAttribute="centerX" secondItem="OgC-Tj-A05" secondAttribute="centerX" id="B78-se-hD7"/>
+                            <constraint firstItem="R5A-IA-fcN" firstAttribute="centerY" secondItem="OgC-Tj-A05" secondAttribute="centerY" id="DP8-6h-9Hi"/>
+                            <constraint firstItem="OgC-Tj-A05" firstAttribute="top" secondItem="96f-JH-1l8" secondAttribute="top" id="LwC-2w-FD0"/>
+                            <constraint firstItem="OgC-Tj-A05" firstAttribute="leading" secondItem="IqF-BB-M5L" secondAttribute="leading" id="cJx-0E-Und"/>
+                            <constraint firstItem="OgC-Tj-A05" firstAttribute="bottom" secondItem="IqF-BB-M5L" secondAttribute="bottom" id="dQc-Zs-aux"/>
+                            <constraint firstItem="OgC-Tj-A05" firstAttribute="trailing" secondItem="IqF-BB-M5L" secondAttribute="trailing" id="fhE-J3-9Ut"/>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -202,6 +225,7 @@
                         <barButtonItem key="leftBarButtonItem" image="Menu Image" id="cAq-5g-GJT"/>
                     </navigationItem>
                     <connections>
+                        <outlet property="NoItinerariesLabel" destination="R5A-IA-fcN" id="hts-1s-Pc0"/>
                         <outlet property="activityIndicator" destination="OgC-Tj-A05" id="ybY-Ks-SNA"/>
                         <outlet property="collectionView" destination="PWN-zR-u73" id="85v-RW-p1V"/>
                         <outlet property="mB" destination="cAq-5g-GJT" id="dhD-M2-bRr"/>
@@ -2098,6 +2122,7 @@
         <image name="User Profile Picture" width="29" height="29"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="fKl-TQ-TQv"/>
         <segue reference="sJn-uW-gz0"/>
         <segue reference="FZp-6T-F1m"/>
         <segue reference="zNL-pN-NjU"/>

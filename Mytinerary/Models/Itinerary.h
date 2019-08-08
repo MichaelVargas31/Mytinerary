@@ -17,7 +17,7 @@
 @property (nonatomic, strong) NSString *title;
 @property (nonatomic, strong) PFFileObject *image;
 
-+ (Itinerary *)initNewItinerary:(NSString *)title startTime:(NSDate *)startTime endTime:(NSDate *)endTime budget:(NSNumber *)budget withCompletion:(PFBooleanResultBlock)completion;
++ (Itinerary *)initNewItinerary:(NSString *)title startTime:(NSDate *)startTime endTime:(NSDate *)endTime budget:(NSNumber *)budget imageFile:(PFFileObject *)imageFile withCompletion:(PFBooleanResultBlock)completion;
 
 - (void)updateItinerary:(Itinerary *)updatedItinerary;
 
