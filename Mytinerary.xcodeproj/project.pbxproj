@@ -18,6 +18,7 @@
 		23F1C5DD22FB479700ADF49B /* EventAnnotation.h in Sources */ = {isa = PBXBuildFile; fileRef = 8468099622E93EAF001F9F0C /* EventAnnotation.h */; };
 		23F1C5E322FB506700ADF49B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FF6C5EFD22DE640200D0EB83 /* Main.storyboard */; };
 		23F1C5E522FB51CC00ADF49B /* Keys.plist in Resources */ = {isa = PBXBuildFile; fileRef = 23F1C5E422FB51CC00ADF49B /* Keys.plist */; };
+		23F1C5E922FB5DE700ADF49B /* Colors.m in Sources */ = {isa = PBXBuildFile; fileRef = 23F1C5E822FB5DE700ADF49B /* Colors.m */; };
 		23F5A9E922DFE59A0084086B /* InputItineraryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 23F5A9E822DFE59A0084086B /* InputItineraryViewController.m */; };
 		23F5A9EC22E0D3890084086B /* EventInputSharedView.m in Sources */ = {isa = PBXBuildFile; fileRef = 23F5A9EB22E0D3890084086B /* EventInputSharedView.m */; };
 		23F5A9EF22E0D9B50084086B /* InputEventViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 23F5A9EE22E0D9B50084086B /* InputEventViewController.m */; };
@@ -100,6 +101,8 @@
 		2393756522FA29D2002CBAA7 /* Image.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Image.h; sourceTree = "<group>"; };
 		2393756622FA29D2002CBAA7 /* Image.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Image.m; sourceTree = "<group>"; };
 		23F1C5E422FB51CC00ADF49B /* Keys.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Keys.plist; sourceTree = "<group>"; };
+		23F1C5E722FB5DE700ADF49B /* Colors.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Colors.h; sourceTree = "<group>"; };
+		23F1C5E822FB5DE700ADF49B /* Colors.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Colors.m; sourceTree = "<group>"; };
 		23F5A9E722DFE59A0084086B /* InputItineraryViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InputItineraryViewController.h; sourceTree = "<group>"; };
 		23F5A9E822DFE59A0084086B /* InputItineraryViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InputItineraryViewController.m; sourceTree = "<group>"; };
 		23F5A9EA22E0D3890084086B /* EventInputSharedView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EventInputSharedView.h; sourceTree = "<group>"; };
@@ -459,6 +462,8 @@
 				FF6C5F0522DE640200D0EB83 /* Info.plist */,
 				23F1C5E422FB51CC00ADF49B /* Keys.plist */,
 				FF6C5F0622DE640200D0EB83 /* main.m */,
+				23F1C5E722FB5DE700ADF49B /* Colors.h */,
+				23F1C5E822FB5DE700ADF49B /* Colors.m */,
 			);
 			path = Mytinerary;
 			sourceTree = "<group>";
@@ -757,6 +762,7 @@
 				23F5AA5322E61DF40084086B /* EventDetailsFoodView.m in Sources */,
 				23F5A9F222E0DEAD0084086B /* EventInputActivityView.m in Sources */,
 				FF05D5C522F3B0F8003014E3 /* SWRevealViewController.m in Sources */,
+				23F1C5E922FB5DE700ADF49B /* Colors.m in Sources */,
 				23F5AA3922E124380084086B /* EventInputHotelView.m in Sources */,
 				23F5AA4D22E61DCF0084086B /* EventDetailsActivityView.m in Sources */,
 				23F5AA6122E8DA630084086B /* Location.m in Sources */,
