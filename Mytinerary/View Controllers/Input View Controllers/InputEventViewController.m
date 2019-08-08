@@ -114,6 +114,8 @@ static int const EVENT_INPUT_SUBMIT_VIEW_HEIGHT = 50;
     [self.eventInputSharedView.startTimeDatePicker setMaximumDate:self.itinerary.endTime];
     [self.eventInputSharedView.endTimeDatePicker setMinimumDate:self.itinerary.startTime];
     [self.eventInputSharedView.endTimeDatePicker setMaximumDate:self.itinerary.endTime];
+    [self.eventInputSharedView.startTimeDatePicker setMinuteInterval:1];
+    [self.eventInputSharedView.endTimeDatePicker setMinuteInterval:1];
     
     self.eventInputSharedView.categoryPickerView.delegate = self;
     self.eventInputSharedView.categoryPickerView.dataSource = self;
