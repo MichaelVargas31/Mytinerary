@@ -1799,7 +1799,6 @@
                         <segue destination="ObS-R6-kXk" kind="custom" identifier="sw_rear" customClass="SWRevealViewControllerSegueSetController" id="ckb-yZ-LvG"/>
                         <segue destination="WKR-Y8-Lbk" kind="show" identifier="login" id="18L-74-wfL"/>
                         <segue destination="d9u-z2-YaY" kind="custom" identifier="sw_front" customClass="SWRevealViewControllerSegueSetController" id="S8S-kB-Jsa"/>
-                        <segue destination="Tkc-U7-zfU" kind="custom" identifier="sw_right" customClass="SWRevealViewControllerSegueSetController" id="Cd5-Do-SnB"/>
                         <segue destination="QCh-Uv-00M" kind="custom" identifier="toMapSegue" customClass="SWRevealViewControllerSeguePushController" id="mXn-pa-Nfz"/>
                         <segue destination="oG8-r8-cd1" kind="showDetail" identifier="ToProfileSegue" customClass="SWRevealViewControllerSeguePushController" id="sJn-uW-gz0"/>
                     </connections>
@@ -1931,34 +1930,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3cx-rO-CuW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="697" y="1997"/>
-        </scene>
-        <!--Table View Controller-->
-        <scene sceneID="XqO-FV-9RQ">
-            <objects>
-                <tableViewController id="Tkc-U7-zfU" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="QIj-No-5le">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="nqa-Hf-jPw">
-                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="nqa-Hf-jPw" id="UGH-SD-RUA">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                </tableViewCellContentView>
-                            </tableViewCell>
-                        </prototypes>
-                        <connections>
-                            <outlet property="dataSource" destination="Tkc-U7-zfU" id="10Q-D5-Lr2"/>
-                            <outlet property="delegate" destination="Tkc-U7-zfU" id="UsE-OE-RHY"/>
-                        </connections>
-                    </tableView>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="jfy-hR-JoY" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1492" y="1994"/>
         </scene>
         <!--Map View Controller-->
         <scene sceneID="kgU-Bg-WbE">
@@ -2116,12 +2087,12 @@
         <image name="blurrybackground" width="2520" height="1418"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="sJn-uW-gz0"/>
+        <segue reference="fKl-TQ-TQv"/>
         <segue reference="FZp-6T-F1m"/>
         <segue reference="zNL-pN-NjU"/>
         <segue reference="S6S-hJ-Kow"/>
         <segue reference="W6l-eq-cqv"/>
-        <segue reference="Uy5-kQ-HM8"/>
+        <segue reference="hw8-pD-mAT"/>
         <segue reference="Dwd-wo-Oze"/>
     </inferredMetricsTieBreakers>
 </document>
