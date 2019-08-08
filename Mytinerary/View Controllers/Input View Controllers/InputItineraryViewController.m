@@ -139,28 +139,27 @@
         [self presentViewController:self.alert animated:YES completion:nil];
     } else {
         // Edit existing itinerary
-        Itinerary *newItinerary = [[Itinerary alloc] init];
-        self.itinerary = newItinerary;
-        self.itinerary.title = title;
-        
-        // convert image to PFFileObject
-        if (self.imageView.image) {
-            NSData *imageData = UIImagePNGRepresentation(self.imageView.image);
-            PFFileObject *imageFileObject = [PFFileObject fileObjectWithData:imageData];
-            self.itinerary.image = [PFFileObject fileObjectWithData:imageData];
-            self.itinerary.image = imageFileObject;
-            NSLog(@"self.itinery.image = %@", self.itinerary.image);
-        }
-        self.itinerary.startTime = startTime;
-        self.itinerary.endTime = endTime;
-        self.itinerary.budget = budget;
         
         if (!self.itineraryIsNew) {
+            self.itinerary.title = title;
+            
+            // convert image to PFFileObject
+            if (self.imageView.image) {
+                NSData *imageData = UIImagePNGRepresentation(self.imageView.image);
+                PFFileObject *imageFileObject = [PFFileObject fileObjectWithData:imageData];
+                self.itinerary.image = [PFFileObject fileObjectWithData:imageData];
+                self.itinerary.image = imageFileObject;
+                NSLog(@"self.itinery.image = %@", self.itinerary.image);
+            }
+            self.itinerary.startTime = startTime;
+            self.itinerary.endTime = endTime;
+            self.itinerary.budget = budget;
+            
             [self.itinerary updateItinerary:self.itinerary];
             [self.delegate didSaveItinerary];   // Tells the itinerary details view controller to update
             [self dismissViewControllerAnimated:YES completion:nil];
         } else {
-            self.itinerary = [Itinerary initNewItinerary:title startTime:startTime endTime:endTime budget:budget imageFile:self.itinerary.image withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
+            self.itinerary = [Itinerary initNewItinerary:title startTime:startTime endTime:endTime budget:budget image:self.imageView.image withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
                 if (succeeded) {
                     [self performSegueWithIdentifier:@"AddNewItineraryToDailyCalendarSegue" sender:nil];
                 }
