@@ -22,6 +22,7 @@
 #import "Date.h"
 #import "Parse/Parse.h"
 #import "Colors.h"
+#import <UIKit/UIKit.h>
 
 static const int TABLE_VIEW_HEADER_HEIGHT = 44;
 
@@ -245,9 +246,14 @@ static const int TABLE_VIEW_HEADER_HEIGHT = 44;
     return header;
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+    return 8;
+}
+
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
-    DeleteItineraryTableViewCell *footer = [tableView dequeueReusableCellWithIdentifier:@"DeleteItineraryTablveViewCell"];
-    return footer;
+    UIView *view = [UIView new];
+    [view setBackgroundColor:[UIColor clearColor]];
+    return view;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
