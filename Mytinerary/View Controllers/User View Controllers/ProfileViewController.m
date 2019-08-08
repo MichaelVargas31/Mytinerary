@@ -37,14 +37,15 @@
     
     //sets the username on the profile view
     self.usernameLabel.text= User.currentUser.username;
+//    self.collectionView.layer.cornerRadius = 10;
     
     //fetch itineraries
     [self fetchitineraries];
     
     // layout of collection view
     UICollectionViewFlowLayout *layout = (UICollectionViewFlowLayout *)self.collectionView.collectionViewLayout;
-    layout.minimumInteritemSpacing = 10;
-    layout.minimumLineSpacing = 10;
+    layout.minimumInteritemSpacing = 15;
+    layout.minimumLineSpacing = 15;
     CGFloat postersPerLine = 3;
     CGFloat itemWidth = (self.collectionView.frame.size.width - layout.minimumInteritemSpacing * (postersPerLine - 1) - layout.sectionInset.right * 2) / postersPerLine;
     CGFloat itemHeight = 1.3 * itemWidth;
@@ -131,13 +132,12 @@
 
 // Method to add profile header to collection View
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
-    
     UICollectionReusableView *reusableview = nil;
-    
     if (kind == UICollectionElementKindSectionHeader) {
         ProfileCollectionReusableView *profileHeaderView = [self.collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"ProfileCell" forIndexPath:indexPath];
         User *currentUser = User.currentUser;
         profileHeaderView.usernameLabel.text = currentUser.username;
+        profileHeaderView.layer.cornerRadius = 10;
         reusableview = profileHeaderView;
     }
     

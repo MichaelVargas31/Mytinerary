@@ -99,11 +99,11 @@
                                     <size key="itemSize" width="106" height="127"/>
                                     <size key="headerReferenceSize" width="50" height="175"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                    <inset key="sectionInset" minX="5" minY="2" maxX="5" maxY="0.0"/>
+                                    <inset key="sectionInset" minX="5" minY="15" maxX="5" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" alpha="0.65000000000000002" contentMode="center" reuseIdentifier="ItineraryCollectionViewCell" id="BAq-YN-vSf" customClass="ItineraryCollectionViewCell">
-                                        <rect key="frame" x="5" y="177" width="106" height="127"/>
+                                        <rect key="frame" x="5" y="190" width="106" height="127"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
                                             <rect key="frame" x="0.0" y="0.0" width="106" height="127"/>
@@ -143,6 +143,10 @@
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="175"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
+                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.80000000000000004" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="blurrybackground" translatesAutoresizingMaskIntoConstraints="NO" id="cz3-5w-OtT">
+                                            <rect key="frame" x="0.0" y="0.0" width="378" height="179"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        </imageView>
                                         <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="252" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Wwc-Fa-TOR">
                                             <rect key="frame" x="317" y="13" width="30" height="30"/>
                                             <state key="normal" title="Edit"/>
@@ -1952,10 +1956,11 @@
         <image name="Profile Image" width="29" height="29"/>
         <image name="Sign out " width="29" height="29"/>
         <image name="User Profile Picture" width="29" height="29"/>
+        <image name="blurrybackground" width="2520" height="1418"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="fKl-TQ-TQv"/>
-        <segue reference="ISd-z3-EBT"/>
+        <segue reference="oWh-IL-bug"/>
         <segue reference="zNL-pN-NjU"/>
         <segue reference="S6S-hJ-Kow"/>
         <segue reference="W6l-eq-cqv"/>
