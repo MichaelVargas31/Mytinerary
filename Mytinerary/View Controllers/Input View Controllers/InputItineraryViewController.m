@@ -41,8 +41,8 @@
     [super viewDidLoad];
     
     // adjust date pickers
-    [self.startTimeDatePicker setDatePickerMode:UIDatePickerModeDate];
-    [self.endTimeDatePicker setDatePickerMode:UIDatePickerModeDate];
+//    [self.startTimeDatePicker setDatePickerMode:UIDatePickerModeDate];
+//    [self.endTimeDatePicker setDatePickerMode:UIDatePickerModeDate];
     
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissKeyboard)];
     [self.view addGestureRecognizer:tap];
