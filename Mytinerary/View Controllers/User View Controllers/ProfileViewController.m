@@ -59,6 +59,7 @@
     [self.collectionView reloadData];
     [self.activityIndicator stopAnimating];
     
+ 
 }
 
 -(void) sideMenus{
@@ -141,6 +142,21 @@
         ProfileCollectionReusableView *profileHeaderView = [self.collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"ProfileCell" forIndexPath:indexPath];
         User *currentUser = User.currentUser;
         profileHeaderView.usernameLabel.text = currentUser.username;
+       // profileHeaderView.profilePicImageView.image = currentUser.profilePicture;
+        
+        
+        if (currentUser.profilePicture) {
+            [currentUser.profilePicture getDataInBackgroundWithBlock:^(NSData * _Nullable data, NSError * _Nullable error) {
+                if (data) {
+                    UIImage *image = [UIImage imageWithData:data];
+                    [profileHeaderView.profilePicImageView setImage:image];
+                    NSLog(@"Sets image");
+                } else {
+                    NSLog(@"error getting image data: %@", error.localizedDescription);
+                }
+            }];
+        }
+        
         reusableview = profileHeaderView;
     }
     

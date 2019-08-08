@@ -11,11 +11,13 @@
 @implementation User
 
 @synthesize defaultItinerary;
+@dynamic profilePicture;
 
 + (User *)makeUserWithPFUser:(PFUser *)PFUser {
     User *user = [User user];
     user.username = PFUser[@"username"];
     user.defaultItinerary = PFUser[@"defaultItinerary"];
+    
     return user;
 }
 
@@ -50,15 +52,36 @@
     user[@"defaultItinerary"] = itinerary;
     [user saveInBackgroundWithBlock:completion];
 }
+-(void) addProfilePictureObject:(User *)user image:(PFFileObject *)image withCompletion:(PFBooleanResultBlock)completion {
+    NSLog(@"adding profile picture to parse");
+    
+    user.profilePicture = image;
+   ;
+    //update
+    
+}
 
-- (void)updateUser:(NSString *)username password:(NSString *)password defaultItinerary:(Itinerary *)defaultItinerary withCompletion:(PFBooleanResultBlock)completion {
-    if (![username isEqualToString:@""]) {
+
+- (void)updateUser:(NSString *)username password:(NSString *)password defaultItinerary:(Itinerary *)defaultItinerary  withCompletion:(PFBooleanResultBlock)completion {
+ //|| (!(self.username==username))
+    if ((![username isEqualToString:@""]) ) {
         self.username = username;
     }
-    if (![password isEqualToString:@""]) {
+    //|| (!(self.password==password))
+    if ((![password isEqualToString:@""])) {
         self.password = password;
     }
+    if (!defaultItinerary) {
+        defaultItinerary = [[Itinerary alloc] init];
+    }
+ 
     [User resetDefaultItinerary:self itinerary:defaultItinerary withCompletion:completion];
 }
+
+-(void)profilePicture: (PFFileObject *) pP withCompletion:(PFBooleanResultBlock)completion{
+     if (pP) {
+         self.profilePicture=pP;
+     }
+   }
 
 @end

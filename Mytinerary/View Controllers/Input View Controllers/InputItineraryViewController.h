@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "Itinerary.h"
+#import "User.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -24,6 +25,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *a;
 
 @property (strong, nonatomic) Itinerary *itinerary;
+
 
 @end
 

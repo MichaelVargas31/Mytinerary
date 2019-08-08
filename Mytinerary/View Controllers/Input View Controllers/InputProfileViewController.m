@@ -9,6 +9,8 @@
 #import "InputProfileViewController.h"
 #import "User.h"
 #import "Itinerary.h"
+#import "PhotoViewController.h"
+
 
 @interface InputProfileViewController () <UIPickerViewDelegate, UIPickerViewDataSource>
 
@@ -16,6 +18,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *passwordTextField;
 @property (weak, nonatomic) IBOutlet UIPickerView *defaultItineraryPicker;
 @property (strong, nonatomic) UIAlertController *alert;
+
 
 @end
 
@@ -45,15 +48,43 @@
         NSUInteger defaultItinIdx = [self.itineraries indexOfObjectPassingTest:^BOOL(Itinerary * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
             return [obj.objectId isEqualToString:user.defaultItinerary.objectId];
         }];
-        [self.defaultItineraryPicker selectRow:defaultItinIdx inComponent:0 animated:NO];
+        //[self.defaultItineraryPicker selectRow:defaultItinIdx inComponent:0 animated:NO];
     }
 }
 
 - (IBAction)onTapSubmitButton:(id)sender {
+    
     int selectedDefaultItinIdx = (int)[self.defaultItineraryPicker selectedRowInComponent:0];
     Itinerary *selectedDefaultItinerary = self.itineraries[selectedDefaultItinIdx];
+
+    self.profileUser=User.currentUser;
     
-    [User.currentUser updateUser:self.usernameTextField.text password:self.passwordTextField.text defaultItinerary:selectedDefaultItinerary withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
+    //convert image to PFFileObject
+    if(self.profilePictureImage.image){
+        NSData *dataImage = UIImagePNGRepresentation(self.profilePictureImage.image);
+        PFFileObject *fileImage = [PFFileObject fileObjectWithData:dataImage];
+        
+        self.profileUser.profilePicture=fileImage;
+      
+        
+    }
+
+    //Update profile picture
+    [User.currentUser profilePicture:self.profileUser.profilePicture withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
+            if (succeeded) {
+            NSLog(@"successfully updated profile picture");
+            [self dismissViewControllerAnimated:YES completion:nil];
+        }
+        else {
+            NSLog(@"error updating profile picture: %@", error.domain);
+            self.alert.message = error.domain;
+            [self presentViewController:self.alert animated:YES completion:nil];
+        }
+    }];
+   
+    
+    [User.currentUser updateUser:self.usernameTextField.text password:self.passwordTextField.text defaultItinerary:selectedDefaultItinerary  withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
+       
         if (succeeded) {
             NSLog(@"successfully updated user");
             [self dismissViewControllerAnimated:YES completion:nil];
@@ -64,6 +95,29 @@
             [self presentViewController:self.alert animated:YES completion:nil];
         }
     }];
+ 
+}
+- (IBAction)addProfilePictureBtn:(id)sender {
+    UIImagePickerController *imagePickerVC = [UIImagePickerController new];
+    imagePickerVC.delegate = self;
+    imagePickerVC.allowsEditing = YES;
+    if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
+        imagePickerVC.sourceType = UIImagePickerControllerSourceTypeCamera;
+    }
+    else {
+        NSLog(@"Camera not available => will use library");
+        imagePickerVC.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    }
+    [self presentViewController:imagePickerVC animated:YES completion:nil];
+    
+}
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info {
+    // Get the image captured by the UIImagePickerController
+    UIImage *originalImage = info[UIImagePickerControllerOriginalImage];
+    [self.profilePictureImage setImage:originalImage];
+    
+    // Dismiss UIImagePickerController
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (IBAction)onTapCloseButton:(id)sender {

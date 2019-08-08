@@ -7,6 +7,7 @@
 @interface User : PFUser
 
 @property (nonatomic, strong) Itinerary *defaultItinerary;
+@property (nonatomic, strong) PFFileObject *profilePicture;
 
 + (User *)makeUserWithPFUser:(PFUser *)user;
 
@@ -49,7 +50,9 @@
  }]; */
 
 + (void)resetDefaultItinerary:(PFUser *)user itinerary:(Itinerary *)itinerary withCompletion:(PFBooleanResultBlock)completion;
+//profilePicture:(PFFileObject *)profilePic
+- (void)updateUser:(NSString *)username password:(NSString *)password defaultItinerary:(Itinerary *)defaultItinerary  withCompletion:(PFBooleanResultBlock)completion;
 
-- (void)updateUser:(NSString *)username password:(NSString *)password defaultItinerary:(Itinerary *)defaultItinerary withCompletion:(PFBooleanResultBlock)completion;
 
+-(void)profilePicture: (PFFileObject *) pP withCompletion:(PFBooleanResultBlock)completion;
 @end

@@ -407,8 +407,8 @@
 				8495D7B022DF879600CFED2D /* ItineraryCollectionViewCell.m */,
 				FF47EC5E22E67B64001C0DA7 /* ProfileCollectionReusableView.m */,
 				FF47EC5D22E67B64001C0DA7 /* ProfileCollectionReusableView.h */,
-				FFC18FD522FB541800932B68 /* ProgressIndicatorView.h */,
 				FFC18FD622FB541800932B68 /* ProgressIndicatorView.m */,
+				FFC18FD522FB541800932B68 /* ProgressIndicatorView.h */,
 			);
 			path = "Profile View";
 			sourceTree = "<group>";
@@ -516,8 +516,8 @@
 				84A51A0522FB5DBB00772A14 /* Keys.plist */,
 				84A51A0822FB600600772A14 /* Storyboard */,
 				FF6C5F2F22DE8B1900D0EB83 /* Views */,
-				23F5AA6322E919640084086B /* Utils */,
 				FF6C5F2B22DE865400D0EB83 /* View Controllers */,
+				23F5AA6322E919640084086B /* Utils */,
 				8448C0EE22DFA2C800427FB2 /* Models */,
 				2393755122F0FA1B002CBAA7 /* Locations */,
 			);
