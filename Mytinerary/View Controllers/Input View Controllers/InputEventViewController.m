@@ -15,6 +15,7 @@
 #import "EventInputSubmitView.h"
 #import "Event.h"
 #import "SearchLocationViewController.h"
+#import "Colors.h"
 
 static int const EVENT_INPUT_SHARED_VIEW_HEIGHT = 600;
 static int const EVENT_INPUT_ACTIVITY_VIEW_HEIGHT = 370;
@@ -94,6 +95,7 @@ static int const EVENT_INPUT_SUBMIT_VIEW_HEIGHT = 50;
     // by default, add activity event input view
     [stackView addArrangedSubview:self.eventInputActivityView];
     [self.eventInputActivityView.heightAnchor constraintEqualToConstant:EVENT_INPUT_ACTIVITY_VIEW_HEIGHT].active = YES;
+    self.eventInputActivityView.backgroundColor = [Colors goldColor];
     
     // add submit button view
     [stackView addArrangedSubview:self.eventInputSubmitView];
@@ -609,18 +611,22 @@ static int const EVENT_INPUT_SUBMIT_VIEW_HEIGHT = 50;
     if ([selectedCategory isEqualToString:@"activity"]) {
         [self.stackView insertArrangedSubview:self.eventInputActivityView atIndex:1];
         [self.eventInputActivityView.heightAnchor constraintEqualToConstant:EVENT_INPUT_ACTIVITY_VIEW_HEIGHT].active = YES;
+        self.eventInputActivityView.backgroundColor = [Colors lightGoldColor];
     }
     else if ([selectedCategory isEqualToString:@"transportation"]) {
         [self.stackView insertArrangedSubview:self.eventInputTransportationView atIndex:1];
         [self.eventInputTransportationView.heightAnchor constraintEqualToConstant:EVENT_INPUT_TRANSPORTATION_VIEW_HEIGHT].active = YES;
+        self.eventInputTransportationView.backgroundColor = [Colors lightPurpleColor];
     }
     else if ([selectedCategory isEqualToString:@"food"]) {
         [self.stackView insertArrangedSubview:self.eventInputFoodView atIndex:1];
         [self.eventInputFoodView.heightAnchor constraintEqualToConstant:EVENT_INPUT_FOOD_VIEW_HEIGHT].active = YES;
+        self.eventInputFoodView.backgroundColor = [Colors lightRedColor];
     }
     else if ([selectedCategory isEqualToString:@"hotel"]) {
         [self.stackView insertArrangedSubview:self.eventInputHotelView atIndex:1];
         [self.eventInputHotelView.heightAnchor constraintEqualToConstant:EVENT_INPUT_HOTEL_VIEW_HEIGHT].active = YES;
+        self.eventInputHotelView.backgroundColor = [Colors lightLightBlueColor];
     }
 }
 

@@ -17,6 +17,7 @@
 #import "InputEventViewController.h"
 #import "DateFormatter.h"
 #import "Directions.h"
+#import "Colors.h"
 
 static int const TITLE_VIEW_HEIGHT = 100;
 static int const DESCRIPTION_VIEW_HEIGHT = 300;
@@ -107,9 +108,10 @@ static int const DELETE_VIEW_HEIGHT = 100;
     NSString *eventCategory = self.event.category;
     if ([eventCategory isEqualToString:@"activity"]) {
         // add activity view
-//        [self.stackView insertArrangedSubview:self.activityView atIndex:1];
         [self.stackView addArrangedSubview:self.activityView];
         [self.activityView.heightAnchor constraintEqualToConstant:ACTIVITY_VIEW_HEIGHT].active = YES;
+        self.activityView.backgroundColor = [Colors lightGoldColor];
+        
         // initialize activity view labels
         self.activityView.startTimeLabel.text = [dateFormatter stringFromDate:self.event.startTime];
         self.activityView.endTimeLabel.text = [dateFormatter stringFromDate:self.event.endTime];
@@ -119,6 +121,8 @@ static int const DELETE_VIEW_HEIGHT = 100;
         // add transportation view
         [self.stackView addArrangedSubview:self.transportationView];
         [self.transportationView.heightAnchor constraintEqualToConstant:TRANSPORTATION_VIEW_HEIGHT].active = YES;
+        self.transportationView.backgroundColor = [Colors lightPurpleColor];
+        
         // initialize transportation view labels
         self.transportationView.startTimeLabel.text = [dateFormatter stringFromDate:self.event.startTime];
         self.transportationView.endTimeLabel.text = [dateFormatter stringFromDate:self.event.endTime];
@@ -130,6 +134,8 @@ static int const DELETE_VIEW_HEIGHT = 100;
         // add food view
         [self.stackView addArrangedSubview:self.foodView];
         [self.foodView.heightAnchor constraintEqualToConstant:FOOD_VIEW_HEIGHT].active = YES;
+        self.foodView.backgroundColor = [Colors lightRedColor];
+        
         // initialize food view labels
         self.foodView.startTimeLabel.text = [dateFormatter stringFromDate:self.event.startTime];
         self.foodView.endTimeLabel.text = [dateFormatter stringFromDate:self.event.endTime];
@@ -140,6 +146,8 @@ static int const DELETE_VIEW_HEIGHT = 100;
         // add hotel view
         [self.stackView addArrangedSubview:self.hotelView];
         [self.hotelView.heightAnchor constraintEqualToConstant:HOTEL_VIEW_HEIGHT].active = YES;
+        self.hotelView.backgroundColor = [Colors lightLightBlueColor];
+        
         // initialize hotel view labels
         self.hotelView.startTimeLabel.text = [dateFormatter stringFromDate:self.event.startTime];
         self.hotelView.endTimeLabel.text = [dateFormatter stringFromDate:self.event.endTime];

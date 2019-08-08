@@ -21,6 +21,7 @@
 #import "DateFormatter.h"
 #import "Date.h"
 #import "Parse/Parse.h"
+#import "Colors.h"
 
 static const int TABLE_VIEW_HEADER_HEIGHT = 44;
 
@@ -184,20 +185,25 @@ static const int TABLE_VIEW_HEADER_HEIGHT = 44;
     cell.endTimeLabel.text = [dateFormatter stringFromDate:event.endTime];
     cell.descriptionLabel.text = event.eventDescription;
     
+    UIView *bgColorView = [[UIView alloc] init];
     
-    // TODO: make colors more appealing here
     if ([event.category isEqualToString:@"activity"]) {
-        cell.backgroundColor = [UIColor yellowColor];
+        cell.backgroundColor = [Colors lightGoldColor];
+        bgColorView.backgroundColor = [Colors goldColor];
     }
     else if ([event.category isEqualToString:@"transportation"]) {
-        cell.backgroundColor = [UIColor greenColor];
+        cell.backgroundColor = [Colors lightPurpleColor];
+        bgColorView.backgroundColor = [Colors purpleColor];
     }
     else if ([event.category isEqualToString:@"food"]) {
-        cell.backgroundColor = [UIColor purpleColor];
+        cell.backgroundColor = [Colors lightRedColor];
+        bgColorView.backgroundColor = [Colors redColor];
     }
     else if ([event.category isEqualToString:@"hotel"]) {
-        cell.backgroundColor = [UIColor redColor];
+        cell.backgroundColor = [Colors lightLightBlueColor];
+        bgColorView.backgroundColor = [Colors blueColor];
     }
+    [cell setSelectedBackgroundView:bgColorView];
     
     return cell;
 }
@@ -249,6 +255,8 @@ static const int TABLE_VIEW_HEADER_HEIGHT = 44;
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [self performSegueWithIdentifier:@"ItinDetailsToEventDetailsSegue" sender:self.eventsByDay[indexPath.section][indexPath.row]];
+    
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 

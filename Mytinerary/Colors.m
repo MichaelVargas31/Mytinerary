@@ -11,12 +11,20 @@
 
 @implementation Colors
 
++ (UIColor *)lightGoldColor {
+    return [Colors colorWithHue:32 saturation:50 brightness:100 alpha:1];
+}
+
 + (UIColor *)goldColor {
     return [Colors colorWithHue:32 saturation:67 brightness:99 alpha:1];
 }
 
 + (UIColor *)darkGoldColor {
     return [Colors colorWithHue:32 saturation:67 brightness:79 alpha:1];
+}
+
++ (UIColor *)lightRedColor {
+    return [Colors colorWithHue:357 saturation:37 brightness:98 alpha:1];
 }
 
 + (UIColor *)redColor {
@@ -27,6 +35,10 @@
     return [Colors colorWithHue:357 saturation:59 brightness:59 alpha:1];
 }
 
++ (UIColor *)lightPurpleColor {
+    return [Colors colorWithHue:332 saturation:23 brightness:91 alpha:1];
+}
+
 + (UIColor *)purpleColor {
     return [Colors colorWithHue:332 saturation:22 brightness:68 alpha:1];
 }
@@ -35,8 +47,16 @@
     return [Colors colorWithHue:332 saturation:22 brightness:48 alpha:1];
 }
 
++ (UIColor *)lightPeriwinkleColor {
+    return [Colors colorWithHue:230 saturation:44 brightness:96 alpha:1];
+}
+
 + (UIColor *)periwinkleColor {
     return [Colors colorWithHue:230 saturation:44 brightness:76 alpha:1];
+}
+
++ (UIColor *)lightLightBlueColor {
+    return [Colors colorWithHue:225 saturation:40 brightness:98 alpha:1];
 }
 
 + (UIColor *)lightBlueColor {
