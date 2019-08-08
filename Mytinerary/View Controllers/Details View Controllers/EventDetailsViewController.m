@@ -19,13 +19,13 @@
 #import "Directions.h"
 #import "Colors.h"
 
-static int const TITLE_VIEW_HEIGHT = 100;
-static int const DESCRIPTION_VIEW_HEIGHT = 300;
-static int const ACTIVITY_VIEW_HEIGHT = 82;
-static int const TRANSPORTATION_VIEW_HEIGHT = 228;
-static int const FOOD_VIEW_HEIGHT = 110;
-static int const HOTEL_VIEW_HEIGHT = 110;
-static int const DELETE_VIEW_HEIGHT = 53;
+//static int const TITLE_VIEW_HEIGHT = 100;
+//static int const DESCRIPTION_VIEW_HEIGHT = 300;
+//static int const ACTIVITY_VIEW_HEIGHT = 82;
+//static int const TRANSPORTATION_VIEW_HEIGHT = 228;
+//static int const FOOD_VIEW_HEIGHT = 110;
+//static int const HOTEL_VIEW_HEIGHT = 110;
+//static int const DELETE_VIEW_HEIGHT = 53;
 
 @interface EventDetailsViewController () <InputEventViewControllerDelegate>
 
@@ -85,7 +85,7 @@ static int const DELETE_VIEW_HEIGHT = 53;
     
     // add shared event details title view
     [self.stackView addArrangedSubview:self.titleView];
-    [self.titleView.heightAnchor constraintEqualToConstant:TITLE_VIEW_HEIGHT].active = YES;
+//    [self.titleView.heightAnchor constraintEqualToConstant:TITLE_VIEW_HEIGHT].active = YES;
     // initialize title view labels
     self.titleView.titleLabel.text = self.event.title;
     
@@ -109,7 +109,7 @@ static int const DELETE_VIEW_HEIGHT = 53;
     if ([eventCategory isEqualToString:@"activity"]) {
         // add activity view
         [self.stackView addArrangedSubview:self.activityView];
-        [self.activityView.heightAnchor constraintEqualToConstant:ACTIVITY_VIEW_HEIGHT].active = YES;
+//        [self.activityView.heightAnchor constraintEqualToConstant:ACTIVITY_VIEW_HEIGHT].active = YES;
         self.activityView.backgroundColor = [Colors lightGoldColor];
         
         // initialize activity view labels
@@ -120,7 +120,7 @@ static int const DELETE_VIEW_HEIGHT = 53;
     else if ([eventCategory isEqualToString:@"transportation"]) {
         // add transportation view
         [self.stackView addArrangedSubview:self.transportationView];
-        [self.transportationView.heightAnchor constraintEqualToConstant:TRANSPORTATION_VIEW_HEIGHT].active = YES;
+//        [self.transportationView.heightAnchor constraintEqualToConstant:TRANSPORTATION_VIEW_HEIGHT].active = YES;
         self.transportationView.backgroundColor = [Colors lightPurpleColor];
         
         // initialize transportation view labels
@@ -133,7 +133,7 @@ static int const DELETE_VIEW_HEIGHT = 53;
     else if ([eventCategory isEqualToString:@"food"]) {
         // add food view
         [self.stackView addArrangedSubview:self.foodView];
-        [self.foodView.heightAnchor constraintEqualToConstant:FOOD_VIEW_HEIGHT].active = YES;
+//        [self.foodView.heightAnchor constraintEqualToConstant:FOOD_VIEW_HEIGHT].active = YES;
         self.foodView.backgroundColor = [Colors lightRedColor];
         
         // initialize food view labels
@@ -145,7 +145,7 @@ static int const DELETE_VIEW_HEIGHT = 53;
     else if ([eventCategory isEqualToString:@"hotel"]) {
         // add hotel view
         [self.stackView addArrangedSubview:self.hotelView];
-        [self.hotelView.heightAnchor constraintEqualToConstant:HOTEL_VIEW_HEIGHT].active = YES;
+//        [self.hotelView.heightAnchor constraintEqualToConstant:HOTEL_VIEW_HEIGHT].active = YES;
         self.hotelView.backgroundColor = [Colors lightLightBlueColor];
         
         // initialize hotel view labels
@@ -157,14 +157,14 @@ static int const DELETE_VIEW_HEIGHT = 53;
     
     // add shared event description view
     [self.stackView addArrangedSubview:self.descriptionView];
-    [self.descriptionView.heightAnchor constraintEqualToConstant:DESCRIPTION_VIEW_HEIGHT].active = YES;
+//    [self.descriptionView.heightAnchor constraintEqualToConstant:DESCRIPTION_VIEW_HEIGHT].active = YES;
     self.descriptionView.descriptionLabel.text = self.event.eventDescription;
     self.descriptionView.costLabel.text = [NSString stringWithFormat:@"$%@", self.event.cost];
     self.descriptionView.notesLabel.text = self.event.notes;
     
     // add delete event view
     [self.stackView insertArrangedSubview:self.deleteView atIndex:3];
-    [self.deleteView.heightAnchor constraintEqualToConstant:DELETE_VIEW_HEIGHT].active = YES;
+//    [self.deleteView.heightAnchor constraintEqualToConstant:DELETE_VIEW_HEIGHT].active = YES;
 }
 
 - (IBAction)onTapEditButton:(id)sender {

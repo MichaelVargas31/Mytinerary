@@ -17,11 +17,11 @@
 #import "SearchLocationViewController.h"
 #import "Colors.h"
 
-static int const EVENT_INPUT_SHARED_VIEW_HEIGHT = 600;
-static int const EVENT_INPUT_ACTIVITY_VIEW_HEIGHT = 370;
-static int const EVENT_INPUT_TRANSPORTATION_VIEW_HEIGHT = 540;
-static int const EVENT_INPUT_FOOD_VIEW_HEIGHT = 460;
-static int const EVENT_INPUT_HOTEL_VIEW_HEIGHT = 460;
+//static int const EVENT_INPUT_SHARED_VIEW_HEIGHT = 600;
+//static int const EVENT_INPUT_ACTIVITY_VIEW_HEIGHT = 370;
+//static int const EVENT_INPUT_TRANSPORTATION_VIEW_HEIGHT = 540;
+//static int const EVENT_INPUT_FOOD_VIEW_HEIGHT = 460;
+//static int const EVENT_INPUT_HOTEL_VIEW_HEIGHT = 460;
 static int const EVENT_INPUT_SUBMIT_VIEW_HEIGHT = 50;
 
 @interface InputEventViewController () <UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate, SearchLocationDelegate>
@@ -90,11 +90,11 @@ static int const EVENT_INPUT_SUBMIT_VIEW_HEIGHT = 50;
     
     // add shared event input view
     [stackView addArrangedSubview:self.eventInputSharedView];
-    [self.eventInputSharedView.heightAnchor constraintEqualToConstant:EVENT_INPUT_SHARED_VIEW_HEIGHT].active = YES;
+//    [self.eventInputSharedView.heightAnchor constraintEqualToConstant:EVENT_INPUT_SHARED_VIEW_HEIGHT].active = YES;
     
     // by default, add activity event input view
     [stackView addArrangedSubview:self.eventInputActivityView];
-    [self.eventInputActivityView.heightAnchor constraintEqualToConstant:EVENT_INPUT_ACTIVITY_VIEW_HEIGHT].active = YES;
+//    [self.eventInputActivityView.heightAnchor constraintEqualToConstant:EVENT_INPUT_ACTIVITY_VIEW_HEIGHT].active = YES;
     self.eventInputActivityView.backgroundColor = [Colors goldColor];
     
     // add submit button view
@@ -114,6 +114,8 @@ static int const EVENT_INPUT_SUBMIT_VIEW_HEIGHT = 50;
     [self.eventInputSharedView.startTimeDatePicker setMaximumDate:self.itinerary.endTime];
     [self.eventInputSharedView.endTimeDatePicker setMinimumDate:self.itinerary.startTime];
     [self.eventInputSharedView.endTimeDatePicker setMaximumDate:self.itinerary.endTime];
+    [self.eventInputSharedView.startTimeDatePicker setMinuteInterval:1];
+    [self.eventInputSharedView.endTimeDatePicker setMinuteInterval:1];
     
     self.eventInputSharedView.categoryPickerView.delegate = self;
     self.eventInputSharedView.categoryPickerView.dataSource = self;
@@ -610,22 +612,22 @@ static int const EVENT_INPUT_SUBMIT_VIEW_HEIGHT = 50;
     // add corresponding category subview
     if ([selectedCategory isEqualToString:@"activity"]) {
         [self.stackView insertArrangedSubview:self.eventInputActivityView atIndex:1];
-        [self.eventInputActivityView.heightAnchor constraintEqualToConstant:EVENT_INPUT_ACTIVITY_VIEW_HEIGHT].active = YES;
+//        [self.eventInputActivityView.heightAnchor constraintEqualToConstant:EVENT_INPUT_ACTIVITY_VIEW_HEIGHT].active = YES;
         self.eventInputActivityView.backgroundColor = [Colors lightGoldColor];
     }
     else if ([selectedCategory isEqualToString:@"transportation"]) {
         [self.stackView insertArrangedSubview:self.eventInputTransportationView atIndex:1];
-        [self.eventInputTransportationView.heightAnchor constraintEqualToConstant:EVENT_INPUT_TRANSPORTATION_VIEW_HEIGHT].active = YES;
+//        [self.eventInputTransportationView.heightAnchor constraintEqualToConstant:EVENT_INPUT_TRANSPORTATION_VIEW_HEIGHT].active = YES;
         self.eventInputTransportationView.backgroundColor = [Colors lightPurpleColor];
     }
     else if ([selectedCategory isEqualToString:@"food"]) {
         [self.stackView insertArrangedSubview:self.eventInputFoodView atIndex:1];
-        [self.eventInputFoodView.heightAnchor constraintEqualToConstant:EVENT_INPUT_FOOD_VIEW_HEIGHT].active = YES;
+//        [self.eventInputFoodView.heightAnchor constraintEqualToConstant:EVENT_INPUT_FOOD_VIEW_HEIGHT].active = YES;
         self.eventInputFoodView.backgroundColor = [Colors lightRedColor];
     }
     else if ([selectedCategory isEqualToString:@"hotel"]) {
         [self.stackView insertArrangedSubview:self.eventInputHotelView atIndex:1];
-        [self.eventInputHotelView.heightAnchor constraintEqualToConstant:EVENT_INPUT_HOTEL_VIEW_HEIGHT].active = YES;
+//        [self.eventInputHotelView.heightAnchor constraintEqualToConstant:EVENT_INPUT_HOTEL_VIEW_HEIGHT].active = YES;
         self.eventInputHotelView.backgroundColor = [Colors lightLightBlueColor];
     }
 }
