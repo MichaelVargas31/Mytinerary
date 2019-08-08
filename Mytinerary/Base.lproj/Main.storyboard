@@ -1947,12 +1947,17 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" mapType="standard" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ypp-lD-JTy">
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ypp-lD-JTy">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </mapView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="Ypp-lD-JTy" firstAttribute="bottom" secondItem="qu1-eQ-0kq" secondAttribute="bottom" id="0Ic-6k-c7a"/>
+                            <constraint firstItem="Ypp-lD-JTy" firstAttribute="leading" secondItem="qu1-eQ-0kq" secondAttribute="leading" id="Nn9-w5-7QN"/>
+                            <constraint firstItem="Ypp-lD-JTy" firstAttribute="trailing" secondItem="qu1-eQ-0kq" secondAttribute="trailing" id="XpA-5S-r1o"/>
+                            <constraint firstItem="Ypp-lD-JTy" firstAttribute="top" secondItem="pCV-JK-QuH" secondAttribute="top" id="nt9-rq-odD"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="qu1-eQ-0kq"/>
                     </view>
                     <navigationItem key="navigationItem" id="fnH-oE-JUS">
@@ -2095,9 +2100,9 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="sJn-uW-gz0"/>
-        <segue reference="iPX-Q9-7gZ"/>
-        <segue reference="zNL-pN-NjU"/>
-        <segue reference="cYv-hw-WLz"/>
+        <segue reference="pBk-Pq-aqM"/>
+        <segue reference="pGb-W9-DTJ"/>
+        <segue reference="dot-u4-pzB"/>
         <segue reference="W6l-eq-cqv"/>
         <segue reference="Uy5-kQ-HM8"/>
         <segue reference="Dwd-wo-Oze"/>
