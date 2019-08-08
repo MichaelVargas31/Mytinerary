@@ -20,7 +20,7 @@
 #import "SWRevealViewController.h"
 
 
-@interface ProfileViewController () <UICollectionViewDelegate, UICollectionViewDataSource>
+@interface ProfileViewController () <UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
 
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 @property (weak, nonatomic) IBOutlet UILabel *noItinerariesLabel;
@@ -120,7 +120,7 @@
     ItineraryCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"ItineraryCollectionViewCell" forIndexPath:indexPath];
     Itinerary *itinerary = self.iArray[indexPath.item];
     cell.itinerary = itinerary;
-    cell.title.text=itinerary.title;
+    cell.title.text = itinerary.title;
     if (itinerary.image) {
         NSData *imageData = [itinerary.image getData];
         if (imageData) {
@@ -130,10 +130,14 @@
         }
     }
     
+    // styling
     cell.layer.cornerRadius = 10;
     
-    
     return cell;
+}
+
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
+    return CGSizeMake(CGRectGetWidth(collectionView.frame) - 32, (CGRectGetHeight(collectionView.frame) / 5));
 }
 
 - (NSInteger)collectionView:(nonnull UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
@@ -147,7 +151,11 @@
         ProfileCollectionReusableView *profileHeaderView = [self.collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"ProfileCell" forIndexPath:indexPath];
         User *currentUser = User.currentUser;
         profileHeaderView.usernameLabel.text = currentUser.username;
-        profileHeaderView.layer.cornerRadius = 10;
+        
+        // make profile pic a circle
+        profileHeaderView.profilePicImageView.layer.cornerRadius = profileHeaderView.profilePicImageView.frame.size.width / 2;
+        profileHeaderView.profilePicImageView.layer.masksToBounds = true;
+        
         reusableview = profileHeaderView;
     }
     
