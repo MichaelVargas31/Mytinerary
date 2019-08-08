@@ -26,6 +26,7 @@
 #import "SWRevealViewController.h"
 #import "Itinerary.h"
 #import "User.h"
+#import "Colors.h"
 
 @interface DailyCalendarViewController () <UITableViewDelegate, UITableViewDataSource, CalendarEventViewDelegate, UICollectionViewDelegate, UICollectionViewDataSource, InputEventViewControllerDelegate, EventDetailsViewControllerDelegate>
 
@@ -91,9 +92,7 @@
         self.alertButton.action = @selector(rightRevealToggle:);
         
         [self.view addGestureRecognizer:self.revealViewController.panGestureRecognizer];
-        
     }
-    
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -133,6 +132,7 @@
     UIButton *button = [[UIButton alloc] init];
     [button setAccessibilityFrame:CGRectMake(0, 0, 100, 40)];
     [button setTitle:self.itinerary.title forState:UIControlStateNormal];
+    [button.titleLabel setFont:[UIFont systemFontOfSize:18.0f weight:UIFontWeightBold]];
     [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [button addTarget:self action:@selector(onTapItineraryTitle) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.titleView = button;
@@ -159,6 +159,7 @@
 - (void)refreshViewUsingDate:(NSDate *)newDate {
     // make sure its the midnight version of the date
     newDate = [self.calendar startOfDayForDate:newDate];
+    
     // remove old events from screen
     for(UIView *view in [self.tableView subviews]) {
         if ([view isKindOfClass:[DailyCalendarEventUIView class]] == YES) {
@@ -276,9 +277,13 @@
     
     NSArray *individualDayEvents = [NSArray arrayWithArray:self.eventsDictionary[date]];
     cell.eventArray = individualDayEvents;
+    
+    // color styling
+    cell.backgroundColor = [Colors lightBlueColor];
+    cell.dateLabel.backgroundColor = [Colors blueColor];
+    
     return cell;
 }
-
 
 - (NSInteger)collectionView:(nonnull UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     return self.eventsDictionary.count;     // dictionary has 1 entry per day in itinerary
@@ -289,35 +294,24 @@
 
     WeekdayCollectionViewCell *cell = (WeekdayCollectionViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
     
-    //animates dates when cell is selected
-     if(cell.isSelected){
     [UIView beginAnimations:nil context:nil];
     [UIView setAnimationDuration:0.2];
-    [collectionView cellForItemAtIndexPath:indexPath].backgroundColor=[UIColor lightGrayColor];
-    [collectionView cellForItemAtIndexPath:indexPath].backgroundColor=[UIColor whiteColor];
-    [UIView commitAnimations];
-    }
+    cell.backgroundColor = [Colors darkLightBlueColor];
+    cell.dateLabel.backgroundColor = [Colors darkBlueColor];
     
+    // refresh events calendar view
     [self refreshViewUsingDate:cell.date];
     self.displayedDate = cell.date;
-
-   // cell.dateLabel.backgroundColor = [UIColor colorWithRed:.5 green:.5 blue:.5 alpha:1];
     
-    // only refresh view if dates have already been loaded
-    if (cell.date) {
-         [self refreshViewUsingDate:cell.date];
-         self.displayedDate = cell.date;
-    }
-
+    [UIView commitAnimations];
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath {
     WeekdayCollectionViewCell *cell = (WeekdayCollectionViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
-    
-   // cell.dateLabel.backgroundColor = [UIColor colorWithRed:.2 green:.6 blue:.99 alpha:1];
-    }
-
-#pragma - Transportation
+    // color styling
+    cell.backgroundColor = [Colors lightBlueColor];
+    cell.dateLabel.backgroundColor = [Colors blueColor];
+}
 
 // automatically makes transportations events for the currently displayed day
 - (IBAction)onTapAutoTransportButton:(id)sender {

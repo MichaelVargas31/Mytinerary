@@ -41,8 +41,8 @@
     [super viewDidLoad];
     
     // adjust date pickers
-    [self.startTimeDatePicker setDatePickerMode:UIDatePickerModeDate];
-    [self.endTimeDatePicker setDatePickerMode:UIDatePickerModeDate];
+//    [self.startTimeDatePicker setDatePickerMode:UIDatePickerModeDate];
+//    [self.endTimeDatePicker setDatePickerMode:UIDatePickerModeDate];
     
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissKeyboard)];
     [self.view addGestureRecognizer:tap];
@@ -108,8 +108,11 @@
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info {
     // Get the image captured by the UIImagePickerController
-    UIImage *originalImage = info[UIImagePickerControllerOriginalImage];    
-    [self.imageView setImage:originalImage];
+//    UIImage *originalImage = info[UIImagePickerControllerOriginalImage];
+    UIImage *editedImage = info[UIImagePickerControllerEditedImage];
+    
+    [self resizeImage:editedImage withSize:CGSizeMake(100, 100)];
+    [self.imageView setImage:editedImage];
     
     // Dismiss UIImagePickerController
     [self dismissViewControllerAnimated:YES completion:nil];
@@ -136,13 +139,17 @@
         [self presentViewController:self.alert animated:YES completion:nil];
     } else {
         // Edit existing itinerary
+        Itinerary *newItinerary = [[Itinerary alloc] init];
+        self.itinerary = newItinerary;
         self.itinerary.title = title;
         
         // convert image to PFFileObject
         if (self.imageView.image) {
             NSData *imageData = UIImagePNGRepresentation(self.imageView.image);
             PFFileObject *imageFileObject = [PFFileObject fileObjectWithData:imageData];
+            self.itinerary.image = [PFFileObject fileObjectWithData:imageData];
             self.itinerary.image = imageFileObject;
+            NSLog(@"self.itinery.image = %@", self.itinerary.image);
         }
         self.itinerary.startTime = startTime;
         self.itinerary.endTime = endTime;
@@ -153,7 +160,7 @@
             [self.delegate didSaveItinerary];   // Tells the itinerary details view controller to update
             [self dismissViewControllerAnimated:YES completion:nil];
         } else {
-            self.itinerary = [Itinerary initNewItinerary:title startTime:startTime endTime:endTime budget:budget withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
+            self.itinerary = [Itinerary initNewItinerary:title startTime:startTime endTime:endTime budget:budget imageFile:self.itinerary.image withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
                 if (succeeded) {
                     [self performSegueWithIdentifier:@"AddNewItineraryToDailyCalendarSegue" sender:nil];
                 }
@@ -166,6 +173,25 @@
         }
     }
 }
+
+
+
+
+- (UIImage *)resizeImage:(UIImage *)image withSize:(CGSize)size {
+    UIImageView *resizeImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, size.width, size.height)];
+    
+    resizeImageView.contentMode = UIViewContentModeScaleAspectFill;
+    resizeImageView.image = image;
+    
+    UIGraphicsBeginImageContext(size);
+    [resizeImageView.layer renderInContext:UIGraphicsGetCurrentContext()];
+    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    return newImage;
+}
+
+
 
 - (void)dismissKeyboard {
     [self.view endEditing:YES];

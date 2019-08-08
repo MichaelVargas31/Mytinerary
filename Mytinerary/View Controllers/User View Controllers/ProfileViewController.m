@@ -23,6 +23,8 @@
 @interface ProfileViewController () <UICollectionViewDelegate, UICollectionViewDataSource>
 
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
+@property (weak, nonatomic) IBOutlet UILabel *noItinerariesLabel;
+
 
 @end
 
@@ -31,6 +33,8 @@
 // Do any additional setup after loading the view.
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.noItinerariesLabel.alpha = 0;
     
     self.collectionView.dataSource=self;
     self.collectionView.delegate=self;
@@ -98,8 +102,14 @@
                 }
                 else{
                     NSLog(@"Error fetching data");
+                    [self.activityIndicator stopAnimating];
                 }
             }];
+        } else {
+            NSLog(@"Error fetching first itinerary: %@", error.localizedDescription);
+            [self.activityIndicator stopAnimating];
+            self.noItinerariesLabel.alpha = 1;
+            
         }
         
     }];
