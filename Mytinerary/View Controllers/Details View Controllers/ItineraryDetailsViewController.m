@@ -240,6 +240,7 @@ static const int TABLE_VIEW_HEADER_HEIGHT = 44;
     
     NSDateFormatter *formatter = [DateFormatter dayDateFormatter];
     header.dateLabel.text = [formatter stringFromDate:sectionDate];
+    header.backgroundColor = [UIColor groupTableViewBackgroundColor];
     
     return header;
 }
