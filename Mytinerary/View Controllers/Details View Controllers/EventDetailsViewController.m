@@ -21,11 +21,11 @@
 
 static int const TITLE_VIEW_HEIGHT = 100;
 static int const DESCRIPTION_VIEW_HEIGHT = 300;
-static int const ACTIVITY_VIEW_HEIGHT = 80;
-static int const TRANSPORTATION_VIEW_HEIGHT = 225;
+static int const ACTIVITY_VIEW_HEIGHT = 82;
+static int const TRANSPORTATION_VIEW_HEIGHT = 228;
 static int const FOOD_VIEW_HEIGHT = 110;
 static int const HOTEL_VIEW_HEIGHT = 110;
-static int const DELETE_VIEW_HEIGHT = 100;
+static int const DELETE_VIEW_HEIGHT = 53;
 
 @interface EventDetailsViewController () <InputEventViewControllerDelegate>
 
