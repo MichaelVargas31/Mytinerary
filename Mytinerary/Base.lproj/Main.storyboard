@@ -710,7 +710,7 @@
                         <outlet property="typeTextField" destination="zdO-gm-dUc" id="m4y-4M-3x7"/>
                     </connections>
                 </view>
-                <view contentMode="scaleToFill" id="H6K-tF-Ewc" customClass="EventInputTransportationView">
+                <view contentMode="scaleToFill" ambiguous="YES" id="H6K-tF-Ewc" customClass="EventInputTransportationView">
                     <rect key="frame" x="0.0" y="0.0" width="375" height="513"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>
@@ -1576,8 +1576,8 @@
                     <rect key="frame" x="0.0" y="0.0" width="375" height="100"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Event title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sBb-JL-JBQ">
-                            <rect key="frame" x="32" y="32" width="117.5" height="52"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Event title" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sBb-JL-JBQ">
+                            <rect key="frame" x="32" y="32" width="265" height="52"/>
                             <fontDescription key="fontDescription" type="system" weight="thin" pointSize="30"/>
                             <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <nil key="highlightedColor"/>
@@ -1596,6 +1596,7 @@
                         <constraint firstItem="sBb-JL-JBQ" firstAttribute="top" secondItem="XIB-z3-fFA" secondAttribute="top" constant="32" id="7j0-qQ-Tnc"/>
                         <constraint firstItem="XIB-z3-fFA" firstAttribute="bottom" secondItem="sBb-JL-JBQ" secondAttribute="bottom" constant="16" id="ANd-6U-vzk"/>
                         <constraint firstItem="mu4-A8-QZa" firstAttribute="centerY" secondItem="sBb-JL-JBQ" secondAttribute="centerY" id="Bz0-Vo-jMH"/>
+                        <constraint firstItem="mu4-A8-QZa" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="sBb-JL-JBQ" secondAttribute="trailing" constant="8" id="lcI-5y-Oy9"/>
                         <constraint firstItem="sBb-JL-JBQ" firstAttribute="leading" secondItem="XIB-z3-fFA" secondAttribute="leading" constant="32" id="wlK-JT-hOQ"/>
                         <constraint firstItem="XIB-z3-fFA" firstAttribute="trailing" secondItem="mu4-A8-QZa" secondAttribute="trailing" constant="32" id="xxk-nP-MPf"/>
                     </constraints>
@@ -2248,7 +2249,7 @@
         <segue reference="iPX-Q9-7gZ"/>
         <segue reference="pGb-W9-DTJ"/>
         <segue reference="dot-u4-pzB"/>
-        <segue reference="W6l-eq-cqv"/>
+        <segue reference="GkC-3I-Ydq"/>
         <segue reference="hw8-pD-mAT"/>
         <segue reference="8pI-JV-Ai2"/>
         <segue reference="Dwd-wo-Oze"/>
