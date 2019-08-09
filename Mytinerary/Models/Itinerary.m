@@ -21,7 +21,7 @@
 }
 
 // initialize a new itinerary with current user and given start/end times
-+ (Itinerary *)initNewItinerary:(NSString *)title startTime:(NSDate *)startTime endTime:(NSDate *)endTime budget:(NSNumber *)budget imageFile:(PFFileObject * _Nullable)imageFile withCompletion:(PFBooleanResultBlock)completion {
++ (Itinerary *)initNewItinerary:(NSString *)title startTime:(NSDate *)startTime endTime:(NSDate *)endTime budget:(NSNumber *)budget image:(UIImage * _Nullable)image withCompletion:(PFBooleanResultBlock)completion {
 
     Itinerary *itinerary = [Itinerary new];
     itinerary.author = [PFUser currentUser];
@@ -30,7 +30,9 @@
     itinerary.totalCost = @(0);
     itinerary.title = title;
     
-    if (imageFile) {
+    if (image) {
+        NSData *imageData = UIImagePNGRepresentation(image);
+        PFFileObject *imageFile = [PFFileObject fileObjectWithData:imageData];
         itinerary.image = imageFile;
     }
 
