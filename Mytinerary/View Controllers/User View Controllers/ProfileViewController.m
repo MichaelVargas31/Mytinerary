@@ -57,9 +57,9 @@
     [self.collectionView reloadData];
 }
 
--(void) sideMenus{
+- (void)sideMenus {
     
-    if(self.revealViewController != nil){
+    if (self.revealViewController != nil) {
         self.mB.target = self.revealViewController;
         self.mB.action = @selector(revealToggle:);
         self.revealViewController.rearViewRevealWidth = 275;
@@ -78,34 +78,31 @@
     PFQuery *iQuery = [Itinerary query];
     //Search Where author of itineraries is equal to the current user logged in
     [iQuery whereKey:@"author" equalTo:PFUser.currentUser];
-    [iQuery getFirstObjectInBackgroundWithBlock:^(PFObject *object, NSError *error)
-    {
+    [iQuery getFirstObjectInBackgroundWithBlock:^(PFObject *object, NSError *error) {
         if (!error) {
             [iQuery orderByDescending: @"createdAt"];
             [iQuery includeKey: @"author"];
             iQuery.limit = 100;
             
             //fetch data
-            [iQuery findObjectsInBackgroundWithBlock:^(NSArray<Itinerary *> * itineraryArray, NSError *  error) {
-                if(itineraryArray){
+            [iQuery findObjectsInBackgroundWithBlock:^(NSArray<Itinerary *> * itineraryArray, NSError *error) {
+                if (itineraryArray) {
                     self.iArray = itineraryArray;
-                    
                     
                     [self.collectionView reloadData];
                     [self.activityIndicator stopAnimating];
                 }
-                else{
+                else {
                     NSLog(@"Error fetching data");
                     [self.activityIndicator stopAnimating];
                 }
             }];
-        } else {
+        }
+        else {
             NSLog(@"Error fetching first itinerary: %@", error.localizedDescription);
             [self.activityIndicator stopAnimating];
             self.noItinerariesLabel.alpha = 1;
-            
         }
-        
     }];
 }
 
@@ -144,6 +141,7 @@
     UICollectionReusableView *reusableview = nil;
     if (kind == UICollectionElementKindSectionHeader) {
         ProfileCollectionReusableView *profileHeaderView = [self.collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"ProfileCell" forIndexPath:indexPath];
+        
         User *currentUser = User.currentUser;
         profileHeaderView.usernameLabel.text = currentUser.username;
         
@@ -175,7 +173,6 @@
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
     if ([segue.identifier isEqualToString:@"calendarSegue"]) {
-        
         ItineraryCollectionViewCell *tappedCell = sender;
         Itinerary *itinerary = tappedCell.itinerary;
         
@@ -201,10 +198,5 @@
         NSLog(@"If you're getting this message, you need to edit the prepareForSegue() method to add another segue");
     }
 }
-
-
-
-
-
 
 @end
