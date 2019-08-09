@@ -95,14 +95,6 @@
     }
 }
 
-- (void)viewDidAppear:(BOOL)animated {
-    if ([self.WeeklyCalendarCollectionView indexPathsForSelectedItems].count == 0) {
-        NSIndexPath *indexPath = [NSIndexPath indexPathForItem:0 inSection:0];
-        [self.WeeklyCalendarCollectionView selectItemAtIndexPath:indexPath animated:YES scrollPosition:UICollectionViewScrollPositionNone];
-        [self collectionView:self.WeeklyCalendarCollectionView didSelectItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]];
-    }
-}
-
 - (void)fetchItineraryAndLoadView {
     [Itinerary fetchAllInBackground:[NSArray arrayWithObject:self.itinerary] block:^(NSArray * _Nullable objects, NSError * _Nullable error) {
         if (objects) {
@@ -281,11 +273,10 @@
     cell.backgroundColor = [Colors lightBlueColor];
     cell.dateLabel.backgroundColor = [Colors blueColor];
     
-    // FIX THIS
-    // update styling to pseudo-select the first item on first load
+    // select the first day by default on first load
+    // (cannot select first day until second day's collection cell is being setup)
     if (self.firstLoad && indexPath.item == 1) {
-        NSIndexPath *firstItemIndexPath = [NSIndexPath indexPathWithIndex:0];
-//        WeekdayCollectionViewCell *firstCell = self.WeeklyCalendarCollectionView.visibleCells[0];
+        NSIndexPath *firstItemIndexPath = [NSIndexPath indexPathForItem:0 inSection:0];
         [self.WeeklyCalendarCollectionView selectItemAtIndexPath:firstItemIndexPath animated:YES scrollPosition:UICollectionViewScrollPositionNone];
         [self collectionView:collectionView didSelectItemAtIndexPath:firstItemIndexPath];
         self.firstLoad = false;
@@ -300,7 +291,6 @@
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     // reset the collection view and all the sheiza on it
-
     WeekdayCollectionViewCell *cell = (WeekdayCollectionViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
     
     [UIView beginAnimations:nil context:nil];
