@@ -308,11 +308,12 @@
                         <outlet property="defaultItineraryPicker" destination="rAq-oP-CvX" id="vfo-a6-oxC"/>
                         <outlet property="passwordTextField" destination="Riv-ZG-hdy" id="HcK-Zh-0c5"/>
                         <outlet property="usernameTextField" destination="0A1-gz-EPN" id="Mq6-P2-2e7"/>
+                        <segue destination="AST-nT-DsT" kind="show" identifier="EditProfileToProfile" id="UsX-p2-WCf"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gbl-C1-IkQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3748" y="2901"/>
+            <point key="canvasLocation" x="3644" y="2901"/>
         </scene>
         <!--Input Itinerary View Controller-->
         <scene sceneID="d6m-Ae-efd">
@@ -2063,8 +2064,8 @@
         <image name="blurrybackground" width="2520" height="1418"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="fKl-TQ-TQv"/>
-        <segue reference="RmN-u0-S7V"/>
+        <segue reference="sJn-uW-gz0"/>
+        <segue reference="UsX-p2-WCf"/>
         <segue reference="zNL-pN-NjU"/>
         <segue reference="S6S-hJ-Kow"/>
         <segue reference="W6l-eq-cqv"/>

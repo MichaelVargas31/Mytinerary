@@ -7,6 +7,7 @@
 //
 
 #import "InputProfileViewController.h"
+#import "SWRevealViewController.h"
 #import "User.h"
 #import "Itinerary.h"
 
@@ -77,7 +78,8 @@
     [User.currentUser updateUser:self.usernameTextField.text password:self.passwordTextField.text defaultItinerary:selectedDefaultItinerary withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
         if (succeeded) {
             NSLog(@"successfully updated user");
-            [self dismissViewControllerAnimated:YES completion:nil];
+//            [self dismissViewControllerAnimated:YES completion:nil];
+            [self performSegueWithIdentifier:@"EditProfileToProfile" sender:nil];
         }
         else {
             NSLog(@"error updating user: %@", error.domain);
@@ -91,15 +93,15 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-/*
+
 #pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+    if ([segue.identifier isEqualToString:@"EditProfileToProfile"]) {
+        SWRevealViewController *revealVC = [segue destinationViewController];
+        revealVC.nextSegue = @"ToProfileSegue";
+    }
 }
-*/
 
 #pragma - picker view
 
