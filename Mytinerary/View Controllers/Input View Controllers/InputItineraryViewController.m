@@ -55,6 +55,11 @@
     UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
                                                           handler:^(UIAlertAction * action) {}];
     
+    // set up date picker time zones
+    NSCalendar *calendar = [Calendar gregorianCalendarWithUTCTimeZone];
+    [self.startTimeDatePicker setTimeZone:calendar.timeZone];
+    [self.endTimeDatePicker setTimeZone:calendar.timeZone];
+    
     [self.alert addAction:defaultAction];
     [self adjustViewControllerAccordingToNew];
 }

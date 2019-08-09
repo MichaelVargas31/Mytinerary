@@ -52,7 +52,6 @@
     self.timeOfDayFormatter = [[NSDateFormatter alloc] init];
     [self.dateFormatter setDateFormat:@"yyyy-MM-dd"];
     
-    
     self.calendar = [Calendar gregorianCalendarWithUTCTimeZone];
     
     self.tableView.dataSource = self;
