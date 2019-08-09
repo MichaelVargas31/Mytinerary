@@ -26,6 +26,7 @@
 
 @property (nonatomic, strong) NSMutableArray *events;
 @property (strong, nonatomic) NSMutableArray <Event *> *routePolylineEvents; // parallel with mapkit's polyline overlays (representing transportation events)
+@property (strong, nonatomic) UIAlertController *alert;
 
 @end
 
@@ -35,6 +36,14 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    // set up alert controller
+    self.alert = [UIAlertController alertControllerWithTitle:@"Map Message"
+                                                     message:@"This is an alert."
+                                              preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
+                                                          handler:^(UIAlertAction * action) {}];
+    [self.alert addAction:defaultAction];
     
     self.mapView.delegate = self;
     [self.mapView setShowsUserLocation:false];
@@ -55,6 +64,11 @@
     
     // get itinerary events
     self.events = [NSMutableArray arrayWithArray:self.itinerary.events];
+    if (self.events.count == 0) {
+        self.alert.message = @"No events to display";
+        [self presentViewController:self.alert animated:YES completion:nil];
+    }
+    
     [Event fetchAllIfNeededInBackground:self.events block:^(NSArray * _Nullable objects, NSError * _Nullable error) {
         if (objects) {
             NSLog(@"successfully loaded events from '%@'", self.itinerary.title);
