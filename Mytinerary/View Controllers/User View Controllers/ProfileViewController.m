@@ -167,7 +167,6 @@
                 }
             }];
         }
-        
         reusableview = profileHeaderView;
     }
     
