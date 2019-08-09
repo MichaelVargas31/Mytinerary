@@ -10,6 +10,7 @@
 #import "DailyCalendarViewController.h"
 #import "DailyTableViewCell.h"
 #import "Colors.h"
+#import "Calendar.h"
 
 @implementation DailyCalendarEventUIView
 
@@ -17,8 +18,7 @@
     // assign event as view property
     self.event = event;
     
-    NSCalendar *calendar = [NSCalendar currentCalendar];
-    [calendar setTimeZone: [NSTimeZone systemTimeZone]];
+    NSCalendar *calendar = [Calendar gregorianCalendarWithUTCTimeZone];
     
     NSDateComponents *eventStartComponents = [calendar components:(NSCalendarUnitHour | NSCalendarUnitMinute) fromDate:event.startTime];
     NSInteger eventStartHour = [eventStartComponents hour];

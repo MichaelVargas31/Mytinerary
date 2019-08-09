@@ -15,7 +15,6 @@
 #import "ProfileCollectionReusableView.h"
 #import "Itinerary.h"
 #import "Parse/Parse.h"
-#import "ProgressIndicatorView.h"
 #import "User.h"
 #import "SWRevealViewController.h"
 
@@ -41,29 +40,25 @@
     
     //sets the username on the profile view
     self.usernameLabel.text= User.currentUser.username;
-//    self.collectionView.layer.cornerRadius = 10;
     
     //fetch itineraries
     [self fetchitineraries];
     
     // layout of collection view
     UICollectionViewFlowLayout *layout = (UICollectionViewFlowLayout *)self.collectionView.collectionViewLayout;
-    layout.minimumInteritemSpacing = 15;
-    layout.minimumLineSpacing = 15;
-    CGFloat postersPerLine = 3;
-    CGFloat itemWidth = (self.collectionView.frame.size.width - layout.minimumInteritemSpacing * (postersPerLine - 1) - layout.sectionInset.right * 2) / postersPerLine;
-    CGFloat itemHeight = 1.3 * itemWidth;
+    layout.sectionInset = UIEdgeInsetsMake(16, 16, 16, 16);
+    layout.minimumLineSpacing = 16;
+    CGFloat itemWidth = (self.collectionView.frame.size.width - layout.sectionInset.left - layout.sectionInset.right);
+    CGFloat itemHeight = itemWidth * 0.4;
     layout.itemSize = CGSizeMake(itemWidth, itemHeight);
-    
     
     [self sideMenus];
     [self.collectionView reloadData];
-    
 }
 
--(void) sideMenus{
+- (void)sideMenus {
     
-    if(self.revealViewController != nil){
+    if (self.revealViewController != nil) {
         self.mB.target = self.revealViewController;
         self.mB.action = @selector(revealToggle:);
         self.revealViewController.rearViewRevealWidth = 250;
@@ -73,9 +68,7 @@
         self.aB.action = @selector(rightRevealToggle:);
         
         [self.view addGestureRecognizer:self.revealViewController.panGestureRecognizer];
-        
     }
-    
 }
 
 -(void)fetchitineraries {
@@ -84,34 +77,31 @@
     PFQuery *iQuery = [Itinerary query];
     //Search Where author of itineraries is equal to the current user logged in
     [iQuery whereKey:@"author" equalTo:PFUser.currentUser];
-    [iQuery getFirstObjectInBackgroundWithBlock:^(PFObject *object, NSError *error)
-    {
+    [iQuery getFirstObjectInBackgroundWithBlock:^(PFObject *object, NSError *error) {
         if (!error) {
             [iQuery orderByDescending: @"createdAt"];
             [iQuery includeKey: @"author"];
             iQuery.limit = 100;
             
             //fetch data
-            [iQuery findObjectsInBackgroundWithBlock:^(NSArray<Itinerary *> * itineraryArray, NSError *  error) {
-                if(itineraryArray){
+            [iQuery findObjectsInBackgroundWithBlock:^(NSArray<Itinerary *> * itineraryArray, NSError *error) {
+                if (itineraryArray) {
                     self.iArray = itineraryArray;
-                    
                     
                     [self.collectionView reloadData];
                     [self.activityIndicator stopAnimating];
                 }
-                else{
+                else {
                     NSLog(@"Error fetching data");
                     [self.activityIndicator stopAnimating];
                 }
             }];
-        } else {
+        }
+        else {
             NSLog(@"Error fetching first itinerary: %@", error.localizedDescription);
             [self.activityIndicator stopAnimating];
             self.noItinerariesLabel.alpha = 1;
-            
         }
-        
     }];
 }
 
@@ -137,7 +127,8 @@
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-    return CGSizeMake(CGRectGetWidth(collectionView.frame) - 32, (CGRectGetHeight(collectionView.frame) / 5));
+    UICollectionViewFlowLayout *layout = (UICollectionViewFlowLayout *)collectionViewLayout;
+    return layout.itemSize;
 }
 
 - (NSInteger)collectionView:(nonnull UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
@@ -149,6 +140,7 @@
     UICollectionReusableView *reusableview = nil;
     if (kind == UICollectionElementKindSectionHeader) {
         ProfileCollectionReusableView *profileHeaderView = [self.collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"ProfileCell" forIndexPath:indexPath];
+        
         User *currentUser = User.currentUser;
         profileHeaderView.usernameLabel.text = currentUser.username;
         
@@ -180,7 +172,6 @@
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
     if ([segue.identifier isEqualToString:@"calendarSegue"]) {
-        
         ItineraryCollectionViewCell *tappedCell = sender;
         Itinerary *itinerary = tappedCell.itinerary;
         
@@ -206,10 +197,5 @@
         NSLog(@"If you're getting this message, you need to edit the prepareForSegue() method to add another segue");
     }
 }
-
-
-
-
-
 
 @end

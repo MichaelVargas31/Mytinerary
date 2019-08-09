@@ -16,6 +16,7 @@
 #import "Event.h"
 #import "SearchLocationViewController.h"
 #import "Colors.h"
+#import "Calendar.h"
 
 //static int const EVENT_INPUT_SHARED_VIEW_HEIGHT = 600;
 //static int const EVENT_INPUT_ACTIVITY_VIEW_HEIGHT = 370;
@@ -116,6 +117,10 @@ static int const EVENT_INPUT_SUBMIT_VIEW_HEIGHT = 50;
     [self.eventInputSharedView.endTimeDatePicker setMaximumDate:self.itinerary.endTime];
     [self.eventInputSharedView.startTimeDatePicker setMinuteInterval:1];
     [self.eventInputSharedView.endTimeDatePicker setMinuteInterval:1];
+    // set up time zones
+    NSCalendar *calendar = [Calendar gregorianCalendarWithUTCTimeZone];
+    [self.eventInputSharedView.startTimeDatePicker setTimeZone:calendar.timeZone];
+    [self.eventInputSharedView.endTimeDatePicker setTimeZone:calendar.timeZone];
     
     self.eventInputSharedView.categoryPickerView.delegate = self;
     self.eventInputSharedView.categoryPickerView.dataSource = self;

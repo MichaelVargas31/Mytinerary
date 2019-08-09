@@ -30,9 +30,10 @@
 
 @interface DailyCalendarViewController () <UITableViewDelegate, UITableViewDataSource, CalendarEventViewDelegate, UICollectionViewDelegate, UICollectionViewDataSource, InputEventViewControllerDelegate, EventDetailsViewControllerDelegate>
 
-@property (strong, nonatomic) UIActivityIndicatorView *activityIndicator;
+@property (strong, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 @property (strong, nonatomic) NSDate *displayedDate;
 @property (strong, nonatomic) NSArray <NSDate *> *itineraryDates; // holds dates of itinerary in order
+@property BOOL firstLoad;
 
 @end
 
@@ -41,13 +42,15 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    // for preselecting first date
+    self.firstLoad = true;
+    
     // initializing formatter for calculating cell's times
     self.timeOfDayFormatter = [[NSDateFormatter alloc] init];
     [self.timeOfDayFormatter setDateFormat:@"HH:mm:ss"];
     
     self.timeOfDayFormatter = [[NSDateFormatter alloc] init];
     [self.dateFormatter setDateFormat:@"yyyy-MM-dd"];
-    
     
     self.calendar = [Calendar gregorianCalendarWithUTCTimeZone];
     
@@ -62,15 +65,11 @@
     // set up table view
     self.tableView.rowHeight = [DailyTableViewCell returnRowHeight].floatValue;
     
-    // set up activity indicator -- TODO: not sure if this actually works
-    self.activityIndicator = [[UIActivityIndicatorView alloc] init];
-    self.activityIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyleWhiteLarge;
-    self.activityIndicator.center = self.view.center;
-    [self.view addSubview:self.activityIndicator];
-    [self.activityIndicator hidesWhenStopped];
+    // set up activity indicator
+    [self.activityIndicator startAnimating];
+    self.activityIndicator.hidesWhenStopped = true;
     
     // if from login, itinerary obj must be fetched first
-    [self.activityIndicator startAnimating];
     if (self.loadItinerary) {
         [self fetchItineraryAndLoadView];
     }
@@ -79,6 +78,14 @@
     }
     
     [self sideMenus];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    // scroll to 7:00 am by default
+    dispatch_async(dispatch_get_main_queue(), ^{
+        NSIndexPath *rowIndexPath = [NSIndexPath indexPathForRow:14 inSection:0];
+        [self.tableView scrollToRowAtIndexPath:rowIndexPath atScrollPosition:UITableViewScrollPositionTop animated:YES];
+    });
 }
 
 -(void)sideMenus{
@@ -95,20 +102,11 @@
     }
 }
 
-- (void)viewDidAppear:(BOOL)animated {
-    if ([self.WeeklyCalendarCollectionView indexPathsForSelectedItems].count == 0) {
-        NSIndexPath *indexPath = [NSIndexPath indexPathForItem:0 inSection:0];
-        [self.WeeklyCalendarCollectionView selectItemAtIndexPath:indexPath animated:YES scrollPosition:UICollectionViewScrollPositionNone];
-        [self collectionView:self.WeeklyCalendarCollectionView didSelectItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]];
-    }
-}
-
 - (void)fetchItineraryAndLoadView {
     [Itinerary fetchAllInBackground:[NSArray arrayWithObject:self.itinerary] block:^(NSArray * _Nullable objects, NSError * _Nullable error) {
         if (objects) {
             NSLog(@"itinerary successfully fetched!");
             self.itinerary = [objects firstObject];
-            [self.activityIndicator stopAnimating];
             
             // reset current user's default itinerary
             [User resetDefaultItinerary:PFUser.currentUser itinerary:self.itinerary withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
@@ -282,6 +280,15 @@
     cell.backgroundColor = [Colors lightBlueColor];
     cell.dateLabel.backgroundColor = [Colors blueColor];
     
+    // select the first day by default on first load
+    // (cannot select first day until second day's collection cell is being setup)
+    if (self.firstLoad && indexPath.item == 1) {
+        NSIndexPath *firstItemIndexPath = [NSIndexPath indexPathForItem:0 inSection:0];
+        [self.WeeklyCalendarCollectionView selectItemAtIndexPath:firstItemIndexPath animated:YES scrollPosition:UICollectionViewScrollPositionNone];
+        [self collectionView:collectionView didSelectItemAtIndexPath:firstItemIndexPath];
+        self.firstLoad = false;
+    }
+    
     return cell;
 }
 
@@ -291,7 +298,6 @@
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     // reset the collection view and all the sheiza on it
-
     WeekdayCollectionViewCell *cell = (WeekdayCollectionViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
     
     [UIView beginAnimations:nil context:nil];
