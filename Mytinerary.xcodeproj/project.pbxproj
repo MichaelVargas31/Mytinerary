@@ -69,8 +69,6 @@
 		FF6C5F3522DE8B8900D0EB83 /* DailyTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FF6C5F3422DE8B8900D0EB83 /* DailyTableViewCell.m */; };
 		FF9299D422F3A9D30027D782 /* ItineraryDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FF9299D022F3A9D30027D782 /* ItineraryDetailsViewController.m */; };
 		FF9299D522F3A9D30027D782 /* EventDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FF9299D222F3A9D30027D782 /* EventDetailsViewController.m */; };
-		FFC18FD722FB541800932B68 /* ProgressIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = FFC18FD622FB541800932B68 /* ProgressIndicatorView.m */; };
-		FFC18FD422FB3BB800932B68 /* Keys.plist in Resources */ = {isa = PBXBuildFile; fileRef = FFC18FD322FB3BB800932B68 /* Keys.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -212,9 +210,6 @@
 		FF9299D122F3A9D30027D782 /* ItineraryDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ItineraryDetailsViewController.h; sourceTree = "<group>"; };
 		FF9299D222F3A9D30027D782 /* EventDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventDetailsViewController.m; sourceTree = "<group>"; };
 		FF9299D322F3A9D30027D782 /* EventDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventDetailsViewController.h; sourceTree = "<group>"; };
-		FFC18FD522FB541800932B68 /* ProgressIndicatorView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProgressIndicatorView.h; sourceTree = "<group>"; };
-		FFC18FD622FB541800932B68 /* ProgressIndicatorView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProgressIndicatorView.m; sourceTree = "<group>"; };
-		FFC18FD322FB3BB800932B68 /* Keys.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Keys.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -993,7 +988,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = CC3NSMV262;
+				DEVELOPMENT_TEAM = JW339Z77B6;
 				INFOPLIST_FILE = Mytinerary/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1011,7 +1006,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = CC3NSMV262;
+				DEVELOPMENT_TEAM = JW339Z77B6;
 				INFOPLIST_FILE = Mytinerary/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

@@ -29,6 +29,8 @@
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissKeyboard)];
     [self.view addGestureRecognizer:tap];
     
+    // prof pic is a circle
+    self.profilePictureImage.layer.cornerRadius = self.profilePictureImage.frame.size.width / 2;
     
     // setup alert controller
     self.alert = [UIAlertController alertControllerWithTitle:@"Error"
