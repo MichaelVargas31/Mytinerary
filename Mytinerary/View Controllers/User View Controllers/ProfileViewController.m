@@ -20,7 +20,7 @@
 #import "SWRevealViewController.h"
 
 
-@interface ProfileViewController () <UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
+@interface ProfileViewController () <UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, InputProfileViewControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 @property (weak, nonatomic) IBOutlet UILabel *noItinerariesLabel;
@@ -156,6 +156,18 @@
         profileHeaderView.profilePicImageView.layer.cornerRadius = profileHeaderView.profilePicImageView.frame.size.width / 2;
         profileHeaderView.profilePicImageView.layer.masksToBounds = true;
         
+        if (currentUser.profilePicture) {
+            [currentUser.profilePicture getDataInBackgroundWithBlock:^(NSData * _Nullable data, NSError * _Nullable error) {
+                if (data) {
+                    UIImage *image = [UIImage imageWithData:data];
+                    [profileHeaderView.profilePicImageView setImage:image];
+                    NSLog(@"Sets image");
+                } else {
+                    NSLog(@"error getting image data: %@", error.localizedDescription);
+                }
+            }];
+        }
+        
         reusableview = profileHeaderView;
     }
     
@@ -207,9 +219,9 @@
     }
 }
 
-
-
-
-
+-(void)didSaveProfilePicture{
+    
+    
+}
 
 @end

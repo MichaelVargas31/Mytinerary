@@ -61,4 +61,10 @@
     [User resetDefaultItinerary:self itinerary:defaultItinerary withCompletion:completion];
 }
 
+-(void)profilePicture: (PFFileObject *) pP withCompletion:(PFBooleanResultBlock)completion{
+    if (pP) {
+        self.profilePicture=pP;
+    }
+}
+
 @end

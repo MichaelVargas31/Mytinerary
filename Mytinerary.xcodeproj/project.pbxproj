@@ -17,7 +17,6 @@
 		2393756722FA29D2002CBAA7 /* Image.m in Sources */ = {isa = PBXBuildFile; fileRef = 2393756622FA29D2002CBAA7 /* Image.m */; };
 		23F1C5DD22FB479700ADF49B /* EventAnnotation.h in Sources */ = {isa = PBXBuildFile; fileRef = 8468099622E93EAF001F9F0C /* EventAnnotation.h */; };
 		23F1C5E322FB506700ADF49B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FF6C5EFD22DE640200D0EB83 /* Main.storyboard */; };
-		23F1C5E522FB51CC00ADF49B /* Keys.plist in Resources */ = {isa = PBXBuildFile; fileRef = 23F1C5E422FB51CC00ADF49B /* Keys.plist */; };
 		23F1C5E922FB5DE700ADF49B /* Colors.m in Sources */ = {isa = PBXBuildFile; fileRef = 23F1C5E822FB5DE700ADF49B /* Colors.m */; };
 		23F5A9E922DFE59A0084086B /* InputItineraryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 23F5A9E822DFE59A0084086B /* InputItineraryViewController.m */; };
 		23F5A9EC22E0D3890084086B /* EventInputSharedView.m in Sources */ = {isa = PBXBuildFile; fileRef = 23F5A9EB22E0D3890084086B /* EventInputSharedView.m */; };
@@ -48,10 +47,11 @@
 		8495D7A922DE8BDD00CFED2D /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8495D7A822DE8BDD00CFED2D /* LoginViewController.m */; };
 		8495D7AE22DE991B00CFED2D /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8495D7AD22DE991B00CFED2D /* ProfileViewController.m */; };
 		8495D7B122DF879600CFED2D /* ItineraryCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8495D7B022DF879600CFED2D /* ItineraryCollectionViewCell.m */; };
+		84A51A2622FDFA8800772A14 /* Keys.plist in Resources */ = {isa = PBXBuildFile; fileRef = 84A51A2522FDFA8800772A14 /* Keys.plist */; };
+		84A51A2922FDFB2300772A14 /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A51A2822FDFB2300772A14 /* SWRevealViewController.m */; };
 		84B581CE22F25316004BA82B /* PhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84B581CD22F25316004BA82B /* PhotoViewController.m */; };
 		84B5E51722E10637006F4815 /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84B5E51622E10637006F4815 /* MapViewController.m */; };
 		C628AEE5E20C9C7409D9B734 /* Pods_MytineraryTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 58B8F33A939BCC86C8C98935 /* Pods_MytineraryTests.framework */; };
-		FF05D5C522F3B0F8003014E3 /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FF05D5C322F3B0F8003014E3 /* SWRevealViewController.m */; };
 		FF05D5D422F9FE16003014E3 /* ItineraryDetailsHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = FF05D5D322F9FE16003014E3 /* ItineraryDetailsHeaderView.m */; };
 		FF0E77F522EA53A200CFEF9A /* WeekdayCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FF0E77F422EA53A200CFEF9A /* WeekdayCollectionViewCell.m */; };
 		FF0E77FB22EF8EF800CFEF9A /* DeleteItineraryTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FF0E77FA22EF8EF800CFEF9A /* DeleteItineraryTableViewCell.m */; };
@@ -69,7 +69,6 @@
 		FF6C5F3522DE8B8900D0EB83 /* DailyTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FF6C5F3422DE8B8900D0EB83 /* DailyTableViewCell.m */; };
 		FF9299D422F3A9D30027D782 /* ItineraryDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FF9299D022F3A9D30027D782 /* ItineraryDetailsViewController.m */; };
 		FF9299D522F3A9D30027D782 /* EventDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FF9299D222F3A9D30027D782 /* EventDetailsViewController.m */; };
-		FFC18FD422FB3BB800932B68 /* Keys.plist in Resources */ = {isa = PBXBuildFile; fileRef = FFC18FD322FB3BB800932B68 /* Keys.plist */; };
 		FFC18FD722FB541800932B68 /* ProgressIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = FFC18FD622FB541800932B68 /* ProgressIndicatorView.m */; };
 /* End PBXBuildFile section */
 
@@ -100,7 +99,6 @@
 		2393756022FA2652002CBAA7 /* TransportationEventAnnotationView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TransportationEventAnnotationView.m; sourceTree = "<group>"; };
 		2393756522FA29D2002CBAA7 /* Image.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Image.h; sourceTree = "<group>"; };
 		2393756622FA29D2002CBAA7 /* Image.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Image.m; sourceTree = "<group>"; };
-		23F1C5E422FB51CC00ADF49B /* Keys.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Keys.plist; sourceTree = "<group>"; };
 		23F1C5E722FB5DE700ADF49B /* Colors.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Colors.h; sourceTree = "<group>"; };
 		23F1C5E822FB5DE700ADF49B /* Colors.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Colors.m; sourceTree = "<group>"; };
 		23F5A9E722DFE59A0084086B /* InputItineraryViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InputItineraryViewController.h; sourceTree = "<group>"; };
@@ -162,6 +160,9 @@
 		8495D7AD22DE991B00CFED2D /* ProfileViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProfileViewController.m; sourceTree = "<group>"; };
 		8495D7AF22DF879600CFED2D /* ItineraryCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ItineraryCollectionViewCell.h; sourceTree = "<group>"; };
 		8495D7B022DF879600CFED2D /* ItineraryCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ItineraryCollectionViewCell.m; sourceTree = "<group>"; };
+		84A51A2522FDFA8800772A14 /* Keys.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Keys.plist; path = ../../Mytinerary/Mytinerary/Keys.plist; sourceTree = "<group>"; };
+		84A51A2722FDFB2300772A14 /* SWRevealViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SWRevealViewController.h; path = ../../../Downloads/SWRevealViewController.h; sourceTree = "<group>"; };
+		84A51A2822FDFB2300772A14 /* SWRevealViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SWRevealViewController.m; path = ../../../Downloads/SWRevealViewController.m; sourceTree = "<group>"; };
 		84B581CC22F25316004BA82B /* PhotoViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PhotoViewController.h; sourceTree = "<group>"; };
 		84B581CD22F25316004BA82B /* PhotoViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PhotoViewController.m; sourceTree = "<group>"; };
 		84B5E51522E10637006F4815 /* MapViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MapViewController.h; sourceTree = "<group>"; };
@@ -174,8 +175,6 @@
 		A79C438CDB5AA7C703E473D4 /* Pods-MytineraryUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MytineraryUITests.debug.xcconfig"; path = "Target Support Files/Pods-MytineraryUITests/Pods-MytineraryUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		D62311D88DD929F67D92DCA2 /* Pods-MytineraryTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MytineraryTests.debug.xcconfig"; path = "Target Support Files/Pods-MytineraryTests/Pods-MytineraryTests.debug.xcconfig"; sourceTree = "<group>"; };
 		E49E5CF74D83A7C35B144F7A /* Pods_MytineraryUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MytineraryUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		FF05D5C322F3B0F8003014E3 /* SWRevealViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SWRevealViewController.m; path = ../../../Downloads/SWRevealViewController.m; sourceTree = "<group>"; };
-		FF05D5C422F3B0F8003014E3 /* SWRevealViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SWRevealViewController.h; path = ../../../Downloads/SWRevealViewController.h; sourceTree = "<group>"; };
 		FF05D5D222F9FE16003014E3 /* ItineraryDetailsHeaderView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ItineraryDetailsHeaderView.h; sourceTree = "<group>"; };
 		FF05D5D322F9FE16003014E3 /* ItineraryDetailsHeaderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ItineraryDetailsHeaderView.m; sourceTree = "<group>"; };
 		FF0E77F322EA53A200CFEF9A /* WeekdayCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WeekdayCollectionViewCell.h; sourceTree = "<group>"; };
@@ -212,7 +211,6 @@
 		FF9299D122F3A9D30027D782 /* ItineraryDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ItineraryDetailsViewController.h; sourceTree = "<group>"; };
 		FF9299D222F3A9D30027D782 /* EventDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventDetailsViewController.m; sourceTree = "<group>"; };
 		FF9299D322F3A9D30027D782 /* EventDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventDetailsViewController.h; sourceTree = "<group>"; };
-		FFC18FD322FB3BB800932B68 /* Keys.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Keys.plist; sourceTree = "<group>"; };
 		FFC18FD522FB541800932B68 /* ProgressIndicatorView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProgressIndicatorView.h; sourceTree = "<group>"; };
 		FFC18FD622FB541800932B68 /* ProgressIndicatorView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProgressIndicatorView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -447,10 +445,10 @@
 			isa = PBXGroup;
 			children = (
 				2393755122F0FA1B002CBAA7 /* Locations */,
-				FF05D5C422F3B0F8003014E3 /* SWRevealViewController.h */,
-				FF05D5C322F3B0F8003014E3 /* SWRevealViewController.m */,
 				FF6C5EF722DE640200D0EB83 /* AppDelegate.h */,
 				FF6C5EF822DE640200D0EB83 /* AppDelegate.m */,
+				84A51A2722FDFB2300772A14 /* SWRevealViewController.h */,
+				84A51A2822FDFB2300772A14 /* SWRevealViewController.m */,
 				FF6C5F2F22DE8B1900D0EB83 /* Views */,
 				23F5AA6322E919640084086B /* Utils */,
 				FF6C5F2B22DE865400D0EB83 /* View Controllers */,
@@ -458,9 +456,8 @@
 				FF6C5EFD22DE640200D0EB83 /* Main.storyboard */,
 				FF6C5F0022DE640200D0EB83 /* Assets.xcassets */,
 				FF6C5F0222DE640200D0EB83 /* LaunchScreen.storyboard */,
-				FFC18FD322FB3BB800932B68 /* Keys.plist */,
 				FF6C5F0522DE640200D0EB83 /* Info.plist */,
-				23F1C5E422FB51CC00ADF49B /* Keys.plist */,
+				84A51A2522FDFA8800772A14 /* Keys.plist */,
 				FF6C5F0622DE640200D0EB83 /* main.m */,
 				23F1C5E722FB5DE700ADF49B /* Colors.h */,
 				23F1C5E822FB5DE700ADF49B /* Colors.m */,
@@ -643,9 +640,8 @@
 				2393755822F8DB1D002CBAA7 /* (null) in Resources */,
 				FF6C5F0422DE640200D0EB83 /* LaunchScreen.storyboard in Resources */,
 				FF6C5F0122DE640200D0EB83 /* Assets.xcassets in Resources */,
-				FFC18FD422FB3BB800932B68 /* Keys.plist in Resources */,
-				23F1C5E522FB51CC00ADF49B /* Keys.plist in Resources */,
 				23F1C5E322FB506700ADF49B /* Main.storyboard in Resources */,
+				84A51A2622FDFA8800772A14 /* Keys.plist in Resources */,
 				FF6C5F0422DE640200D0EB83 /* LaunchScreen.storyboard in Resources */,
 				FF6C5F0122DE640200D0EB83 /* Assets.xcassets in Resources */,
 			);
@@ -761,7 +757,6 @@
 				23F1C5DD22FB479700ADF49B /* EventAnnotation.h in Sources */,
 				23F5AA5322E61DF40084086B /* EventDetailsFoodView.m in Sources */,
 				23F5A9F222E0DEAD0084086B /* EventInputActivityView.m in Sources */,
-				FF05D5C522F3B0F8003014E3 /* SWRevealViewController.m in Sources */,
 				23F1C5E922FB5DE700ADF49B /* Colors.m in Sources */,
 				23F5AA3922E124380084086B /* EventInputHotelView.m in Sources */,
 				23F5AA4D22E61DCF0084086B /* EventDetailsActivityView.m in Sources */,
@@ -802,6 +797,7 @@
 				FF6C5F3522DE8B8900D0EB83 /* DailyTableViewCell.m in Sources */,
 				23F5A9EC22E0D3890084086B /* EventInputSharedView.m in Sources */,
 				FF6C5F0722DE640200D0EB83 /* main.m in Sources */,
+				84A51A2922FDFB2300772A14 /* SWRevealViewController.m in Sources */,
 				FF6C5EF922DE640200D0EB83 /* AppDelegate.m in Sources */,
 				23F5AA7B22EA7DA10084086B /* InputValidation.m in Sources */,
 				23F5AA3322E11F310084086B /* EventInputTransportationView.m in Sources */,
@@ -982,7 +978,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = JW339Z77B6;
+				DEVELOPMENT_TEAM = CC3NSMV262;
 				INFOPLIST_FILE = Mytinerary/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1000,7 +996,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = JW339Z77B6;
+				DEVELOPMENT_TEAM = CC3NSMV262;
 				INFOPLIST_FILE = Mytinerary/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

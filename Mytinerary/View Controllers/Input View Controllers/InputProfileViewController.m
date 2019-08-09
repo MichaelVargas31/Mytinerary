@@ -76,10 +76,46 @@
 }
 
 #pragma mark - Buttons & Interactivity
+- (IBAction)addProfilePictureBtn:(id)sender {
+    UIImagePickerController *imagePickerVC = [UIImagePickerController new];
+    imagePickerVC.delegate = self;
+    imagePickerVC.allowsEditing = YES;
+    if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
+        imagePickerVC.sourceType = UIImagePickerControllerSourceTypeCamera;
+    }
+    else {
+        NSLog(@"Camera not available => will use library");
+        imagePickerVC.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    }
+    [self presentViewController:imagePickerVC animated:YES completion:nil];
+    
+}
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info {
+    // Get the image captured by the UIImagePickerController
+    UIImage *originalImage = info[UIImagePickerControllerOriginalImage];
+    [self.profilePictureImage setImage:originalImage];
+    
+    // Dismiss UIImagePickerController
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
 
 - (IBAction)onTapSubmitButton:(id)sender {
     int selectedDefaultItinIdx = (int)[self.defaultItineraryPicker selectedRowInComponent:0];
     Itinerary *selectedDefaultItinerary = self.itineraries[selectedDefaultItinIdx];
+    
+    
+    self.profileUser=User.currentUser;
+        if(self.profilePictureImage.image){
+        NSData *dataImage = UIImagePNGRepresentation(self.profilePictureImage.image);
+        PFFileObject *fileImage = [PFFileObject fileObjectWithData:dataImage];
+        
+        self.profileUser.profilePicture=fileImage;
+        
+        [self.delegate didSaveProfilePicture];
+        
+    }
+    
     
     [User.currentUser updateUser:self.usernameTextField.text password:self.passwordTextField.text defaultItinerary:selectedDefaultItinerary withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
         if (succeeded) {
