@@ -15,12 +15,22 @@
 
 @interface LoginViewController ()
 
+@property (strong, nonatomic) UIAlertController *alert;
+
 @end
 
 @implementation LoginViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    // set up alert controller
+    self.alert = [UIAlertController alertControllerWithTitle:@"Error"
+                                                     message:@"This is an alert."
+                                              preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
+                                                          handler:^(UIAlertAction * action) {}];
+    [self.alert addAction:defaultAction];
     
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissKeyboard)];
     [self.view addGestureRecognizer:tap];
@@ -37,7 +47,10 @@
     
     [User loginUser:userName password:passWord withCompletion:^(PFUser * _Nullable pfuser, NSError * _Nullable error) {
         if (error != nil) {
-            NSLog(@"Login failed");
+            NSLog(@"Login failed: %@", error.localizedDescription);
+            self.alert.title = @"Login Error";
+            self.alert.message = error.localizedDescription;
+            [self presentViewController:self.alert animated:YES completion:nil];
         }
         else {
             NSLog(@"Login was sucessful");
@@ -55,7 +68,10 @@
     
     [User signUpUser:username password:password withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
         if(error != nil){
-            NSLog(@"Error: %@", error);
+            NSLog(@"Sign up error: %@", error);
+            self.alert.title = @"Sign Up Error";
+            self.alert.message = error.localizedDescription;
+            [self presentViewController:self.alert animated:YES completion:nil];
         }
         else {
             NSLog(@"User sign up successful");
