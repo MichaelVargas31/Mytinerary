@@ -41,24 +41,20 @@
     
     //sets the username on the profile view
     self.usernameLabel.text= User.currentUser.username;
-//    self.collectionView.layer.cornerRadius = 10;
     
     //fetch itineraries
     [self fetchitineraries];
     
     // layout of collection view
     UICollectionViewFlowLayout *layout = (UICollectionViewFlowLayout *)self.collectionView.collectionViewLayout;
-    layout.minimumInteritemSpacing = 15;
-    layout.minimumLineSpacing = 15;
-    CGFloat postersPerLine = 3;
-    CGFloat itemWidth = (self.collectionView.frame.size.width - layout.minimumInteritemSpacing * (postersPerLine - 1) - layout.sectionInset.right * 2) / postersPerLine;
-    CGFloat itemHeight = 1.3 * itemWidth;
+    layout.minimumInteritemSpacing = 16;
+    layout.minimumLineSpacing = 16;
+    CGFloat itemWidth = (self.collectionView.frame.size.width - layout.minimumInteritemSpacing * 2);
+    CGFloat itemHeight = itemWidth * 0.4;
     layout.itemSize = CGSizeMake(itemWidth, itemHeight);
-    
     
     [self sideMenus];
     [self.collectionView reloadData];
-    
 }
 
 -(void) sideMenus{
@@ -137,7 +133,8 @@
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-    return CGSizeMake(CGRectGetWidth(collectionView.frame) - 32, (CGRectGetHeight(collectionView.frame) / 5));
+    UICollectionViewFlowLayout *layout = (UICollectionViewFlowLayout *)collectionViewLayout;
+    return layout.itemSize;
 }
 
 - (NSInteger)collectionView:(nonnull UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
