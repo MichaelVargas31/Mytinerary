@@ -30,9 +30,10 @@
 
 @interface DailyCalendarViewController () <UITableViewDelegate, UITableViewDataSource, CalendarEventViewDelegate, UICollectionViewDelegate, UICollectionViewDataSource, InputEventViewControllerDelegate, EventDetailsViewControllerDelegate>
 
-@property (strong, nonatomic) UIActivityIndicatorView *activityIndicator;
+@property (strong, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 @property (strong, nonatomic) NSDate *displayedDate;
 @property (strong, nonatomic) NSArray <NSDate *> *itineraryDates; // holds dates of itinerary in order
+@property BOOL firstLoad;
 
 @end
 
@@ -40,6 +41,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    // for preselecting first date
+    self.firstLoad = true;
     
     // initializing formatter for calculating cell's times
     self.timeOfDayFormatter = [[NSDateFormatter alloc] init];
@@ -62,15 +66,11 @@
     // set up table view
     self.tableView.rowHeight = [DailyTableViewCell returnRowHeight].floatValue;
     
-    // set up activity indicator -- TODO: not sure if this actually works
-    self.activityIndicator = [[UIActivityIndicatorView alloc] init];
-    self.activityIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyleWhiteLarge;
-    self.activityIndicator.center = self.view.center;
-    [self.view addSubview:self.activityIndicator];
-    [self.activityIndicator hidesWhenStopped];
+    // set up activity indicator
+    [self.activityIndicator startAnimating];
+    self.activityIndicator.hidesWhenStopped = true;
     
     // if from login, itinerary obj must be fetched first
-    [self.activityIndicator startAnimating];
     if (self.loadItinerary) {
         [self fetchItineraryAndLoadView];
     }
@@ -108,7 +108,6 @@
         if (objects) {
             NSLog(@"itinerary successfully fetched!");
             self.itinerary = [objects firstObject];
-            [self.activityIndicator stopAnimating];
             
             // reset current user's default itinerary
             [User resetDefaultItinerary:PFUser.currentUser itinerary:self.itinerary withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
@@ -281,6 +280,16 @@
     // color styling
     cell.backgroundColor = [Colors lightBlueColor];
     cell.dateLabel.backgroundColor = [Colors blueColor];
+    
+    // FIX THIS
+    // update styling to pseudo-select the first item on first load
+    if (self.firstLoad && indexPath.item == 1) {
+        NSIndexPath *firstItemIndexPath = [NSIndexPath indexPathWithIndex:0];
+//        WeekdayCollectionViewCell *firstCell = self.WeeklyCalendarCollectionView.visibleCells[0];
+        [self.WeeklyCalendarCollectionView selectItemAtIndexPath:firstItemIndexPath animated:YES scrollPosition:UICollectionViewScrollPositionNone];
+        [self collectionView:collectionView didSelectItemAtIndexPath:firstItemIndexPath];
+        self.firstLoad = false;
+    }
     
     return cell;
 }
