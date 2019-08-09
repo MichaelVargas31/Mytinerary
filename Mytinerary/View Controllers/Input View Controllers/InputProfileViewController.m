@@ -43,18 +43,17 @@
     // prefill username/password text fields
     // You have to fetch all the arrays with the author being this person
     [self fetchUserItineraries];
+    [self fetchProfilePicture];
+    
     User *user = User.currentUser;
-
     self.usernameTextField.text = user.username;
 
     // fill in defaultItineraryPicker
     self.defaultItineraryPicker.delegate = self;
     self.defaultItineraryPicker.dataSource = self;
-    
 }
 
-
-- (void) fetchUserItineraries {
+- (void)fetchUserItineraries {
     PFQuery *query = [PFQuery queryWithClassName:@"Itinerary"];
     [query whereKey:@"author" equalTo:User.currentUser];
     [query findObjectsInBackgroundWithBlock:^(NSArray * _Nullable objects, NSError * _Nullable error) {
@@ -77,8 +76,23 @@
     }];
 }
 
+- (void)fetchProfilePicture {
+    User *user = User.currentUser;
+    PFFileObject *imageFile = user.profilePicture;
+    [imageFile getDataInBackgroundWithBlock:^(NSData * _Nullable data, NSError * _Nullable error) {
+        if (data) {
+            NSLog(@"got profile pic data");
+            UIImage *image = [UIImage imageWithData:data];
+            [self.profilePictureImage setImage:image];
+        }
+        else {
+            NSLog(@"couldn't get profile pic data: %@", error);
+        }
+    }];
+}
+
 #pragma mark - Buttons & Interactivity
-- (IBAction)addProfilePictureBtn:(id)sender {
+- (IBAction) addProfilePictureBtn:(id)sender {
     UIImagePickerController *imagePickerVC = [UIImagePickerController new];
     imagePickerVC.delegate = self;
     imagePickerVC.allowsEditing = YES;
@@ -92,6 +106,7 @@
     [self presentViewController:imagePickerVC animated:YES completion:nil];
     
 }
+
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info {
     // Get the image captured by the UIImagePickerController
     UIImage *originalImage = info[UIImagePickerControllerEditedImage];
