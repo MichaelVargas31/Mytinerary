@@ -15,7 +15,6 @@
 #import "ProfileCollectionReusableView.h"
 #import "Itinerary.h"
 #import "Parse/Parse.h"
-#import "ProgressIndicatorView.h"
 #import "User.h"
 #import "SWRevealViewController.h"
 

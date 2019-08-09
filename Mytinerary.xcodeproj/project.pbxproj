@@ -70,7 +70,6 @@
 		FF9299D422F3A9D30027D782 /* ItineraryDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FF9299D022F3A9D30027D782 /* ItineraryDetailsViewController.m */; };
 		FF9299D522F3A9D30027D782 /* EventDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FF9299D222F3A9D30027D782 /* EventDetailsViewController.m */; };
 		FFC18FD422FB3BB800932B68 /* Keys.plist in Resources */ = {isa = PBXBuildFile; fileRef = FFC18FD322FB3BB800932B68 /* Keys.plist */; };
-		FFC18FD722FB541800932B68 /* ProgressIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = FFC18FD622FB541800932B68 /* ProgressIndicatorView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -213,8 +212,6 @@
 		FF9299D222F3A9D30027D782 /* EventDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventDetailsViewController.m; sourceTree = "<group>"; };
 		FF9299D322F3A9D30027D782 /* EventDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventDetailsViewController.h; sourceTree = "<group>"; };
 		FFC18FD322FB3BB800932B68 /* Keys.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Keys.plist; sourceTree = "<group>"; };
-		FFC18FD522FB541800932B68 /* ProgressIndicatorView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProgressIndicatorView.h; sourceTree = "<group>"; };
-		FFC18FD622FB541800932B68 /* ProgressIndicatorView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProgressIndicatorView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -246,6 +243,32 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		235DEFB322FDF116000C110B /* Profile Views */ = {
+			isa = PBXGroup;
+			children = (
+				8495D7AF22DF879600CFED2D /* ItineraryCollectionViewCell.h */,
+				8495D7B022DF879600CFED2D /* ItineraryCollectionViewCell.m */,
+				FF47EC5D22E67B64001C0DA7 /* ProfileCollectionReusableView.h */,
+				FF47EC5E22E67B64001C0DA7 /* ProfileCollectionReusableView.m */,
+			);
+			path = "Profile Views";
+			sourceTree = "<group>";
+		};
+		235DEFB422FDF130000C110B /* Itinerary Details Views */ = {
+			isa = PBXGroup;
+			children = (
+				FF0E77F922EF8EF800CFEF9A /* DeleteItineraryTableViewCell.h */,
+				FF0E77FA22EF8EF800CFEF9A /* DeleteItineraryTableViewCell.m */,
+				23F5AA7622EA3B010084086B /* DateHeaderTableViewCell.h */,
+				23F5AA7722EA3B020084086B /* DateHeaderTableViewCell.m */,
+				FF05D5D222F9FE16003014E3 /* ItineraryDetailsHeaderView.h */,
+				FF05D5D322F9FE16003014E3 /* ItineraryDetailsHeaderView.m */,
+				23F5AA6A22E92A7F0084086B /* EventTableViewCell.h */,
+				23F5AA6B22E92A7F0084086B /* EventTableViewCell.m */,
+			);
+			path = "Itinerary Details Views";
+			sourceTree = "<group>";
+		};
 		2393755122F0FA1B002CBAA7 /* Locations */ = {
 			isa = PBXGroup;
 			children = (
@@ -508,22 +531,10 @@
 				FF0E77EF22EA532F00CFEF9A /* Calendar Views */,
 				23F5AA4422E61D6E0084086B /* Event Input Views */,
 				23F5AA5A22E62B600084086B /* Event Details Views */,
-				8495D7AF22DF879600CFED2D /* ItineraryCollectionViewCell.h */,
-				8495D7B022DF879600CFED2D /* ItineraryCollectionViewCell.m */,
-				FF47EC5D22E67B64001C0DA7 /* ProfileCollectionReusableView.h */,
-				FF47EC5E22E67B64001C0DA7 /* ProfileCollectionReusableView.m */,
-				FF05D5D222F9FE16003014E3 /* ItineraryDetailsHeaderView.h */,
-				FF05D5D322F9FE16003014E3 /* ItineraryDetailsHeaderView.m */,
+				235DEFB322FDF116000C110B /* Profile Views */,
+				235DEFB422FDF130000C110B /* Itinerary Details Views */,
 				8468099322E7DD1F001F9F0C /* LocationCellTableViewCell.h */,
 				8468099422E7DD1F001F9F0C /* LocationCellTableViewCell.m */,
-				23F5AA6A22E92A7F0084086B /* EventTableViewCell.h */,
-				23F5AA6B22E92A7F0084086B /* EventTableViewCell.m */,
-				23F5AA7622EA3B010084086B /* DateHeaderTableViewCell.h */,
-				23F5AA7722EA3B020084086B /* DateHeaderTableViewCell.m */,
-				FF0E77F922EF8EF800CFEF9A /* DeleteItineraryTableViewCell.h */,
-				FF0E77FA22EF8EF800CFEF9A /* DeleteItineraryTableViewCell.m */,
-				FFC18FD522FB541800932B68 /* ProgressIndicatorView.h */,
-				FFC18FD622FB541800932B68 /* ProgressIndicatorView.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -794,7 +805,6 @@
 				8468099522E7DD1F001F9F0C /* LocationCellTableViewCell.m in Sources */,
 				FF9299D522F3A9D30027D782 /* EventDetailsViewController.m in Sources */,
 				84B581CE22F25316004BA82B /* PhotoViewController.m in Sources */,
-				FFC18FD722FB541800932B68 /* ProgressIndicatorView.m in Sources */,
 				23F5AA5622E61E090084086B /* EventDetailsHotelView.m in Sources */,
 				23F5AA4722E61DA40084086B /* EventDetailsTitleView.m in Sources */,
 				2393754A22EFA599002CBAA7 /* Directions.m in Sources */,
