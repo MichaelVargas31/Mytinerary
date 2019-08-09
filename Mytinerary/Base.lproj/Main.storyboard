@@ -710,7 +710,7 @@
                         <outlet property="typeTextField" destination="zdO-gm-dUc" id="m4y-4M-3x7"/>
                     </connections>
                 </view>
-                <view contentMode="scaleToFill" ambiguous="YES" id="H6K-tF-Ewc" customClass="EventInputTransportationView">
+                <view contentMode="scaleToFill" id="H6K-tF-Ewc" customClass="EventInputTransportationView">
                     <rect key="frame" x="0.0" y="0.0" width="375" height="513"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>
@@ -2230,25 +2230,15 @@
         <image name="Map Image" width="29" height="29"/>
         <image name="Menu Image" width="29" height="29"/>
         <image name="Plus sign with circle " width="29" height="29"/>
-        <image name="User Profile Picture" width="29" height="29"/>
-        <image name="blurrybackground" width="2520" height="1418"/>
         <image name="cog" width="170.66667175292969" height="170.66667175292969"/>
         <image name="logout" width="170.66667175292969" height="170.66667175292969"/>
+        <image name="mytinerary-login" width="750" height="1334"/>
+        <image name="profile-pic-default" width="606" height="607"/>
         <image name="suitcase" width="170.66667175292969" height="170.66667175292969"/>
         <image name="user-solid" width="149.33332824707031" height="170.66667175292969"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="fKl-TQ-TQv"/>
-        <segue reference="UsX-p2-WCf"/>
-        <image name="Profile Image" width="29" height="29"/>
-        <image name="Sign out " width="29" height="29"/>
-        <image name="mytinerary-login" width="750" height="1334"/>
-        <image name="profile-pic-default" width="16" height="16"/>
         <segue reference="sJn-uW-gz0"/>
-        <segue reference="oWh-IL-bug"/>
-        <segue reference="RmN-u0-S7V"/>
-        <segue reference="zNL-pN-NjU"/>
-        <segue reference="S6S-hJ-Kow"/>
         <segue reference="iPX-Q9-7gZ"/>
         <segue reference="pGb-W9-DTJ"/>
         <segue reference="dot-u4-pzB"/>
