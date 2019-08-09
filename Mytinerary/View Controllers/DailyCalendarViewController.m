@@ -81,6 +81,14 @@
     [self sideMenus];
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+    // scroll to 7:00 am by default
+    dispatch_async(dispatch_get_main_queue(), ^{
+        NSIndexPath *rowIndexPath = [NSIndexPath indexPathForRow:14 inSection:0];
+        [self.tableView scrollToRowAtIndexPath:rowIndexPath atScrollPosition:UITableViewScrollPositionTop animated:YES];
+    });
+}
+
 -(void)sideMenus{
     if (self.revealViewController != nil) {
         self.menuButton.target = self.revealViewController;
