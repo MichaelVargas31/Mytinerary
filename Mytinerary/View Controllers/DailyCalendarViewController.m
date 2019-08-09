@@ -378,6 +378,7 @@
                 }
                 else {
                     NSLog(@"error making transportation event: %@", error.domain);
+                    [self.activityIndicator stopAnimating];
                 }
             }];
             
