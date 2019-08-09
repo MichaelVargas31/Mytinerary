@@ -24,6 +24,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    // add ability to tap out to dismiss keyboard
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissKeyboard)];
+    [self.view addGestureRecognizer:tap];
+    
+    
     // setup alert controller
     self.alert = [UIAlertController alertControllerWithTitle:@"Error"
                                                      message:@"This is an alert."
@@ -43,9 +49,7 @@
     self.defaultItineraryPicker.delegate = self;
     self.defaultItineraryPicker.dataSource = self;
     
-    
 }
-
 
 
 - (void) fetchUserItineraries {
@@ -71,6 +75,8 @@
     }];
 }
 
+#pragma mark - Buttons & Interactivity
+
 - (IBAction)onTapSubmitButton:(id)sender {
     int selectedDefaultItinIdx = (int)[self.defaultItineraryPicker selectedRowInComponent:0];
     Itinerary *selectedDefaultItinerary = self.itineraries[selectedDefaultItinIdx];
@@ -78,7 +84,6 @@
     [User.currentUser updateUser:self.usernameTextField.text password:self.passwordTextField.text defaultItinerary:selectedDefaultItinerary withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
         if (succeeded) {
             NSLog(@"successfully updated user");
-//            [self dismissViewControllerAnimated:YES completion:nil];
             [self performSegueWithIdentifier:@"EditProfileToProfile" sender:nil];
         }
         else {
@@ -92,6 +97,12 @@
 - (IBAction)onTapCloseButton:(id)sender {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
+
+
+- (void)dismissKeyboard {
+    [self.view endEditing:YES];
+}
+
 
 
 #pragma mark - Navigation
