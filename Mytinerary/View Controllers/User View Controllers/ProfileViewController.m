@@ -66,8 +66,8 @@
     if(self.revealViewController != nil){
         self.mB.target = self.revealViewController;
         self.mB.action = @selector(revealToggle:);
-        self.revealViewController.rearViewRevealWidth = 275;
-        self.revealViewController.rightViewRevealWidth = 160;
+        self.revealViewController.rearViewRevealWidth = 250;
+        self.revealViewController.rightViewRevealWidth = 0;
         
         self.aB.target= self.revealViewController;
         self.aB.action = @selector(rightRevealToggle:);
