@@ -285,7 +285,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="default itinerary" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wai-Uo-MGy">
-                                <rect key="frame" x="28" y="336" width="120" height="21"/>
+                                <rect key="frame" x="28" y="329" width="120" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
@@ -303,25 +303,25 @@
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                             </pickerView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8Xm-sd-JUy">
-                                <rect key="frame" x="163" y="579" width="49" height="30"/>
+                                <rect key="frame" x="163" y="617" width="49" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Submit"/>
                                 <connections>
                                     <action selector="onTapSubmitButton:" destination="Mdc-GO-9NV" eventType="touchUpInside" id="hPP-bi-i97"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qc2-oA-VAh">
-                                <rect key="frame" x="75" y="529" width="46" height="30"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XrB-Ob-iQs">
+                                <rect key="frame" x="215" y="521" width="116" height="66"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button"/>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qc2-oA-VAh">
+                                <rect key="frame" x="28" y="535" width="128" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Add Profile Picture"/>
                                 <connections>
                                     <action selector="addProfilePictureBtn:" destination="Mdc-GO-9NV" eventType="touchUpInside" id="VzY-66-XOA"/>
                                 </connections>
                             </button>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XrB-Ob-iQs">
-                                <rect key="frame" x="239" y="493" width="86" height="87"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="bhY-Au-ZGC"/>
@@ -723,7 +723,7 @@
                         <outlet property="typeTextField" destination="zdO-gm-dUc" id="m4y-4M-3x7"/>
                     </connections>
                 </view>
-                <view contentMode="scaleToFill" ambiguous="YES" id="H6K-tF-Ewc" customClass="EventInputTransportationView">
+                <view contentMode="scaleToFill" id="H6K-tF-Ewc" customClass="EventInputTransportationView">
                     <rect key="frame" x="0.0" y="0.0" width="375" height="513"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>
@@ -2275,7 +2275,7 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="sJn-uW-gz0"/>
-        <segue reference="oWh-IL-bug"/>
+        <segue reference="UsX-p2-WCf"/>
         <segue reference="pGb-W9-DTJ"/>
         <segue reference="dot-u4-pzB"/>
         <segue reference="GkC-3I-Ydq"/>
