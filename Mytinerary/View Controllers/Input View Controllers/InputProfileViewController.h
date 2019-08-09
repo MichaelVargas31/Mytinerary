@@ -12,7 +12,15 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@protocol InputProfileViewControllerDelegate <NSObject>
+
+- (void) didSaveProfilePicture;
+
+@end
+
+
 @interface InputProfileViewController : UIViewController
+@property (weak, nonatomic) id<InputProfileViewControllerDelegate> delegate;
 
 @property (strong, nonatomic) NSArray <Itinerary *> *itineraries;
 @property (weak, nonatomic) IBOutlet UIImageView *profilePictureImage;

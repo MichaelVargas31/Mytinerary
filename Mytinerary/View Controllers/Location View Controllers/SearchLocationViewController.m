@@ -78,7 +78,8 @@
     
     NSLog(@"%@", self.searchBar.text);
     
-    NSString *base = @"https://maps.googleapis.com/maps/api/place/textsearch/json?";
+    NSString *base = @"https://maps.googleapis.com/maps/api/place/textsearch/json?"; //text search api return a list of places while typing instead of just one location
+    
     // Getting the api key from the keys file
     NSString * path = [NSBundle.mainBundle pathForResource:@"Keys" ofType:@"plist"];
     NSDictionary *keys = [NSDictionary dictionaryWithContentsOfFile:path];

@@ -10,6 +10,7 @@
 #import "User.h"
 #import "Itinerary.h"
 #import "PhotoViewController.h"
+#import "ProfileViewController.h"
 
 
 @interface InputProfileViewController () <UIPickerViewDelegate, UIPickerViewDataSource>
@@ -19,6 +20,7 @@
 @property (weak, nonatomic) IBOutlet UIPickerView *defaultItineraryPicker;
 @property (strong, nonatomic) UIAlertController *alert;
 
+@property (strong, nonatomic) ProfileViewController *profile;
 
 @end
 
@@ -60,29 +62,21 @@
     self.profileUser=User.currentUser;
     
     //convert image to PFFileObject
+    
+    //also probably best place to resize
     if(self.profilePictureImage.image){
         NSData *dataImage = UIImagePNGRepresentation(self.profilePictureImage.image);
         PFFileObject *fileImage = [PFFileObject fileObjectWithData:dataImage];
         
         self.profileUser.profilePicture=fileImage;
       
+       
+        [self.delegate didSaveProfilePicture];
+       
+        
         
     }
 
-    //Update profile picture
-    [User.currentUser profilePicture:self.profileUser.profilePicture withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
-            if (succeeded) {
-            NSLog(@"successfully updated profile picture");
-            [self dismissViewControllerAnimated:YES completion:nil];
-        }
-        else {
-            NSLog(@"error updating profile picture: %@", error.domain);
-            self.alert.message = error.domain;
-            [self presentViewController:self.alert animated:YES completion:nil];
-        }
-    }];
-   
-    
     [User.currentUser updateUser:self.usernameTextField.text password:self.passwordTextField.text defaultItinerary:selectedDefaultItinerary  withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
        
         if (succeeded) {
@@ -97,6 +91,23 @@
     }];
  
 }
+
+-(void)reloadProfilePage{
+    //Update profile picture
+    
+    [User.currentUser profilePicture:self.profileUser.profilePicture withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
+        if (succeeded) {
+            NSLog(@"successfully updated profile picture");
+            [self dismissViewControllerAnimated:YES completion:nil];
+        }
+        else {
+            NSLog(@"error updating profile picture: %@", error.domain);
+            self.alert.message = error.domain;
+            [self presentViewController:self.alert animated:YES completion:nil];
+        }
+    }];
+}
+
 - (IBAction)addProfilePictureBtn:(id)sender {
     UIImagePickerController *imagePickerVC = [UIImagePickerController new];
     imagePickerVC.delegate = self;

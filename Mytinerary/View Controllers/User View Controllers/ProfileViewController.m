@@ -18,11 +18,13 @@
 #import "ProgressIndicatorView.h"
 #import "User.h"
 #import "SWRevealViewController.h"
+#import "ProfileCollectionReusableView.h"
 
 
-@interface ProfileViewController () <UICollectionViewDelegate, UICollectionViewDataSource>
+@interface ProfileViewController () <UICollectionViewDelegate, UICollectionViewDataSource, InputProfileViewControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
+
 
 @end
 
@@ -133,6 +135,7 @@
     return self.iArray.count;
 }
 
+
 // Method to add profile header to collection View
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
     
@@ -142,9 +145,7 @@
         ProfileCollectionReusableView *profileHeaderView = [self.collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"ProfileCell" forIndexPath:indexPath];
         User *currentUser = User.currentUser;
         profileHeaderView.usernameLabel.text = currentUser.username;
-       // profileHeaderView.profilePicImageView.image = currentUser.profilePicture;
-        
-        
+
         if (currentUser.profilePicture) {
             [currentUser.profilePicture getDataInBackgroundWithBlock:^(NSData * _Nullable data, NSError * _Nullable error) {
                 if (data) {
@@ -162,6 +163,7 @@
     
     return reusableview;
 }
+
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     UICollectionViewCell *tappedCell = [self.collectionView cellForItemAtIndexPath:indexPath];
