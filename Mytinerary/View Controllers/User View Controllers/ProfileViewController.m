@@ -47,9 +47,9 @@
     
     // layout of collection view
     UICollectionViewFlowLayout *layout = (UICollectionViewFlowLayout *)self.collectionView.collectionViewLayout;
-    layout.minimumInteritemSpacing = 16;
+    layout.sectionInset = UIEdgeInsetsMake(16, 16, 16, 16);
     layout.minimumLineSpacing = 16;
-    CGFloat itemWidth = (self.collectionView.frame.size.width - layout.minimumInteritemSpacing * 2);
+    CGFloat itemWidth = (self.collectionView.frame.size.width - layout.sectionInset.left - layout.sectionInset.right);
     CGFloat itemHeight = itemWidth * 0.4;
     layout.itemSize = CGSizeMake(itemWidth, itemHeight);
     
@@ -69,9 +69,7 @@
         self.aB.action = @selector(rightRevealToggle:);
         
         [self.view addGestureRecognizer:self.revealViewController.panGestureRecognizer];
-        
     }
-    
 }
 
 -(void)fetchitineraries {
