@@ -15,6 +15,7 @@
 		2393755B22F9DEE7002CBAA7 /* InputProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2393755A22F9DEE7002CBAA7 /* InputProfileViewController.m */; };
 		2393756122FA2652002CBAA7 /* TransportationEventAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2393756022FA2652002CBAA7 /* TransportationEventAnnotationView.m */; };
 		2393756722FA29D2002CBAA7 /* Image.m in Sources */ = {isa = PBXBuildFile; fileRef = 2393756622FA29D2002CBAA7 /* Image.m */; };
+		23D889EA23020D12000C7C22 /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D889E923020D12000C7C22 /* SWRevealViewController.m */; };
 		23F1C5DD22FB479700ADF49B /* EventAnnotation.h in Sources */ = {isa = PBXBuildFile; fileRef = 8468099622E93EAF001F9F0C /* EventAnnotation.h */; };
 		23F1C5E322FB506700ADF49B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FF6C5EFD22DE640200D0EB83 /* Main.storyboard */; };
 		23F1C5E922FB5DE700ADF49B /* Colors.m in Sources */ = {isa = PBXBuildFile; fileRef = 23F1C5E822FB5DE700ADF49B /* Colors.m */; };
@@ -48,7 +49,6 @@
 		8495D7AE22DE991B00CFED2D /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8495D7AD22DE991B00CFED2D /* ProfileViewController.m */; };
 		8495D7B122DF879600CFED2D /* ItineraryCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8495D7B022DF879600CFED2D /* ItineraryCollectionViewCell.m */; };
 		84A51A2622FDFA8800772A14 /* Keys.plist in Resources */ = {isa = PBXBuildFile; fileRef = 84A51A2522FDFA8800772A14 /* Keys.plist */; };
-		84A51A2922FDFB2300772A14 /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A51A2822FDFB2300772A14 /* SWRevealViewController.m */; };
 		84B581CE22F25316004BA82B /* PhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84B581CD22F25316004BA82B /* PhotoViewController.m */; };
 		84B5E51722E10637006F4815 /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84B5E51622E10637006F4815 /* MapViewController.m */; };
 		C628AEE5E20C9C7409D9B734 /* Pods_MytineraryTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 58B8F33A939BCC86C8C98935 /* Pods_MytineraryTests.framework */; };
@@ -98,6 +98,8 @@
 		2393756022FA2652002CBAA7 /* TransportationEventAnnotationView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TransportationEventAnnotationView.m; sourceTree = "<group>"; };
 		2393756522FA29D2002CBAA7 /* Image.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Image.h; sourceTree = "<group>"; };
 		2393756622FA29D2002CBAA7 /* Image.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Image.m; sourceTree = "<group>"; };
+		23D889E823020D11000C7C22 /* SWRevealViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWRevealViewController.h; sourceTree = "<group>"; };
+		23D889E923020D12000C7C22 /* SWRevealViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWRevealViewController.m; sourceTree = "<group>"; };
 		23F1C5E722FB5DE700ADF49B /* Colors.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Colors.h; sourceTree = "<group>"; };
 		23F1C5E822FB5DE700ADF49B /* Colors.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Colors.m; sourceTree = "<group>"; };
 		23F5A9E722DFE59A0084086B /* InputItineraryViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InputItineraryViewController.h; sourceTree = "<group>"; };
@@ -160,8 +162,6 @@
 		8495D7AF22DF879600CFED2D /* ItineraryCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ItineraryCollectionViewCell.h; sourceTree = "<group>"; };
 		8495D7B022DF879600CFED2D /* ItineraryCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ItineraryCollectionViewCell.m; sourceTree = "<group>"; };
 		84A51A2522FDFA8800772A14 /* Keys.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Keys.plist; path = ../../Mytinerary/Mytinerary/Keys.plist; sourceTree = "<group>"; };
-		84A51A2722FDFB2300772A14 /* SWRevealViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SWRevealViewController.h; path = ../../../Downloads/SWRevealViewController.h; sourceTree = "<group>"; };
-		84A51A2822FDFB2300772A14 /* SWRevealViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SWRevealViewController.m; path = ../../../Downloads/SWRevealViewController.m; sourceTree = "<group>"; };
 		84B581CC22F25316004BA82B /* PhotoViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PhotoViewController.h; sourceTree = "<group>"; };
 		84B581CD22F25316004BA82B /* PhotoViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PhotoViewController.m; sourceTree = "<group>"; };
 		84B5E51522E10637006F4815 /* MapViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MapViewController.h; sourceTree = "<group>"; };
@@ -470,8 +470,6 @@
 				2393755122F0FA1B002CBAA7 /* Locations */,
 				FF6C5EF722DE640200D0EB83 /* AppDelegate.h */,
 				FF6C5EF822DE640200D0EB83 /* AppDelegate.m */,
-				84A51A2722FDFB2300772A14 /* SWRevealViewController.h */,
-				84A51A2822FDFB2300772A14 /* SWRevealViewController.m */,
 				FF6C5F2F22DE8B1900D0EB83 /* Views */,
 				23F5AA6322E919640084086B /* Utils */,
 				FF6C5F2B22DE865400D0EB83 /* View Controllers */,
@@ -480,6 +478,8 @@
 				FF6C5F0022DE640200D0EB83 /* Assets.xcassets */,
 				FF6C5F0222DE640200D0EB83 /* LaunchScreen.storyboard */,
 				FF6C5F0522DE640200D0EB83 /* Info.plist */,
+				23D889E823020D11000C7C22 /* SWRevealViewController.h */,
+				23D889E923020D12000C7C22 /* SWRevealViewController.m */,
 				84A51A2522FDFA8800772A14 /* Keys.plist */,
 				FF6C5F0622DE640200D0EB83 /* main.m */,
 				23F1C5E722FB5DE700ADF49B /* Colors.h */,
@@ -776,6 +776,7 @@
 				FF6C5F2E22DE868D00D0EB83 /* DailyCalendarViewController.m in Sources */,
 				FF9299D422F3A9D30027D782 /* ItineraryDetailsViewController.m in Sources */,
 				23F5AA7822EA3B020084086B /* DateHeaderTableViewCell.m in Sources */,
+				23D889EA23020D12000C7C22 /* SWRevealViewController.m in Sources */,
 				8495D7B122DF879600CFED2D /* ItineraryCollectionViewCell.m in Sources */,
 				23F5AA6622E9197F0084086B /* DateFormatter.m in Sources */,
 				8448C0F522DFA2C800427FB2 /* User.m in Sources */,
@@ -807,7 +808,6 @@
 				FF6C5F3522DE8B8900D0EB83 /* DailyTableViewCell.m in Sources */,
 				23F5A9EC22E0D3890084086B /* EventInputSharedView.m in Sources */,
 				FF6C5F0722DE640200D0EB83 /* main.m in Sources */,
-				84A51A2922FDFB2300772A14 /* SWRevealViewController.m in Sources */,
 				FF6C5EF922DE640200D0EB83 /* AppDelegate.m in Sources */,
 				23F5AA7B22EA7DA10084086B /* InputValidation.m in Sources */,
 				23F5AA3322E11F310084086B /* EventInputTransportationView.m in Sources */,

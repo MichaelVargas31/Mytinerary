@@ -1,5 +1,5 @@
 /*
-
+ 
  Copyright (c) 2013 Joan Lluch <joan.lluch@sweetwilliamsl.com>
  
  Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -19,20 +19,18 @@
  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  THE SOFTWARE.
-
+ 
  Early code inspired on a similar class by Philip Kluz (Philip.Kluz@zuui.org)
  
-*/
-
+ */
 
 #import <QuartzCore/QuartzCore.h>
 
 #import "SWRevealViewController.h"
 
-#import "ItineraryDetailsViewController.h"
-#import "ProfileViewController.h"
 #import "Itinerary.h"
 #import "DailyCalendarViewController.h"
+#import "MapViewController.h"
 
 
 #pragma mark - StatusBar Helper Function
@@ -48,7 +46,7 @@ static CGFloat statusBarAdjustment( UIView* view )
     
     if ( CGRectIntersectsRect(viewFrame, statusBarFrame) )
         adjustment = fminf(statusBarFrame.size.width, statusBarFrame.size.height);
-
+    
     return adjustment;
 }
 
@@ -96,11 +94,11 @@ static CGFloat scaledValue( CGFloat v1, CGFloat min2, CGFloat max2, CGFloat min1
     {
         _c = controller;
         CGRect bounds = self.bounds;
-    
+        
         _frontView = [[UIView alloc] initWithFrame:bounds];
         _frontView.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
         [self reloadShadow];
-
+        
         [self addSubview:_frontView];
     }
     return self;
@@ -191,7 +189,7 @@ static CGFloat scaledValue( CGFloat v1, CGFloat min2, CGFloat max2, CGFloat min1
     
     else if ( frontViewPosition > FrontViewPositionRight )
         location = revealWidth + revealOverdraw;
-
+    
     return location*symetry;
 }
 
@@ -213,7 +211,7 @@ static CGFloat scaledValue( CGFloat v1, CGFloat min2, CGFloat max2, CGFloat min1
 - (void)layoutSubviews
 {
     if ( _disableLayout ) return;
-
+    
     CGRect bounds = self.bounds;
     
     FrontViewPosition position = _c.frontViewPosition;
@@ -316,7 +314,7 @@ static CGFloat scaledValue( CGFloat v1, CGFloat min2, CGFloat max2, CGFloat min1
         return;
     
     int symetry = newPosition<FrontViewPositionLeft? -1 : 1;
-
+    
     NSArray *subViews = self.subviews;
     NSInteger rearIndex = [subViews indexOfObjectIdenticalTo:_rearView];
     NSInteger rightIndex = [subViews indexOfObjectIdenticalTo:_rightView];
@@ -352,10 +350,10 @@ static CGFloat scaledValue( CGFloat v1, CGFloat min2, CGFloat max2, CGFloat min1
     
     if (x <= revealWidth)
         result = x;         // Translate linearly.
-
+    
     else if (x <= revealWidth+2*revealOverdraw)
         result = revealWidth + (x-revealWidth)/2;   // slow down translation by halph the movement.
-
+    
     else
         result = revealWidth+revealOverdraw;        // keep at the rightMost location.
     
@@ -382,7 +380,7 @@ static CGFloat scaledValue( CGFloat v1, CGFloat min2, CGFloat max2, CGFloat min1
 
 
 - (id)initWithRevealController:(SWRevealViewController*)revealVC containerView:(UIView*)view fromVC:(UIViewController*)fromVC
-    toVC:(UIViewController*)toVC completion:(void (^)(void))completion
+                          toVC:(UIViewController*)toVC completion:(void (^)(void))completion
 {
     self = [super init];
     if ( self )
@@ -521,12 +519,12 @@ static CGFloat scaledValue( CGFloat v1, CGFloat min2, CGFloat max2, CGFloat min1
 {
     UIViewController *fromViewController = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
     UIViewController *toViewController = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
-
+    
     if ( fromViewController )
     {
         [UIView transitionFromView:fromViewController.view toView:toViewController.view duration:_duration
-            options:UIViewAnimationOptionTransitionCrossDissolve|UIViewAnimationOptionOverrideInheritedOptions
-            completion:^(BOOL finished) { [transitionContext completeTransition:finished]; }];
+                           options:UIViewAnimationOptionTransitionCrossDissolve|UIViewAnimationOptionOverrideInheritedOptions
+                        completion:^(BOOL finished) { [transitionContext completeTransition:finished]; }];
     }
     else
     {
@@ -537,8 +535,8 @@ static CGFloat scaledValue( CGFloat v1, CGFloat min2, CGFloat max2, CGFloat min1
         toView.alpha = 0;
         
         [UIView animateWithDuration:_duration delay:0 options:UIViewAnimationOptionCurveEaseOut
-        animations:^{ toView.alpha = alpha;}
-        completion:^(BOOL finished) { [transitionContext completeTransition:finished];}];
+                         animations:^{ toView.alpha = alpha;}
+                         completion:^(BOOL finished) { [transitionContext completeTransition:finished];}];
     }
 }
 
@@ -561,7 +559,7 @@ static CGFloat scaledValue( CGFloat v1, CGFloat min2, CGFloat max2, CGFloat min1
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
     [super touchesBegan:touches withEvent:event];
-   
+    
     UITouch *touch = [touches anyObject];
     _beginPoint = [touch locationInView:self.view];
     _dragging = NO;
@@ -622,7 +620,7 @@ const int FrontViewPositionNone = 0xff;
     if ( self )
     {
         [self _initDefaultProperties];
-    }    
+    }
     return self;
 }
 
@@ -715,7 +713,12 @@ const int FrontViewPositionNone = 0xff;
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
         UINavigationController *profileNavigationVC = [storyboard instantiateViewControllerWithIdentifier:@"ProfilePageNavigationController"];
         [self setFrontViewController:profileNavigationVC];
+    } else if  ([self.nextSegue isEqualToString:@"toMapSegue"]) {
+        //perform segue from reveal VC to map
+        [self performSegueWithIdentifier:@"toMapSegue" sender:nil];
+        
     }
+    
     
     // This is what Apple used to tell us to set as the initial frame, which is of course totally irrelevant
     // with view controller containment patterns, let's leave it for the sake of it!
@@ -959,13 +962,13 @@ const int FrontViewPositionNone = 0xff;
 #pragma mark - Provided acction methods
 
 - (IBAction)revealToggle:(id)sender
-{    
+{
     [self revealToggleAnimated:YES];
 }
 
 
 - (IBAction)rightRevealToggle:(id)sender
-{    
+{
     [self rightRevealToggleAnimated:YES];
 }
 
@@ -1103,7 +1106,7 @@ const int FrontViewPositionNone = 0xff;
 
 // Removes the top most block in the queue and executes the following one if any.
 // Calls to this method must be paired with calls to _enqueueBlock, particularly it may be called
-// from within a block passed to _enqueueBlock to remove itself when done with animations.  
+// from within a block passed to _enqueueBlock to remove itself when done with animations.
 - (void)_dequeue
 {
     [_animationQueue removeLastObject];
@@ -1331,8 +1334,8 @@ const int FrontViewPositionNone = 0xff;
     
     // Position driven change:
     else
-    {    
-        // we may need to set the drag position        
+    {
+        // we may need to set the drag position
         if (xLocation > revealWidth*0.5f)
         {
             frontViewPosition = FrontViewPositionRight;
@@ -1358,7 +1361,7 @@ const int FrontViewPositionNone = 0xff;
 
 
 - (void)_handleRevealGestureStateCancelledWithRecognizer:(UIPanGestureRecognizer *)recognizer
-{    
+{
     [self _restoreUserInteraction];
     [self _notifyPanGestureEnded];
     [self _dequeue];
@@ -1816,7 +1819,6 @@ const int FrontViewPositionNone = 0xff;
     
     [self setRearViewController:[coder decodeObjectForKey:@"_rearViewController"]];
     [self setFrontViewController:[coder decodeObjectForKey:@"_frontViewController"]];
-    [self setRightViewController:[coder decodeObjectForKey:@"_rightViewController"]];
     
     [self setFrontViewPosition:[coder decodeIntForKey: @"_frontViewPosition"]];
     
@@ -1828,7 +1830,6 @@ const int FrontViewPositionNone = 0xff;
 {
     // nothing to do at this stage
 }
-
 
 
 @end
@@ -1898,9 +1899,9 @@ NSString * const SWSegueRightIdentifier = @"sw_right";
     
     
     
-//    SWRevealViewController *rvct = [self.sourceViewController revealViewController];
-//    UIViewController *dvct = self.destinationViewController;
-//    [rvct pushFrontViewController:dvct animated:YES];
+    //    SWRevealViewController *rvct = [self.sourceViewController revealViewController];
+    //    UIViewController *dvct = self.destinationViewController;
+    //    [rvct pushFrontViewController:dvct animated:YES];
     
     
     
@@ -1924,9 +1925,7 @@ NSString * const SWSegueRightIdentifier = @"sw_right";
 //
 //#pragma mark Storyboard support
 //
-
-
-@implementation SWRevealViewController(deprecated) 
+@implementation SWRevealViewController(deprecated)
 
 // THIS IS A JANKY HACK: passing itinerary from SWRevealViewController to Daily Calendar View
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
@@ -1938,13 +1937,14 @@ NSString * const SWSegueRightIdentifier = @"sw_right";
     } else if ([[segue identifier] isEqualToString:@"sw_rear"]) {
         UIViewController *sideBar = [segue destinationViewController];
         [sideBar performSegueWithIdentifier:@"SideBarToProfileSegue" sender:nil];
+    } else if ([[segue identifier] isEqualToString:@"toMapSegue"]) {
+        UINavigationController *navigationController = [segue destinationViewController];
+        MapViewController *mapViewController = [[navigationController viewControllers] firstObject];
+        mapViewController.itinerary = self.itinerary;
+        //mapViewController.fromLogin = self.fromLogin;
     }
     
 }
-
-
-
-
 
 //
 //- (void)prepareForSegue:(SWRevealViewControllerSegue *)segue sender:(id)sender   // TO REMOVE: DEPRECATED IMPLEMENTATION
@@ -1978,11 +1978,7 @@ NSString * const SWSegueRightIdentifier = @"sw_right";
 ////        }
 //   }
 //}
-
-
-
-
-
+//
 @end
 
 
