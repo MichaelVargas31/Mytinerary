@@ -106,13 +106,20 @@
     NSDate *endTime = endEvent.startTime;
     
     // TODO: DRIVE IS DEFAULT TRANSPO TYPE
-    Event *transportationEvent = [Event initTransportationEvent:title eventDescription:eventDescription startAddress:startAddress startLatitude:startLatitude startLongitude:startLongitude endAddress:endAddress endLatitude:endLatitude endLongitude:endLongitude startTime:startTime endTime:endTime transpoType:@"drive" cost:0 notes:@"" withCompletion:nil];
+    Event *transportationEvent = [Event initTransportationEvent:title eventDescription:eventDescription startAddress:startAddress startLatitude:startLatitude startLongitude:startLongitude endAddress:endAddress endLatitude:endLatitude endLongitude:endLongitude startTime:startTime endTime:endTime transpoType:@"drive" cost:0 notes:@"" withCompletion:completion];
     
     [Directions getETALatLng:startLatitude startLng:startLongitude endLat:endLatitude endLng:endLongitude departureDate:startTime transpoType:@"drive" withCompletion:^(MKETAResponse * _Nullable response, NSError * _Nullable error) {
         if (response) {
             NSLog(@"successfully got ETA");
             
             NSDate *endTime = [NSDate dateWithTimeInterval:response.expectedTravelTime sinceDate:startTime];
+            
+            // if endEvent start time is before transpoEvent end time
+            if ([endEvent.startTime compare:endTime] == NSOrderedAscending) {
+                NSString *errorMsg = [NSString stringWithFormat:@"Not enough time to travel from '%@' to '%@'", startEvent.title, endEvent.title];
+                NSError *error = [[NSError alloc] initWithDomain:errorMsg code:1 userInfo:nil];
+                completion(nil, error);
+            }
             
             // update transportation event by recommended transport type (from maps)
             switch (response.transportType) {
@@ -134,7 +141,7 @@
             }
             
             // update transportation type + end time (from ETA response)
-            [transportationEvent updateTransportationEventTypeAndTimes:transportationEvent.transpoType startTime:startTime endTime:endTime withCompletion:completion];
+            [transportationEvent updateTransportationEventTypeAndTimes:transportationEvent.transpoType startTime:startTime endTime:endTime withCompletion:nil];
         }
         else {
             NSLog(@"error getting ETA: %@", error.domain);
