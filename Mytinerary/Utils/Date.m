@@ -17,7 +17,8 @@
     NSDate *fromDate;
     NSDate *toDate;
     
-    NSCalendar *calendar = [NSCalendar currentCalendar];
+//    NSCalendar *calendar = [NSCalendar currentCalendar];
+    NSCalendar *calendar = [Calendar gregorianCalendarWithUTCTimeZone];
     
     [calendar rangeOfUnit:NSCalendarUnitDay startDate:&fromDate
                  interval:NULL forDate:fromDateTime];

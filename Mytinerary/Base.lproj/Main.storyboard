@@ -1200,7 +1200,6 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="jpi-hd-an0" firstAttribute="leading" secondItem="BQN-GC-MwF" secondAttribute="leading" id="1Il-bs-pic"/>
-                            <constraint firstAttribute="bottom" secondItem="w80-C5-rJ4" secondAttribute="bottom" id="5OV-SM-CYr"/>
                             <constraint firstItem="w80-C5-rJ4" firstAttribute="top" secondItem="ecC-45-JY5" secondAttribute="bottom" id="5m6-YC-z3t"/>
                             <constraint firstItem="ecC-45-JY5" firstAttribute="leading" secondItem="BQN-GC-MwF" secondAttribute="leading" id="AGr-rQ-ft4"/>
                             <constraint firstItem="ecC-45-JY5" firstAttribute="top" secondItem="jpi-hd-an0" secondAttribute="bottom" id="HMT-XD-dg7"/>
@@ -1211,6 +1210,7 @@
                             <constraint firstAttribute="trailing" secondItem="w80-C5-rJ4" secondAttribute="trailing" id="fJk-fo-rxW"/>
                             <constraint firstItem="ecC-45-JY5" firstAttribute="trailing" secondItem="BQN-GC-MwF" secondAttribute="trailing" id="g3F-5V-qUo"/>
                             <constraint firstItem="ecC-45-JY5" firstAttribute="trailing" secondItem="BQN-GC-MwF" secondAttribute="trailing" id="nYG-58-NeO"/>
+                            <constraint firstAttribute="bottom" secondItem="w80-C5-rJ4" secondAttribute="bottom" id="t0q-5w-5gy"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="BQN-GC-MwF"/>
                     </view>
@@ -1731,7 +1731,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="vWC-jV-u2G">
-                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="559"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <view key="tableHeaderView" contentMode="scaleToFill" restorationIdentifier="ItineraryDetailsHeaderView" id="7m0-dC-mcs" customClass="ItineraryDetailsHeaderView">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="262"/>
@@ -2310,10 +2310,10 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="sJn-uW-gz0"/>
-        <segue reference="RmN-u0-S7V"/>
-        <segue reference="pGb-W9-DTJ"/>
+        <segue reference="iPX-Q9-7gZ"/>
+        <segue reference="zNL-pN-NjU"/>
         <segue reference="cYv-hw-WLz"/>
-        <segue reference="GkC-3I-Ydq"/>
+        <segue reference="W6l-eq-cqv"/>
         <segue reference="Uy5-kQ-HM8"/>
         <segue reference="K7K-oI-gRL"/>
         <segue reference="Dwd-wo-Oze"/>
