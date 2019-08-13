@@ -33,6 +33,8 @@
 @property (strong, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 @property (strong, nonatomic) NSDate *displayedDate;
 @property (strong, nonatomic) NSArray <NSDate *> *itineraryDates; // holds dates of itinerary in order
+@property (strong, nonatomic) UIAlertController *alert;
+@property (strong, nonatomic) NSMutableArray *alertMessages;
 @property BOOL firstLoad;
 
 @end
@@ -41,6 +43,13 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    // set up alert
+    self.alert = [UIAlertController alertControllerWithTitle:@"Event Calendar message" message:nil preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [self popAlert];
+    }];
+    [self.alert addAction:defaultAction];
     
     // for preselecting first date
     self.firstLoad = true;
@@ -349,6 +358,13 @@
 }
 
 - (NSMutableArray <Event *> *)makeDailyTransportationEvents:(NSDate *)dayIdx dayEvents:(NSMutableArray <Event *> *)dayEvents {
+    if (dayEvents.count < 2) {
+        self.alert.message = @"No auto-transport events to make";
+        [self presentViewController:self.alert animated:YES completion:nil];
+        [self.activityIndicator stopAnimating];
+        return dayEvents;
+    }
+    
     // sort events in ascending order by start time
     [dayEvents sortUsingComparator:^NSComparisonResult(Event *event1, Event *event2) {
         return [event1.startTime compare:event2.startTime];
@@ -378,11 +394,24 @@
                 }
                 else {
                     NSLog(@"error making transportation event: %@", error.domain);
+                    
+                    // handle multiple error messages
+                    if (!self.alertMessages) {
+                        self.alertMessages = [NSMutableArray arrayWithObject:error.domain];
+                        [self popAlert];
+                    }
+                    else {
+                        [self.alertMessages addObject:error.domain];
+                    }
+
                     [self.activityIndicator stopAnimating];
                 }
             }];
             
             // add transpo event locally
+            if (!transpoEvent) {
+                return dayEvents;
+            }
             [dayEvents addObject:transpoEvent];
             // add transportation event to itinerary (in parse)
             [self.itinerary addEventToItinerary:transpoEvent withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
@@ -398,6 +427,16 @@
     
     return dayEvents;
 }
+
+// handle multiple error messages
+- (void)popAlert {
+    if (self.alertMessages.count > 0) {
+        self.alert.message = self.alertMessages[0];
+        [self presentViewController:self.alert animated:YES completion:nil];
+        [self.alertMessages removeObjectAtIndex:0];
+    }
+}
+
 - (IBAction)onTapMapButton:(id)sender {
     
      [self performSegueWithIdentifier:@"calendarToMapSegue" sender:nil];
@@ -427,7 +466,7 @@
         //segue from calendar to revealVC
        SWRevealViewController *revealVC = [segue destinationViewController];
         revealVC.nextSegue = @"toMapSegue";
-        revealVC.itinerary=self.itinerary;
+        revealVC.itinerary = self.itinerary;
     }
 }
 

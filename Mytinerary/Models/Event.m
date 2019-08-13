@@ -43,7 +43,7 @@
 /* initialize a event
 (required: title, category, start/end times, address, completion;
  optional: event description, notes) */
-- (Event *) initNewEvent:(NSString *)title eventDescription:(NSString * _Nullable)eventDescription address:(NSString * _Nullable)address latitude:(NSNumber *)latitude longitude:(NSNumber *)longitude locationType:(NSString *)locationType category:(NSString *)category startTime:(NSDate *)startTime endTime:(NSDate *)endTime notes:(NSString * _Nullable)notes withCompletion:(PFBooleanResultBlock)completion {
+- (Event *) initNewEvent:(NSString *)title eventDescription:(NSString * _Nullable)eventDescription address:(NSString * _Nullable)address latitude:(NSNumber *)latitude longitude:(NSNumber *)longitude locationType:(NSString *)locationType category:(NSString *)category startTime:(NSDate *)startTime endTime:(NSDate *)endTime notes:(NSString * _Nullable)notes withCompletion:(nonnull PFBooleanResultBlock)completion {
     
     // make sure all required fields are filled, validate input
     NSString *errorStr = [InputValidation eventSharedValidation:title startTime:startTime endTime:endTime address:address];
