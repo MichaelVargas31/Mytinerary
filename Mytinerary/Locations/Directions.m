@@ -141,7 +141,8 @@
             }
             
             // update transportation type + end time (from ETA response)
-            [transportationEvent updateTransportationEventTypeAndTimes:transportationEvent.transpoType startTime:startTime endTime:endTime withCompletion:nil];
+            [transportationEvent updateTransportationEventTypeAndTimes:transportationEvent.transpoType startTime:startTime endTime:endTime withCompletion:completion];
+            completion(transportationEvent, nil);
         }
         else {
             NSLog(@"error getting ETA: %@", error.domain);

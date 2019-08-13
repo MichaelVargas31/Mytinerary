@@ -61,7 +61,7 @@
     [eventNameLabel setTextColor:[UIColor blackColor]];
     [eventNameLabel setFont:[UIFont systemFontOfSize:14.0f weight:UIFontWeightMedium]];
     eventNameLabel.text = event.title;
-    [eventNameLabel sizeToFit];
+//    [eventNameLabel sizeToFit];
     [self addSubview:eventNameLabel];
     
     // Add tap gesture recognizer

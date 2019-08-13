@@ -753,7 +753,7 @@
                         <outlet property="typeTextField" destination="zdO-gm-dUc" id="m4y-4M-3x7"/>
                     </connections>
                 </view>
-                <view contentMode="scaleToFill" ambiguous="YES" id="H6K-tF-Ewc" customClass="EventInputTransportationView">
+                <view contentMode="scaleToFill" id="H6K-tF-Ewc" customClass="EventInputTransportationView">
                     <rect key="frame" x="0.0" y="0.0" width="375" height="513"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>
@@ -1627,6 +1627,9 @@
                         </label>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mu4-A8-QZa">
                             <rect key="frame" x="313" y="43" width="30" height="30"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="30" id="hLX-5W-0jr"/>
+                            </constraints>
                             <state key="normal" title="edit"/>
                             <connections>
                                 <action selector="onTapCloseButton:" destination="vAc-0f-oMv" eventType="touchUpInside" id="Su2-6I-aLs"/>
@@ -2310,10 +2313,10 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="sJn-uW-gz0"/>
-        <segue reference="iPX-Q9-7gZ"/>
+        <segue reference="FZp-6T-F1m"/>
         <segue reference="zNL-pN-NjU"/>
-        <segue reference="cYv-hw-WLz"/>
-        <segue reference="W6l-eq-cqv"/>
+        <segue reference="S6S-hJ-Kow"/>
+        <segue reference="GkC-3I-Ydq"/>
         <segue reference="Uy5-kQ-HM8"/>
         <segue reference="K7K-oI-gRL"/>
         <segue reference="Dwd-wo-Oze"/>
