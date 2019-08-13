@@ -154,6 +154,23 @@
 
 #pragma mark - Data Handling
 
+
+// Used to get the time, and automatically scroll there
+- (void)getFirstEventForDate:(NSDate *)currentDate {
+    currentDate = [self.calendar startOfDayForDate:currentDate];
+    NSArray *tempEventArray = self.eventsDictionary[currentDate];
+    NSDate *earliest = [[NSDate alloc] init];
+    for (int i =0; i<tempEventArray.count; i++) {
+        Event *event = tempEventArray[i];
+        if ([event.startTime compare:earliest] == NSOrderedAscending) {
+            earliest = event.startTime;
+        }
+    }
+    
+    // get index for that time
+//    NSDateComponents *dateComponents = [self.calendar component:NSCalendarUnitHour fromDate:earliest];
+}
+
 - (void)refreshViewUsingDate:(NSDate *)newDate {
     // make sure its the midnight version of the date
     newDate = [self.calendar startOfDayForDate:newDate];
