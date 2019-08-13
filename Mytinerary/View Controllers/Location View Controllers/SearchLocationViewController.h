@@ -28,7 +28,7 @@ NS_ASSUME_NONNULL_BEGIN
 // protocol to pass data from location search view --> input event view
 @protocol SearchLocationDelegate
 
-- (void)didTapLocation:(Location *)location textField:(UITextField *)textField;
+- (void)didTapLocation:(nonnull Location *)location textField:(nonnull UITextField*)textField;
 
 @end
 

@@ -28,8 +28,8 @@
 @property (weak, nonatomic) IBOutlet UIDatePicker *endTimeDatePicker;
 @property (weak, nonatomic) IBOutlet UITextField *budgetTextField;
 @property BOOL itineraryIsNew;  // True if you are CREATING itinerary
-
 @property (strong, nonatomic) UIAlertController *alert;
+@property (weak, nonatomic) IBOutlet UIButton *addImageButton;
 
 - (IBAction)didTapAddImage:(id)sender;
 
@@ -39,10 +39,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    // adjust date pickers
-//    [self.startTimeDatePicker setDatePickerMode:UIDatePickerModeDate];
-//    [self.endTimeDatePicker setDatePickerMode:UIDatePickerModeDate];
     
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissKeyboard)];
     [self.view addGestureRecognizer:tap];
@@ -80,6 +76,7 @@
             if (data) {
                 UIImage *image = [UIImage imageWithData:data];
                 [self.imageView setImage:image];
+                [self.addImageButton setAlpha:.02];
             } else {
                 NSLog(@"error getting image data: %@", error.localizedDescription);
             }
@@ -101,13 +98,8 @@
     UIImagePickerController *imagePickerVC = [UIImagePickerController new];
     imagePickerVC.delegate = self;
     imagePickerVC.allowsEditing = YES;
-    if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
-        imagePickerVC.sourceType = UIImagePickerControllerSourceTypeCamera;
-    }
-    else {
-        NSLog(@"Camera not available => will use library");
-        imagePickerVC.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-    }
+    imagePickerVC.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+
     [self presentViewController:imagePickerVC animated:YES completion:nil];
 }
 
@@ -117,6 +109,7 @@
     
     [self resizeImage:editedImage withSize:CGSizeMake(100, 100)];
     [self.imageView setImage:editedImage];
+    [self.addImageButton setAlpha:.02];
     
     // Dismiss UIImagePickerController
     [self dismissViewControllerAnimated:YES completion:nil];

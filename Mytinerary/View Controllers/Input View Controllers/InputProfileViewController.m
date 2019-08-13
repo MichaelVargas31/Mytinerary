@@ -92,7 +92,7 @@
 }
 
 #pragma mark - Buttons & Interactivity
-- (IBAction) addProfilePictureBtn:(id)sender {
+- (IBAction)addProfilePictureBtn:(id)sender {
     UIImagePickerController *imagePickerVC = [UIImagePickerController new];
     imagePickerVC.delegate = self;
     imagePickerVC.allowsEditing = YES;

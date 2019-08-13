@@ -649,7 +649,7 @@ static int const EVENT_INPUT_SUBMIT_VIEW_HEIGHT = 50;
     [self performSegueWithIdentifier:@"getLocationSegue" sender:textField];
 }
 
-- (void)didTapLocation:(nonnull Location *)location textField:(nonnull UITextField *)textField{
+- (void)didTapLocation:(nonnull Location *)location textField:(nonnull UITextField*)textField {
     int selectedCategoryIdx = (int)[self.eventInputSharedView.categoryPickerView selectedRowInComponent:0];
     NSString *selectedCategory = self.eventCategoryPickerData[selectedCategoryIdx];
     
@@ -677,6 +677,11 @@ static int const EVENT_INPUT_SUBMIT_VIEW_HEIGHT = 50;
     else if ([selectedCategory isEqualToString:@"hotel"]) {
         self.eventInputHotelView.locationTextField.text = location.address;
         self.location = location;
+    }
+    
+    // update title if no title provided
+    if ([self.eventInputSharedView.titleTextField.text isEqualToString:@""]) {
+        self.eventInputSharedView.titleTextField.text = location.name;
     }
 }
 

@@ -79,12 +79,7 @@ static const int TABLE_VIEW_HEADER_HEIGHT = 44;
                 Event *event = self.events[i];
                 NSInteger itinDayIndex = [Date daysBetweenDate:self.itinerary.startTime andDate:event.startTime] - 1;
                 
-                if (itinDayIndex >= self.events.count) {
-                    NSLog(@"legacy: INVALID EVENT");
-                }
-                else {
-                    [eventsByDay[itinDayIndex] addObject:event];
-                }
+                [eventsByDay[itinDayIndex] addObject:event];
             }
             
             for (NSMutableArray <Event *>*dayEvents in eventsByDay) {
